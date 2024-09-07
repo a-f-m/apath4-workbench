@@ -424,4 +424,4 @@ sum(a.*)`,
 
 
 // only for gen doc:
-export{examples}
+// export{examples}
