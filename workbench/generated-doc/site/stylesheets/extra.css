@@ -1,0 +1,13 @@
+:root {
+  --md-primary-fg-color:        #622f21;
+  --md-primary-fg-color--light: #622f21;
+  --md-primary-fg-color--dark:  #622f21;
+}
+
+.cheat-sheet-ref {
+  margin: auto;
+}
+
+.md-typeset .footnote-ref {
+  font-size: small;
+}

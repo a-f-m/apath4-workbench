@@ -1,0 +1,216 @@
+<svg class="railroad-diagram" width="373.5" height="370" viewBox="0 0 373.5 370" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 69v20m0 -10h20"></path>
+</g>
+<path d="M40 79h10"></path>
+<g class="Group rule">
+<path d="M50 79h0"></path>
+<path d="M323.5 79h0"></path>
+<rect x="50" y="36" width="273.5" height="314" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M50 79h0"></path>
+<path d="M323.5 79h0"></path>
+<path d="M50 79h20"></path>
+<g class="Group rule">
+<path d="M70 79h0"></path>
+<path d="M303.5 79h0"></path>
+<rect x="70" y="60" width="233.5" height="68" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M70 79h0"></path>
+<path d="M303.5 79h0"></path>
+<path d="M70 79h20"></path>
+<g class="Sequence">
+<path d="M90 79h0"></path>
+<path d="M283.5 79h0"></path>
+<path d="M144 79h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M90 79h0"></path>
+<path d="M144 79h0"></path>
+<rect x="90" y="68" width="54" height="22"></rect>
+<text x="117" y="83">Step</text>
+</g>
+<path d="M154 79h10"></path>
+<path d="M209.5 79h10"></path>
+<g class="terminal literal">
+<path d="M164 79h0"></path>
+<path d="M209.5 79h0"></path>
+<rect x="164" y="68" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="186.75" y="83">"."</text>
+</g>
+<path d="M219.5 79h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M229.5 79h0"></path>
+<path d="M283.5 79h0"></path>
+<rect x="229.5" y="68" width="54" height="22"></rect>
+<text x="256.5" y="83">Path</text>
+</g>
+</g>
+<path d="M283.5 79h20"></path>
+<path d="M70 79a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M90 109h69.75"></path>
+<path d="M213.75 109h69.75"></path>
+<rect x="159.75" y="98" width="54" height="22"></rect>
+<text x="186.75" y="113">Step</text>
+</g>
+<path d="M283.5 109a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M70 52h0"></path>
+<path d="M108 52h0"></path>
+<text x="89" y="57" class="comment">Path</text>
+</g>
+</g>
+<path d="M303.5 79h20"></path>
+<path d="M50 79a10 10 0 0 1 10 10v72a10 10 0 0 0 10 10"></path>
+<g class="Group rule">
+<path d="M70 171h27.25"></path>
+<path d="M276.25 171h27.25"></path>
+<rect x="97.25" y="152" width="179" height="98" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M97.25 171h0"></path>
+<path d="M276.25 171h0"></path>
+<path d="M97.25 171h20"></path>
+<g class="non-terminal rule-ref">
+<path d="M117.25 171h0"></path>
+<path d="M256.25 171h0"></path>
+<rect x="117.25" y="160" width="139" height="22"></rect>
+<text x="186.75" y="175">BooleanLiteral</text>
+</g>
+<path d="M256.25 171h20"></path>
+<path d="M97.25 171a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M117.25 201h0"></path>
+<path d="M256.25 201h0"></path>
+<rect x="117.25" y="190" width="139" height="22"></rect>
+<text x="186.75" y="205">NumericLiteral</text>
+</g>
+<path d="M256.25 201a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M97.25 171a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M117.25 231h4.25"></path>
+<path d="M252 231h4.25"></path>
+<rect x="121.5" y="220" width="130.5" height="22"></rect>
+<text x="186.75" y="235">StringLiteral</text>
+</g>
+<path d="M256.25 231a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M97.25 144h0"></path>
+<path d="M156.25 144h0"></path>
+<text x="126.75" y="149" class="comment">Literal</text>
+</g>
+</g>
+<path d="M303.5 171a10 10 0 0 0 10 -10v-72a10 10 0 0 1 10 -10"></path>
+<path d="M50 79a10 10 0 0 1 10 10v194a10 10 0 0 0 10 10"></path>
+<g class="Group rule">
+<path d="M70 293h61.25"></path>
+<path d="M242.25 293h61.25"></path>
+<rect x="131.25" y="274" width="111" height="68" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M131.25 293h0"></path>
+<path d="M242.25 293h0"></path>
+<path d="M131.25 293h20"></path>
+<g class="terminal literal">
+<path d="M151.25 293h0"></path>
+<path d="M222.25 293h0"></path>
+<rect x="151.25" y="282" width="71" height="22" rx="10" ry="10"></rect>
+<text x="186.75" y="297">"self"</text>
+</g>
+<path d="M222.25 293h20"></path>
+<path d="M131.25 293a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g class="terminal literal">
+<path d="M151.25 323h12.75"></path>
+<path d="M209.5 323h12.75"></path>
+<rect x="164" y="312" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="186.75" y="327">"."</text>
+</g>
+<path d="M222.25 323a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M131.25 266h0"></path>
+<path d="M169.25 266h0"></path>
+<text x="150.25" y="271" class="comment">Self</text>
+</g>
+</g>
+<path d="M303.5 293a10 10 0 0 0 10 -10v-194a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M179 28h0"></path>
+<text x="114.5" y="33" class="comment">PrimaryExpression</text>
+</g>
+</g>
+<path d="M323.5 79h10"></path>
+<path class="End" d="M 333.5 79 h 20 m 0 -10 v 20"></path>
+</g>
+<style>svg {
+  /*background-color: hsl(30,20%,95%);*/
+  background-color: white;
+}
+path {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgba(0,0,0,0);
+}
+text {
+  font: bold 14px monospace;
+  text-anchor: middle;
+  white-space: pre;
+}
+text.diagram-text {
+  font-size: 12px;
+}
+text.diagram-arrow {
+  font-size: 16px;
+}
+text.label {
+  text-anchor: start;
+}
+text.comment {
+  font: italic 12px monospace;
+}
+g.non-terminal text {
+  /*font-style: italic;*/
+}
+rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgb(241, 241, 241);
+}
+rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 3 3;
+  fill: none;
+}
+path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+.decision path {
+  fill: #ccc;
+}
+g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+text.repeat-text {
+  font: italic 12px monospace;
+  text-anchor: end;
+}
+.repeat-box > rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}
+.delimiter > rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}
+</style>
+</svg>

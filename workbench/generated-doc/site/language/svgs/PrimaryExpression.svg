@@ -1,0 +1,248 @@
+<svg class="railroad-diagram" width="556.5" height="266" viewBox="0 0 556.5 266" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 69v20m0 -10h20"></path>
+</g>
+<path d="M40 79h10"></path>
+<g class="Group rule">
+<path d="M50 79h0"></path>
+<path d="M506.5 79h0"></path>
+<rect x="50" y="36" width="456.5" height="210" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M50 79h0"></path>
+<path d="M506.5 79h0"></path>
+<path d="M50 79h20"></path>
+<g class="Group rule">
+<path d="M70 79h118.75"></path>
+<path d="M367.75 79h118.75"></path>
+<rect x="188.75" y="60" width="179" height="98" rx="10" ry="10" class="group-box"></rect>
+<g class="Choice">
+<path d="M188.75 79h0"></path>
+<path d="M367.75 79h0"></path>
+<path d="M188.75 79h20"></path>
+<g class="non-terminal rule-ref">
+<path d="M208.75 79h0"></path>
+<path d="M347.75 79h0"></path>
+<rect x="208.75" y="68" width="139" height="22"></rect>
+<text x="278.25" y="83">BooleanLiteral</text>
+</g>
+<path d="M347.75 79h20"></path>
+<path d="M188.75 79a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M208.75 109h0"></path>
+<path d="M347.75 109h0"></path>
+<rect x="208.75" y="98" width="139" height="22"></rect>
+<text x="278.25" y="113">NumericLiteral</text>
+</g>
+<path d="M347.75 109a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M188.75 79a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+<g class="non-terminal rule-ref">
+<path d="M208.75 139h4.25"></path>
+<path d="M343.5 139h4.25"></path>
+<rect x="213" y="128" width="130.5" height="22"></rect>
+<text x="278.25" y="143">StringLiteral</text>
+</g>
+<path d="M347.75 139a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M188.75 52h0"></path>
+<path d="M247.75 52h0"></path>
+<text x="218.25" y="57" class="comment">Literal</text>
+</g>
+</g>
+<path d="M486.5 79h20"></path>
+<path d="M50 79a10 10 0 0 1 10 10v111a10 10 0 0 0 10 10"></path>
+<g class="Group rule">
+<path d="M70 210h0"></path>
+<path d="M486.5 210h0"></path>
+<rect x="70" y="182" width="416.5" height="56" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M70 210h10"></path>
+<path d="M476.5 210h10"></path>
+<path d="M210.5 210h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M80 210h0"></path>
+<path d="M210.5 210h0"></path>
+<rect x="80" y="199" width="130.5" height="22"></rect>
+<text x="145.25" y="214">CompositeStep</text>
+</g>
+<g class="Choice">
+<path d="M220.5 210h0"></path>
+<path d="M476.5 210h0"></path>
+<path d="M220.5 210a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M240.5 190h216"></path>
+</g>
+<path d="M456.5 190a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M220.5 210h20"></path>
+<g class="OneOrMore">
+<path d="M240.5 210h0"></path>
+<path d="M456.5 210h0"></path>
+<path d="M250.5 210a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<g class="Skip">
+<path d="M250.5 230h196"></path>
+</g>
+<path d="M446.5 230a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M240.5 210h10"></path>
+<path d="M446.5 210h10"></path>
+<g class="Sequence">
+<path d="M250.5 210h0"></path>
+<path d="M446.5 210h0"></path>
+<path d="M296 210h10"></path>
+<g class="terminal literal">
+<path d="M250.5 210h0"></path>
+<path d="M296 210h0"></path>
+<rect x="250.5" y="199" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="273.25" y="214">"."</text>
+</g>
+<path d="M306 210h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M316 210h0"></path>
+<path d="M446.5 210h0"></path>
+<rect x="316" y="199" width="130.5" height="22"></rect>
+<text x="381.25" y="214">CompositeStep</text>
+</g>
+</g>
+</g>
+<path d="M456.5 210h20"></path>
+</g>
+</g>
+<g class="comment">
+<path d="M70 174h0"></path>
+<path d="M108 174h0"></path>
+<text x="89" y="179" class="comment">Path</text>
+</g>
+</g>
+<path d="M486.5 210a10 10 0 0 0 10 -10v-111a10 10 0 0 1 10 -10"></path>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M179 28h0"></path>
+<text x="114.5" y="33" class="comment">PrimaryExpression</text>
+</g>
+</g>
+<path d="M506.5 79h10"></path>
+<path class="End" d="M 516.5 79 h 20 m 0 -10 v 20"></path>
+</g>
+<style>.ruleId {
+  color: black;
+  font-weight: bold;
+}
+
+.mainRule {}
+
+.subRule {}
+
+.subRuleAnchor {
+  /* font-weight: bolder; */
+  /* fill: green; */
+  /* font-size: 110%;
+  font-style: normal */
+}
+
+.parent {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+/* , .railroad-diagram */
+.svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.test {
+  background-color: lightgoldenrodyellow;
+}
+
+
+/* --------------------------------- svg styles ---------------------------------------- */
+
+/* tspan {
+  fill: blue
+} */
+
+svg.railroad-diagram {
+  /*background-color: hsl(30,20%,95%);*/
+  background-color: white;
+}
+
+.railroad-diagram path {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgba(0, 0, 0, 0);
+}
+
+text {
+  font: bold 14px monospace;
+  text-anchor: middle;
+  white-space: pre;
+}
+
+text.diagram-text {
+  font-size: 12px;
+}
+
+text.diagram-arrow {
+  font-size: 16px;
+}
+
+text.label {
+  text-anchor: start;
+}
+
+text.comment {
+  font: italic 12px monospace;
+}
+
+g.non-terminal text {
+  /*font-style: italic;*/
+}
+
+rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgb(241, 241, 241);
+}
+
+rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 3 3;
+  fill: none;
+}
+
+path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+
+.decision path {
+  fill: #ccc;
+}
+
+g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+
+text.repeat-text {
+  font: italic 12px monospace;
+  text-anchor: end;
+}
+
+.repeat-box>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}
+
+.delimiter>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}</style>
+</svg>

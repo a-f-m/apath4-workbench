@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>apath4 workbench</title>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
+    <script src='./jquery/jquery-3.6.0.js'></script>
+    <script src='./jquery/jquery-ui.js'></script>
+    <link rel="stylesheet" href="./jquery/jquery-ui.css">
+    <!-- <script src='js-cookie-3.0.5//js.cookie.min.js'></script> -->
+    <link rel='stylesheet' href='workbench-1.css' />
+    <script src='./monaco/vs/loader.js'></script>
+</head>
+
+<body>
+    <div class="logo">
+        <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg' width="100" height="20"/></a>beta
+    </div>
+    <div class='header'>
+        <fieldset>
+            <legend>walk-through</legend>
+            <div id='grp_layout'>
+                <select id="select_examples">
+                    <optgroup label="Basic Steps ...">
+                        <option>property</option>
+                        <option>property literal</option>
+                        <option>property regex</option>
+                        <option>children (array)</option>
+                        <option>children (object)</option>
+                        <option>self</option>
+                    </optgroup>
+                    <optgroup label="Basic Steps / Construction ...">
+                        <option>construction (object)</option>
+                        <option>... dynamic property</option>
+                        <option>construction (array)</option>
+                        <option>... sequences</option>
+                    </optgroup>
+                    <optgroup label="Composite Steps ...">
+                        <option>filter (predicate)</option>
+                        <option>subscript</option>
+                    </optgroup>
+                    <optgroup label="Comparison/Logical Expressions ...">
+                        <option>equality</option>
+                        <option>relational</option>
+                        <option>logical</option>
+                    </optgroup>
+                    <optgroup label="Composite Expressions ...">
+                        <option>sequenced</option>
+                        <option>conditional</option>
+                        <!-- <option>union</option> -->
+                    </optgroup>
+                    <optgroup label="Step Functions ...">
+                        <option>simple step function</option>
+                        <option>with sequences as parameters</option>
+                        <option>returning sequences</option>
+                        <!-- <option>step function w/ iteration</option> -->
+                    </optgroup>
+                </select>
+            </div>
+            <!-- <label for="select_examples">: examples</label> -->
+        </fieldset>
+        <fieldset>
+            <legend>widgets</legend>
+            <div id='grp_layout'>
+                <span title='dark editors'><label><input id='toggle_dark' type='checkbox'
+                            />dark</label></span>
+                <span class='button' hidden>
+                    <input id='bnt_store_layout' type='button'
+                        title='stores widgets in browser storage. it will be restored on page loading' value='store**' />
+                </span>
+                <span class='button'>
+                    <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
+                </span>
+                <span title='fitting widgets on window resize'><label><input id='toggle_fit' type='checkbox'
+                     />live fit</label></span>
+    </div>
+        </fieldset>
+        <fieldset>
+            <legend>control</legend>
+            <div>
+                <span class='button'>
+                    <input id='bnt_eval_apth' type='button' title='evaluation of apath expression' value='eval' />
+                </span>
+                <span title='evaluation on change'><label><input id='toggle_live_eval' type='checkbox' />live eval</label></span>
+                <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict failure</label></span>
+                <!-- <div class='txt_file_url'>
+                    <span>
+                        default step function file url (must be absolute!): <input type="text" id="txt_default_step_funcs"
+                            size="40" />
+                    </span>
+                    <span id="info_default_step_funcs"> <img title="if file has changed you have to reload page"
+                            src="info_24dp_FILL0_wght400_GRAD0_opsz24.svg"></span>
+                </div> -->
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>info</legend>
+            <div>
+                <span class='button'>
+                    <input id='bnt_doc' type='button' title='documentation' value='doc' />
+                </span>
+                <span class='button'>
+                    <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression'
+                        value='AST' />
+                </span>
+                <!-- <span class='button' hidden='true'> -->
+                <span class='button' hidden>
+                    <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**'  />
+                </span>
+                <span class='button'>
+                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it)' value='grammar' />
+                </span>
+                <span class='button'>
+                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet' value='cheat-sheet' />
+                </span>
+                <span class='button' hidden='true'>
+                    <input id='bnt_exa_step_funcs' type='button' title='example step functions'
+                        value='example step functions' />
+                </span>
+            </div>
+        </fieldset>
+    </div>
+    <div class='main'>
+        <div id='widget_input' class='widget' style='z-index: 101;'>
+            <div class='widget-header'>json input</div>
+            <div id='monaco_input' class='monaco contentPane'></div>
+            <!-- <div class='widget-footer'>lalala</div> -->
+        </div>
+        <div id='widget_apath' class='widget' style='z-index: 102;'>
+            <div class='widget-header'>apath expression</div>
+            <div id='monaco_apath' class='monaco contentPane'></div>
+        </div>
+        <div id='widget_result' class='widget' style='z-index: 103;'>
+            <div class='widget-header'>result</div>
+            <div id='monaco_result' class='monaco contentPane'></div>
+        </div>
+        <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
+            <div class='widget-header'>js step function</div>
+            <div id='monaco_sfuncs' class='monaco contentPane'></div>
+        </div>
+    </div>
+
+    <script src='./widgets.js'></script>
+    <script src='./bundle.js'></script>
+    <script src='./util.js'></script>
+    <script src='./data.js'></script>
+    <script src='./main_w.js'></script>
+    <script>
+    </script>
+
+</body>
+
+</html>

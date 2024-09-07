@@ -1,0 +1,202 @@
+<svg class="railroad-diagram" width="502.5" height="144" viewBox="0 0 502.5 144" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 78v20m0 -10h20"></path>
+</g>
+<path d="M40 88h10"></path>
+<g class="Group rule">
+<path d="M50 88h0"></path>
+<path d="M452.5 88h0"></path>
+<rect x="50" y="36" width="402.5" height="88" rx="10" ry="10" class="group-box"></rect>
+<g class="Group rule">
+<path d="M50 88h10"></path>
+<path d="M442.5 88h10"></path>
+<rect x="60" y="60" width="382.5" height="56" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M60 88h10"></path>
+<path d="M432.5 88h10"></path>
+<path d="M183.5 88h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M70 88h0"></path>
+<path d="M183.5 88h0"></path>
+<rect x="70" y="77" width="113.5" height="22"></rect>
+<text x="126.75" y="92">Conditional</text>
+</g>
+<g class="Choice">
+<path d="M193.5 88h0"></path>
+<path d="M432.5 88h0"></path>
+<path d="M193.5 88a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M213.5 68h199"></path>
+</g>
+<path d="M412.5 68a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M193.5 88h20"></path>
+<g class="OneOrMore">
+<path d="M213.5 88h0"></path>
+<path d="M412.5 88h0"></path>
+<path d="M223.5 88a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<g class="Skip">
+<path d="M223.5 108h179"></path>
+</g>
+<path d="M402.5 108a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M213.5 88h10"></path>
+<path d="M402.5 88h10"></path>
+<g class="Sequence">
+<path d="M223.5 88h0"></path>
+<path d="M402.5 88h0"></path>
+<path d="M269 88h10"></path>
+<g class="terminal literal">
+<path d="M223.5 88h0"></path>
+<path d="M269 88h0"></path>
+<rect x="223.5" y="77" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="246.25" y="92">","</text>
+</g>
+<path d="M279 88h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M289 88h0"></path>
+<path d="M402.5 88h0"></path>
+<rect x="289" y="77" width="113.5" height="22"></rect>
+<text x="345.75" y="92">Conditional</text>
+</g>
+</g>
+</g>
+<path d="M412.5 88h20"></path>
+</g>
+</g>
+<g class="comment">
+<path d="M60 52h0"></path>
+<path d="M203 52h0"></path>
+<text x="131.5" y="57" class="comment">SequencedExpression</text>
+</g>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M130 28h0"></path>
+<text x="90" y="33" class="comment">Expression</text>
+</g>
+</g>
+<path d="M452.5 88h10"></path>
+<path class="End" d="M 462.5 88 h 20 m 0 -10 v 20"></path>
+</g>
+<style>.ruleId {
+  color: black;
+  font-weight: bold;
+}
+
+.mainRule {}
+
+.subRule {}
+
+.subRuleAnchor {
+  /* font-weight: bolder; */
+  /* fill: green; */
+  /* font-size: 110%;
+  font-style: normal */
+}
+
+.parent {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+/* , .railroad-diagram */
+.svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.test {
+  background-color: lightgoldenrodyellow;
+}
+
+
+/* --------------------------------- svg styles ---------------------------------------- */
+
+/* tspan {
+  fill: blue
+} */
+
+svg.railroad-diagram {
+  /*background-color: hsl(30,20%,95%);*/
+  background-color: white;
+}
+
+.railroad-diagram path {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgba(0, 0, 0, 0);
+}
+
+text {
+  font: bold 14px monospace;
+  text-anchor: middle;
+  white-space: pre;
+}
+
+text.diagram-text {
+  font-size: 12px;
+}
+
+text.diagram-arrow {
+  font-size: 16px;
+}
+
+text.label {
+  text-anchor: start;
+}
+
+text.comment {
+  font: italic 12px monospace;
+}
+
+g.non-terminal text {
+  /*font-style: italic;*/
+}
+
+rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgb(241, 241, 241);
+}
+
+rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 3 3;
+  fill: none;
+}
+
+path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+
+.decision path {
+  fill: #ccc;
+}
+
+g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+
+text.repeat-text {
+  font: italic 12px monospace;
+  text-anchor: end;
+}
+
+.repeat-box>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}
+
+.delimiter>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}</style>
+</svg>
