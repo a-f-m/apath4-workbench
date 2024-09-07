@@ -242,7 +242,7 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// property values can be expressions, e.g. b\na.{ x: 2, '#1': b }`,
+            "apath": `// property values can be path expressions, e.g. b\na.{ x: 2, '#1': b }`,
             "grammar": '#main-rule-ObjectLiteral'
         },
         "geom": geom.default
@@ -251,8 +251,17 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// property names can be expressions\n// (parenthesized expressions have to be used)\na.{ (c): b }`,
-            "grammar": '#main-rule-ObjectLiteral'
+            "apath": `// property names can be path expressions\n// (parenthesized expressions have to be used)\na.{ (c): b }`,
+            "grammar": '#main-rule-PropertyAssignment'
+        },
+        "geom": geom.default
+    },
+    "... embedding": {
+        "data": {
+            "keyword": '**{** ... **}**',
+            "input": inputs.simple2,
+            "apath": `// objects can be embedded (here 'self', the value of a)\n// and c will be newly assigned\na.{ _, c: 'z' }`,
+            "grammar": '#main-rule-PropertyAssignment'
         },
         "geom": geom.default
     },
@@ -269,7 +278,7 @@ var examples = {
         "data": {
             "keyword": '**[** ... **]**',
             "input": inputs.simple3,
-            "apath": `// sequences are embedded\n// use [b.*] otherwise\na.[ 1, b.*, 4 ]`,
+            "apath": `// sequences are embedded flat\n// use [b.*] otherwise\na.[ 1, b.*, 4 ]`,
             "grammar": '#main-rule-ArrayLiteral'
         },
         "geom": geom.default
@@ -344,7 +353,7 @@ var examples = {
         "data": {
             "keyword": '**if** ... ',
             "input": inputs.simple1,
-            "apath": `// try a.b: 0\na.(if (b == 1) b c)`,
+            "apath": `// try a.b=0 at input\na.(if (b == 1) b c)`,
             "grammar": '#main-rule-Conditional'
         },
         "geom": geom.default
@@ -415,4 +424,4 @@ sum(a.*)`,
 
 
 // only for gen doc:
-// export{examples}
+export{examples}
