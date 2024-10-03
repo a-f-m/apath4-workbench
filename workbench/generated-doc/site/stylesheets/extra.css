@@ -11,3 +11,7 @@
 .md-typeset .footnote-ref {
   font-size: small;
 }
+
+.md-grid {
+  max-width: 2000px; 
+}

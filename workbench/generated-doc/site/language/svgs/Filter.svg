@@ -110,7 +110,7 @@ svg.railroad-diagram {
 }
 
 text {
-  font: bold 14px monospace;
+  font: bold 12px monospace;
   text-anchor: middle;
   white-space: pre;
 }
@@ -120,7 +120,7 @@ text.diagram-text {
 }
 
 text.diagram-arrow {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 text.label {

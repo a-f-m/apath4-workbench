@@ -18,7 +18,7 @@
     
     
       
-        <title>Home - documentation (beta)</title>
+        <title>Home - apath documentation (beta)</title>
       
     
     
@@ -48,6 +48,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#preface" class="md-skip">
+        <a href="#_1" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +88,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="intro.html" title="documentation (beta)" class="md-header__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="intro.html" title="apath documentation (beta)" class="md-header__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
@@ -99,7 +101,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            documentation (beta)
+            apath documentation (beta)
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -242,6 +244,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../language/roadmap.html" class="md-tabs__link">
+        
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -264,12 +283,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="intro.html" title="documentation (beta)" class="md-nav__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="intro.html" title="apath documentation (beta)" class="md-nav__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
     </a>
-    documentation (beta)
+    apath documentation (beta)
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -327,9 +346,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#preface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#remark-on-constraints" class="md-nav__link">
     <span class="md-ellipsis">
       Remark on Constraints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remark-on-formalism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remark on Formalism
     </span>
   </a>
   
@@ -351,6 +388,8 @@
   
     
     
+      
+        
       
         
       
@@ -421,11 +460,53 @@
   
   
     <li class="md-nav__item">
+      <a href="../language/preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Cheat Sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guide
   </span>
   
 
@@ -448,6 +529,8 @@
       
         
       
+        
+      
     
     
       
@@ -460,10 +543,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -474,8 +557,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
@@ -523,14 +606,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -542,11 +617,19 @@
         
   
   <span class="md-ellipsis">
-    Semantics (Evaluation)
+    Evaluation
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -599,6 +682,26 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -626,9 +729,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#preface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#remark-on-constraints" class="md-nav__link">
     <span class="md-ellipsis">
       Remark on Constraints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remark-on-formalism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remark on Formalism
     </span>
   </a>
   
@@ -649,26 +770,32 @@
                   
 
 
-<!-- # <img src='../pics/ph--path-bold-w-text-2.svg' width="100" height="20"/> -->
-
-<h1 id="preface">Preface</h1>
+<h1 id="_1"></h1>
+<h2 id="preface">Preface</h2>
 <p><strong>apath</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> is a language for processing hierarchical structures (for now <em>json</em>). It follows the principles of <em>xpath</em>/<em>xslt</em> and aims at having <strong>one</strong> language for </p>
 <ul>
 <li><em>Selection</em></li>
 <li><em>Construction &amp; Transformation</em></li>
 <li><em>Constraints</em></li>
 </ul>
-<p>Simple selections as well as complex and <strong>re-usable</strong> expressions can be defined. </p>
-<!-- *apath* is *functional*, every expression yields a value.  -->
-<p>Moreover, <em>variables</em> enable reuse of existing values whereas so-called <strong><em>step functions</em></strong> support reuse of expressions and the <strong>building of custom language</strong> elements. </p>
+<p>Simple selections as well as complex and <strong>re-usable</strong> expressions can be defined. <em>Variables</em> enable reuse of existing values whereas so-called <strong><em>step functions</em></strong> support reuse of expressions and the <strong>building of custom language</strong> elements. </p>
 <p>The concrete and abstract syntax is well-defined, using <em>Parsing Expression Grammars</em> and <em>Abstract Data Types</em>, respectively. Implementation follows the concept of <em>transpilation</em> (for now to <em>JavaScript</em>) that ensures <strong>performant execution</strong> and can be adapted to support other target languages.</p>
-<p>Specification and development is in progress, so every feature described here will be implemented step by step.</p>
+<p>Specification and development is in progress, so every feature described here will be implemented step by step. A first version of <em>apath</em> - with similar syntax - was created at April 2016, targeted at <em>java</em> (with AST interpretation) and used in <strong>real live projects</strong>. Considerations for improvement and extensions led to the present version. </p>
 <h2 id="remark-on-constraints">Remark on Constraints</h2>
-<p>In addition to the functionality of a selection and transformation language, <em>apath</em> will offer language elements for <em>logical constraints</em>. </p>
+<p>In addition to the functionality of a selection and transformation language, it is planned to offer language elements for <em>logical constraints</em>. </p>
 <p>Logical constraints will enable <strong>consistency checks</strong> for objects as well as <strong>rule definitions</strong> for <em>derived values</em>.  </p>
+<h2 id="remark-on-formalism">Remark on Formalism</h2>
+<p>For now, due to the fact that <em>apath</em> is foremost targeted at practitioners, an explicit formalization is pending. Nevertheless, a formalization in form of <em>denotational semantics</em> will be given in future that is primarily oriented towards</p>
+<ul>
+<li><a href="../sources/xpath-semantics.pdf"><em>Philip Wadler (2000). A Formal Semantics of Patterns in XSLT and XPath. Markup Languages 2(2): 183-202</em></a></li>
+</ul>
+<p>enhanced by predicate logic based formalization of constraints.</p>
+<!-- [^2]: Because transpilation work only on the abstract syntax tree, it  -->
+
 <!-- Together with external functions (e.g. JavaScript) the language is *Turing-complete*.
 
 The concrete syntax is defined with [Parsing Expression Grammars](https://en.wikipedia.org/wiki/Parsing_expression_grammar). The detailed grammar can be found [here](grammar-1). Formal semantics follow the usual, mature approach of [[wad]](#wad).
+
 
 ### Footnotes
 
@@ -749,6 +876,12 @@ The concrete syntax is defined with [Parsing Expression Grammars](https://en.wik
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

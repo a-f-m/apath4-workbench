@@ -24,54 +24,56 @@ function to_top(e) {
     }
 }
 
-$(function () {
-    $('.widget')
-        .draggable() // init
-        .draggable('disable')
-        .draggable('option', 'snap', true)
-        .draggable('option', 'snapTolerance', 5)
-        .draggable('option', 'distance', 5)
-        .draggable('option', 'delay', 100)
-        .draggable('option', 'grid', [5, 5])
-        .draggable('option', 'opacity', 0.5)
-        .on('mousedown', function () {
-            to_top($(this))
-        })
-    $('.widget').resizable({grid: [ 5, 5 ]})
+//deferred
+// $(function () {
+//     $('.widget')
+//         .draggable() // init
+//         .draggable('disable')
+//         .draggable('option', 'snap', true)
+//         .draggable('option', 'snapTolerance', 5)
+//         .draggable('option', 'distance', 5)
+//         .draggable('option', 'delay', 100)
+//         .draggable('option', 'grid', [5, 5])
+//         .draggable('option', 'opacity', 0.5)
+//         .on('mousedown', function () {
+//             to_top($(this))
+//         })
+//     $('.widget').resizable({grid: [ 5, 5 ]})
 
-})
+// })
 
-var dragging = false
-$('.widget-header').on('mousedown', function () {
-    $('.widget').draggable('enable')
-    $(this).css('cursor', 'grabbing')
-    dragging = true
-}).on('mouseup', function () {
-    $('.widget').draggable('disable')
-    $(this).css('cursor', 'grab')
-    dragging = false
+// var dragging = false
+// $('.widget-header').on('mousedown', function () {
+//     $('.widget').draggable('enable')
+//     $(this).css('cursor', 'grabbing')
+//     dragging = true
+// }).on('mouseup', function () {
+//     $('.widget').draggable('disable')
+//     $(this).css('cursor', 'grab')
+//     dragging = false
 
-}).on('mouseenter', function () {
-    if (!dragging) $(this).css('cursor', 'grab')
-})
+// }).on('mouseenter', function () {
+//     if (!dragging) $(this).css('cursor', 'grab')
+// })
 
-$('body').on('mousemove', function () {
-    $(this).css('cursor', dragging ? 'grabbing' : 'auto')
-})
+// $('body').on('mousemove', function () {
+//     $(this).css('cursor', dragging ? 'grabbing' : 'auto')
+// })
 
 function fit(_, force) {
 
     if (!(force === true || $('#toggle_fit').prop('checked'))) return
 
-    const k0 = 0.95
+    const k0 = 0.98
+    const k1 = 0.9
     const calc = calc_fit()
     $('.widget').each(function () {
         $(this).outerWidth($(this).outerWidth() * calc.k_w * k0)
-        $(this).outerHeight($(this).outerHeight() * calc.k_h * k0)
+        $(this).outerHeight($(this).outerHeight() * calc.k_h * k1)
     })
     $('.widget').each(function () {
         const pos = $(this).position()
-        $(this).css({ left: pos.left * calc.k_w * k0, top: pos.top * calc.k_h * k0 })
+        $(this).css({ left: pos.left * calc.k_w * k0, top: pos.top * calc.k_h * k1 })
     })
     transl()
 }
@@ -82,7 +84,8 @@ $('#bnt_fit').on('click', function () {
 
 function transl() {
 
-    const hh = ($('.header').outerHeight() + $('.logo').outerHeight()) / 2 - 5
+    const offs = 10
+    const hh = ($('.header').outerHeight() + $('.logo').outerHeight()) / 2 - offs
 
     const a = calc_fit()
     const b_w = $('body').width() / 2

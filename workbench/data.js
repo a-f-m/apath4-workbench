@@ -156,11 +156,12 @@ function add(ctx_node, k) {
 seq_par:
 `function sum(ctx_node, seq) {
     let sum = 0
+    if (!apart.isApathIterable(seq)) return seq
     for (const x of seq) sum += x
     return sum
 }`,
 seq_return:
-`// a sequence is returned. in general an iterable
+`// a sequence is returned by using a generator. in general an iterable
 function* to(ctx_node, k) {
     for (let i = ctx_node; i <= k; i++) yield i
 }`,
@@ -172,9 +173,9 @@ var examples = {
 `
 ### Basic Functionality
 
-| category | keyword/<br>symbol<br>(-pattern) [[1](#1)] | input [[1](#1)] | apath | result | grammar [[2](#2)] | 
+| category | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | 
 | - | - | - | - | - | - | 
-| _________________ | _________________ | ________________________________ | _______________________________________ | ________________ | _ |
+| _________________ | _________________ | _______________________________________ | ________________________________ | ________________ | _ |
 `        
     },
     "Basic Steps": {
@@ -242,8 +243,8 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// property values can be path expressions, e.g. b\na.{ x: 2, '#1': b }`,
-            "grammar": '#main-rule-ObjectLiteral'
+            "apath": `// property values can be path expressions, e.g. b.\n// if it has no solution, nothing is assigned\na.{ x: 2, '#1': b }`,
+            "grammar": '#main-rule-ObjectConstruction'
         },
         "geom": geom.default
     },
@@ -260,7 +261,7 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// objects can be embedded (here 'self', the value of a)\n// and c will be newly assigned\na.{ _, c: 'z' }`,
+            "apath": `// objects can be embedded (here '_'(self), the value of a)\n// and c will be newly assigned\na.{ _, c: 'z' }`,
             "grammar": '#main-rule-PropertyAssignment'
         },
         "geom": geom.default
@@ -270,7 +271,7 @@ var examples = {
             "keyword": '**[** ... **]**',
             "input": inputs.simple2,
             "apath": `a.[ 3, b ]`,
-            "grammar": '#main-rule-ArrayLiteral'
+            "grammar": '#main-rule-ArrayConstruction'
         },
         "geom": geom.default
     },
@@ -279,7 +280,7 @@ var examples = {
             "keyword": '**[** ... **]**',
             "input": inputs.simple3,
             "apath": `// sequences are embedded flat\n// use [b.*] otherwise\na.[ 1, b.*, 4 ]`,
-            "grammar": '#main-rule-ArrayLiteral'
+            "grammar": '#main-rule-ArrayConstruction'
         },
         "geom": geom.default
     },
@@ -354,7 +355,7 @@ var examples = {
             "keyword": '**if** ... ',
             "input": inputs.simple1,
             "apath": `// try a.b=0 at input\na.(if (b == 1) b c)`,
-            "grammar": '#main-rule-Conditional'
+            "grammar": '#main-rule-ConditionalExpression'
         },
         "geom": geom.default
     },
@@ -363,7 +364,7 @@ var examples = {
     //         "keyword": '... **\\|** ... ',
     //         "input": inputs.simple1,
     //         "apath": `// try a.b: 0\na.(if (b==1) b c)`,
-    //         "grammar": '#main-rule-Conditional'
+    //         "grammar": '#main-rule-ConditionalExpression'
     //     },
     //     "geom": geom.default
     // },
@@ -373,9 +374,9 @@ var examples = {
 
 ### Javascript Step Functions (user defined)
 
-| category | keyword/<br>symbol<br>(-pattern) [[1](#1)] | input [[1](#1)] | apath | result | grammar [[2](#2)] | step func |
+| category | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step func |
 | - | - | - | - | - | - | - |
-| _________________ | _____________  | ___________________ | _____________________ | _ | _ | ________ |
+| _________________ | _____________ | _____________________ | ___________________ | _ | _ | ________ |
 `        
     },
     "simple step function": {
@@ -424,4 +425,6 @@ sum(a.*)`,
 
 
 // only for gen doc:
-// export{examples}
+//!start export
+
+//!end export

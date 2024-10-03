@@ -20,7 +20,7 @@
     
     
       
-        <title>Step Functions - documentation (beta)</title>
+        <title>Step Functions - apath documentation (beta)</title>
       
     
     
@@ -49,6 +49,8 @@
     
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -88,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../home/intro.html" title="documentation (beta)" class="md-header__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="../home/intro.html" title="apath documentation (beta)" class="md-header__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
@@ -101,7 +103,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            documentation (beta)
+            apath documentation (beta)
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -244,6 +246,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="roadmap.html" class="md-tabs__link">
+        
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -266,12 +285,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../home/intro.html" title="documentation (beta)" class="md-nav__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="../home/intro.html" title="apath documentation (beta)" class="md-nav__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
     </a>
-    documentation (beta)
+    apath documentation (beta)
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -306,6 +325,8 @@
   
     
     
+      
+        
       
         
       
@@ -377,11 +398,53 @@
   
   
     <li class="md-nav__item">
+      <a href="preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Cheat Sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guide
   </span>
   
 
@@ -406,6 +469,8 @@
       
         
       
+        
+      
     
     
       
@@ -416,10 +481,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -430,8 +495,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
@@ -537,14 +602,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -556,11 +613,19 @@
         
   
   <span class="md-ellipsis">
-    Semantics (Evaluation)
+    Evaluation
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -605,6 +670,26 @@
   
   <span class="md-ellipsis">
     Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
   </span>
   
 
@@ -676,54 +761,45 @@
 <p>Step functions support reuse of functionality and the building of custom language elements. Especially the latter one is essential for building domain specific languages. <a title="grammar element" href="grammar.html#main-rule-StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg"/></a><a title="cheat sheet" href="../cheat-sheet.html#javascript-step-functions-user-defined"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
 <p>Step functions are divided in</p>
 <ul>
-<li><a href="#apath">apath functions</a> that enables reuse of (parametrizable) expressions</li>
+<li><a href="#apath">apath functions</a> that enables (parametrizable) reuse of expressions</li>
 <li><a href="#javascript">javascript</a> functions (the current host language) that enables functionality (so far) not expressable with <em>apath</em>, and the invocation of other services.</li>
 </ul>
 <h3 id="apath-functions"><em>apath</em> functions</h3>
 <p>...forthcoming...</p>
 <h3 id="javascript">Javascript</h3>
-<p>The following template shows a step function <code>func-id</code>: </p>
+<p>Step functions have to conform to the following form: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">func</span><span class="o">-</span><span class="nx">id</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">ctx_node</span><span class="p">,</span><span class="w"> </span><span class="nx">arg1</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nx">argN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// ... process context node &#39;ctx_node&#39; and arguments</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// ... create return value r that is an </span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// *apath-iterable*, *undefined* or *object*</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">r</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// ... possibly check an argument with &#39;apart.isApathIterable(argI)&#39;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">// ... create return value r that is an </span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="c1">// *apath-js-iterable*, *undefined* or other javascript value</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">r</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
 </code></pre></div>
 <p>where</p>
-<ol>
-<li>the first parameter <code>ctx_node</code> is the <em>context node</em> passed from path evaluation. <code>ctx_node</code> and the arguments are arbitrary js objects.</li>
-<li>the return value must be<ol>
-<li><em>apath-iterable</em></li>
-<li><em>undefined</em></li>
-<li>any other object not (a) or (b).</li>
-</ol>
-</li>
-<li><em>x</em> is <em>apath-iterable</em> <strong>iff</strong><ol>
-<li><em>x</em> is neither <em>null</em>, <em>undefined</em>, a <em>string</em>, or an <em>array</em>, and</li>
-<li><em>x</em> is js-iterable (see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols">Iteration protocols</a>)</li>
-</ol>
-</li>
-</ol>
-<p>A return value of type <em>apath-iterable</em> (2.a, 3) represent sequences that are consumed by the path evaluation component where their elements are passed to the subsequent step one by one. <a title="cheat sheet" href="../cheat-sheet.html#e-returning sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
-<p>The return value <em>undefined</em> indicates that no solution exists. In this case, at the path evaluation component, no further steps are performed and the path has no solution <a title="cheat sheet" href="../cheat-sheet.html#e-simple step function"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a>. It is semantically equivalent to returning an empty sequence.</p>
-<p>All other return values (2.c) are handled as one-element-sequences of the returned object.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">1</a></sup></p>
+<p>The first parameter <code>ctx_node</code> is the <a href="grammar.html#def-context node">context node</a> passed from path evaluation. An argument <code>argI</code> is either a <a href="../language/preliminaries.html#def-node">node</a> or an <a href="#def-apath-js-iterable">apath-js-iterable</a> that represents <a href="../language/preliminaries.html#def-sequence">sequences</a>.</p>
+<p>The return value <code>r</code> must be either a <a href="../language/preliminaries.html#def-node">node</a>, an <a href="#def-apath-js-iterable">apath-js-iterable</a>, or <em>undefined</em>.</p>
+<p><span class="arithmatex">\(x\)</span> is <a id='def-apath-js-iterable'><strong>apath-js-iterable</strong></a> if</p>
+<ul>
+<li><span class="arithmatex">\(x\)</span> is <strong>neither</strong> <em>null</em>, <em>undefined</em>, a <em>string</em>, or an <em>array</em>, and</li>
+<li><span class="arithmatex">\(x\)</span> is <em>javascript-iterable</em> (see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol">Iteration protocols</a>)</li>
+</ul>
+<p>To check wether an argument <code>argI</code> is <a href="#def-apath-js-iterable">apath-js-iterable</a>, the runtime function <code>isApathIterable</code> can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-with sequences as parameters"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
+<!-- A return value of type apath-js-iterable represent sequences that are consumed by the path evaluation component where their elements are passed to the subsequent step one by one. <a title="cheat sheet" href="../cheat-sheet.html#e-returning sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a>  -->
+<p>The return value <em>undefined</em> indicates that no solution exists. In this case, at the path evaluation component, no further steps are performed and the path has no solution <a title="cheat sheet" href="../cheat-sheet.html#e-simple step function"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a>. It is semantically equivalent to returning an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>.</p>
+<!-- [^undef] -->
+
+<!-- [^undef]: To allow *undefined* and **not** to enforce an empty sequence avoids unnecessary wrapping of objects, especially when js library functions are used within return-expressions.  -->
+
 <!-- ## Standard Functions
 
 ...forthcoming... -->
 
 <!-- [^1]: In fact, it can be seen as a better readable shortcut for an empty sequence. -->
 
-<!-- --8<-- "doc/mkdocs/docs/filler.html" -->
+<!-- [^2]: Not to enforce one-element-sequences in this case avoids unnecessary wrapping of objects, especially when js library functions are used within return-expressions. Note that [arrays are also objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#indexed_collections_arrays_and_typed_arrays). -->
 
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:2">
-<p>Not to enforce one-element-sequences in this case avoids unnecessary wrapping of objects, especially when js library functions are used within return-expressions. Note that <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#indexed_collections_arrays_and_typed_arrays">arrays are also objects</a>.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
+<!-- --8<-- "doc/mkdocs/docs/filler.html" -->
 
 
 
@@ -784,6 +860,12 @@
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

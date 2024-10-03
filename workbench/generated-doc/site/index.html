@@ -16,7 +16,7 @@
     
     
       
-        <title>documentation (beta)</title>
+        <title>apath documentation (beta)</title>
       
     
     
@@ -45,6 +45,8 @@
     
     
       <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -79,7 +81,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="home/intro.html" title="documentation (beta)" class="md-header__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="home/intro.html" title="apath documentation (beta)" class="md-header__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="pics/ph--path-bold-w-text-2.svg" alt="logo">
 
@@ -92,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            documentation (beta)
+            apath documentation (beta)
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -233,6 +235,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="language/roadmap.html" class="md-tabs__link">
+        
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -255,12 +274,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="home/intro.html" title="documentation (beta)" class="md-nav__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="home/intro.html" title="apath documentation (beta)" class="md-nav__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="pics/ph--path-bold-w-text-2.svg" alt="logo">
 
     </a>
-    documentation (beta)
+    apath documentation (beta)
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -293,6 +312,8 @@
   
     
     
+      
+        
       
         
       
@@ -363,11 +384,53 @@
   
   
     <li class="md-nav__item">
+      <a href="language/preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="cheat-sheet.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Cheat Sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="language/guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guide
   </span>
   
 
@@ -390,6 +453,8 @@
       
         
       
+        
+      
     
     
       
@@ -402,10 +467,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -416,8 +481,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
@@ -465,14 +530,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -484,11 +541,19 @@
         
   
   <span class="md-ellipsis">
-    Semantics (Evaluation)
+    Evaluation
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -533,6 +598,26 @@
   
   <span class="md-ellipsis">
     Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="language/roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
   </span>
   
 
@@ -635,6 +720,12 @@
     
     
       <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>

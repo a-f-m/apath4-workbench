@@ -14,7 +14,7 @@
 
 <body>
     <div class="logo">
-        <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg' width="100" height="20"/></a>beta
+        <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg' width="100" height="20"/></a><sup>beta</sup>
     </div>
     <div class='header'>
         <fieldset>
@@ -69,10 +69,10 @@
                     <input id='bnt_store_layout' type='button'
                         title='stores widgets in browser storage. it will be restored on page loading' value='store**' />
                 </span>
-                <span class='button'>
-                    <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
+                <span class='button' hidden>
+                    <input id='bnt_fit' type='button' title='fitting widgets' value='fit'  />
                 </span>
-                <span title='fitting widgets on window resize'><label><input id='toggle_fit' type='checkbox'
+                <span title='fitting widgets on window resize' hidden><label><input id='toggle_fit' type='checkbox' 
                      />live fit</label></span>
     </div>
         </fieldset>
@@ -104,8 +104,7 @@
                     <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression'
                         value='AST' />
                 </span>
-                <!-- <span class='button' hidden='true'> -->
-                <span class='button' hidden>
+                <span class='button'>
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**'  />
                 </span>
                 <span class='button'>
@@ -114,7 +113,7 @@
                 <span class='button'>
                     <input id='bnt_cheat_sheet' type='button' title='cheat sheet' value='cheat-sheet' />
                 </span>
-                <span class='button' hidden='true'>
+                <span class='button' hidden>
                     <input id='bnt_exa_step_funcs' type='button' title='example step functions'
                         value='example step functions' />
                 </span>

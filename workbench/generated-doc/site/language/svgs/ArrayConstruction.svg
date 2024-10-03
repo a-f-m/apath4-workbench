@@ -1,0 +1,231 @@
+<svg class="railroad-diagram" width="823.5" height="152" viewBox="0 0 823.5 152" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g transform="translate(.5 .5)">
+<g class="Start">
+<path d="M20 86v20m0 -10h20"></path>
+</g>
+<path d="M40 96h10"></path>
+<g class="Group rule">
+<path d="M50 96h0"></path>
+<path d="M773.5 96h0"></path>
+<rect x="50" y="36" width="723.5" height="96" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M50 96h10"></path>
+<path d="M763.5 96h10"></path>
+<path d="M105.5 96h10"></path>
+<g class="terminal literal">
+<path d="M60 96h0"></path>
+<path d="M105.5 96h0"></path>
+<rect x="60" y="85" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="82.75" y="100">"&#91;"</text>
+</g>
+<g class="Choice">
+<path d="M115.5 96h0"></path>
+<path d="M708 96h0"></path>
+<path d="M115.5 96a10 10 0 0 0 10 -10v-32a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M135.5 44h552.5"></path>
+</g>
+<path d="M688 44a10 10 0 0 1 10 10v32a10 10 0 0 0 10 10"></path>
+<path d="M115.5 96h20"></path>
+<g class="Group rule">
+<path d="M135.5 96h0"></path>
+<path d="M688 96h0"></path>
+<rect x="135.5" y="68" width="552.5" height="56" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M135.5 96h10"></path>
+<path d="M678 96h10"></path>
+<path d="M344 96h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M145.5 96h0"></path>
+<path d="M344 96h0"></path>
+<rect x="145.5" y="85" width="198.5" height="22"></rect>
+<text x="244.75" y="100">ConditionalExpression</text>
+</g>
+<g class="Choice">
+<path d="M354 96h0"></path>
+<path d="M678 96h0"></path>
+<path d="M354 96a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M374 76h284"></path>
+</g>
+<path d="M658 76a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M354 96h20"></path>
+<g class="OneOrMore">
+<path d="M374 96h0"></path>
+<path d="M658 96h0"></path>
+<path d="M384 96a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<g class="Skip">
+<path d="M384 116h264"></path>
+</g>
+<path d="M648 116a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M374 96h10"></path>
+<path d="M648 96h10"></path>
+<g class="Sequence">
+<path d="M384 96h0"></path>
+<path d="M648 96h0"></path>
+<path d="M429.5 96h10"></path>
+<g class="terminal literal">
+<path d="M384 96h0"></path>
+<path d="M429.5 96h0"></path>
+<rect x="384" y="85" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="406.75" y="100">","</text>
+</g>
+<path d="M439.5 96h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M449.5 96h0"></path>
+<path d="M648 96h0"></path>
+<rect x="449.5" y="85" width="198.5" height="22"></rect>
+<text x="548.75" y="100">ConditionalExpression</text>
+</g>
+</g>
+</g>
+<path d="M658 96h20"></path>
+</g>
+</g>
+<g class="comment">
+<path d="M135.5 60h0"></path>
+<path d="M222.5 60h0"></path>
+<text x="179" y="65" class="comment">ElementList</text>
+</g>
+</g>
+<path d="M688 96h20"></path>
+</g>
+<path d="M708 96h10"></path>
+<g class="terminal literal">
+<path d="M718 96h0"></path>
+<path d="M763.5 96h0"></path>
+<rect x="718" y="85" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="740.75" y="100">"&#93;"</text>
+</g>
+</g>
+<g class="comment">
+<path d="M50 28h0"></path>
+<path d="M179 28h0"></path>
+<text x="114.5" y="33" class="comment">ArrayConstruction</text>
+</g>
+</g>
+<path d="M773.5 96h10"></path>
+<path class="End" d="M 783.5 96 h 20 m 0 -10 v 20"></path>
+</g>
+<style>.ruleId {
+  color: black;
+  font-weight: bold;
+}
+
+.mainRule {}
+
+.subRule {}
+
+.subRuleAnchor {
+  /* font-weight: bolder; */
+  /* fill: green; */
+  /* font-size: 110%;
+  font-style: normal */
+}
+
+.parent {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+/* , .railroad-diagram */
+.svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.test {
+  background-color: lightgoldenrodyellow;
+}
+
+
+/* --------------------------------- svg styles ---------------------------------------- */
+
+/* tspan {
+  fill: blue
+} */
+
+svg.railroad-diagram {
+  /*background-color: hsl(30,20%,95%);*/
+  background-color: white;
+}
+
+.railroad-diagram path {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgba(0, 0, 0, 0);
+}
+
+text {
+  font: bold 12px monospace;
+  text-anchor: middle;
+  white-space: pre;
+}
+
+text.diagram-text {
+  font-size: 12px;
+}
+
+text.diagram-arrow {
+  font-size: 14px;
+}
+
+text.label {
+  text-anchor: start;
+}
+
+text.comment {
+  font: italic 12px monospace;
+}
+
+g.non-terminal text {
+  /*font-style: italic;*/
+}
+
+rect {
+  stroke-width: 1;
+  stroke: black;
+  fill: rgb(241, 241, 241);
+}
+
+rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 3 3;
+  fill: none;
+}
+
+path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+
+.decision path {
+  fill: #ccc;
+}
+
+g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+
+text.repeat-text {
+  font: italic 12px monospace;
+  text-anchor: end;
+}
+
+.repeat-box>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}
+
+.delimiter>rect.group-box {
+  stroke: gray;
+  stroke-width: 2;
+  stroke-dasharray: 1 5;
+  fill: none;
+}</style>
+</svg>

@@ -33,6 +33,10 @@ function store() {
 
 async function eval_(input, apath, sfuncs) {
 
+    // const xxx = import('a.b')
+    
+    const apart = window.Apart_
+    const xxx = apart.isApathIterable(1)
     const apath_ = new window.apath_.Apath()
 
     if (sfuncs) {
@@ -47,7 +51,7 @@ async function eval_(input, apath, sfuncs) {
 
     const res = evaluator.evaluate_json(input)
 
-    return {result: res, trp: evaluator.transpilat_text(), empty: apath_.empty_ast}
+    return { result: res, trp: evaluator.transpilat_text(), empty: apath_.empty_ast }
 }
 
 function format_results(results) {
@@ -125,7 +129,7 @@ $('#bnt_grammar').on('click', function () {
 })
 
 $('#bnt_ast').on('click', function () {
-    const ast = new window.Parser__.Parser().setting({w_loc: false}).parse(monaco_editors.apath.getValue())
+    const ast = new window.Parser__.Parser().setting({ w_loc: false }).parse(monaco_editors.apath.getValue())
     open_blob(JSON.stringify(ast, null, 3), 'text/plain')
 })
 
@@ -141,6 +145,7 @@ $('#bnt_trp').on('click', async function () {
 
 $('#bnt_doc').on('click', async function () {
     // open_link('doc/doc-1.html')
+    // open_link('generated-doc/site/workbench/workbench.html#control-panel')
     open_link('generated-doc/site/workbench/workbench.html')
 })
 
@@ -169,7 +174,8 @@ require(['vs/editor/editor.main'], function () {
 
         const d = examples[first_example].data
         return monaco.editor.create(e, {
-            theme: 'vs-dark',
+            // theme: 'vs-dark',
+            theme: 'vs',
             language: kind === 'input' ? 'json' : kind === 'apath' ? 'java' : kind === 'sfuncs' ? 'javascript' : 'text',
             minimap: { enabled: false },
             lineNumbers: 'off',
@@ -190,7 +196,15 @@ require(['vs/editor/editor.main'], function () {
     monaco_editors.sfuncs.onDidChangeModelContent(function (e) {
         on_editor_change()
     })
-    restore()
+    // restore()
+    
+    const params = new URLSearchParams(window.location.search)
+    let exa = params.get('exa')
+    if (exa === null) exa = first_example
+    console.log('set exa: ' + exa)
+    $('#select_examples').val(exa)
+    set_data(examples[exa])
+    
     fit(undefined, true)
 })
 
@@ -202,10 +216,11 @@ $('.widget').on('mousedown', function () {
 })
 
 $('#toggle_fit').prop('checked', true)
-$('#toggle_dark').prop('checked', true)
+$('#toggle_dark').prop('checked', false)
 $('#toggle_live_eval').prop('checked', true)
-$(document).ready(function () {
+$(function () {
     console.log('ready!')
     window.onresize = fit
     fit(undefined, true)
 })
+

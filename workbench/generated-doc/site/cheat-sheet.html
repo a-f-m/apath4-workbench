@@ -144,18 +144,18 @@
 <tr>
 <th>category</th>
 <th>keyword/<br>symbol<br>(-pattern) [<a href="#1">1</a>]</th>
-<th>input [<a href="#1">1</a>]</th>
 <th>apath</th>
+<th>input [<a href="#1">1</a>]</th>
 <th>result</th>
-<th>grammar [<a href="#2">2</a>]</th>
+<th>grammar/<br>workbench [<a href="#2">2</a>]</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>_________________</td>
 <td>_________________</td>
-<td>________________________________</td>
 <td>_______________________________________</td>
+<td>________________________________</td>
 <td>________________</td>
 <td>_</td>
 </tr>
@@ -170,50 +170,50 @@
 <tr>
 <td><span id="e-property">property</span></td>
 <td>&lt;id&gt;</td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td><code>a.b</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td>1</td>
-<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-property literal">property literal</span></td>
 <td><strong>'</strong> ... <strong>'</strong></td>
-<td>{ &quot;a&quot;: { &quot;#b1&quot;: 1, &quot;#b2&quot;: 2 } }</td>
 <td><code>a.'#b1'</code></td>
+<td>{ &quot;a&quot;: { &quot;#b1&quot;: 1, &quot;#b2&quot;: 2 } }</td>
 <td>1</td>
-<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=property literal"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-property regex">property regex</span></td>
 <td><strong>/</strong> ... <strong>/</strong></td>
-<td></td>
 <td><code>a./#.*/</code></td>
+<td></td>
 <td>1 , 2</td>
-<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=property regex"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-children (array)">children (array)</span></td>
 <td><strong>*</strong></td>
-<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td><code>a.*</code></td>
+<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td>1 , 2 , 3</td>
-<td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=children (array)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-children (object)">children (object)</span></td>
 <td></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td><code>a.*</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>1 , 2</td>
-<td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=children (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-self">self</span></td>
 <td><strong>_</strong> | <strong>self</strong></td>
-<td></td>
 <td><code>a._</code></td>
+<td></td>
 <td>{ &quot;b&quot;: 1, &quot;c&quot;: 2 }</td>
-<td><a href="language/grammar.html#main-rule-Self"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Self"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=self"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-Basic Steps / Construction"><em><strong>Basic Steps / Construction</strong></em></span></td>
@@ -226,42 +226,42 @@
 <tr>
 <td><span id="e-construction (object)">construction (object)</span></td>
 <td><strong>{</strong> ... <strong>}</strong></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: &quot;y&quot; } }</td>
 <td><code>a.{ x: 2, '#1': b }</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: &quot;y&quot; } }</td>
 <td>{ &quot;x&quot;: 2, &quot;#1&quot;: 1 }</td>
-<td><a href="language/grammar.html#main-rule-ObjectLiteral"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-ObjectConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=construction (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-... dynamic property">... dynamic property</span></td>
 <td></td>
-<td></td>
 <td><code>a.{ (c): b }</code></td>
+<td></td>
 <td>{ &quot;y&quot;: 1 }</td>
-<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=... dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-... embedding">... embedding</span></td>
 <td></td>
-<td></td>
 <td><code>a.{ _, c: 'z' }</code></td>
+<td></td>
 <td>{ &quot;b&quot;: 1, &quot;c&quot;: &quot;z&quot; }</td>
-<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=... embedding"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-construction (array)">construction (array)</span></td>
 <td><strong>[</strong> ... <strong>]</strong></td>
-<td></td>
 <td><code>a.[ 3, b ]</code></td>
+<td></td>
 <td>[ 3, 1 ]</td>
-<td><a href="language/grammar.html#main-rule-ArrayLiteral"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-ArrayConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=construction (array)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-... sequences">... sequences</span></td>
 <td></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: [2, 3] } }</td>
 <td><code>a.[ 1, b.*, 4 ]</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: [2, 3] } }</td>
 <td>[ 1, 2, 3, 4 ]</td>
-<td><a href="language/grammar.html#main-rule-ArrayLiteral"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-ArrayConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=... sequences"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-Composite Steps"><em><strong>Composite Steps</strong></em></span></td>
@@ -274,18 +274,18 @@
 <tr>
 <td><span id="e-filter (predicate)">filter (predicate)</span></td>
 <td>... <strong>?(</strong> ... <strong>)</strong></td>
-<td>[{&quot;a&quot;: 1}, {&quot;a&quot;: 2}]</td>
 <td><code>*?(a==1)</code></td>
+<td>[{&quot;a&quot;: 1}, {&quot;a&quot;: 2}]</td>
 <td>{ &quot;a&quot;: 1 }</td>
-<td><a href="language/grammar.html#main-rule-Filter"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Filter"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=filter (predicate)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-subscript">subscript</span></td>
 <td>... <strong>[</strong> ... <strong>]</strong></td>
-<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td><code>a[1]</code></td>
+<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td>2</td>
-<td><a href="language/grammar.html#main-rule-Subscript"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Subscript"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=subscript"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-Comparison/Logical Expressions"><em><strong>Comparison/Logical Expressions</strong></em></span></td>
@@ -298,26 +298,26 @@
 <tr>
 <td><span id="e-equality">equality</span></td>
 <td><strong>==, !=</strong></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td><code>a.(b == c)</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>false</td>
-<td><a href="language/grammar.html#main-rule-EqualityExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-EqualityExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=equality"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-relational">relational</span></td>
 <td><strong>&lt;, &gt;, &lt;=, &gt;=</strong></td>
-<td></td>
 <td><code>a.(b &lt; c)</code></td>
+<td></td>
 <td>true</td>
-<td><a href="language/grammar.html#main-rule-RelationalExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-RelationalExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=relational"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-logical">logical</span></td>
 <td><strong>and, or, not</strong></td>
-<td></td>
 <td><code>a.(b == c or not c &lt; 2)</code></td>
+<td></td>
 <td>true</td>
-<td><a href="language/grammar.html#main-rule-LogicalORExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-LogicalORExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=logical"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-Composite Expressions"><em><strong>Composite Expressions</strong></em></span></td>
@@ -330,18 +330,18 @@
 <tr>
 <td><span id="e-sequenced">sequenced</span></td>
 <td>... <strong>,</strong> ...</td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td><code>a.(b, c)</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>2</td>
-<td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=sequenced"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-conditional">conditional</span></td>
 <td><strong>if</strong> ...</td>
-<td></td>
 <td><code>a.(if (b == 1) b c)</code></td>
+<td></td>
 <td>1</td>
-<td><a href="language/grammar.html#main-rule-Conditional"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-ConditionalExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=conditional"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 </tbody>
 </table>
@@ -351,10 +351,10 @@
 <tr>
 <th>category</th>
 <th>keyword/<br>symbol<br>(-pattern) [<a href="#1">1</a>]</th>
-<th>input [<a href="#1">1</a>]</th>
 <th>apath</th>
+<th>input [<a href="#1">1</a>]</th>
 <th>result</th>
-<th>grammar [<a href="#2">2</a>]</th>
+<th>grammar/<br>workbench [<a href="#2">2</a>]</th>
 <th>step func</th>
 </tr>
 </thead>
@@ -362,8 +362,8 @@
 <tr>
 <td>_________________</td>
 <td>_____________</td>
-<td>___________________</td>
 <td>_____________________</td>
+<td>___________________</td>
 <td>_</td>
 <td>_</td>
 <td>________</td>
@@ -371,29 +371,29 @@
 <tr>
 <td><span id="e-simple step function">simple step function</span></td>
 <td>&lt;id&gt;<strong>(</strong> ... <strong>)</strong></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td><code>a.b.add(1)</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td>2</td>
-<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=simple step function"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 <td>// 'ctx_node' (context node) is the object passed <br>// from the previous step - followed by parameters<br>function add(ctx_node, k) {<br>    return typeof ctx_node === 'number' &amp;&amp; typeof k === 'number' ?<br>            ctx_node + k : undefined<br>            // 'undefined' stops evaluation with no solution<br>}</td>
 </tr>
 <tr>
 <td><span id="e-with sequences as parameters">with sequences as parameters</span></td>
 <td></td>
-<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td><code>sum(a.*)</code></td>
+<td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td>6</td>
-<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
-<td>function sum(ctx_node, seq) {<br>    let sum = 0<br>    for (const x of seq) sum += x<br>    return sum<br>}</td>
+<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=with sequences as parameters"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td>function sum(ctx_node, seq) {<br>    let sum = 0<br>    if (!apart.isApathIterable(seq)) return seq<br>    for (const x of seq) sum += x<br>    return sum<br>}</td>
 </tr>
 <tr>
 <td><span id="e-returning sequences">returning sequences</span></td>
 <td></td>
-<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td><code>a.b.to(3)</code></td>
+<td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td>1 , 2 , 3</td>
-<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a></td>
-<td>// a sequence is returned. in general an iterable<br>function* to(ctx_node, k) {<br>    for (let i = ctx_node; i &lt;= k; i++) yield i<br>}</td>
+<td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=returning sequences"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td>// a sequence is returned by using a generator. in general an iterable<br>function* to(ctx_node, k) {<br>    for (let i = ctx_node; i &lt;= k; i++) yield i<br>}</td>
 </tr>
 </tbody>
 </table>
@@ -402,7 +402,7 @@
 <h3 id="1">[1]</h3>
 <p>empty cells adopt content from previous ones within one category</p>
 <h3 id="2">[2]</h3>
-<p>Link to grammar diagram (superordinate diagram or part of it)</p>
+<p>Link to grammar diagram (superordinate diagram or part of it) and link to the workbench</p>
 
             
             

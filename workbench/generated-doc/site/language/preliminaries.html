@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="intro.html">
+      
+      
+        <link rel="next" href="../cheat-sheet.html">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -16,7 +20,7 @@
     
     
       
-        <title>Variables - apath documentation (beta)</title>
+        <title>Preliminaries - apath documentation (beta)</title>
       
     
     
@@ -72,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#variables" class="md-skip">
+        <a href="#preliminaries" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Variables
+              Preliminaries
             
           </span>
         </div>
@@ -189,10 +193,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="intro.html" class="md-tabs__link">
           
   
@@ -313,8 +319,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -331,19 +339,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -354,7 +363,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Language
@@ -386,10 +395,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="preliminaries.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="preliminaries.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -398,6 +416,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -664,8 +683,19 @@
                   
 
 
-<h1 id="variables">Variables</h1>
-<p>...forthcoming...</p>
+<h1 id="preliminaries">Preliminaries</h1>
+<p>The the following we provide basic definitions, used throughout the documentation, which is intended to aid understanding of the language elements.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<!-- - A *string*, *number*, *boolean*, or *null* is called [[**atomic node**]] <a id='def-primitive value'>**atomic node**</a> (e. g. `#!javascript 1`, `#!javascript 'hello'`, `#!javascript true`), an *object* or *array* is called <a id='def-primitive value'>**structured node**</a> (e. g. `#!javascript {a:1}`, `#!javascript [1,2]`)
+- A node are either atomic or structured -->
+<ul>
+<li>A <em>string</em>, <em>number</em>, <em>boolean</em>, or <em>null</em> is called <a id='def-atomic node'><strong>atomic node</strong></a> (e. g. <code class="highlight"><span class="mf">1</span></code>, <code class="highlight"><span class="s1">&#39;hello&#39;</span></code>, <code class="highlight"><span class="kc">true</span></code>), an <em>object</em> or <em>array</em> is called <a id='def-structured node'><strong>structured node</strong></a> (e. g. <code class="highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mf">1</span><span class="p">}</span></code>, <code class="highlight"><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">]</span></code>).</li>
+<li>A <a id='def-node'><strong>node</strong></a> is either an atomic or structured node.</li>
+<li>A <a id='def-sequence'><strong>sequence</strong></a> (of nodes) is an ordered collection of zero or more nodes. </li>
+<li>A sequence consisting of exactly one node is called a <a id='def-singleton'><strong>singleton</strong></a>. A node is <strong>identical</strong> to a singleton that contains that node.</li>
+<li>A sequence with zero nodes is called an <a id='def-empty sequence'><strong>empty sequence</strong></a>.</li>
+</ul>
+<!-- [[#**node**]]  [lala][[#**node**]] -->
+
 <!-- to have proper page view: -->
 
 <p>&nbsp;</p>
@@ -686,6 +716,14 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>We partly align to the <em>xpath</em> terminology.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 

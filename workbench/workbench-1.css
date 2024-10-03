@@ -1,6 +1,7 @@
 .widget {
     position: absolute;
-    border: 2px solid grey;
+    /* border: 1px solid #4288b3; */
+    border: 1px solid gray;
     margin: 10px;
     /* resize: both; */
     overflow: hidden;
@@ -20,13 +21,13 @@
 
 .header {
     /* float: right; */
-    color: azure;
+    /* color: azure; */
     display: flex;
     flex-direction: row;
 
     /* margin: auto;
     width: 50%; */
-    /* border: 3px solid #73AD21; */
+    /* border: 1px solid gray; */
     /* padding: 10px; */
 
     max-width: fit-content;
@@ -50,7 +51,11 @@
 
 .widget-header,
 .widget-footer {
-    background-color: rgb(255, 239, 196);
+    /* background-color: rgb(255, 239, 196); */
+    /* background-color: bisque; */
+    /* background-color: wheat; */
+    /* background-color: antiquewhite; */
+    background-color: #ffeecf;
     font-weight: bold;
 }
 
@@ -60,7 +65,9 @@
 
 body {
     /* background-color: bisque; */
-    background-color: #622f21;
+    background-color: wheat;
+    /* background-color: rgb(255, 239, 196); */
+    /* background-color: #622f21; */
 }
 
 html,

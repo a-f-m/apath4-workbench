@@ -20,7 +20,7 @@
     
     
       
-        <title>Semantics (Evaluation) - documentation (beta)</title>
+        <title>Evaluation - apath documentation (beta)</title>
       
     
     
@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#forthcoming" class="md-skip">
+        <a href="#evaluation" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../home/intro.html" title="documentation (beta)" class="md-header__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="../home/intro.html" title="apath documentation (beta)" class="md-header__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
@@ -101,13 +103,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            documentation (beta)
+            apath documentation (beta)
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Semantics (Evaluation)
+              Evaluation
             
           </span>
         </div>
@@ -244,6 +246,23 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="roadmap.html" class="md-tabs__link">
+        
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -266,12 +285,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../home/intro.html" title="documentation (beta)" class="md-nav__button md-logo" aria-label="documentation (beta)" data-md-component="logo">
+    <a href="../home/intro.html" title="apath documentation (beta)" class="md-nav__button md-logo" aria-label="apath documentation (beta)" data-md-component="logo">
       
   <img src="../pics/ph--path-bold-w-text-2.svg" alt="logo">
 
     </a>
-    documentation (beta)
+    apath documentation (beta)
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -306,6 +325,8 @@
   
     
     
+      
+        
       
         
       
@@ -377,6 +398,27 @@
   
   
     <li class="md-nav__item">
+      <a href="preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
@@ -397,6 +439,29 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     
     
       
@@ -404,22 +469,22 @@
       
         
       
+        
+      
     
     
       
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -430,8 +495,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
@@ -479,14 +544,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -503,15 +560,71 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Evaluation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="eval.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Semantics (Evaluation)
+    Evaluation
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Evaluation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Table
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -565,6 +678,26 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -585,6 +718,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boolean Evaluation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Table
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -598,27 +757,24 @@
                   
 
 
-<h1 id="forthcoming">...forthcoming...</h1>
-<!-- to have proper page view: -->
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h1 id="evaluation">Evaluation</h1>
+<h2 id="boolean-evaluation">Boolean Evaluation</h2>
+<p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a sequence of nodes it is necessary to precisely define its evaluation to an boolean value.</p>
+<p>The boolean function <a id='def-test'><strong>test</strong></a> maps sequence <span class="arithmatex">\(S\)</span> to a boolean value:</p>
+<ul>
+<li>if <span class="arithmatex">\(S\)</span> is an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a> the boolean value is <strong>false</strong></li>
+<li>if <span class="arithmatex">\(S\)</span> is a <a href="../language/preliminaries.html#def-singleton">singleton</a> value <span class="arithmatex">\(e\)</span> and<ul>
+<li><span class="arithmatex">\(e\)</span> of type <em>boolean</em> then the boolean value is <span class="arithmatex">\(e\)</span>
+<!-- - <span class="arithmatex">\(e\)</span> of type *string* with length 0 then the boolean value is **false** --></li>
+<li>otherwise the boolean value is <strong>true</strong></li>
+</ul>
+</li>
+<li>if <span class="arithmatex">\(S\)</span> is a sequence with more than one element the boolean value is <strong>true</strong></li>
+</ul>
+<p>!TODO rem on strings and null</p>
+<h2 id="processing-table">Processing Table</h2>
+<p>...forthcoming...</p>
+<!-- --8<-- "doc/mkdocs/docs/filler.html" -->
 
 
 
@@ -679,6 +835,12 @@
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
       
     
   </body>
