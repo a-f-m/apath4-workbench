@@ -3,6 +3,7 @@
 import * as fs from "node:fs";
 import * as http from "node:http";
 import * as path from "node:path";
+import * as url from "node:url";
 
 const PORT = 8000;
 
@@ -25,8 +26,10 @@ const toBool = [() => true, () => false];
 const prepareFile = async (url) => {
   const paths = [STATIC_PATH, url];
   if (url.endsWith("/")) paths.push("index.html");
-  const filePath = path.join(...paths);
+  let filePath = path.join(...paths);
   const pathTraversal = !filePath.startsWith(STATIC_PATH);
+  const idx = filePath.indexOf('?');
+  if (idx !== -1) filePath = filePath.substring(0, idx);
   const exists = await fs.promises.access(filePath).then(...toBool);
   const found = !pathTraversal && exists;
   const streamPath = found ? filePath : STATIC_PATH + "/404.html";

@@ -1021,7 +1021,7 @@
 <h1 id="description-by-grammar">Description by Grammar</h1>
 <!-- # Language Elements -->
 
-<p><em>apath</em> is an expression language, so the start rule is of coarse <a href="#expressions"><em>Expression</em></a>. For instance, <code class="highlight"><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">18</span></code> checks equality of a value of a path with a literal value. Because a path with steps is the most used and central construct, the grammar here will start on this level. The grammar will be described top-down<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p><em>apath</em> is an expression language, so the start rule is <a href="#expressions"><em>Expression</em></a>. For instance, <code class="language-javascript highlight"><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">18</span></code> checks the equality of a value of a path with a literal value. Because a path with steps is the most commonly used and central construct, the grammar here will start at this level. The grammar will be described top-down<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <p>Icon <a title="cheat sheet" href="../cheat-sheet.html#cheat-sheet-generated"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> references the related cheat-sheet part. See also <a href="preliminaries.html">basic definitions</a>.</p>
 <h2 id="paths">Paths</h2>
 <p><a id="main-rule-Path"></a></p>
@@ -1217,7 +1217,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Paths consist of 'dot'-separated composite steps. Every step yields a <a href="../language/preliminaries.html#def-sequence">sequence</a> of <a href="../language/preliminaries.html#def-node">nodes</a> that are passed one by one to the subsequent step. This passed <a href="../language/preliminaries.html#def-node">node</a> is called <a id="def-context node"><strong>context node</strong></a>. The solution of a path is the yielded sequence of the last step. If one step yields an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>, no further steps are performed and the solution of the whole path is the empty sequence. See <a href="eval.html">evaluation</a> for details.</p>
+<p>Paths consist of 'dot'-separated composite steps. Every step yields a <a href="../language/preliminaries.html#def-sequence">sequence</a> of <a href="../language/preliminaries.html#def-node">nodes</a> that are passed one by one to the subsequent step. This passed <a href="../language/preliminaries.html#def-node">node</a> is called <a id="def-context node"><strong>context node</strong></a>. The solution of a path is the yielded sequence of the last step. If one step yields an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>, no further steps are performed, and the solution of the whole path is the empty sequence. See <a href="eval.html">evaluation</a> for details.</p>
 <!-- let $x$ be $A \in B$
 !!! note
     let $x$ be $A \in B$ -->
@@ -1741,7 +1741,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>By means of a filter, <a href="../language/preliminaries.html#def-sequence">sequences</a>, retrieved by the base step, can be restricted to sub-sequences of <a href="../language/preliminaries.html#def-node">nodes</a> that fulfil the stated expression. <a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<p>By means of a filter, <a href="../language/preliminaries.html#def-sequence">sequences</a> retrieved by the base step, can be restricted to sub-sequences of <a href="../language/preliminaries.html#def-node">nodes</a> that fulfill the stated expression. <a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
 <!-- More precisely, for every node $e$ in the sub-sequence [test](eval.md#def-test)($e$) = *true*.  -->
 
 <p><a id="main-rule-Subscript"></a></p>
@@ -1920,7 +1920,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Subscripts are reserved for arrays and the stated expression must evaluate to a number. <a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>Subscripts are reserved for arrays, and the stated expression must evaluate to a number. <a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO array first class
 
 !TODO bool test -->
@@ -2870,7 +2870,7 @@ text.repeat-text {
 <g class="comment">
 <path d="M108.5 242h0"></path>
 <path d="M286.5 242h0"></path>
-<text x="197.5" y="247" class="comment">RegularExpressionLiteral</text>
+<text x="197.5" y="247" class="comment"><a id="main-rule-RegularExpressionLiteral"><tspan class="subRuleAnchor">RegularExpressionLiteral</tspan></a></text>
 </g>
 </g>
 <path d="M496.5 269a10 10 0 0 0 10 -10v-170a10 10 0 0 1 10 -10"></path>
@@ -3006,7 +3006,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Property values of an object can be selected by an identifier that must not be an reserved word. If the property name is not a regular identifier (e.g. <code>#1</code>), a string literal can be used.  If a regex is given, all properties with names conforming to it will be taken. <a title="cheat sheet" href="../cheat-sheet.html#e-property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>Property values of an object can be selected by an identifier that must not be a reserved word. If the property name is not a regular identifier (e.g. <code>#1</code>), a string literal can be used.  If a regex is given, all properties with names conforming to it will be taken. <a title="cheat sheet" href="../cheat-sheet.html#e-property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <p><svg class="railroad-diagram" width="259.5" height="430" viewBox="0 0 259.5 430" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
@@ -3417,7 +3417,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>To retrieve all property values of an object or all elements of an array the children construct can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-children (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> To access the <a href="../language/preliminaries.html#def-context node">context node</a>, use the following: <a title="cheat sheet" href="../cheat-sheet.html#e-self"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>To retrieve all property values of an object or all elements of an array, the children construct can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-children (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> To access the <a href="../language/preliminaries.html#def-context node">context node</a>, use the following: <a title="cheat sheet" href="../cheat-sheet.html#e-self"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <p><a id="main-rule-Self"></a></p>
 <p><svg class="railroad-diagram" width="211" height="124" viewBox="0 0 211 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -3821,7 +3821,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Construction of objects and arrays conforms to JSON/js syntax with special enhancements. <a title="cheat sheet" href="../cheat-sheet.html#e-Basic Steps / Construction"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>The construction of objects and arrays conforms to JSON/js syntax with special enhancements. <a title="cheat sheet" href="../cheat-sheet.html#e-Basic Steps / Construction"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <h4 id="objects">Objects</h4>
 <p><a id="main-rule-ObjectConstruction"></a></p>
 <p><svg class="railroad-diagram" width="772.5" height="152" viewBox="0 0 772.5 152" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -4427,10 +4427,10 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>A usual, an object are build with a list of property assignments. The property value (<em>right hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>.<sup id="fnref:cseq"><a class="footnote-ref" href="#fn:cseq">2</a></sup> If it is empty no assignment is performed. The property name can be at least an identifier or string -- we adopt the relaxed definition from <em>js</em> instead of JSON. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
-<!-- [^cseq]: If the sequence has more than one element, the value is not automatically an array as in other path languages. If this behavior is intended, the right hand side can use the array constructor `#!javascript [...]`. -->
-<p>If a property name shall be dynamically created, a parenthesized expression have to be used. In this case its evaluation must be a string. <a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
-<p>So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence is embedded in the constructed object, possibly overwriting previous properties.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup> <a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>.<sup id="fnref:cseq"><a class="footnote-ref" href="#fn:cseq">2</a></sup> If it is empty, no assignment is performed. The property name can be at least an identifier or string -- we adopt the relaxed definition from <em>js</em> instead of JSON. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<!-- [^cseq]: If the sequence has more than one element, the value is not automatically an array as in other path languages. If this behavior is intended, the right-hand side can use the array constructor `#!javascript [...]`. -->
+<p>If a property name shall be dynamically created, a parenthesized expression has to be used. In this case, its evaluation must be a string. <a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<p>So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence are embedded in the constructed object, possibly overwriting previous properties.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup> <a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO remark on not enforce quotes -->
 
 <h4 id="arrays">Arrays</h4>
@@ -4666,7 +4666,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The array constructor takes a list of expression values as consecutive array elements. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a> all its elements will be embedded. <a title="cheat sheet" href="../cheat-sheet.html#e-... sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>The array constructor takes a list of expression values as consecutive array elements. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a>, all its elements will be embedded. <a title="cheat sheet" href="../cheat-sheet.html#e-... sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO lhs paths -->
 
 <h2 id="expressions">Expressions</h2>
@@ -4874,7 +4874,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Expressions can be sequenced, delimited by comma. In this case its value is the value of the last expression. <a title="cheat sheet" href="../cheat-sheet.html#e-Composite Expressions"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>Expressions can be sequenced, delimited by a comma. In this case, its value is the value of the last expression. <a title="cheat sheet" href="../cheat-sheet.html#e-Composite Expressions"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <p><a id="main-rule-ConditionalExpression"></a></p>
 <p><svg class="railroad-diagram" width="730" height="133" viewBox="0 0 730 133" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -4956,7 +4956,7 @@ text.repeat-text {
 <path d="M70 94h204.25"></path>
 <path d="M455.75 94h204.25"></path>
 <rect x="274.25" y="83" width="181.5" height="22"></rect>
-<text x="365" y="98"><a href="#main-rule-LogicalORExpression"><tspan class="mainRule">LogicalORExpression</tspan></a></text>
+<text x="365" y="98">LogicalORExpression</text>
 </g>
 <path d="M660 94a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
 </g>
@@ -5091,1615 +5091,12 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The conditional expression consists of the condition part, then-part, and optional alternative<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. <a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>The conditional expression consists of the condition-part, then-part, and optional alternative<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. <a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO priority -->
 
 <h3 id="basic-expressions">Basic Expressions</h3>
-<p>Basic expressions follows the usual logical and relational expression syntax of programming languages <a title="cheat sheet" href="../cheat-sheet.html#e-Comparison/Logical Expressions"><img src="../pics/clarity--clipboard-solid-badged.svg"></a>. <em>apath</em> mostly reuses <em>javascript</em> syntax. The following elements are adopted from the js-PEG-grammar with slight changes.</p>
-<!-- The evaluation of a [primary expression](#main-rule-PrimaryExpression) is defined by the [test function](eval.html#def-test). -->
-
-<p><a id="main-rule-LogicalORExpression"></a></p>
-<p><svg class="railroad-diagram" width="644" height="112" viewBox="0 0 644 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 54v20m0 -10h20"></path>
-</g>
-<path d="M40 64h10"></path>
-<g class="Group rule">
-<path d="M50 64h0"></path>
-<path d="M594 64h0"></path>
-<rect x="50" y="36" width="544" height="56" rx="10" ry="10" class="group-box"></rect>
-<g class="Sequence">
-<path d="M50 64h10"></path>
-<path d="M584 64h10"></path>
-<path d="M250 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M60 64h0"></path>
-<path d="M250 64h0"></path>
-<rect x="60" y="53" width="190" height="22"></rect>
-<text x="155" y="68"><a href="#main-rule-LogicalANDExpression"><tspan class="mainRule">LogicalANDExpression</tspan></a></text>
-</g>
-<g class="Choice">
-<path d="M260 64h0"></path>
-<path d="M584 64h0"></path>
-<path d="M260 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g class="Skip">
-<path d="M280 44h284"></path>
-</g>
-<path d="M564 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M260 64h20"></path>
-<g class="OneOrMore">
-<path d="M280 64h0"></path>
-<path d="M564 64h0"></path>
-<path d="M290 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g class="Skip">
-<path d="M290 84h264"></path>
-</g>
-<path d="M554 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M280 64h10"></path>
-<path d="M554 64h10"></path>
-<g class="Sequence">
-<path d="M290 64h0"></path>
-<path d="M554 64h0"></path>
-<path d="M344 64h10"></path>
-<g class="terminal literal">
-<path d="M290 64h0"></path>
-<path d="M344 64h0"></path>
-<rect x="290" y="53" width="54" height="22" rx="10" ry="10"></rect>
-<text x="317" y="68">"or"</text>
-</g>
-<path d="M354 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M364 64h0"></path>
-<path d="M554 64h0"></path>
-<rect x="364" y="53" width="190" height="22"></rect>
-<text x="459" y="68"><a href="#main-rule-LogicalANDExpression"><tspan class="mainRule">LogicalANDExpression</tspan></a></text>
-</g>
-</g>
-</g>
-<path d="M564 64h20"></path>
-</g>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M193 28h0"></path>
-<text x="121.5" y="33" class="comment">LogicalORExpression</text>
-</g>
-</g>
-<path d="M594 64h10"></path>
-<path class="End" d="M 604 64 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-LogicalANDExpression"></a></p>
-<p><svg class="railroad-diagram" width="618.5" height="112" viewBox="0 0 618.5 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 54v20m0 -10h20"></path>
-</g>
-<path d="M40 64h10"></path>
-<g class="Group rule">
-<path d="M50 64h0"></path>
-<path d="M568.5 64h0"></path>
-<rect x="50" y="36" width="518.5" height="56" rx="10" ry="10" class="group-box"></rect>
-<g class="Sequence">
-<path d="M50 64h10"></path>
-<path d="M558.5 64h10"></path>
-<path d="M233 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M60 64h0"></path>
-<path d="M233 64h0"></path>
-<rect x="60" y="53" width="173" height="22"></rect>
-<text x="146.5" y="68"><a href="#main-rule-EqualityExpression"><tspan class="mainRule">EqualityExpression</tspan></a></text>
-</g>
-<g class="Choice">
-<path d="M243 64h0"></path>
-<path d="M558.5 64h0"></path>
-<path d="M243 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g class="Skip">
-<path d="M263 44h275.5"></path>
-</g>
-<path d="M538.5 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M243 64h20"></path>
-<g class="OneOrMore">
-<path d="M263 64h0"></path>
-<path d="M538.5 64h0"></path>
-<path d="M273 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g class="Skip">
-<path d="M273 84h255.5"></path>
-</g>
-<path d="M528.5 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M263 64h10"></path>
-<path d="M528.5 64h10"></path>
-<g class="Sequence">
-<path d="M273 64h0"></path>
-<path d="M528.5 64h0"></path>
-<path d="M335.5 64h10"></path>
-<g class="terminal literal">
-<path d="M273 64h0"></path>
-<path d="M335.5 64h0"></path>
-<rect x="273" y="53" width="62.5" height="22" rx="10" ry="10"></rect>
-<text x="304.25" y="68">"and"</text>
-</g>
-<path d="M345.5 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M355.5 64h0"></path>
-<path d="M528.5 64h0"></path>
-<rect x="355.5" y="53" width="173" height="22"></rect>
-<text x="442" y="68"><a href="#main-rule-EqualityExpression"><tspan class="mainRule">EqualityExpression</tspan></a></text>
-</g>
-</g>
-</g>
-<path d="M538.5 64h20"></path>
-</g>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M200 28h0"></path>
-<text x="125" y="33" class="comment">LogicalANDExpression</text>
-</g>
-</g>
-<path d="M568.5 64h10"></path>
-<path class="End" d="M 578.5 64 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-EqualityExpression"></a></p>
-<p><svg class="railroad-diagram" width="746" height="112" viewBox="0 0 746 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 54v20m0 -10h20"></path>
-</g>
-<path d="M40 64h10"></path>
-<g class="Group rule">
-<path d="M50 64h0"></path>
-<path d="M696 64h0"></path>
-<rect x="50" y="36" width="646" height="56" rx="10" ry="10" class="group-box"></rect>
-<g class="Sequence">
-<path d="M50 64h10"></path>
-<path d="M686 64h10"></path>
-<path d="M250 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M60 64h0"></path>
-<path d="M250 64h0"></path>
-<rect x="60" y="53" width="190" height="22"></rect>
-<text x="155" y="68"><a href="#main-rule-RelationalExpression"><tspan class="mainRule">RelationalExpression</tspan></a></text>
-</g>
-<g class="Choice">
-<path d="M260 64h0"></path>
-<path d="M686 64h0"></path>
-<path d="M260 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g class="Skip">
-<path d="M280 44h386"></path>
-</g>
-<path d="M666 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M260 64h20"></path>
-<g class="OneOrMore">
-<path d="M280 64h0"></path>
-<path d="M666 64h0"></path>
-<path d="M290 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g class="Skip">
-<path d="M290 84h366"></path>
-</g>
-<path d="M656 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M280 64h10"></path>
-<path d="M656 64h10"></path>
-<g class="Sequence">
-<path d="M290 64h0"></path>
-<path d="M656 64h0"></path>
-<path d="M446 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M290 64h0"></path>
-<path d="M446 64h0"></path>
-<rect x="290" y="53" width="156" height="22"></rect>
-<text x="368" y="68"><a href="#main-rule-EqualityOperator"><tspan class="mainRule">EqualityOperator</tspan></a></text>
-</g>
-<path d="M456 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M466 64h0"></path>
-<path d="M656 64h0"></path>
-<rect x="466" y="53" width="190" height="22"></rect>
-<text x="561" y="68"><a href="#main-rule-RelationalExpression"><tspan class="mainRule">RelationalExpression</tspan></a></text>
-</g>
-</g>
-</g>
-<path d="M666 64h20"></path>
-</g>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M186 28h0"></path>
-<text x="118" y="33" class="comment">EqualityExpression</text>
-</g>
-</g>
-<path d="M696 64h10"></path>
-<path class="End" d="M 706 64 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-EqualityOperator"></a></p>
-<p><svg class="railroad-diagram" width="222" height="124" viewBox="0 0 222 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
-</g>
-<path d="M40 55h10"></path>
-<g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M172 55h0"></path>
-<rect x="50" y="36" width="122" height="68" rx="10" ry="10" class="group-box"></rect>
-<g class="Choice">
-<path d="M50 55h14"></path>
-<path d="M158 55h14"></path>
-<path d="M64 55h20"></path>
-<g class="terminal literal">
-<path d="M84 55h0"></path>
-<path d="M138 55h0"></path>
-<rect x="84" y="44" width="54" height="22" rx="10" ry="10"></rect>
-<text x="111" y="59">"=="</text>
-</g>
-<path d="M138 55h20"></path>
-<path d="M64 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
-<g class="terminal literal">
-<path d="M84 85h0"></path>
-<path d="M138 85h0"></path>
-<rect x="84" y="74" width="54" height="22" rx="10" ry="10"></rect>
-<text x="111" y="89">"!="</text>
-</g>
-<path d="M138 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M172 28h0"></path>
-<text x="111" y="33" class="comment">EqualityOperator</text>
-</g>
-</g>
-<path d="M172 55h10"></path>
-<path class="End" d="M 182 55 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-RelationalExpression"></a></p>
-<p><svg class="railroad-diagram" width="678" height="112" viewBox="0 0 678 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 54v20m0 -10h20"></path>
-</g>
-<path d="M40 64h10"></path>
-<g class="Group rule">
-<path d="M50 64h0"></path>
-<path d="M628 64h0"></path>
-<rect x="50" y="36" width="578" height="56" rx="10" ry="10" class="group-box"></rect>
-<g class="Sequence">
-<path d="M50 64h10"></path>
-<path d="M618 64h10"></path>
-<path d="M207.5 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M60 64h0"></path>
-<path d="M207.5 64h0"></path>
-<rect x="60" y="53" width="147.5" height="22"></rect>
-<text x="133.75" y="68"><a href="#main-rule-UnaryExpression"><tspan class="mainRule">UnaryExpression</tspan></a></text>
-</g>
-<g class="Choice">
-<path d="M217.5 64h0"></path>
-<path d="M618 64h0"></path>
-<path d="M217.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g class="Skip">
-<path d="M237.5 44h360.5"></path>
-</g>
-<path d="M598 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M217.5 64h20"></path>
-<g class="OneOrMore">
-<path d="M237.5 64h0"></path>
-<path d="M598 64h0"></path>
-<path d="M247.5 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g class="Skip">
-<path d="M247.5 84h340.5"></path>
-</g>
-<path d="M588 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M237.5 64h10"></path>
-<path d="M588 64h10"></path>
-<g class="Sequence">
-<path d="M247.5 64h0"></path>
-<path d="M588 64h0"></path>
-<path d="M420.5 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M247.5 64h0"></path>
-<path d="M420.5 64h0"></path>
-<rect x="247.5" y="53" width="173" height="22"></rect>
-<text x="334" y="68"><a href="#main-rule-RelationalOperator"><tspan class="mainRule">RelationalOperator</tspan></a></text>
-</g>
-<path d="M430.5 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M440.5 64h0"></path>
-<path d="M588 64h0"></path>
-<rect x="440.5" y="53" width="147.5" height="22"></rect>
-<text x="514.25" y="68"><a href="#main-rule-UnaryExpression"><tspan class="mainRule">UnaryExpression</tspan></a></text>
-</g>
-</g>
-</g>
-<path d="M598 64h20"></path>
-</g>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M200 28h0"></path>
-<text x="125" y="33" class="comment">RelationalExpression</text>
-</g>
-</g>
-<path d="M628 64h10"></path>
-<path class="End" d="M 638 64 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-RelationalOperator"></a></p>
-<p><svg class="railroad-diagram" width="236" height="184" viewBox="0 0 236 184" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
-</g>
-<path d="M40 55h10"></path>
-<g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M186 55h0"></path>
-<rect x="50" y="36" width="136" height="128" rx="10" ry="10" class="group-box"></rect>
-<g class="Choice">
-<path d="M50 55h21"></path>
-<path d="M165 55h21"></path>
-<path d="M71 55h20"></path>
-<g class="terminal literal">
-<path d="M91 55h0"></path>
-<path d="M145 55h0"></path>
-<rect x="91" y="44" width="54" height="22" rx="10" ry="10"></rect>
-<text x="118" y="59">"&lt;="</text>
-</g>
-<path d="M145 55h20"></path>
-<path d="M71 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
-<g class="terminal literal">
-<path d="M91 85h0"></path>
-<path d="M145 85h0"></path>
-<rect x="91" y="74" width="54" height="22" rx="10" ry="10"></rect>
-<text x="118" y="89">"&gt;="</text>
-</g>
-<path d="M145 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
-<path d="M71 55a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
-<g class="terminal literal">
-<path d="M91 115h4.25"></path>
-<path d="M140.75 115h4.25"></path>
-<rect x="95.25" y="104" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="118" y="119">"&lt;"</text>
-</g>
-<path d="M145 115a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
-<path d="M71 55a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path>
-<g class="terminal literal">
-<path d="M91 145h4.25"></path>
-<path d="M140.75 145h4.25"></path>
-<rect x="95.25" y="134" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="118" y="149">"&gt;"</text>
-</g>
-<path d="M145 145a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M186 28h0"></path>
-<text x="118" y="33" class="comment">RelationalOperator</text>
-</g>
-</g>
-<path d="M186 55h10"></path>
-<path class="End" d="M 196 55 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-UnaryExpression"></a></p>
-<p><svg class="railroad-diagram" width="438" height="124" viewBox="0 0 438 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
-</g>
-<path d="M40 55h10"></path>
-<g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M388 55h0"></path>
-<rect x="50" y="36" width="338" height="68" rx="10" ry="10" class="group-box"></rect>
-<g class="Choice">
-<path d="M50 55h0"></path>
-<path d="M388 55h0"></path>
-<path d="M50 55h20"></path>
-<g class="non-terminal rule-ref">
-<path d="M70 55h66.75"></path>
-<path d="M301.25 55h66.75"></path>
-<rect x="136.75" y="44" width="164.5" height="22"></rect>
-<text x="219" y="59"><a href="#main-rule-PrimaryExpression"><tspan class="mainRule">PrimaryExpression</tspan></a></text>
-</g>
-<path d="M368 55h20"></path>
-<path d="M50 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
-<g class="Sequence">
-<path d="M70 85h0"></path>
-<path d="M368 85h0"></path>
-<path d="M200.5 85h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M70 85h0"></path>
-<path d="M200.5 85h0"></path>
-<rect x="70" y="74" width="130.5" height="22"></rect>
-<text x="135.25" y="89"><a href="#main-rule-UnaryOperator"><tspan class="mainRule">UnaryOperator</tspan></a></text>
-</g>
-<path d="M210.5 85h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M220.5 85h0"></path>
-<path d="M368 85h0"></path>
-<rect x="220.5" y="74" width="147.5" height="22"></rect>
-<text x="294.25" y="89"><a href="#main-rule-UnaryExpression"><tspan class="mainRule">UnaryExpression</tspan></a></text>
-</g>
-</g>
-<path d="M368 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M165 28h0"></path>
-<text x="107.5" y="33" class="comment">UnaryExpression</text>
-</g>
-</g>
-<path d="M388 55h10"></path>
-<path class="End" d="M 398 55 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-UnaryOperator"></a></p>
-<p><svg class="railroad-diagram" width="201" height="94" viewBox="0 0 201 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
-</g>
-<path d="M40 55h10"></path>
-<g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M151 55h0"></path>
-<rect x="50" y="36" width="101" height="38" rx="10" ry="10" class="group-box"></rect>
-<g class="terminal literal">
-<path d="M50 55h19.25"></path>
-<path d="M131.75 55h19.25"></path>
-<rect x="69.25" y="44" width="62.5" height="22" rx="10" ry="10"></rect>
-<text x="100.5" y="59">"not"</text>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M151 28h0"></path>
-<text x="100.5" y="33" class="comment">UnaryOperator</text>
-</g>
-</g>
-<path d="M151 55h10"></path>
-<path class="End" d="M 161 55 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
-<p><a id="main-rule-RegularExpressionLiteral"></a></p>
-<p><svg class="railroad-diagram" width="449.5" height="94" viewBox="0 0 449.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g transform="translate(.5 .5)">
-<g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
-</g>
-<path d="M40 55h10"></path>
-<g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M399.5 55h0"></path>
-<rect x="50" y="36" width="349.5" height="38" rx="10" ry="10" class="group-box"></rect>
-<g class="Sequence">
-<path d="M50 55h10"></path>
-<path d="M389.5 55h10"></path>
-<path d="M105.5 55h10"></path>
-<g class="terminal literal">
-<path d="M60 55h0"></path>
-<path d="M105.5 55h0"></path>
-<rect x="60" y="44" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="82.75" y="59">"/"</text>
-</g>
-<path d="M115.5 55h10"></path>
-<path d="M324 55h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M125.5 55h0"></path>
-<path d="M324 55h0"></path>
-<rect x="125.5" y="44" width="198.5" height="22"></rect>
-<text x="224.75" y="59">RegularExpressionBody</text>
-</g>
-<path d="M334 55h10"></path>
-<g class="terminal literal">
-<path d="M344 55h0"></path>
-<path d="M389.5 55h0"></path>
-<rect x="344" y="44" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="366.75" y="59">"/"</text>
-</g>
-</g>
-<g class="comment">
-<path d="M50 28h0"></path>
-<path d="M228 28h0"></path>
-<text x="139" y="33" class="comment">RegularExpressionLiteral</text>
-</g>
-</g>
-<path d="M399.5 55h10"></path>
-<path class="End" d="M 409.5 55 h 20 m 0 -10 v 20"></path>
-</g></svg></p>
-<style>.ruleId {
-  color: black;
-  font-weight: bold;
-}
-
-.mainRule {}
-
-.subRule {}
-
-.subRuleAnchor {
-  /* font-weight: bolder; */
-  /* fill: green; */
-  /* font-size: 110%;
-  font-style: normal */
-}
-
-.parent {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-/* , .railroad-diagram */
-.svg {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.test {
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* --------------------------------- svg styles ---------------------------------------- */
-
-/* tspan {
-  fill: blue
-} */
-
-svg.railroad-diagram {
-  /*background-color: hsl(30,20%,95%);*/
-  background-color: white;
-}
-
-.railroad-diagram path {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgba(0, 0, 0, 0);
-}
-
-text {
-  font: bold 12px monospace;
-  text-anchor: middle;
-  white-space: pre;
-}
-
-text.diagram-text {
-  font-size: 12px;
-}
-
-text.diagram-arrow {
-  font-size: 14px;
-}
-
-text.label {
-  text-anchor: start;
-}
-
-text.comment {
-  font: italic 12px monospace;
-}
-
-g.non-terminal text {
-  /*font-style: italic;*/
-}
-
-rect {
-  stroke-width: 1;
-  stroke: black;
-  fill: rgb(241, 241, 241);
-}
-
-rect.group-box {
-  stroke: gray;
-  stroke-dasharray: 3 3;
-  fill: none;
-}
-
-path.diagram-text {
-  stroke-width: 3;
-  stroke: black;
-  fill: white;
-  cursor: help;
-}
-
-.decision path {
-  fill: #ccc;
-}
-
-g.diagram-text:hover path.diagram-text {
-  fill: #eee;
-}
-
-text.repeat-text {
-  font: italic 12px monospace;
-  text-anchor: end;
-}
-
-.repeat-box>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}
-
-.delimiter>rect.group-box {
-  stroke: gray;
-  stroke-width: 2;
-  stroke-dasharray: 1 5;
-  fill: none;
-}</style>
-<p></p>
+<p>Basic expressions follow the usual logical and relational expression syntax of programming languages <a title="cheat sheet" href="../cheat-sheet.html#e-Basic Expressions"><img src="../pics/clarity--clipboard-solid-badged.svg"></a>. <em>apath</em> mostly reuses <em>javascript</em> syntax, adopted from the js-PEG-grammar with slight changes.</p>
+<p>Logical expressions use keywords <code>and</code>/<code>or</code>/<code>not</code> (instead of <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) and equality/relational expressions (<code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&gt;</code>) are defined as usual, see <a href="#compact-ebnf-grammar">compact grammar</a> for details. Also, as usual, the atomic parts of an expression are primary expressions, and they now contain paths:</p>
 <p><a id="main-rule-PrimaryExpression"></a></p>
 <p><svg class="railroad-diagram" width="556.5" height="296" viewBox="0 0 556.5 296" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -6960,104 +5357,121 @@ text.repeat-text {
 <h2 id="compact-ebnf-grammar">Compact EBNF Grammar</h2>
 <p><strong>Main</strong> EBNF rules in PEG (Parsing Expression Grammars) style. </p>
 <!-- begin ebnfGrammar -->
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">//-</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">//------------------------ Composite Steps ------------------------</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">//-</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nx">Path</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">CompositeStep</span><span class="w"> </span><span class="p">(</span><span class="s1">'.'</span><span class="w"> </span><span class="nx">CompositeStep</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nx">CompositeStep</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">Filter</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Subscript</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">BasicStep</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">Filter</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">BasicStep</span><span class="w"> </span><span class="s1">'?'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nx">Subscript</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nx">BasicStep</span><span class="w"> </span><span class="s1">'['</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">']'</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">//-</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1">//- ------------------------ Basic Steps ------------------------</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">//-</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nx">BasicStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nx">StepFunctionCall</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Children</span><span class="w"> </span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">Self</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">Construction</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nx">Property</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nx">Identifier</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">StringLiteral</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">RegularExpressionLiteral</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nx">Children</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="s1">'*'</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nx">Self</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="p">(</span><span class="s1">'self'</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nx">StepFunctionCall</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="nx">Identifier</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">ArgumentList</span><span class="o">?</span><span class="w"> </span><span class="s1">')'</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="nx">ArgumentList</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="c1">//-</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="c1">//- ------------------------ Basic Steps / Construction ------------------------</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="c1">//-</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="nx">Construction</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="nx">ObjectConstruction</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">ArrayConstruction</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="nx">ObjectConstruction</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"{"</span><span class="w"> </span><span class="nx">PropertyAssignmentList</span><span class="o">?</span><span class="w"> </span><span class="s2">"}"</span><span class="w"> </span>
-<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="nx">PropertyAssignmentList</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">PropertyAssignment</span><span class="w"> </span><span class="p">(</span><span class="s2">","</span><span class="w"> </span><span class="nx">PropertyAssignment</span><span class="p">)</span><span class="o">*</span><span class="w"> </span>
-<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="nx">PropertyAssignment</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">PropertyName</span><span class="w"> </span><span class="s2">":"</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="w"> </span>
-<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="nx">PropertyName</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">Identifier</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">StringLiteral</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="nx">ArrayConstruction</span><span class="w"> </span>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'['</span><span class="w"> </span><span class="nx">ElementList</span><span class="o">?</span><span class="w"> </span><span class="s1">']'</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="nx">ElementList</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="c1">//-</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="c1">//------------------------ Expressions ------------------------</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="c1">//-</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="nx">Expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SequencedExpression</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="nx">SequencedExpression</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="s1">'if'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="nx">Expression</span><span class="o">?</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="err">/ LogicalORExpression</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="nx">LogicalORExpression</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">LogicalANDExpression</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span><span class="p">(</span><span class="s1">'or'</span><span class="w"> </span><span class="nx">LogicalANDExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="nx">LogicalANDExpression</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">EqualityExpression</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">    </span><span class="p">(</span><span class="s1">'and'</span><span class="w"> </span><span class="nx">EqualityExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="nx">EqualityExpression</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">RelationalExpression</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="p">(</span><span class="nx">EqualityOperator</span><span class="w"> </span><span class="nx">RelationalExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="nx">EqualityOperator</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"=="</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"!="</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="nx">RelationalExpression</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">UnaryExpression</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="w">    </span><span class="p">(</span><span class="nx">RelationalOperator</span><span class="w"> </span><span class="nx">UnaryExpression</span><span class="p">)</span><span class="o">*</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="nx">RelationalOperator</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;="</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&gt;="</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&lt;"</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&gt;"</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="nx">UnaryExpression</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">PrimaryExpression</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">UnaryOperator</span><span class="w"> </span><span class="nx">UnaryExpression</span><span class="w"> </span>
-<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="nx">UnaryOperator</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span>
-<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a><span class="w">  </span><span class="s2">"not"</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="nx">PrimaryExpression</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">Literal</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">Path</span>
-</code></pre></div>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">//-</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">//------------------------ Composite Steps ------------------------</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">//-</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nx">Path</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nx">CompositeStep</span><span class="w"> </span><span class="p">(</span><span class="s1">'.'</span><span class="w"> </span><span class="nx">CompositeStep</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nx">CompositeStep</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nx">Filter</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Subscript</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">BasicStep</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">Filter</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nx">BasicStep</span><span class="w"> </span><span class="s1">'?'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nx">Subscript</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nx">BasicStep</span><span class="w"> </span><span class="s1">'['</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">']'</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">//-</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1">//- ------------------------ Basic Steps ------------------------</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">//-</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nx">BasicStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nx">StepFunctionCall</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Property</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">Children</span><span class="w"> </span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">Self</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">Construction</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="nx">Property</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nx">Identifier</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">StringLiteral</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">RegularExpressionLiteral</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nx">Children</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="s1">'*'</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="nx">Self</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="p">(</span><span class="s1">'self'</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s1">'_'</span><span class="p">)</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nx">StepFunctionCall</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="nx">Identifier</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">ArgumentList</span><span class="o">?</span><span class="w"> </span><span class="s1">')'</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="nx">ArgumentList</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="c1">//-</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="c1">//- ------------------------ Basic Steps / Construction ------------------------</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="c1">//-</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="nx">Construction</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="nx">ObjectConstruction</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="nx">ArrayConstruction</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="nx">ObjectConstruction</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"{"</span><span class="w"> </span><span class="nx">PropertyAssignmentList</span><span class="o">?</span><span class="w"> </span><span class="s2">"}"</span><span class="w"> </span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="nx">PropertyAssignmentList</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">PropertyAssignment</span><span class="w"> </span><span class="p">(</span><span class="s2">","</span><span class="w"> </span><span class="nx">PropertyAssignment</span><span class="p">)</span><span class="o">*</span><span class="w"> </span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="nx">PropertyAssignment</span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">PropertyName</span><span class="w"> </span><span class="s2">":"</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="w"> </span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="nx">PropertyName</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">Identifier</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">StringLiteral</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="nx">ArrayConstruction</span><span class="w"> </span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'['</span><span class="w"> </span><span class="nx">ElementList</span><span class="o">?</span><span class="w"> </span><span class="s1">']'</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a><span class="nx">ElementList</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a><span class="c1">//-</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="c1">//------------------------ Expressions ------------------------</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="c1">//-</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="nx">Expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SequencedExpression</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a><span class="nx">SequencedExpression</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a><span class="w">    </span><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="p">(</span><span class="s1">','</span><span class="w"> </span><span class="nx">ConditionalExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="w">    </span><span class="s1">'if'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="nx">Expression</span><span class="o">?</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="err">/ LogicalORExpression</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a><span class="nx">LogicalORExpression</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">LogicalANDExpression</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a><span class="w">    </span><span class="p">(</span><span class="s1">'or'</span><span class="w"> </span><span class="nx">LogicalANDExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a><span class="nx">LogicalANDExpression</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">EqualityExpression</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a><span class="w">    </span><span class="p">(</span><span class="s1">'and'</span><span class="w"> </span><span class="nx">EqualityExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a><span class="nx">EqualityExpression</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">RelationalExpression</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">    </span><span class="p">(</span><span class="nx">EqualityOperator</span><span class="w"> </span><span class="nx">RelationalExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="nx">EqualityOperator</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"=="</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"!="</span>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="nx">RelationalExpression</span>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">AdditiveExpression</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a><span class="w">    </span><span class="p">(</span><span class="nx">RelationalOperator</span><span class="w"> </span><span class="nx">AdditiveExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a><span class="nx">RelationalOperator</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;="</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&gt;="</span>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&lt;"</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"&gt;"</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a><span class="nx">AdditiveExpression</span>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">MultiplicativeExpression</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a><span class="w">    </span><span class="p">(</span><span class="nx">AdditiveOperator</span><span class="w"> </span><span class="nx">MultiplicativeExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a><span class="nx">AdditiveOperator</span>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"+"</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"-"</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a><span class="nx">MultiplicativeExpression</span>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">ExponentiationExpression</span>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a><span class="w">    </span><span class="p">(</span><span class="nx">MultiplicativeOperator</span><span class="w"> </span><span class="nx">ExponentiationExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a><span class="nx">MultiplicativeOperator</span>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"*"</span>
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"/"</span>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"%"</span>
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a><span class="nx">ExponentiationExpression</span>
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">UnaryExpression</span>
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a><span class="w">    </span><span class="p">(</span><span class="s2">"**"</span><span class="w"> </span><span class="nx">ExponentiationExpression</span><span class="p">)</span><span class="o">*</span>
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a><span class="nx">UnaryExpression</span>
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">PrimaryExpression</span>
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">UnaryOperator</span><span class="w"> </span><span class="nx">UnaryExpression</span><span class="w"> </span>
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a><span class="nx">UnaryOperator</span>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"+"</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"-"</span>
+</span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="s2">"not"</span>
+</span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a><span class="nx">PrimaryExpression</span>
+</span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">Literal</span>
+</span><span id="__span-0-106"><a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a><span class="w">  </span><span class="o">/</span><span class="w"> </span><span class="nx">Path</span>
+</span></code></pre></div>
 <!-- end ebnfGrammar -->
 
 <!-- [^3]: Compact case chains are comparable with conditionals in other functional languages (without the *else* keyword). For instance, a chain could be written as
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="nx">B</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">C</span><span class="p">)</span><span class="w"> </span><span class="nx">D</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">...</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nx">E</span>
-</code></pre></div>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="nx">B</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">C</span><span class="p">)</span><span class="w"> </span><span class="nx">D</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">...</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nx">E</span>
+</span></code></pre></div>
 For complex parts, parsing unambiguousness, and better readability you can use parenthesized expressions, e. g., `#!javascript if (A) (a, b) (c + 1)`. Only very simple ones could skip them. -->
 
 <div class="footnote">
@@ -7067,13 +5481,13 @@ For complex parts, parsing unambiguousness, and better readability you can use p
 <p>non-Terminals are hyper-linked if defined here.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:cseq">
-<p>Other path languages allow sequences with more than one element, which are automatically resolved to an array. We omit this functionality for clarity. If this behavior is intended, the right hand side can simply use the array constructor <code class="highlight"><span class="p">[...]</span></code>.&nbsp;<a class="footnote-backref" href="#fnref:cseq" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>Other path languages allow sequences with more than one element, which are automatically resolved to an array. We omit this functionality for clarity. If this behavior is intended, the right-hand side can simply use the array constructor <code class="language-javascript highlight"><span class="p">[...]</span></code>.&nbsp;<a class="footnote-backref" href="#fnref:cseq" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 <li id="fn:2">
-<p>By this an extension of objects can be easily done, e. g., the expression pattern <code class="highlight"><span class="p">{</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">...}</span></code> extends the context node (<code>self</code>) by subsequent assignments. Rem.: Future versions of <em>apath</em> will support paths at the left hand side of assignments such that deep assignments can be easily defined.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
+<p>By this an extension of objects can be easily done, e. g., the expression pattern <code class="language-javascript highlight"><span class="p">{</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">...}</span></code> extends the context node (<code>self</code>) by subsequent assignments. Rem.: Future versions of <em>apath</em> will support paths at the left hand side of assignments such that deep assignments can be easily defined.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
 </li>
 <li id="fn:3">
-<p>As in some other functional languages conditionals are without the <em>else</em> keyword. For complex parts, parsing unambiguousness, and better readability you can use parenthesized expressions, e. g., <code class="highlight"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span></code>. Only very simple ones could skip them.&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
+<p>As in some other functional languages conditionals are without the <em>else</em> keyword. For complex parts, parsing unambiguousness, and better readability you can use parenthesized expressions, e. g., <code class="language-javascript highlight"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span></code>. Only very simple ones could skip them.&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -7133,7 +5547,7 @@ For complex parts, parsing unambiguousness, and better readability you can use p
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>

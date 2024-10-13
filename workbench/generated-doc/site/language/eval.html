@@ -759,17 +759,17 @@
 
 <h1 id="evaluation">Evaluation</h1>
 <h2 id="boolean-evaluation">Boolean Evaluation</h2>
-<p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a sequence of nodes it is necessary to precisely define its evaluation to an boolean value.</p>
+<p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a sequence of nodes, it is necessary to precisely define its evaluation to an boolean value.</p>
 <p>The boolean function <a id='def-test'><strong>test</strong></a> maps sequence <span class="arithmatex">\(S\)</span> to a boolean value:</p>
 <ul>
-<li>if <span class="arithmatex">\(S\)</span> is an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a> the boolean value is <strong>false</strong></li>
+<li>if <span class="arithmatex">\(S\)</span> is an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>, the boolean value is <strong>false</strong></li>
 <li>if <span class="arithmatex">\(S\)</span> is a <a href="../language/preliminaries.html#def-singleton">singleton</a> value <span class="arithmatex">\(e\)</span> and<ul>
-<li><span class="arithmatex">\(e\)</span> of type <em>boolean</em> then the boolean value is <span class="arithmatex">\(e\)</span>
+<li><span class="arithmatex">\(e\)</span> of type <em>boolean</em>, then the boolean value is <span class="arithmatex">\(e\)</span>
 <!-- - <span class="arithmatex">\(e\)</span> of type *string* with length 0 then the boolean value is **false** --></li>
 <li>otherwise the boolean value is <strong>true</strong></li>
 </ul>
 </li>
-<li>if <span class="arithmatex">\(S\)</span> is a sequence with more than one element the boolean value is <strong>true</strong></li>
+<li>if <span class="arithmatex">\(S\)</span> is a sequence with more than one element, the boolean value is <strong>true</strong></li>
 </ul>
 <p>!TODO rem on strings and null</p>
 <h2 id="processing-table">Processing Table</h2>
@@ -831,7 +831,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>

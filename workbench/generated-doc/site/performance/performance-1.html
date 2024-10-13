@@ -756,10 +756,11 @@
 
 <h1 id="_1"></h1>
 <h2 id="techniques">Techniques</h2>
-<p>Of coarse, a complex selection and transformation language will ever result in additional evaluation time in contrast to writing raw code in the host language. Our target is, at least, to reach an evaluation performance factor of <span class="arithmatex">\(\leq 5\)</span> (in relation to raw code).<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> In general, performance is enhanced by</p>
+<p>Of course, a complex selection and transformation language will always result in additional evaluation time in contrast to writing raw code in the host language. Our target is, at least, to reach an evaluation performance factor of <span class="arithmatex">\(\leq 5\)</span> (in relation to raw code).<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> In general, performance is enhanced by</p>
 <ul>
 <li>taking the <strong>transpilation approach</strong> to avoid AST interpretation</li>
 <li><strong>not wrapping</strong> all evaluation nodes as sequences, instead passing through single objects </li>
+<li><strong>not materializing</strong> sequences (as arrays), instead only use of iterators  </li>
 <li><strong>inlining expressions</strong> to a great extent </li>
 </ul>
 <h2 id="benchmarks">Benchmarks</h2>
@@ -788,7 +789,7 @@
 <hr />
 <ol>
 <li id="fn:1">
-<p>For instance, first tests with simple paths like <code class="highlight"><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">.</span><span class="nx">c</span></code> yield a performance overhead of ~2.1 compared with pure js. This correlates with the typical range of 1.5 to 5 comparing functional and imperative languages like Haskell resp. C++.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>For instance, first tests with simple paths like <code class="language-javascript highlight"><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">.</span><span class="nx">c</span></code> yield a performance overhead of ~2.1 compared with pure js. This correlates with the typical range of 1.5 to 5 comparing functional and imperative languages like Haskell resp. C++.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -848,7 +849,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>

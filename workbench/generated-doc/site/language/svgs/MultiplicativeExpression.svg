@@ -1,4 +1,4 @@
-<svg class="railroad-diagram" width="729" height="112" viewBox="0 0 729 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="865" height="112" viewBox="0 0 865 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
 <path d="M20 54v20m0 -10h20"></path>
@@ -6,67 +6,67 @@
 <path d="M40 64h10"></path>
 <g class="Group rule">
 <path d="M50 64h0"></path>
-<path d="M679 64h0"></path>
-<rect x="50" y="36" width="629" height="56" rx="10" ry="10" class="group-box"></rect>
+<path d="M815 64h0"></path>
+<rect x="50" y="36" width="765" height="56" rx="10" ry="10" class="group-box"></rect>
 <g class="Sequence">
 <path d="M50 64h10"></path>
-<path d="M669 64h10"></path>
-<path d="M233 64h10"></path>
+<path d="M805 64h10"></path>
+<path d="M284 64h10"></path>
 <g class="non-terminal rule-ref">
 <path d="M60 64h0"></path>
-<path d="M233 64h0"></path>
-<rect x="60" y="53" width="173" height="22"></rect>
-<text x="146.5" y="68">AdditiveExpression</text>
+<path d="M284 64h0"></path>
+<rect x="60" y="53" width="224" height="22"></rect>
+<text x="172" y="68">ExponentiationExpression</text>
 </g>
 <g class="Choice">
-<path d="M243 64h0"></path>
-<path d="M669 64h0"></path>
-<path d="M243 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M294 64h0"></path>
+<path d="M805 64h0"></path>
+<path d="M294 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
 <g class="Skip">
-<path d="M263 44h386"></path>
+<path d="M314 44h471"></path>
 </g>
-<path d="M649 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M243 64h20"></path>
+<path d="M785 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M294 64h20"></path>
 <g class="OneOrMore">
-<path d="M263 64h0"></path>
-<path d="M649 64h0"></path>
-<path d="M273 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M314 64h0"></path>
+<path d="M785 64h0"></path>
+<path d="M324 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
 <g class="Skip">
-<path d="M273 84h366"></path>
+<path d="M324 84h451"></path>
 </g>
-<path d="M639 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M263 64h10"></path>
-<path d="M639 64h10"></path>
+<path d="M775 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M314 64h10"></path>
+<path d="M775 64h10"></path>
 <g class="Sequence">
-<path d="M273 64h0"></path>
-<path d="M639 64h0"></path>
-<path d="M446 64h10"></path>
+<path d="M324 64h0"></path>
+<path d="M775 64h0"></path>
+<path d="M531 64h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M273 64h0"></path>
-<path d="M446 64h0"></path>
-<rect x="273" y="53" width="173" height="22"></rect>
-<text x="359.5" y="68">RelationalOperator</text>
+<path d="M324 64h0"></path>
+<path d="M531 64h0"></path>
+<rect x="324" y="53" width="207" height="22"></rect>
+<text x="427.5" y="68">MultiplicativeOperator</text>
 </g>
-<path d="M456 64h10"></path>
+<path d="M541 64h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M466 64h0"></path>
-<path d="M639 64h0"></path>
-<rect x="466" y="53" width="173" height="22"></rect>
-<text x="552.5" y="68">AdditiveExpression</text>
+<path d="M551 64h0"></path>
+<path d="M775 64h0"></path>
+<rect x="551" y="53" width="224" height="22"></rect>
+<text x="663" y="68">ExponentiationExpression</text>
 </g>
 </g>
 </g>
-<path d="M649 64h20"></path>
+<path d="M785 64h20"></path>
 </g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M200 28h0"></path>
-<text x="125" y="33" class="comment">RelationalExpression</text>
+<path d="M228 28h0"></path>
+<text x="139" y="33" class="comment">MultiplicativeExpression</text>
 </g>
 </g>
-<path d="M679 64h10"></path>
-<path class="End" d="M 689 64 h 20 m 0 -10 v 20"></path>
+<path d="M815 64h10"></path>
+<path class="End" d="M 825 64 h 20 m 0 -10 v 20"></path>
 </g>
 <style>.ruleId {
   color: black;

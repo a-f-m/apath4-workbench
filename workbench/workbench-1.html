@@ -14,48 +14,21 @@
 
 <body>
     <div class="logo">
-        <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg' width="100" height="20"/></a><sup>beta</sup>
+        <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg'
+                width="100" height="20" /></a><sup>beta</sup>
     </div>
     <div class='header'>
         <fieldset>
-            <legend>walk-through</legend>
+            <legend>examples</legend>
             <div id='grp_layout'>
-                <select id="select_examples">
-                    <optgroup label="Basic Steps ...">
-                        <option>property</option>
-                        <option>property literal</option>
-                        <option>property regex</option>
-                        <option>children (array)</option>
-                        <option>children (object)</option>
-                        <option>self</option>
-                    </optgroup>
-                    <optgroup label="Basic Steps / Construction ...">
-                        <option>construction (object)</option>
-                        <option>... dynamic property</option>
-                        <option>... embedding</option>
-                        <option>construction (array)</option>
-                        <option>... sequences</option>
-                    </optgroup>
-                    <optgroup label="Composite Steps ...">
-                        <option>filter (predicate)</option>
-                        <option>subscript</option>
-                    </optgroup>
-                    <optgroup label="Comparison/Logical Expressions ...">
-                        <option>equality</option>
-                        <option>relational</option>
-                        <option>logical</option>
-                    </optgroup>
-                    <optgroup label="Composite Expressions ...">
-                        <option>sequenced</option>
-                        <option>conditional</option>
-                        <!-- <option>union</option> -->
-                    </optgroup>
-                    <optgroup label="Step Functions ...">
-                        <option>simple step function</option>
-                        <option>with sequences as parameters</option>
-                        <option>returning sequences</option>
-                        <!-- <option>step function w/ iteration</option> -->
-                    </optgroup>
+                <select title="topics (Ctrl+F5)" id="select_topics">
+                    <option id="topic-basic" value="data-dyn.js">basic</option>
+                    <option id="topic-peter" value="custom-data/data-dyn-peter.js" hidden>peter's</option>
+                    <option id="topic-test" value="data-dyn.js---" hidden>...</option>
+                </select>
+                <span>example</span>
+                <select title="example (Ctrl+F6)" id="select_examples">
+                    <!-- will be filled at runtime -->
                 </select>
             </div>
             <!-- <label for="select_examples">: examples</label> -->
@@ -63,27 +36,32 @@
         <fieldset>
             <legend>widgets</legend>
             <div id='grp_layout'>
-                <span title='dark editors'><label><input id='toggle_dark' type='checkbox'
-                            />dark</label></span>
+                <span title='dark editors'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
                 <span class='button' hidden>
                     <input id='bnt_store_layout' type='button'
-                        title='stores widgets in browser storage. it will be restored on page loading' value='store**' />
+                        title='stores widgets in browser storage. it will be restored on page loading'
+                        value='store**' />
                 </span>
                 <span class='button' hidden>
-                    <input id='bnt_fit' type='button' title='fitting widgets' value='fit'  />
+                    <input id='bnt_restore_layout' type='button' title='restores ' value='restore**' />
                 </span>
-                <span title='fitting widgets on window resize' hidden><label><input id='toggle_fit' type='checkbox' 
-                     />live fit</label></span>
-    </div>
+                <span class='button' hidden>
+                    <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
+                </span>
+                <span title='fitting widgets on window resize' hidden><label><input id='toggle_fit'
+                            type='checkbox' />live fit</label></span>
+            </div>
         </fieldset>
         <fieldset>
             <legend>control</legend>
             <div>
                 <span class='button'>
-                    <input id='bnt_eval_apth' type='button' title='evaluation of apath expression' value='eval' />
+                    <input id='bnt_eval_apth' type='button' title='evaluation of apath expression (Ctrl+E)' value='eval' />
                 </span>
-                <span title='evaluation on change'><label><input id='toggle_live_eval' type='checkbox' />live eval</label></span>
-                <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict failure</label></span>
+                <span title='evaluation on change (Ctrl+Numpad0)'><label><input id='toggle_live_eval' type='checkbox' />live
+                        eval</label></span>
+                <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
+                        failure</label></span>
                 <!-- <div class='txt_file_url'>
                     <span>
                         default step function file url (must be absolute!): <input type="text" id="txt_default_step_funcs"
@@ -105,10 +83,11 @@
                         value='AST' />
                 </span>
                 <span class='button' hidden>
-                    <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**'  />
+                    <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it)' value='grammar' />
+                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it)'
+                        value='grammar' />
                 </span>
                 <span class='button'>
                     <input id='bnt_cheat_sheet' type='button' title='cheat sheet' value='cheat-sheet' />
@@ -122,20 +101,20 @@
     </div>
     <div class='main'>
         <div id='widget_input' class='widget' style='z-index: 101;'>
-            <div class='widget-header'>json input</div>
+            <div class='widget-header'><span title="Ctrl+Numpad1">json input</span></div>
             <div id='monaco_input' class='monaco contentPane'></div>
             <!-- <div class='widget-footer'>lalala</div> -->
         </div>
         <div id='widget_apath' class='widget' style='z-index: 102;'>
-            <div class='widget-header'>apath expression</div>
+            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression</span></div>
             <div id='monaco_apath' class='monaco contentPane'></div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
-            <div class='widget-header'>result</div>
+            <div class='widget-header'><span title="Ctrl+Numpad4">result</span></div>
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
-            <div class='widget-header'>js step function</div>
+            <div class='widget-header'><span title="Ctrl+Numpad3">js step function</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
     </div>
@@ -143,7 +122,14 @@
     <script src='./widgets.js'></script>
     <script src='./bundle.js'></script>
     <script src='./util.js'></script>
+    <script src='./data-dyn.js'></script>
     <script src='./data.js'></script>
+    <!-- <script>
+        const params = new URLSearchParams(window.location.search)
+        let exa_set = params.get('exa-set')
+
+        fetch_example_set(exa_set) // ->util.js
+    </script> -->
     <script src='./main_w.js'></script>
     <script>
     </script>

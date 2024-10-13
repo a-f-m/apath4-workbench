@@ -24,41 +24,52 @@ function to_top(e) {
     }
 }
 
-//deferred
-// $(function () {
-//     $('.widget')
-//         .draggable() // init
-//         .draggable('disable')
-//         .draggable('option', 'snap', true)
-//         .draggable('option', 'snapTolerance', 5)
-//         .draggable('option', 'distance', 5)
-//         .draggable('option', 'delay', 100)
-//         .draggable('option', 'grid', [5, 5])
-//         .draggable('option', 'opacity', 0.5)
-//         .on('mousedown', function () {
-//             to_top($(this))
-//         })
-//     $('.widget').resizable({grid: [ 5, 5 ]})
+// --------------------------------------- comment out if no drag etc ----------------------------------
+$(function () {
+    $('.widget')
+        .draggable() // init
+        .draggable('disable')
+        .draggable('option', 'snap', true)
+        .draggable('option', 'snapTolerance', 5)
+        .draggable('option', 'distance', 5)
+        .draggable('option', 'delay', 100)
+        .draggable('option', 'grid', [5, 5])
+        .draggable('option', 'opacity', 0.5)
+        .on('mousedown', function () {
+            to_top($(this))
+        })
+    $('.widget').resizable({grid: [ 5, 5 ]})
 
-// })
+})
 
-// var dragging = false
-// $('.widget-header').on('mousedown', function () {
-//     $('.widget').draggable('enable')
-//     $(this).css('cursor', 'grabbing')
-//     dragging = true
-// }).on('mouseup', function () {
-//     $('.widget').draggable('disable')
-//     $(this).css('cursor', 'grab')
-//     dragging = false
+var dragging = false
+$('.widget-header').on('mousedown', function () {
+    $('.widget').draggable('enable')
+    $(this).css('cursor', 'grabbing')
+    dragging = true
+}).on('mouseup', function () {
+    $('.widget').draggable('disable')
+    $(this).css('cursor', 'grab')
+    dragging = false
 
-// }).on('mouseenter', function () {
-//     if (!dragging) $(this).css('cursor', 'grab')
-// })
+}).on('mouseenter', function () {
+    if (!dragging) $(this).css('cursor', 'grab')
+})
 
-// $('body').on('mousemove', function () {
-//     $(this).css('cursor', dragging ? 'grabbing' : 'auto')
-// })
+$('body').on('mousemove', function () {
+    $(this).css('cursor', dragging ? 'grabbing' : 'auto')
+})
+
+var widgetMousedown = false
+$('.widget').on('mousedown', function () {
+    widgetMousedown = true
+}).on('mouseup', function () {
+    widgetMousedown = false
+})
+
+
+// --------------------------------------- ----- ----------------------------------
+
 
 function fit(_, force) {
 

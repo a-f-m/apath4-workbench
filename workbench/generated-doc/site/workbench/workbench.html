@@ -756,30 +756,33 @@
 
 <h1 id="_1"></h1>
 <h2 id="main-window">Main Window</h2>
-<!-- four (resizable and draggable) -->
-<p>The workbench <a href="../../../workbench-1.html"><img src="../pics/mdi--application-cog.svg" width="18px"></a> can be used to interactively explore <em>apath</em> language constructs. As seen below it consists of a control panel and widgets for</p>
+<p>The workbench (see <a href="../../../workbench-1.html"><img src="../pics/mdi--application-cog.svg" width="18px"></a> ) can be used to interactively explore <em>apath</em> language constructs. As seen below, it consists of a control panel and four (resizable and draggable) widgets for</p>
 <ul>
 <li>json input</li>
 <li>(optional) js step function</li>
 <li><em>apath</em> expression</li>
-<li>result of evaluation</li>
+<li>result of the evaluation</li>
 </ul>
 <figure>
-  <img alt="workbench main window" src="../pics/wb-1.png" width="600" />
+  <a href="../../../workbench-1.html"><img alt="workbench main window" src="../pics/wb-1.png" width="800" /></a>
   <figcaption>workbench main window</figcaption>
 </figure>
-<p>Initially the first example of the <code>walk-through</code> is shown (see <a href="#control-panel">control panel</a>). All <a href="../cheat-sheet.html">cheat-sheet</a> examples are taken from the <code>walk-through</code>.</p>
+<p>Initially, the first example of the choosen topic is shown (see <a href="#control-panel">control panel</a>). All <a href="../cheat-sheet.html">cheat-sheet</a> examples are taken from the topic <code>basic</code>.</p>
 <h2 id="control-panel">Control Panel</h2>
 <p>The control panel offers various exploration and information functions.</p>
 <figure>
-  <img alt="control panel" src="../pics/wb-ctrl-1.png" width="600" />
+  <img alt="control panel" src="../pics/wb-ctrl-1.png" width="800" />
   <figcaption>control panel</figcaption>
 </figure>
 <!-- - `fit` widgets in main window
 - `live fit` -->
 
 <ul>
-<li><code>walk-through</code>: step by step examples through essential language elements</li>
+<li><code>examples</code>: step by step examples<ul>
+<li>categorized by topic (e. g. <code>basic</code>)</li>
+<li>example per topic (e. g. <code>property</code>)</li>
+</ul>
+</li>
 <li><code>widgets</code><ul>
 <li><code>dark</code> mode for the widgets</li>
 </ul>
@@ -790,13 +793,13 @@
 <li><code>strict failure</code>: strict failure instead of 'no solutions'<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</li>
 </ul>
 </li>
-<li><code>info</code>: opens the documentation (<code>doc</code>), the abstract syntax tree (<code>AST</code>) of the <em>apath</em> expression, the description by <code>grammar</code>, or the <code>cheat-sheet</code> in a separate browser window. The grammar and cheat-sheet part corresponds to the selected <code>walk-through</code>-example</li>
+<li><code>info</code>: opens the documentation (<code>doc</code>), the abstract syntax tree (<code>AST</code>) of the <em>apath</em> expression, the description by <code>grammar</code>, or the <code>cheat-sheet</code> in a separate browser window. The grammar and cheat-sheet parts correspond to the selected <code>basic</code> example</li>
 </ul>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>When the evaluation of a path has no solution, the reason for that could be an erroneous path definition. For instance, for the input <code class="highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">}</span></code> the path <code class="highlight"><span class="nx">a</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span></code> yields no solution. If <code>strict failure</code> is enabled the error message <code>ApathError: error during evaluation (cause: ExecutionError: object must be an array (context: subscription))</code> is returned (future versions of <em>apath</em> will return the location). This is only useful in the testing phase.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>When the evaluation of a path has no solution, the reason for that could be an erroneous path definition. For instance, for the input <code class="language-javascript highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">}</span></code> the property selection <code class="language-javascript highlight"><span class="nx">aa</span></code> yields no solution. If <code>strict failure</code> is enabled an error message is returned. This is only useful in the testing phase.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -856,7 +859,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top", "navigation.expand", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>

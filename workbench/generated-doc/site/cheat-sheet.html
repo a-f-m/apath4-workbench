@@ -143,6 +143,7 @@
 <thead>
 <tr>
 <th>category</th>
+<th>remark</th>
 <th>keyword/<br>symbol<br>(-pattern) [<a href="#1">1</a>]</th>
 <th>apath</th>
 <th>input [<a href="#1">1</a>]</th>
@@ -153,7 +154,8 @@
 <tbody>
 <tr>
 <td>_________________</td>
-<td>_________________</td>
+<td>____________________</td>
+<td>____________________</td>
 <td>_______________________________________</td>
 <td>________________________________</td>
 <td>________________</td>
@@ -166,9 +168,11 @@
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><span id="e-property">property</span></td>
+<td></td>
 <td>&lt;id&gt;</td>
 <td><code>a.b</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
@@ -177,6 +181,7 @@
 </tr>
 <tr>
 <td><span id="e-property literal">property literal</span></td>
+<td></td>
 <td><strong>'</strong> ... <strong>'</strong></td>
 <td><code>a.'#b1'</code></td>
 <td>{ &quot;a&quot;: { &quot;#b1&quot;: 1, &quot;#b2&quot;: 2 } }</td>
@@ -185,6 +190,7 @@
 </tr>
 <tr>
 <td><span id="e-property regex">property regex</span></td>
+<td></td>
 <td><strong>/</strong> ... <strong>/</strong></td>
 <td><code>a./#.*/</code></td>
 <td></td>
@@ -193,6 +199,7 @@
 </tr>
 <tr>
 <td><span id="e-children (array)">children (array)</span></td>
+<td></td>
 <td><strong>*</strong></td>
 <td><code>a.*</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
@@ -202,6 +209,7 @@
 <tr>
 <td><span id="e-children (object)">children (object)</span></td>
 <td></td>
+<td></td>
 <td><code>a.*</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>1 , 2</td>
@@ -209,6 +217,7 @@
 </tr>
 <tr>
 <td><span id="e-self">self</span></td>
+<td></td>
 <td><strong>_</strong> | <strong>self</strong></td>
 <td><code>a._</code></td>
 <td></td>
@@ -222,9 +231,11 @@
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><span id="e-construction (object)">construction (object)</span></td>
+<td></td>
 <td><strong>{</strong> ... <strong>}</strong></td>
 <td><code>a.{ x: 2, '#1': b }</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: &quot;y&quot; } }</td>
@@ -234,6 +245,7 @@
 <tr>
 <td><span id="e-... dynamic property">... dynamic property</span></td>
 <td></td>
+<td></td>
 <td><code>a.{ (c): b }</code></td>
 <td></td>
 <td>{ &quot;y&quot;: 1 }</td>
@@ -242,6 +254,7 @@
 <tr>
 <td><span id="e-... embedding">... embedding</span></td>
 <td></td>
+<td></td>
 <td><code>a.{ _, c: 'z' }</code></td>
 <td></td>
 <td>{ &quot;b&quot;: 1, &quot;c&quot;: &quot;z&quot; }</td>
@@ -249,6 +262,7 @@
 </tr>
 <tr>
 <td><span id="e-construction (array)">construction (array)</span></td>
+<td></td>
 <td><strong>[</strong> ... <strong>]</strong></td>
 <td><code>a.[ 3, b ]</code></td>
 <td></td>
@@ -257,6 +271,7 @@
 </tr>
 <tr>
 <td><span id="e-... sequences">... sequences</span></td>
+<td></td>
 <td></td>
 <td><code>a.[ 1, b.*, 4 ]</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: [2, 3] } }</td>
@@ -270,9 +285,11 @@
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><span id="e-filter (predicate)">filter (predicate)</span></td>
+<td></td>
 <td>... <strong>?(</strong> ... <strong>)</strong></td>
 <td><code>*?(a==1)</code></td>
 <td>[{&quot;a&quot;: 1}, {&quot;a&quot;: 2}]</td>
@@ -281,6 +298,7 @@
 </tr>
 <tr>
 <td><span id="e-subscript">subscript</span></td>
+<td></td>
 <td>... <strong>[</strong> ... <strong>]</strong></td>
 <td><code>a[1]</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
@@ -288,7 +306,8 @@
 <td><a href="language/grammar.html#main-rule-Subscript"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=subscript"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Comparison/Logical Expressions"><em><strong>Comparison/Logical Expressions</strong></em></span></td>
+<td><span id="e-Basic Expressions"><em><strong>Basic Expressions</strong></em></span></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -297,27 +316,39 @@
 </tr>
 <tr>
 <td><span id="e-equality">equality</span></td>
+<td></td>
 <td><strong>==, !=</strong></td>
 <td><code>a.(b == c)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>false</td>
-<td><a href="language/grammar.html#main-rule-EqualityExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=equality"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#basic-expressions"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=equality"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-relational">relational</span></td>
+<td></td>
 <td><strong>&lt;, &gt;, &lt;=, &gt;=</strong></td>
 <td><code>a.(b &lt; c)</code></td>
 <td></td>
 <td>true</td>
-<td><a href="language/grammar.html#main-rule-RelationalExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=relational"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#basic-expressions"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=relational"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-logical">logical</span></td>
+<td></td>
 <td><strong>and, or, not</strong></td>
 <td><code>a.(b == c or not c &lt; 2)</code></td>
 <td></td>
 <td>true</td>
-<td><a href="language/grammar.html#main-rule-LogicalORExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=logical"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#basic-expressions"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=logical"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+</tr>
+<tr>
+<td><span id="e-arithmetic">arithmetic</span></td>
+<td></td>
+<td><strong>+, -, *, /, %</strong></td>
+<td><code>a.(b + 3 * -c)</code></td>
+<td></td>
+<td>-5</td>
+<td><a href="language/grammar.html#basic-expressions"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=arithmetic"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-Composite Expressions"><em><strong>Composite Expressions</strong></em></span></td>
@@ -326,9 +357,11 @@
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td><span id="e-sequenced">sequenced</span></td>
+<td></td>
 <td>... <strong>,</strong> ...</td>
 <td><code>a.(b, c)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
@@ -337,6 +370,7 @@
 </tr>
 <tr>
 <td><span id="e-conditional">conditional</span></td>
+<td></td>
 <td><strong>if</strong> ...</td>
 <td><code>a.(if (b == 1) b c)</code></td>
 <td></td>
@@ -350,6 +384,7 @@
 <thead>
 <tr>
 <th>category</th>
+<th>remark</th>
 <th>keyword/<br>symbol<br>(-pattern) [<a href="#1">1</a>]</th>
 <th>apath</th>
 <th>input [<a href="#1">1</a>]</th>
@@ -362,6 +397,7 @@
 <tr>
 <td>_________________</td>
 <td>_____________</td>
+<td>_____________</td>
 <td>_____________________</td>
 <td>___________________</td>
 <td>_</td>
@@ -369,7 +405,18 @@
 <td>________</td>
 </tr>
 <tr>
+<td><span id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td><span id="e-simple step function">simple step function</span></td>
+<td></td>
 <td>&lt;id&gt;<strong>(</strong> ... <strong>)</strong></td>
 <td><code>a.b.add(1)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
@@ -380,6 +427,7 @@
 <tr>
 <td><span id="e-with sequences as parameters">with sequences as parameters</span></td>
 <td></td>
+<td></td>
 <td><code>sum(a.*)</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td>6</td>
@@ -388,6 +436,7 @@
 </tr>
 <tr>
 <td><span id="e-returning sequences">returning sequences</span></td>
+<td></td>
 <td></td>
 <td><code>a.b.to(3)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
