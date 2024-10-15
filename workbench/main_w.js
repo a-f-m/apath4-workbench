@@ -11,7 +11,8 @@ function set_data(d) {
 function restore() {
 
     const d = restore_data('_default')
-    if (d) set_data(d)
+    // if (d) set_data(d)
+    if (d) set_geom(d.geom)
 }
 
 function store() {
@@ -30,36 +31,27 @@ function store() {
 
 // ########################################### control ###################################################
 
+var use_server = true
+
 async function eval_(input, apath, sfuncs) {
 
     // const xxx = import('a.b')
 
-    const apart = window.Apart_
-    const xxx = apart.isApathIterable(1)
-    const apath_ = new window.apath_.Apath()
-
-    if (sfuncs) {
-
-        const funcs = eval(sfuncs)
-        for (const func of funcs) {
-            apath_.step_func(func)
-        }
+    if (!use_server) {
+        return window.apath_func_utils_.evaluate(input, apath, sfuncs, $('#toggle_strict_failure').prop('checked'))
+    } else {
+        const data = JSON.stringify({input, apath, sfuncs})
+        $.ajax({
+            url: `eval?data=${data}`, 
+            async: false,
+            // contentType: 'text/javascript',
+            dataType: 'text',
+            success: function (result) {
+                console.log(result)
+            }
+        })
+    
     }
-
-    const evaluator = apath_.transpile(apath, { strict_failure: $('#toggle_strict_failure').prop('checked') })
-
-    const res = evaluator.evaluate_json(input)
-
-    return { result: res, trp: evaluator.transpilat_text(), empty: apath_.empty_ast }
-}
-
-function format_results(results) {
-
-    let s = ''
-    for (const result of results) {
-        s += JSON.stringify(result, '...', 3) + '\n------\n'
-    }
-    return s
 }
 
 $('#bnt_eval_apth').on('click', async function () {
@@ -75,12 +67,11 @@ $('#bnt_eval_apth').on('click', async function () {
     try {
         const input = monaco_editors.input.getValue()
 
-        const e = await eval_(input, apath, `[ ${sfuncs} ]`)
+        const e = await eval_(input, apath, `${sfuncs}`)
         const results = e.result
         if (results === null) {
         } else {
-            const s = format_results(results)
-            result_editor.setValue(e.empty ? '' : s === '' ? '- no solutions found -' : s)
+            result_editor.setValue(e.empty_ast ? '' : results === '' ? '- no solutions found -' : results)
         }
 
     } catch (error) {
@@ -156,7 +147,7 @@ $('#bnt_trp').on('click', async function () {
     const input = monaco_editors.input.getValue()
     const apath = monaco_editors.apath.getValue()
     const sfuncs = monaco_editors.sfuncs.getValue().trim()
-    const trp = (await eval_(input, apath, `[ ${sfuncs} ]`)).trp
+    const trp = (await eval_(input, apath, `${sfuncs}`)).trp
 
     open_blob(trp, 'text/plain')
 })
@@ -223,7 +214,7 @@ $(function () {
         // console.log(event)
         const key = String.fromCharCode(event.which)
         // console.log('charkey: ' + key)
-        console.log('code: ' + event.code)
+        // console.log('code: ' + event.code)
         
         // if (last_key === 'ControlLeft' && event.code === 'Digit1') {
         //     console.log('hi')
@@ -326,6 +317,9 @@ require(['vs/editor/editor.main'], function () {
     
     let exa = params.get('exa')
     if (exa === null) exa = examples.first_example.value
+
+    use_server = params.get('use-server')
+    console.log(use_server)
 
     set_exa_select(exa)
 })

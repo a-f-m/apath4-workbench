@@ -39,11 +39,12 @@
                 <span title='dark editors'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
                 <span class='button' hidden>
                     <input id='bnt_store_layout' type='button'
-                        title='stores widgets in browser storage. it will be restored on page loading'
-                        value='store**' />
+                    title='stores layout of the widgets in browser storage (Ctrl+S)'
+                    value='store**' />
                 </span>
                 <span class='button' hidden>
-                    <input id='bnt_restore_layout' type='button' title='restores ' value='restore**' />
+                    <input id='bnt_restore_layout' type='button' title='restores layout of the widgets from browser storage (Ctrl+R)' value='restore**' />
+                    <span>-layout</span>
                 </span>
                 <span class='button' hidden>
                     <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
@@ -114,7 +115,7 @@
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
-            <div class='widget-header'><span title="Ctrl+Numpad3">js step function</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
     </div>
@@ -125,10 +126,7 @@
     <script src='./data-dyn.js'></script>
     <script src='./data.js'></script>
     <!-- <script>
-        const params = new URLSearchParams(window.location.search)
-        let exa_set = params.get('exa-set')
-
-        fetch_example_set(exa_set) // ->util.js
+        const params = new URLSearchParams(window.location....)
     </script> -->
     <script src='./main_w.js'></script>
     <script>

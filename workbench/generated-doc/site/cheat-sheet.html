@@ -390,7 +390,7 @@
 <th>input [<a href="#1">1</a>]</th>
 <th>result</th>
 <th>grammar/<br>workbench [<a href="#2">2</a>]</th>
-<th>step func</th>
+<th>step functions</th>
 </tr>
 </thead>
 <tbody>
@@ -422,7 +422,7 @@
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td>2</td>
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=simple step function"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
-<td>// 'ctx_node' (context node) is the object passed <br>// from the previous step - followed by parameters<br>function add(ctx_node, k) {<br>    return typeof ctx_node === 'number' &amp;&amp; typeof k === 'number' ?<br>            ctx_node + k : undefined<br>            // 'undefined' stops evaluation with no solution<br>}</td>
+<td>[<br>    // 'ctx_node' (context node) is the object passed <br>    // from the previous step - followed by parameters<br>    function add(ctx_node, k) {<br>        return typeof ctx_node === 'number' &amp;&amp; typeof k === 'number' ?<br>                ctx_node + k : undefined<br>                // 'undefined' stops evaluation with no solution<br>    }<br>]</td>
 </tr>
 <tr>
 <td><span id="e-with sequences as parameters">with sequences as parameters</span></td>
@@ -432,7 +432,7 @@
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
 <td>6</td>
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=with sequences as parameters"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
-<td>function sum(ctx_node, seq) {<br>    let sum = 0<br>    if (!apart.isApathIterable(seq)) return seq<br>    for (const x of seq) sum += x<br>    return sum<br>}</td>
+<td>[<br>    function sum(ctx_node, seq) {<br>        let sum = 0<br>        if (!apart.isApathIterable(seq)) return seq<br>        for (const x of seq) sum += x<br>        return sum<br>    }<br>]</td>
 </tr>
 <tr>
 <td><span id="e-returning sequences">returning sequences</span></td>
@@ -442,7 +442,7 @@
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
 <td>1 , 2 , 3</td>
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=returning sequences"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
-<td>// a sequence is returned by using a generator. in general an iterable<br>function* to(ctx_node, k) {<br>    for (let i = ctx_node; i &lt;= k; i++) yield i<br>}</td>
+<td>[<br>    // a sequence is returned by using a generator. in general an iterable<br>    function* to(ctx_node, k) {<br>        for (let i = ctx_node; i &lt;= k; i++) yield i<br>    }<br>]</td>
 </tr>
 </tbody>
 </table>

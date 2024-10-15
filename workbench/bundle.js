@@ -745,6 +745,65 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.evaluate = void 0;
+const apart_ = __importStar(require("../core/apart.js"));
+const apath_func_js_1 = require("./apath-func.js");
+function format_results(results) {
+    let s = '';
+    for (const result of results) {
+        s += JSON.stringify(result, null, 3) + '\n------\n';
+    }
+    return s;
+}
+/**
+ *
+ * @param input json string
+ * @param apath_txt apath text
+ * @param sfuncs array of step functions as a js string (will be called by 'eval')
+ * @param strict_failure strict failure
+ * @returns \{ result: string, trp: string, empty_ast: boolean } 'result': formatted result string, 'trp': the transpiled code, 'empty_ast': no ast produced (caused by empty 'apath')
+ */
+function evaluate(input, apath_txt, sfuncs, strict_failure = false) {
+    const apath = new apath_func_js_1.Apath();
+    if (sfuncs) {
+        // neccessary for 'eval':
+        var apart = apart_;
+        //
+        for (let func of eval(sfuncs))
+            apath.step_func(func);
+    }
+    const evaluator = apath.transpile(apath_txt, { strict_failure });
+    const res = evaluator.evaluate_json(input);
+    return { result: format_results(res), trp: evaluator.transpilat_text(), empty_ast: apath.empty_ast };
+}
+exports.evaluate = evaluate;
+
+},{"../core/apart.js":7,"./apath-func.js":5}],5:[function(require,module,exports){
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Evaluator = exports.Apath = void 0;
 const parser_js_1 = require("../core/parser.js");
 const transpiler_js_1 = require("../core/transpiler.js");
@@ -862,7 +921,7 @@ class Evaluator {
 }
 exports.Evaluator = Evaluator;
 
-},{"../core/adt.js":5,"../core/apart.js":6,"../core/errors_warnings.js":7,"../core/parser.js":8,"../core/step-func-man.js":9,"../core/transpiler.js":10}],5:[function(require,module,exports){
+},{"../core/adt.js":6,"../core/apart.js":7,"../core/errors_warnings.js":8,"../core/parser.js":9,"../core/step-func-man.js":10,"../core/transpiler.js":11}],6:[function(require,module,exports){
 "use strict";
 /**
  * adt (algebraic data type) for apath
@@ -966,7 +1025,7 @@ function tlist_to_array(l, type, a = []) {
 }
 exports.tlist_to_array = tlist_to_array;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 /**
  * run time module for transpiled js code
@@ -1268,7 +1327,7 @@ class DynApart {
             return y;
         }
         else {
-            return this.fail(func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison)`, undefined, true);
+            return this.fail(func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
         }
     }
     opt_it_apply(func_no, x, f) {
@@ -1330,7 +1389,7 @@ exports.DynApart = DynApart;
 // console.log('lal'.match('^lal$'))
 // console.log(new RegExp('a', 'g').test('lal'))
 
-},{"./utils.js":11}],7:[function(require,module,exports){
+},{"./utils.js":12}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApathError = exports.ExecutionError = exports.LoadError = exports.TranspilationError = exports.ParseError = void 0;
@@ -1388,7 +1447,7 @@ class ApathError extends Error {
 }
 exports.ApathError = ApathError;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 /**
  *
@@ -1431,7 +1490,7 @@ class Parser {
 }
 exports.Parser = Parser;
 
-},{"../peggy/apath-4-2.js":12,"./adt.js":5,"./errors_warnings.js":7}],9:[function(require,module,exports){
+},{"../peggy/apath-4-2.js":13,"./adt.js":6,"./errors_warnings.js":8}],10:[function(require,module,exports){
 "use strict";
 /**
  * manager for step funcs.
@@ -1465,7 +1524,7 @@ class StepFuncManager {
 }
 exports.StepFuncManager = StepFuncManager;
 
-},{"./errors_warnings.js":7,"./utils.js":11}],10:[function(require,module,exports){
+},{"./errors_warnings.js":8,"./utils.js":12}],11:[function(require,module,exports){
 "use strict";
 /**
  * transpilation module.
@@ -1711,7 +1770,8 @@ class Transpiler {
             case adt_js_1.Adt.UnaryArithmeticExpression: {
                 const tr = this.trans_rec(expr.e);
                 this.punch_func(expr, new_func_name, `
-                    return (${(0, adt_js_1.op_map)(expr.operator)} ${this.call(tr, 'x')})
+                    const v1 = dynart.force_primitive(${func_no}, ${this.call(tr, 'x')})
+                    return (${(0, adt_js_1.op_map)(expr.operator)} v1)
                 `);
                 return { snippet: new_func_name };
             }
@@ -1897,7 +1957,7 @@ class Transpiler {
 }
 exports.Transpiler = Transpiler;
 
-},{"./adt.js":5,"./errors_warnings.js":7,"./step-func-man.js":9,"./utils.js":11}],11:[function(require,module,exports){
+},{"./adt.js":6,"./errors_warnings.js":8,"./step-func-man.js":10,"./utils.js":12}],12:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -1988,7 +2048,7 @@ function trunc(s, n) {
 exports.trunc = trunc;
 ;
 
-},{"./errors_warnings.js":7,"fs":1,"path":2}],12:[function(require,module,exports){
+},{"./errors_warnings.js":8,"fs":1,"path":2}],13:[function(require,module,exports){
 "use strict";
 // @generated by Peggy 4.0.2.
 //
@@ -7140,17 +7200,19 @@ const peg$allowedStartRules = [
 ];
 exports.StartRules = peg$allowedStartRules;
 
-},{"../core/adt.js":5,"../core/apart.js":6}],13:[function(require,module,exports){
+},{"../core/adt.js":6,"../core/apart.js":7}],14:[function(require,module,exports){
 
 const Parser_ = require('../dist/src/core/parser.js')
 const Transpiler_ = require('../dist/src/core/transpiler.js')
 const Apart_ = require('../dist/src/core/apart.js')
 const Utils_ = require('../dist/src/core/utils.js')
 const apath_ = require('../dist/src/accessor/apath-func.js')
+const apath_func_utils_ = require('../dist/src/accessor/apath-func-utils.js')
 
 window.Parser__ = Parser_
 window.Transpiler__ = Transpiler_
 window.Apart_ = Apart_
 window.Utils_ = Utils_
 window.apath_ = apath_
-},{"../dist/src/accessor/apath-func.js":4,"../dist/src/core/apart.js":6,"../dist/src/core/parser.js":8,"../dist/src/core/transpiler.js":10,"../dist/src/core/utils.js":11}]},{},[13]);
+window.apath_func_utils_ = apath_func_utils_
+},{"../dist/src/accessor/apath-func-utils.js":4,"../dist/src/accessor/apath-func.js":5,"../dist/src/core/apart.js":7,"../dist/src/core/parser.js":9,"../dist/src/core/transpiler.js":11,"../dist/src/core/utils.js":12}]},{},[14]);

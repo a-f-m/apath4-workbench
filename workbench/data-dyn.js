@@ -128,25 +128,31 @@ array1:
     
 var sfuncs = {
 simple:
-`// 'ctx_node' (context node) is the object passed 
-// from the previous step - followed by parameters
-function add(ctx_node, k) {
-    return typeof ctx_node === 'number' && typeof k === 'number' ?
-            ctx_node + k : undefined
-            // 'undefined' stops evaluation with no solution
-}`,
+`[
+    // 'ctx_node' (context node) is the object passed 
+    // from the previous step - followed by parameters
+    function add(ctx_node, k) {
+        return typeof ctx_node === 'number' && typeof k === 'number' ?
+                ctx_node + k : undefined
+                // 'undefined' stops evaluation with no solution
+    }
+]`,
 seq_par:
-`function sum(ctx_node, seq) {
-    let sum = 0
-    if (!apart.isApathIterable(seq)) return seq
-    for (const x of seq) sum += x
-    return sum
-}`,
+`[
+    function sum(ctx_node, seq) {
+        let sum = 0
+        if (!apart.isApathIterable(seq)) return seq
+        for (const x of seq) sum += x
+        return sum
+    }
+]`,
 seq_return:
-`// a sequence is returned by using a generator. in general an iterable
-function* to(ctx_node, k) {
-    for (let i = ctx_node; i <= k; i++) yield i
-}`,
+`[
+    // a sequence is returned by using a generator. in general an iterable
+    function* to(ctx_node, k) {
+        for (let i = ctx_node; i <= k; i++) yield i
+    }
+]`,
 }
 
 // !!! attention: following header properties has to start with column 1 cause otherwise no correct cheat sheet is generated
@@ -369,7 +375,7 @@ var examples = {
 
 ### Javascript Step Functions (user defined)
 
-| category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step func |
+| category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step functions |
 | - | - | - | - | - | - | - | - |
 | _________________ | _____________ | _____________ | _____________________ | ___________________ | _ | _ | ________ |
 `        

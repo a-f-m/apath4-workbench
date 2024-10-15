@@ -124,13 +124,15 @@ simple:
     
 var sfuncs = {
 simple:
-`function sum(ctx_node, seq) {
-  let sum = 0
-  if (!apart.isApathIterable(seq)) return seq
-  // float rounding error not avoidable in js, function planned
-  for (const x of seq) sum += x
-  return sum
-}`
+`[
+  function sum(ctx_node, seq) {
+    let sum = 0
+    if (!apart.isApathIterable(seq)) return seq
+    // float rounding error not avoidable in js, function planned
+    for (const x of seq) sum += x
+    return sum
+  }
+]`
 }
     
     var examples = {
