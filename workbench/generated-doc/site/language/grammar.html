@@ -1557,7 +1557,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>A composite step is solely a basic step or its filtering or subscription (if it represents an array). <a title="cheat sheet" href="../cheat-sheet.html#e-Composite Steps"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<p>A composite step is solely a basic step or its filtering or subscription<sup id="fnref:subscr"><a class="footnote-ref" href="#fn:subscr">2</a></sup> (if it represents an array). <a title="cheat sheet" href="../cheat-sheet.html#e-Composite Steps"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
 <!-- Its [context node](#def-context node) is passed to the basic step. -->
 
 <h3 id="filter-subscript">Filter &amp; Subscript</h3>
@@ -4385,10 +4385,10 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>.<sup id="fnref:cseq"><a class="footnote-ref" href="#fn:cseq">2</a></sup> If it is empty, no assignment is performed. The property name can be at least an identifier or string -- we adopt the relaxed definition from <em>js</em> instead of JSON. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<p>As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>.<sup id="fnref:cseq"><a class="footnote-ref" href="#fn:cseq">3</a></sup> If it is empty, no assignment is performed. The property name can be at least an identifier or string -- we adopt the relaxed definition from <em>js</em> instead of JSON. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
 <!-- [^cseq]: If the sequence has more than one element, the value is not automatically an array as in other path languages. If this behavior is intended, the right-hand side can use the array constructor `#!javascript [...]`. -->
 <p>If a property name shall be dynamically created, a parenthesized expression has to be used. In this case, its evaluation must be a string. <a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
-<p>So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence are embedded in the constructed object, possibly overwriting previous properties.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup> <a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence are embedded in the constructed object, possibly overwriting previous properties.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">4</a></sup> <a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO remark on not enforce quotes -->
 
 <h4 id="arrays">Arrays</h4>
@@ -5061,7 +5061,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The conditional expression consists of the condition-part, then-part, and optional alternative<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. <a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>The conditional expression consists of the condition-part, then-part, and optional alternative<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">5</a></sup>. <a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <!-- !TODO priority -->
 
 <h3 id="basic-expressions">Basic Expressions</h3>
@@ -5445,14 +5445,17 @@ For complex parts, parsing unambiguousness, and better readability you can use p
 <li id="fn:1">
 <p>non-Terminals are hyper-linked if defined here.&nbsp;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
+<li id="fn:subscr">
+<p>For now, we have no list of subscriptions directly supported. Future versions will introduce it. Till then, a workaround for nested arrays is <code class="language-javascript highlight"><span class="p">...[</span><span class="nx">i</span><span class="p">].</span><span class="nx">_</span><span class="p">[</span><span class="nx">j</span><span class="p">]...</span></code> (utilizing <code>self</code>).&nbsp;<a class="footnote-backref" href="#fnref:subscr" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
 <li id="fn:cseq">
-<p>Other path languages allow sequences with more than one element, which are automatically resolved to an array. We omit this functionality for clarity. If this behavior is intended, the right-hand side can simply use the array constructor <code class="language-javascript highlight"><span class="p">[...]</span></code>.&nbsp;<a class="footnote-backref" href="#fnref:cseq" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>Other path languages allow sequences with more than one element, which are automatically resolved to an array. We omit this functionality for clarity. If this behavior is intended, the right-hand side can simply use the array constructor <code class="language-javascript highlight"><span class="p">[...]</span></code>.&nbsp;<a class="footnote-backref" href="#fnref:cseq" title="Jump back to footnote 3 in the text">↩</a></p>
 </li>
 <li id="fn:2">
-<p>By this an extension of objects can be easily done, e. g., the expression pattern <code class="language-javascript highlight"><span class="p">{</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">...}</span></code> extends the context node (<code>self</code>) by subsequent assignments. Rem.: Future versions of <em>apath</em> will support paths at the left hand side of assignments such that deep assignments can be easily defined.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
+<p>By this an extension of objects can be easily done, e. g., the expression pattern <code class="language-javascript highlight"><span class="p">{</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">...}</span></code> extends the context node (<code>self</code>) by subsequent assignments. Rem.: Future versions of <em>apath</em> will support paths at the left hand side of assignments such that deep assignments can be easily defined.&nbsp;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 4 in the text">↩</a></p>
 </li>
 <li id="fn:3">
-<p>As in some other functional languages conditionals are without the <em>else</em> keyword. For complex parts, parsing unambiguousness, and better readability you can use parenthesized expressions, e. g., <code class="language-javascript highlight"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span></code>. Only very simple ones could skip them.&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
+<p>As in some other functional languages conditionals are without the <em>else</em> keyword. For complex parts, parsing unambiguousness, and better readability you can use parenthesized expressions, e. g., <code class="language-javascript highlight"><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span></code>. Only very simple ones could skip them.&nbsp;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 5 in the text">↩</a></p>
 </li>
 </ol>
 </div>
