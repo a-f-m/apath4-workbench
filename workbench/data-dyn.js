@@ -153,6 +153,12 @@ seq_return:
         for (let i = ctx_node; i <= k; i++) yield i
     }
 ]`,
+log:
+`[
+    function logg(ctx_node) {
+        console.log(ctx_node)
+    }
+]`,
 }
 
 // !!! attention: following header properties has to start with column 1 cause otherwise no correct cheat sheet is generated
@@ -168,7 +174,7 @@ var examples = {
 
 | category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | 
 | - | - | - | - | - | - | - | 
-| _________________ | ____________________ | ____________________ | _______________________________________ | ________________________________ | ________________ | _ |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; |
 `        
     },
     "Basic Steps": {
@@ -185,10 +191,11 @@ var examples = {
     },
     "property literal": {
         "data": {
-            "keyword": "**'** ... **'**",
+            "keyword": "**`` ` ``** ... **`` ` ``**",
             "input": inputs.simple_litprop1,
-            "apath": `// non-identifier properties\na.'#b1'`,
-            "grammar": '#main-rule-Property'
+            "apath": 'a.`#b1`',
+            "grammar": '#main-rule-Property',
+            "remark": "non-identifier properties names"
         },
         "geom": geom.default
     },
@@ -196,8 +203,9 @@ var examples = {
         "data": {
             "keyword": '**/** ... **/**',
             "input": inputs.simple_litprop1,
-            "apath": `// properties conforming to regex literal\na./#.*/`,
-            "grammar": '#main-rule-Property'
+            "apath": `a./#.*/`,
+            "grammar": '#main-rule-Property',
+            "remark": "all properties with names conforming to a regex"
         },
         "geom": geom.default
     },
@@ -205,8 +213,9 @@ var examples = {
         "data": {
             "keyword": '**\\***',
             "input": inputs.array,
-            "apath": `// all array items\na.*`,
-            "grammar": '#main-rule-Children'
+            "apath": `a.*`,
+            "grammar": '#main-rule-Children',
+            "remark": "all array items"
         },
         "geom": geom.default
     },
@@ -214,8 +223,9 @@ var examples = {
         "data": {
             "keyword": '**\\***',
             "input": inputs.simple1,
-            "apath": `// all property values\na.*`,
-            "grammar": '#main-rule-Children'
+            "apath": `a.*`,
+            "grammar": '#main-rule-Children',
+            "remark": "all property values"
         },
         "geom": geom.default
     },
@@ -224,8 +234,9 @@ var examples = {
             "keyword": '**_** \\| **self**',
             "input": inputs.simple1,
             // "apath": `// current context node\n// '_' or 'self'\ncity.id?(_==1)`
-            "apath": `// current context node\n// '_' or 'self'\na._`,
-            "grammar": '#main-rule-Self'
+            "apath": `a._`,
+            "grammar": '#main-rule-Self',
+            "remark": "current context node ('_' or 'self')"
         },
         "geom": geom.default
     },
@@ -236,8 +247,9 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// property values can be path expressions, e.g. b.\n// if it has no solution, nothing is assigned\na.{ x: 2, '#1': b }`,
-            "grammar": '#main-rule-ObjectConstruction'
+            "apath": `a.{ x: 2, '#1': b }`,
+            "grammar": '#main-rule-ObjectConstruction',
+            "remark": "property name: identifier or string. property value: literal or expression"
         },
         "geom": geom.default
     },
@@ -245,8 +257,9 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// property names can be path expressions\n// (parenthesized expressions have to be used)\na.{ (c): b }`,
-            "grammar": '#main-rule-PropertyAssignment'
+            "apath": `a.{ (c): b }`,
+            "grammar": '#main-rule-PropertyAssignment',
+            "remark": "property name: parenthesized expression evaluated to string"
         },
         "geom": geom.default
     },
@@ -254,8 +267,9 @@ var examples = {
         "data": {
             "keyword": '**{** ... **}**',
             "input": inputs.simple2,
-            "apath": `// objects can be embedded (here '_'(self), the value of a)\n// and c will be newly assigned\na.{ _, c: 'z' }`,
-            "grammar": '#main-rule-PropertyAssignment'
+            "apath": `a.{ _, c: 'z' }`,
+            "grammar": '#main-rule-PropertyAssignment',
+            "remark": "property expression (here self; c will be newly assigned)"
         },
         "geom": geom.default
     },
@@ -272,8 +286,9 @@ var examples = {
         "data": {
             "keyword": '**[** ... **]**',
             "input": inputs.simple3,
-            "apath": `// sequences are embedded flat\n// use [b.*] otherwise\na.[ 1, b.*, 4 ]`,
-            "grammar": '#main-rule-ArrayConstruction'
+            "apath": `a.[ 1, b.*, 4 ]`,
+            "grammar": '#main-rule-ArrayConstruction',
+            "remark": "sequences are embedded flat. use [b.*] otherwise"
         },
         "geom": geom.default
     },
@@ -293,8 +308,9 @@ var examples = {
         "data": {
             "keyword": '... **[** ... **]**',
             "input": inputs.array,
-            "apath": `// second array item\na[1]`,
-            "grammar": '#main-rule-Subscript'
+            "apath": `a[1]`,
+            "grammar": '#main-rule-Subscript',
+            "remark": "second array item"
         },
         "geom": geom.default
     },
@@ -313,7 +329,7 @@ var examples = {
     },
     "relational": {
         "data": {
-            "keyword": '**<, >, <=, >=**',
+            "keyword": '**<**, **>**, **<=**, **>=**',
             "input": inputs.simple1,
             "apath": `// <, >, <=, >=\na.(b < c)`,
             "grammar": '#basic-expressions'
@@ -331,7 +347,7 @@ var examples = {
     },
     "arithmetic": {
         "data": {
-            "keyword": '**+, -, \\*, /, %**',
+            "keyword": '**+**, **-**, **&ast;**, **/**, **%**',
             "input": inputs.simple1,
             "apath": `// +, -, *, /, %\na.(b + 3 * -c)`,
             "grammar": '#basic-expressions'
@@ -346,17 +362,20 @@ var examples = {
         "data": {
             "keyword": '... **,** ... ',
             "input": inputs.simple1,
-            "apath": `// returns value of last expression\na.(b, c)`,
-            "grammar": '#main-rule-Expression'
+            "apath": `a.(b.logg(), c)`,
+            "sfuncs": sfuncs.log,
+            "grammar": '#main-rule-Expression',
+            "remark": "evaluates sequentially and returns value of last expression. see step functions also",
         },
-        "geom": geom.default
+        "geom": geom.sfuncs
     },
     "conditional": {
         "data": {
-            "keyword": '**if** ... ',
+            "keyword": '**if** **(** ... **)** ... ',
             "input": inputs.simple1,
             "apath": `// try a.b=0 at input\na.(if (b == 1) b c)`,
-            "grammar": '#main-rule-ConditionalExpression'
+            "grammar": '#main-rule-ConditionalExpression',
+            "remark": "expression value depending on a condition"
         },
         "geom": geom.default
     },
@@ -377,7 +396,7 @@ var examples = {
 
 | category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step functions |
 | - | - | - | - | - | - | - | - |
-| _________________ | _____________ | _____________ | _____________________ | ___________________ | _ | _ | ________ |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; | &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 `        
     },
     "Step Functions": {

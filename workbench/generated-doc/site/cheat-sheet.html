@@ -153,13 +153,13 @@
 </thead>
 <tbody>
 <tr>
-<td>_________________</td>
-<td>____________________</td>
-<td>____________________</td>
-<td>_______________________________________</td>
-<td>________________________________</td>
-<td>________________</td>
-<td>_</td>
+<td>                 </td>
+<td>                            </td>
+<td>                    </td>
+<td>                                                 </td>
+<td>                                                </td>
+<td>                                </td>
+<td> </td>
 </tr>
 <tr>
 <td><span id="e-Basic Steps"><em><strong>Basic Steps</strong></em></span></td>
@@ -172,7 +172,7 @@
 </tr>
 <tr>
 <td><span id="e-property">property</span></td>
-<td></td>
+<td><span></span></td>
 <td>&lt;id&gt;</td>
 <td><code>a.b</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
@@ -181,16 +181,16 @@
 </tr>
 <tr>
 <td><span id="e-property literal">property literal</span></td>
-<td></td>
-<td><strong>'</strong> ... <strong>'</strong></td>
-<td><code>a.'#b1'</code></td>
+<td><span>non-identifier properties names</span></td>
+<td><strong><code>`</code></strong> ... <strong><code>`</code></strong></td>
+<td><code>a.`#b1`</code></td>
 <td>{ &quot;a&quot;: { &quot;#b1&quot;: 1, &quot;#b2&quot;: 2 } }</td>
 <td>1</td>
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=property literal"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-property regex">property regex</span></td>
-<td></td>
+<td><span>all properties with names conforming to a regex</span></td>
 <td><strong>/</strong> ... <strong>/</strong></td>
 <td><code>a./#.*/</code></td>
 <td></td>
@@ -199,7 +199,7 @@
 </tr>
 <tr>
 <td><span id="e-children (array)">children (array)</span></td>
-<td></td>
+<td><span>all array items</span></td>
 <td><strong>*</strong></td>
 <td><code>a.*</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
@@ -208,7 +208,7 @@
 </tr>
 <tr>
 <td><span id="e-children (object)">children (object)</span></td>
-<td></td>
+<td><span>all property values</span></td>
 <td></td>
 <td><code>a.*</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
@@ -217,7 +217,7 @@
 </tr>
 <tr>
 <td><span id="e-self">self</span></td>
-<td></td>
+<td><span>current context node ('_' or 'self')</span></td>
 <td><strong>_</strong> | <strong>self</strong></td>
 <td><code>a._</code></td>
 <td></td>
@@ -235,7 +235,7 @@
 </tr>
 <tr>
 <td><span id="e-construction (object)">construction (object)</span></td>
-<td></td>
+<td><span>property name: identifier or string. property value: literal or expression</span></td>
 <td><strong>{</strong> ... <strong>}</strong></td>
 <td><code>a.{ x: 2, '#1': b }</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: &quot;y&quot; } }</td>
@@ -244,7 +244,7 @@
 </tr>
 <tr>
 <td><span id="e-... dynamic property">... dynamic property</span></td>
-<td></td>
+<td><span>property name: parenthesized expression evaluated to string</span></td>
 <td></td>
 <td><code>a.{ (c): b }</code></td>
 <td></td>
@@ -253,7 +253,7 @@
 </tr>
 <tr>
 <td><span id="e-... embedding">... embedding</span></td>
-<td></td>
+<td><span>property expression (here self; c will be newly assigned)</span></td>
 <td></td>
 <td><code>a.{ _, c: 'z' }</code></td>
 <td></td>
@@ -262,7 +262,7 @@
 </tr>
 <tr>
 <td><span id="e-construction (array)">construction (array)</span></td>
-<td></td>
+<td><span></span></td>
 <td><strong>[</strong> ... <strong>]</strong></td>
 <td><code>a.[ 3, b ]</code></td>
 <td></td>
@@ -271,7 +271,7 @@
 </tr>
 <tr>
 <td><span id="e-... sequences">... sequences</span></td>
-<td></td>
+<td><span>sequences are embedded flat. use [b.*] otherwise</span></td>
 <td></td>
 <td><code>a.[ 1, b.*, 4 ]</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: [2, 3] } }</td>
@@ -289,7 +289,7 @@
 </tr>
 <tr>
 <td><span id="e-filter (predicate)">filter (predicate)</span></td>
-<td></td>
+<td><span></span></td>
 <td>... <strong>?(</strong> ... <strong>)</strong></td>
 <td><code>*?(a==1)</code></td>
 <td>[{&quot;a&quot;: 1}, {&quot;a&quot;: 2}]</td>
@@ -298,7 +298,7 @@
 </tr>
 <tr>
 <td><span id="e-subscript">subscript</span></td>
-<td></td>
+<td><span>second array item</span></td>
 <td>... <strong>[</strong> ... <strong>]</strong></td>
 <td><code>a[1]</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
@@ -316,7 +316,7 @@
 </tr>
 <tr>
 <td><span id="e-equality">equality</span></td>
-<td></td>
+<td><span></span></td>
 <td><strong>==, !=</strong></td>
 <td><code>a.(b == c)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
@@ -325,8 +325,8 @@
 </tr>
 <tr>
 <td><span id="e-relational">relational</span></td>
-<td></td>
-<td><strong>&lt;, &gt;, &lt;=, &gt;=</strong></td>
+<td><span></span></td>
+<td><strong>&lt;</strong>, <strong>&gt;</strong>, <strong>&lt;=</strong>, <strong>&gt;=</strong></td>
 <td><code>a.(b &lt; c)</code></td>
 <td></td>
 <td>true</td>
@@ -334,7 +334,7 @@
 </tr>
 <tr>
 <td><span id="e-logical">logical</span></td>
-<td></td>
+<td><span></span></td>
 <td><strong>and, or, not</strong></td>
 <td><code>a.(b == c or not c &lt; 2)</code></td>
 <td></td>
@@ -343,8 +343,8 @@
 </tr>
 <tr>
 <td><span id="e-arithmetic">arithmetic</span></td>
-<td></td>
-<td><strong>+, -, *, /, %</strong></td>
+<td><span></span></td>
+<td><strong>+</strong>, <strong>-</strong>, <strong>*</strong>, <strong>/</strong>, <strong>%</strong></td>
 <td><code>a.(b + 3 * -c)</code></td>
 <td></td>
 <td>-5</td>
@@ -361,17 +361,17 @@
 </tr>
 <tr>
 <td><span id="e-sequenced">sequenced</span></td>
-<td></td>
+<td><span>evaluates sequentially and returns value of last expression. see step functions also</span></td>
 <td>... <strong>,</strong> ...</td>
-<td><code>a.(b, c)</code></td>
+<td><code>a.(b.logg(), c)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1, &quot;c&quot;: 2 } }</td>
 <td>2</td>
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?exa=sequenced"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-conditional">conditional</span></td>
-<td></td>
-<td><strong>if</strong> ...</td>
+<td><span>expression value depending on a condition</span></td>
+<td><strong>if</strong> <strong>(</strong> ... <strong>)</strong> ...</td>
 <td><code>a.(if (b == 1) b c)</code></td>
 <td></td>
 <td>1</td>
@@ -395,14 +395,14 @@
 </thead>
 <tbody>
 <tr>
-<td>_________________</td>
-<td>_____________</td>
-<td>_____________</td>
-<td>_____________________</td>
-<td>___________________</td>
-<td>_</td>
-<td>_</td>
-<td>________</td>
+<td>                 </td>
+<td>                            </td>
+<td>             </td>
+<td>                     </td>
+<td>                   </td>
+<td> </td>
+<td> </td>
+<td>        </td>
 </tr>
 <tr>
 <td><span id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
@@ -416,7 +416,7 @@
 </tr>
 <tr>
 <td><span id="e-simple step function">simple step function</span></td>
-<td></td>
+<td><span></span></td>
 <td>&lt;id&gt;<strong>(</strong> ... <strong>)</strong></td>
 <td><code>a.b.add(1)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>
@@ -426,7 +426,7 @@
 </tr>
 <tr>
 <td><span id="e-with sequences as parameters">with sequences as parameters</span></td>
-<td></td>
+<td><span></span></td>
 <td></td>
 <td><code>sum(a.*)</code></td>
 <td>{&quot;a&quot;: [1, 2, 3]}</td>
@@ -436,7 +436,7 @@
 </tr>
 <tr>
 <td><span id="e-returning sequences">returning sequences</span></td>
-<td></td>
+<td><span></span></td>
 <td></td>
 <td><code>a.b.to(3)</code></td>
 <td>{ &quot;a&quot;: { &quot;b&quot;: 1 } }</td>

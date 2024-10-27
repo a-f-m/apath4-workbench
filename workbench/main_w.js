@@ -3,7 +3,7 @@
 function set_data(d) {
 
     monaco_editors.input.setValue(d.data.input)
-    monaco_editors.apath.setValue(d.data.apath)
+    monaco_editors.apath.setValue((d.data.remark ? '// ' + d.data.remark + '\n' : '') + d.data.apath)
     monaco_editors.sfuncs.setValue(d.data.sfuncs ? d.data.sfuncs : '')
     set_geom(d.geom)
 }
@@ -11,7 +11,7 @@ function set_data(d) {
 function restore() {
 
     const d = restore_data('_default')
-    // if (d) set_data(d)
+    if (d) set_data(d)
     if (d) set_geom(d.geom)
 }
 
@@ -35,22 +35,26 @@ var use_server = true
 
 async function eval_(input, apath, sfuncs) {
 
-    // const xxx = import('a.b')
-
+    const sf = $('#toggle_strict_failure').prop('checked')
     if (!use_server) {
-        return window.apath_func_utils_.evaluate(input, apath, sfuncs, $('#toggle_strict_failure').prop('checked'))
+        return window.apath_func_utils_.evaluate(input, apath, sfuncs, sf)
     } else {
-        const data = JSON.stringify({input, apath, sfuncs})
+        const args = window.Utils_.encode_object([input, apath, sfuncs, sf])
+        let ret
         $.ajax({
-            url: `eval?data=${data}`, 
+            url: `op?func=eval&args=${args}`, 
             async: false,
             // contentType: 'text/javascript',
             dataType: 'text',
             success: function (result) {
-                console.log(result)
+                ret = window.Utils_.decode_to_object(result)
+                console.log(ret)
             }
         })
-    
+        if (ret.error) {
+            throw new Error(ret.error)
+        }
+        return ret.return_value
     }
 }
 
@@ -214,7 +218,7 @@ $(function () {
         // console.log(event)
         const key = String.fromCharCode(event.which)
         // console.log('charkey: ' + key)
-        // console.log('code: ' + event.code)
+        console.log('code: ' + event.code)
         
         // if (last_key === 'ControlLeft' && event.code === 'Digit1') {
         //     console.log('hi')
@@ -226,40 +230,50 @@ $(function () {
             switch (event.code) {
                 case 'KeyS':
                     $('#bnt_store_layout').trigger('click')
+                    event.preventDefault()
                     break
                 case 'KeyR':
                     $('#bnt_restore_layout').trigger('click')
+                    event.preventDefault()
                     break
                 case 'KeyE':
                     $('#bnt_eval_apth').trigger('click')
-                    monaco_editors['result'].focus()
+                    // monaco_editors['result'].focus()
+                    event.preventDefault()
                     break
-                case 'Numpad0':
+                    case 'Numpad0':
                     $('#toggle_live_eval').prop('checked', ! $('#toggle_live_eval').prop('checked'))
+                    $('#bnt_eval_apth').trigger('click')
+                    event.preventDefault()
                     break
                 case 'Numpad1':
                     monaco_editors['input'].focus()
+                    event.preventDefault()
                     break
                 case 'Numpad2':
                     monaco_editors['apath'].focus()
+                    event.preventDefault()
                     break
                 case 'Numpad3':
                     monaco_editors['sfuncs'].focus()
+                    event.preventDefault()
                     break
                 case 'Numpad4':
                     monaco_editors['result'].focus()
+                    event.preventDefault()
                     break
                 case 'F5':
                     $('#select_topics').trigger('focus')
+                    event.preventDefault()
                     break
                 case 'F6':
                     $('#select_examples').trigger('focus')
+                    event.preventDefault()
                     break
 
                 default:
                     break
                 }
-            event.preventDefault()
             // console.log('user key')
         } else {
             return true

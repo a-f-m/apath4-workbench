@@ -7,7 +7,7 @@ import * as url from "node:url"
 
 import { Readable } from 'stream'
 
-import { Apath } from "../dist/src/accessor/apath-func.js"
+import {  } from "../dist/src/accessor/apath-func-utils.js"
 
 const PORT = 8000
 
@@ -29,18 +29,13 @@ const toBool = [() => true, () => false]
 
 const prepareFile = async (url) => {
 
-  if (url.startsWith('/eval')) {
+  if (url.startsWith('/op')) {
     const idx = url.indexOf('?')
     const params = new URLSearchParams(url.substring(idx))
     console.log(params)
-    const data = JSON.parse(params.get('data'))
-    console.log(data)
-    console.log(data.input)
-    console.log(data.apath)
-    console.log(data.sfuncs)
-    const found = true
-    const ext = ''
-    const stream = null
+    const args = JSON.parse(params.get('args'))
+    const op = JSON.parse(params.get('op'))
+    console.log(args)
     return { found: true, ext: '', stream: Readable.from('stream') }
   }
   const paths = [STATIC_PATH, url]
@@ -68,9 +63,5 @@ http
   })
   .listen(PORT)
 
-//test
-const apath = new Apath()
-console.log(apath)
-//
 
 console.log(`Server running at http://127.0.0.1:${PORT}/`)
