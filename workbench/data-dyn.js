@@ -157,6 +157,7 @@ log:
 `[
     function logg(ctx_node) {
         console.log(ctx_node)
+		return true
     }
 ]`,
 }
