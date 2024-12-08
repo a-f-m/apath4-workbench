@@ -150,7 +150,7 @@ var data_dyn =
 `// pressing 'grammar' shows related doc section
 // Rem.: more xpath-aligned test (date.time...), search for 'Boolean Evaluation' in doc - 'if': see doc ;)
 {
-   _,   // embedding of input ('_' is the context, '$' in jsonata)
+   _,   // embedding of input ('_' is the context node)
    'source': 'sirios.pendulum', 
    'type':
       (if (data.time % 2 != 0)
