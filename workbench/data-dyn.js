@@ -397,7 +397,7 @@ var examples = {
             keyword: '**==, !=**',
             input: inputs.simple1,
             apath: `// ==, !=\ncat.(age == 1)`,
-            grammar: '#basic-expressions'
+            grammar: '#main-rule-Expression'
         },
         geom: geom.default
     },
@@ -406,7 +406,7 @@ var examples = {
             keyword: '**<**, **>**, **<=**, **>=**',
             input: inputs.simple1,
             apath: `// <, >, <=, >=\ncat.(age < 2)`,
-            grammar: '#basic-expressions'
+            grammar: '#main-rule-Expression'
         },
         geom: geom.default
     },
@@ -415,7 +415,7 @@ var examples = {
             keyword: '**and, or, not**',
             input: inputs.simple1,
             apath: `// and, or, not\ncat.(age==1 or not age<9)`,
-            grammar: '#basic-expressions'
+            grammar: '#main-rule-Expression'
         },
         geom: geom.default
     },
@@ -424,7 +424,7 @@ var examples = {
             keyword: '**+**, **-**, **&ast;**, **/**, **%**',
             input: inputs.simple1,
             apath: `// +, -, *, /, %\ncat.(age + 3 * -1)`,
-            grammar: '#basic-expressions'
+            grammar: '#main-rule-Expression'
         },
         geom: geom.default
     },
