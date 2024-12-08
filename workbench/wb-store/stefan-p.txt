@@ -1,0 +1,95 @@
+Hi Andreas,
+
+ist mir heute erst wieder eingefallen :D
+
+---8<------------------------
+# SIRIOS Filter expressions
+
+
+Example of the clock output (used as source event stream).
+
+```json
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:0","time":"2024-03-19T10:05:42.993Z","type":"clock.ticked","source":"clock","specversion":"1.0","data":{"time":0}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:1","time":"2024-03-19T10:05:43.059Z","type":"clock.ticked","source":"clock","specversion":"1.0","data":{"time":1}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:2","time":"2024-03-19T10:05:44.119Z","type":"clock.ticked","source":"clock","specversion":"1.0","data":{"time":2}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:3","time":"2024-03-19T10:05:45.172Z","type":"clock.ticked","source":"clock","specversion":"1.0","data":{"time":3}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:4","time":"2024-03-19T10:05:46.223Z","type":"clock.ticked","source":"clock","specversion":"1.0","data":{"time":4}}
+```
+
+## Pendulum
+
+The pendulum unit returns _left_ and _right_ events based on clock.time modulo 2.
+
+jsonata
+
+```     
+$merge([$,{"source": "sirios.pendulum", "type":($.data.time % 2 ? "pendulum.left" : "pendulum.right")}])
+```
+
+Output event stream   
+
+
+```json
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:0","time":"2024-03-19T10:05:42.042Z","type":"pendulum.right","source":"sirios.pendulum","specversion":"1.0","data":{"time":0}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:1","time":"2024-03-19T10:05:43.103Z","type":"pendulum.left","source":"sirios.pendulum","specversion":"1.0","data":{"time":1}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:2","time":"2024-03-19T10:05:44.154Z","type":"pendulum.right","source":"sirios.pendulum","specversion":"1.0","data":{"time":2}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:3","time":"2024-03-19T10:05:45.207Z","type":"pendulum.left","source":"sirios.pendulum","specversion":"1.0","data":{"time":3}}
+{"id":"febf27bd-5569-4c1b-a418-c1ace882594a:4","time":"2024-03-19T10:05:46.255Z","type":"pendulum.right","source":"sirios.pendulum","specversion":"1.0","data":{"time":4}}
+```
+
+## Transformer (Bicyle Tire Pressure)
+
+Source event stream
+ 
+```json
+{ "specversion": "1.0", "id": "1", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T00:00:00Z", "front": 4.09, "rear": 4.14 }}
+{ "specversion": "1.0", "id": "2", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T01:00:00Z", "front": 4.09, "rear": 4.13 }}
+{ "specversion": "1.0", "id": "3", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T02:00:00Z", "front": 4.08, "rear": 4.13 }}
+{ "specversion": "1.0", "id": "4", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T03:00:00Z", "front": 4.08, "rear": 4.13 }}
+{ "specversion": "1.0", "id": "5", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T04:00:00Z", "front": 4.08, "rear": 4.13 }}
+{ "specversion": "1.0", "id": "6", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T05:00:00Z", "front": 4.07, "rear": 4.12 }}
+{ "specversion": "1.0", "id": "7", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T06:00:00Z", "front": 3.02, "rear": 4.12 }}
+{ "specversion": "1.0", "id": "8", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T07:00:00Z", "front": 1.93, "rear": 4.12 }}
+{ "specversion": "1.0", "id": "9", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T08:00:00Z", "front": 0.43, "rear": 4.11 }}
+{ "specversion": "1.0", "id": "10", "source": "btire", "type": "pressure.updated", "data": { "time": "1970-01-01T09:00:00Z", "front": 0.01, "rear": 4.11 }}
+...
+```
+
+### Filter
+
+The filter unit filters out events where the pressure is below 4.0.
+
+jsonata expression     
+
+```     
+$[data.front < 4.0 or data.rear < 4.0]
+```
+
+Output event stream   
+
+```json     
+{"specversion":"1.0","id":"7","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T06:00:00.000Z","front":3.02,"rear":4.12}}
+{"specversion":"1.0","id":"8","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T07:00:00.000Z","front":1.93,"rear":4.12}}
+...
+```     
+  
+### Converter
+
+The converter unit calculates minimum, maximum, and average pressure values for the data of an event.
+
+jsonata expression 
+
+```     
+$.$merge([$, { "data": { "time": $.data.time, "min": $min([$.data.front, $.data.rear]), "max": $max([$.data.front, $.data.rear]), "avg": $average([$.data.front, $.data.rear])}} ])
+``` 
+
+Output event stream   
+
+```json
+{"specversion":"1.0","id":"1","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T00:00:00.000Z","min":4.09,"max":4.14,"avg":4.115}}
+{"specversion":"1.0","id":"2","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T01:00:00.000Z","min":4.09,"max":4.13,"avg":4.109999999999999}}
+{"specversion":"1.0","id":"3","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T02:00:00.000Z","min":4.08,"max":4.13,"avg":4.105}}
+{"specversion":"1.0","id":"4","source":"btire","type":"pressure.updated","data":{"time":"1970-01-01T03:00:00.000Z","min":4.08,"max":4.13,"avg":4.105}}
+...
+```
+---8<------------------------

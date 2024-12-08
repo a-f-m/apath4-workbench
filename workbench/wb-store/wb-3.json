@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"a\": {\n        \"b\": 1\n    }\n}",
+      "apath": "person .friend as fr .age as age .number\r\nffff(a, b, c)\r\na.`lalala`\r\na.prop('lalala')\r\na./fff/\r\na.prex('#.*')\r\nfunc f(x, y) = @x+1,\r\nconst age = age,\r\nperson .ssn .~('#.*') .age\r\na?(b.~('#.*')).c\r\na?(b.match('#.*')).c\r\nage\r\n   .(if (x == 1)(\r\n        xxx,\r\n        zzz\r\n    )if (x == 99)(   \r\n        yyy\r\n    )// else\r\n        zzz\r\n    )\r\nperson \r\n    .(\r\n        fff(),\r\n        friend ?(id == 1)\r\n     ) as myFriend\r\n        .age as age\r\n            .dummy as@\r\n                .number \r\n                    .{\r\n                        x: @age + 'lalala' + _\r\n                    }\r\n\r\n\r\n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 100.28334045410156,
+            "left": 42.21665954589844
+         },
+         "height": 466.267,
+         "width": 552.233,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 100.26666259765625,
+            "left": 612.2833251953125
+         },
+         "height": 431.233,
+         "width": 569.167,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 554.0166625976562,
+            "left": 612.5999755859375
+         },
+         "height": 103.583,
+         "width": 569.167,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 584.3499755859375,
+            "left": 42.21665954589844
+         },
+         "height": 73.3833,
+         "width": 552.233,
+         "zindex": "101"
+      }
+   }
+}

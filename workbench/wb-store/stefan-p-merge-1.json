@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"id\": \"febf27bd-5569-4c1b-a418-c1ace882594a:0\",\n    \"time\": \"2024-03-19T10:05:42.993Z\",\n    \"type\": \"clock.ticked\",\n    \"source\": \"clock\",\n    \"specversion\": \"1.0\",\n    \"data\": {\n        \"time\": 0\n    }\n}",
+      "apath": "// pressing 'grammar'/'cheat-sheet' shows related info\r\n// Rem.: more xpath-aligned test (date.time...), search for 'Boolean Evaluation' in doc - 'if': see doc ;)\r\n{\r\n   _,   // embedding of input ('_' is 'self')\r\n   'source': 'sirios.pendulum', \r\n   'type':\r\n      (if (data.time % 2 != 0)\r\n         'pendulum.left'\r\n         'pendulum.right')\r\n}",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 102.51666259765625,
+            "left": 42.81666564941406
+         },
+         "height": 488.583,
+         "width": 559.85,
+         "zindex": "101"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 102.51666259765625,
+            "left": 620.8333129882812
+         },
+         "height": 320.117,
+         "width": 577.017,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 441.25,
+            "left": 621.1666870117188
+         },
+         "height": 245.233,
+         "width": 577.017,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 609.683349609375,
+            "left": 42.81666564941406
+         },
+         "height": 76.75,
+         "width": 559.85,
+         "zindex": "103"
+      }
+   }
+}

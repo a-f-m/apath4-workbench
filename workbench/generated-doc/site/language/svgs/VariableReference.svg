@@ -1,72 +1,39 @@
-<svg class="railroad-diagram" width="814" height="112" viewBox="0 0 814 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="290.5" height="94" viewBox="0 0 290.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
-<path d="M20 54v20m0 -10h20"></path>
+<path d="M20 45v20m0 -10h20"></path>
 </g>
-<path d="M40 64h10"></path>
+<path d="M40 55h10"></path>
 <g class="Group rule">
-<path d="M50 64h0"></path>
-<path d="M764 64h0"></path>
-<rect x="50" y="36" width="714" height="56" rx="10" ry="10" class="group-box"></rect>
+<path d="M50 55h0"></path>
+<path d="M240.5 55h0"></path>
+<rect x="50" y="36" width="190.5" height="38" rx="10" ry="10" class="group-box"></rect>
 <g class="Sequence">
-<path d="M50 64h10"></path>
-<path d="M754 64h10"></path>
-<path d="M284 64h10"></path>
+<path d="M50 55h10"></path>
+<path d="M230.5 55h10"></path>
+<path d="M105.5 55h10"></path>
+<g class="terminal literal">
+<path d="M60 55h0"></path>
+<path d="M105.5 55h0"></path>
+<rect x="60" y="44" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="82.75" y="59">"$"</text>
+</g>
+<path d="M115.5 55h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M60 64h0"></path>
-<path d="M284 64h0"></path>
-<rect x="60" y="53" width="224" height="22"></rect>
-<text x="172" y="68">MultiplicativeExpression</text>
-</g>
-<g class="Choice">
-<path d="M294 64h0"></path>
-<path d="M754 64h0"></path>
-<path d="M294 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g class="Skip">
-<path d="M314 44h420"></path>
-</g>
-<path d="M734 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M294 64h20"></path>
-<g class="OneOrMore">
-<path d="M314 64h0"></path>
-<path d="M734 64h0"></path>
-<path d="M324 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
-<g class="Skip">
-<path d="M324 84h400"></path>
-</g>
-<path d="M724 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M314 64h10"></path>
-<path d="M724 64h10"></path>
-<g class="Sequence">
-<path d="M324 64h0"></path>
-<path d="M724 64h0"></path>
-<path d="M480 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M324 64h0"></path>
-<path d="M480 64h0"></path>
-<rect x="324" y="53" width="156" height="22"></rect>
-<text x="402" y="68">AdditiveOperator</text>
-</g>
-<path d="M490 64h10"></path>
-<g class="non-terminal rule-ref">
-<path d="M500 64h0"></path>
-<path d="M724 64h0"></path>
-<rect x="500" y="53" width="224" height="22"></rect>
-<text x="612" y="68">MultiplicativeExpression</text>
-</g>
-</g>
-</g>
-<path d="M734 64h20"></path>
+<path d="M125.5 55h0"></path>
+<path d="M230.5 55h0"></path>
+<rect x="125.5" y="44" width="105" height="22"></rect>
+<text x="178" y="59">Identifier</text>
 </g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M186 28h0"></path>
-<text x="118" y="33" class="comment">AdditiveExpression</text>
+<path d="M179 28h0"></path>
+<text x="114.5" y="33" class="comment">VariableReference</text>
 </g>
 </g>
-<path d="M764 64h10"></path>
-<path class="End" d="M 774 64 h 20 m 0 -10 v 20"></path>
+<path d="M240.5 55h10"></path>
+<path class="End" d="M 250.5 55 h 20 m 0 -10 v 20"></path>
 </g>
 <style>.ruleId {
   color: black;

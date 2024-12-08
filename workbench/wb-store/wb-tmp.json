@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"a\": {\n        \"b\": 1\n    } \n}",
+      "apath": "a.b.add(1)",
+      "sfuncs": "[\n    // 'ctx_node' (context node) is the object passed \n    // from the previous step - followed by parameters\n    function add(ctx_node, k) {\n        return typeof ctx_node === 'number' && typeof k === 'number' ?\n                ctx_node + k : undefined\n                // 'undefined' stops evaluation with no solution\n    }\n]"
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 105.78334045410156,
+            "left": 44.16667175292969
+         },
+         "height": 360.583,
+         "width": 577.383,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 105.78334045410156,
+            "left": 640.433349609375
+         },
+         "height": 341.117,
+         "width": 595.05,
+         "zindex": "102"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 466.8833312988281,
+            "left": 640.7999877929688
+         },
+         "height": 261.3,
+         "width": 595.05,
+         "zindex": "101"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 486.3666687011719,
+            "left": 44.16667175292969
+         },
+         "height": 241.85,
+         "width": 577.383,
+         "zindex": "104"
+      }
+   }
+}

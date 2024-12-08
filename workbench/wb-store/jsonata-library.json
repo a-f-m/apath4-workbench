@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{ \n  \"cats\": [\"jo\", \"lu\"],\n  \"dogs\": [\"bay\", \"jo\"]\n}",
+      "apath": "library \n   .loans@$L \n   .books@$B[$L.isbn=$B.isbn] \n   .customers[$L.customer=id]\n\nlibrary.(\n   loans.* as L, \n   books.*?($L.isbn==isbn) as B, \n   customers.*?($L.customer==id))\n\n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 107.19999694824219,
+            "left": 41.53334045410156
+         },
+         "height": 450.633,
+         "width": 543.167,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 107.16667175292969,
+            "left": 602.3333129882812
+         },
+         "height": 295.25,
+         "width": 559.817,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 419.6333312988281,
+            "left": 602.6500244140625
+         },
+         "height": 226.2,
+         "width": 559.817,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 575,
+            "left": 41.53334045410156
+         },
+         "height": 70.7667,
+         "width": 543.167,
+         "zindex": "101"
+      }
+   }
+}

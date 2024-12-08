@@ -1,5 +1,32 @@
 var js_store = {}
 
+var last_loaded_file = 'wb-1.json'
+function readSingleFile(e, func_consume) {
+    if (!e.target.files[0]) {
+        return
+    }
+    last_loaded_file = e.target.files[0].name
+    var reader = new FileReader()
+    reader.onload = function(e) {
+        var contents = e.target.result
+        // displayContents(contents, area)
+        func_consume(contents)
+    }
+    reader.readAsText(e.target.files[0])
+}
+
+function downloadToFile(content, filename, contentType) {
+    const a = document.createElement('a')
+    const file = new Blob([content], { type: contentType })
+
+    a.href = URL.createObjectURL(file)
+    a.download = filename !== '' ? filename : last_loaded_file
+    a.click()
+
+    URL.revokeObjectURL(a.href)
+}
+
+
 function store_data(name, d) {
     js_store[name] = d
     console.log(d)
@@ -53,7 +80,7 @@ function process_file(file, f) {
         // contentType: 'text/javascript',
         dataType: 'text',
         success: f
-    });
+    })
 }
 
 function fetch_example_set(exa_set) {

@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{ \n  \"cats\": [\"jo\", \"lu\"],\n  \"dogs\": [\"bay\", \"jo\"]\n}",
+      "apath": "// ...\ncats .*@cat,\ndogs .(*?(self != $cat))@dog,\n$cat + ' loves ' + $dog",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 99.93333435058594,
+            "left": 42.23333740234375
+         },
+         "height": 462.817,
+         "width": 552.183,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 99.89999389648438,
+            "left": 612.3333129882812
+         },
+         "height": 303.233,
+         "width": 569.117,
+         "zindex": "102"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 420.79998779296875,
+            "left": 612.6500244140625
+         },
+         "height": 232.3,
+         "width": 569.117,
+         "zindex": "101"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 580.38330078125,
+            "left": 42.23333740234375
+         },
+         "height": 72.6833,
+         "width": 552.183,
+         "zindex": "104"
+      }
+   }
+}

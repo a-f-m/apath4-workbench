@@ -2,6 +2,7 @@ var data_dyn =
 function () {
     
     var geom = {
+
         sfuncs: {
             "widget_input": {
               "pos": {
@@ -40,6 +41,44 @@ function () {
               "zindex": "104"
             }
           },
+        sfuncs1 : {
+            "widget_input": {
+                "pos": {
+                   "top": 105.78334045410156,
+                   "left": 44.16667175292969
+                },
+                "height": 360.583,
+                "width": 577.383,
+                "zindex": "103"
+            },
+            "widget_apath": {
+                "pos": {
+                    "top": 105.78334045410156,
+                    "left": 640.433349609375
+                },
+                "height": 341.117,
+                "width": 595.05,
+                "zindex": "102"
+            },
+            "widget_result": {
+                "pos": {
+                    "top": 466.8833312988281,
+                    "left": 640.7999877929688
+                },
+                "height": 261.3,
+                "width": 595.05,
+                "zindex": "101"
+            },
+            "widget_sfuncs": {
+                "pos": {
+                    "top": 486.3666687011719,
+                    "left": 44.16667175292969
+                },
+                "height": 241.85,
+                "width": 577.383,
+                "zindex": "104"
+            }
+        },
         default : {
             "widget_input": {
               "pos": {
@@ -81,49 +120,61 @@ function () {
     }
     
 var inputs = {
-    simple:
+simple:
 `{
-    "a": {
-        "b": 1
-    } 
+    "cat": {
+        "age": 1
+    }
 }`,
-    simple_litprop:
+simple_litprop:
 `{
-    "a": {
-        "#b": 2
-    } 
+    "cat": {
+        "#id": 22
+    }
 }`,
-    simple_litprop1:
+simple_litprop1:
 `{
-    "a": {
-        "#b1": 1,
-        "#b2": 2
-    } 
+    "cat": {
+        "#key": 8,
+        "#id": 7
+    }
 }`,
-    simple1:
+simple1:
 `{
-    "a": {
-        "b": 1,
-        "c": 2
-    } 
+    "cat": {
+        "age": 1,
+        "name": "jo"
+    }
 }`,
-    simple2:
+simple2:
 `{
-    "a": {
-        "b": 1,
-        "c": "y"
-    } 
+    "cat": {
+        "age": 1,
+        "p": "name"
+    }
 }`,
-    simple3:
+simple3:
 `{
-    "a": {
-        "b": [2, 3]
-    } 
+    "cat": {
+        "names": ["jo", "miau"]
+    }
 }`,
 array:
-`{"a": [1, 2, 3]}`,
+`{"names": ["jo", "lu"]}`,
 array1:
-`[{"a": 1}, {"a": 2}]`
+`[{"age": 1}, {"age": 2}]`,
+array2:
+`{"keys": [1, 2, 3]}`,
+var1:
+`{ "cat": {
+    "mom": {"age": 5},
+    "age": 2 
+}}`,
+var2:
+`{ 
+  "cats": ["jo", "lu"],
+  "dogs": ["bay", "jo"]
+}`
 }
     
 var sfuncs = {
@@ -157,7 +208,7 @@ log:
 `[
     function logg(ctx_node) {
         console.log(ctx_node)
-		return true
+        return true
     }
 ]`,
 }
@@ -165,221 +216,312 @@ log:
 // !!! attention: following header properties has to start with column 1 cause otherwise no correct cheat sheet is generated
 
 var examples = {
-"first_example": {
-    "value": "property"
-},
+    "first_example": {
+        "value": "property"
+    },
 
-"basic": {header: 
+    "basic": {header: 
 `
 ### Basic Functionality
 
 | category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | 
 | - | - | - | - | - | - | - | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; |
 `        
     },
-    "Basic Steps": {
+    'Selection': {
         group: true
     },
-    "property": {
-        "data": {
-            "keyword": '<id>',
-            "input": inputs.simple,
-            "apath": `a.b`,
-            "grammar": '#main-rule-Property'
+    'property': {
+        data: {
+            keyword: '<id>',
+            input: inputs.simple,
+            apath: `cat.age`,
+            grammar: '#main-rule-Property',
+
+            input_nl: false,
+            apath_nl: false
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "property literal": {
-        "data": {
-            "keyword": "**`` ` ``** ... **`` ` ``**",
-            "input": inputs.simple_litprop1,
-            "apath": 'a.`#b1`',
-            "grammar": '#main-rule-Property',
-            "remark": "non-identifier properties names"
+    'property literal': {
+        data: {
+            keyword: '**`` ` ``** ... **`` ` ``**',
+            input: inputs.simple_litprop1,
+            apath: 'cat.`#id`',
+            grammar: '#main-rule-Property',
+            remark: 'non-identifier properties names'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "property regex": {
-        "data": {
-            "keyword": '**/** ... **/**',
-            "input": inputs.simple_litprop1,
-            "apath": `a./#.*/`,
-            "grammar": '#main-rule-Property',
-            "remark": "all properties with names conforming to a regex"
+    'property regex': {
+        data: {
+            keyword: '**/** ... **/**',
+            input: inputs.simple_litprop1,
+            apath: `cat./#.*/`,
+            grammar: '#main-rule-Property',
+            remark: 'all properties with names conforming to a regex'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "children (array)": {
-        "data": {
-            "keyword": '**\\***',
-            "input": inputs.array,
-            "apath": `a.*`,
-            "grammar": '#main-rule-Children',
-            "remark": "all array items"
+    'children (array)': {
+        data: {
+            keyword: '**\\***',
+            input: inputs.array,
+            apath: `names.*`,
+            grammar: '#main-rule-Children',
+            remark: 'all array items'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "children (object)": {
-        "data": {
-            "keyword": '**\\***',
-            "input": inputs.simple1,
-            "apath": `a.*`,
-            "grammar": '#main-rule-Children',
-            "remark": "all property values"
+    'children (object)': {
+        data: {
+            keyword: '**\\***',
+            input: inputs.simple1,
+            apath: `cat.*`,
+            grammar: '#main-rule-Children',
+            remark: 'all property values'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "self": {
-        "data": {
-            "keyword": '**_** \\| **self**',
-            "input": inputs.simple1,
-            // "apath": `// current context node\n// '_' or 'self'\ncity.id?(_==1)`
-            "apath": `a._`,
-            "grammar": '#main-rule-Self',
-            "remark": "current context node ('_' or 'self')"
+    'self': {
+        data: {
+            keyword: '**_** \\| **self**',
+            input: inputs.simple1,
+            // apath: `// current context node\n// '_' or 'self'\ncity.id?(_==1)`
+            apath: `cat._`,
+            grammar: '#main-rule-Self',
+            remark: "current context node ('_' or 'self')"
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "Basic Steps / Construction": {
+    'Construction': {
         group: true
     },
-    "construction (object)": {
-        "data": {
-            "keyword": '**{** ... **}**',
-            "input": inputs.simple2,
-            "apath": `a.{ x: 2, '#1': b }`,
-            "grammar": '#main-rule-ObjectConstruction',
-            "remark": "property name: identifier or string. property value: literal or expression"
+    'construction (object)': {
+        data: {
+            keyword: '**{** ... **}**',
+            input: inputs.simple2,
+            apath: `cat.{ id: 2, '#call': p }`,
+            grammar: '#main-rule-ObjectConstruction',
+            remark: 'property name: identifier or string'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "... dynamic property": {
-        "data": {
-            "keyword": '**{** ... **}**',
-            "input": inputs.simple2,
-            "apath": `a.{ (c): b }`,
-            "grammar": '#main-rule-PropertyAssignment',
-            "remark": "property name: parenthesized expression evaluated to string"
+    '... dynamic property name': {
+        data: {
+            keyword: '**{** ... **}**',
+            input: inputs.simple2,
+            apath: `cat.{ (p): 'jo' }`,
+            grammar: '#main-rule-PropertyAssignment',
+            remark: 'property name: parenthesized expression evaluated to string'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "... embedding": {
-        "data": {
-            "keyword": '**{** ... **}**',
-            "input": inputs.simple2,
-            "apath": `a.{ _, c: 'z' }`,
-            "grammar": '#main-rule-PropertyAssignment',
-            "remark": "property expression (here self; c will be newly assigned)"
+    '... embedding': {
+        data: {
+            keyword: '**{** ... **}**',
+            input: inputs.simple2,
+            apath: `cat.{ _, age: 3 }`,
+            grammar: '#main-rule-PropertyAssignment',
+            remark: "value is embedded, here 'self' ('_'), and age is newly assigned"
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "construction (array)": {
-        "data": {
-            "keyword": '**[** ... **]**',
-            "input": inputs.simple2,
-            "apath": `a.[ 3, b ]`,
-            "grammar": '#main-rule-ArrayConstruction'
+    'construction (array)': {
+        data: {
+            keyword: '**[** ... **]**',
+            input: inputs.simple2,
+            apath: `cat.[ 3, age ]`,
+            grammar: '#main-rule-ArrayConstruction'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "... sequences": {
-        "data": {
-            "keyword": '**[** ... **]**',
-            "input": inputs.simple3,
-            "apath": `a.[ 1, b.*, 4 ]`,
-            "grammar": '#main-rule-ArrayConstruction',
-            "remark": "sequences are embedded flat. use [b.*] otherwise"
+    '... sequences': {
+        data: {
+            keyword: '**[** ... **]**',
+            input: inputs.simple3,
+            apath: `cat.[ names.*, 'lu' ]`,
+            grammar: '#main-rule-ArrayConstruction',
+            remark: 'sequences are embedded flat. use [names.*] otherwise'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "Composite Steps": {
+    'Restriction': {
         group: true
     },
-    "filter (predicate)": {
-        "data": {
-            "keyword": '... **?(** ... **)**',
-            "input": inputs.array1,
-            "apath": `*?(a==1)`,
-            "grammar": '#main-rule-Filter'
+    'filter (predicate)': {
+        data: {
+            keyword: '... **?(** ... **)**',
+            input: inputs.array1,
+            apath: `*?(age==1)`,
+            grammar: '#main-rule-Filter'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "subscript": {
-        "data": {
-            "keyword": '... **[** ... **]**',
-            "input": inputs.array,
-            "apath": `a[1]`,
-            "grammar": '#main-rule-Subscript',
-            "remark": "second array item"
+    'subscript': {
+        data: {
+            keyword: '... **[** ... **]**',
+            input: inputs.array,
+            apath: `//second array item\nnames[1]`,
+            grammar: '#main-rule-Subscript'
         },
-        "geom": geom.default
+        geom: geom.default
+    },
+    'value regex': {
+        data: {
+            keyword: '**match(** ... **)**',
+            input: inputs.array,
+            apath: `names.*.match('j(o)')`,
+            grammar: '#main-rule-StepFunctionCall',
+            remark: 'yields a match object with groups'
+        },
+        geom: geom.default
+    },
+    'value regex named': {
+        data: {
+            keyword: '**match(** ... **)**',
+            input: inputs.array,
+            apath: `names.*.match('(?<x>.)u')`,
+            grammar: '#main-rule-StepFunctionCall',
+            remark: 'match object contains named groups'
+        },
+        geom: geom.default
     },
 
-    "Basic Expressions": {
+    'Basic Expressions': {
         group: true
     },
-    "equality": {
-        "data": {
-            "keyword": '**==, !=**',
-            "input": inputs.simple1,
-            "apath": `// ==, !=\na.(b == c)`,
-            "grammar": '#basic-expressions'
+    'equality': {
+        data: {
+            keyword: '**==, !=**',
+            input: inputs.simple1,
+            apath: `// ==, !=\ncat.(age == 1)`,
+            grammar: '#basic-expressions'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "relational": {
-        "data": {
-            "keyword": '**<**, **>**, **<=**, **>=**',
-            "input": inputs.simple1,
-            "apath": `// <, >, <=, >=\na.(b < c)`,
-            "grammar": '#basic-expressions'
+    'relational': {
+        data: {
+            keyword: '**<**, **>**, **<=**, **>=**',
+            input: inputs.simple1,
+            apath: `// <, >, <=, >=\ncat.(age < 2)`,
+            grammar: '#basic-expressions'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "logical": {
-        "data": {
-            "keyword": '**and, or, not**',
-            "input": inputs.simple1,
-            "apath": `// and, or, not\na.(b == c or not c < 2)`,
-            "grammar": '#basic-expressions'
+    'logical': {
+        data: {
+            keyword: '**and, or, not**',
+            input: inputs.simple1,
+            apath: `// and, or, not\ncat.(age==1 or not age<9)`,
+            grammar: '#basic-expressions'
         },
-        "geom": geom.default
+        geom: geom.default
     },
-    "arithmetic": {
-        "data": {
-            "keyword": '**+**, **-**, **&ast;**, **/**, **%**',
-            "input": inputs.simple1,
-            "apath": `// +, -, *, /, %\na.(b + 3 * -c)`,
-            "grammar": '#basic-expressions'
+    'arithmetic': {
+        data: {
+            keyword: '**+**, **-**, **&ast;**, **/**, **%**',
+            input: inputs.simple1,
+            apath: `// +, -, *, /, %\ncat.(age + 3 * -1)`,
+            grammar: '#basic-expressions'
         },
-        "geom": geom.default
+        geom: geom.default
     },
 
-    "Composite Expressions": {
+    'Composite Expressions': {
         group: true
     },
-    "sequenced": {
-        "data": {
-            "keyword": '... **,** ... ',
-            "input": inputs.simple1,
-            "apath": `a.(b.logg(), c)`,
-            "sfuncs": sfuncs.log,
-            "grammar": '#main-rule-Expression',
-            "remark": "evaluates sequentially and returns value of last expression. see step functions also",
+    'sequenced': {
+        data: {
+            keyword: '... **,** ... ',
+            input: inputs.simple1,
+            apath: `cat.(age.logg(), age)`,
+            sfuncs: sfuncs.log,
+            grammar: '#main-rule-Expression',
+            remark: 'evaluates sequentially and returns value of last expression',
         },
-        "geom": geom.sfuncs
+        geom: geom.sfuncs
     },
-    "conditional": {
-        "data": {
-            "keyword": '**if** **(** ... **)** ... ',
-            "input": inputs.simple1,
-            "apath": `// try a.b=0 at input\na.(if (b == 1) b c)`,
-            "grammar": '#main-rule-ConditionalExpression',
-            "remark": "expression value depending on a condition"
+    'conditional': {
+        data: {
+            keyword: '**if** **(** ... **)** ... ',
+            input: inputs.simple1,
+            apath: `cat.(if (name=='jo') age '?')`,
+            grammar: '#main-rule-OrdinaryExpression',
+            remark: 'expression value depending on a condition'
         },
-        "geom": geom.default
+        geom: geom.default
     },
+//          'Node Variables': {
+//              group: true
+//          },
+//          'variable reference': {
+//              data: {
+//                  keyword: '**$** ...',
+//                  input: inputs.simple,
+//                  grammar: '#main-rule-VariableReference',
+//                  apath: `$root.cat`,
+//                  remark: `e.g. predefined variable 'root' for the input`
+//              },
+//              geom: geom.default
+//          },
+//          'variable binding 1': {
+//              data: {
+//                  keyword: '... **@** ...',
+//                  input: inputs.var1,
+//                  input_nl: true,
+//                  grammar: '#main-rule-NodeVariableBinding',
+//                  remark: 'a node is bound to a variable, referenced in subsequent expressions',
+//                  apath: 
+//      //----------------------------
+//      // cat 
+//      //   .(mom.age - age) as k
+//      //   .('gave birth: ' + $k)
+//      // `cat as child
+//      //   .mom 
+//      //   .('gave birth: '
+//      //       + (age - $child.age))`
+//      // `cat as child .mom
+//      //   .('gave birth: '
+//      //       + (age - $child.age))`
+//      // `child=nil,
+//      // cat@child.mom
+//      //   .('gave birth: '
+//      //       + (age - $child.age))`
+//      `child = cat,
+//      cat.mom
+//        .('gave birth: '
+//            + (age - $child.age))`
+//      //----------------------------
+//              },
+//              "geom": geom.default,
+//          },
+//          'variable binding 2': {
+//              data: {
+//                  keyword: '... **@** ...',
+//                  input: inputs.var2,
+//                  input_nl: true,
+//                  grammar: '#main-rule-NodeVariableBinding',
+//                  remark: `'nested loop' with variables in sequenced expressions`,
+//                  apath: 
+//      //----------------------------
+//      // `cats .* as cat,
+//      // dogs .* as dog,
+//      // if ($cat != $dog)
+//      //    $cat + ' loves ' + $dog`
+//      // `cats.*$cat,
+//      // dogs.*$dog,
+//      // if ($cat != $dog)
+//      //    $cat + ' loves ' + $dog`
+//      `cat=nil, dog=nil,
+//      cats.*@cat, dogs.*@dog,
+//      if ($cat != $dog)
+//         $cat + ' loves ' + $dog`
+//      //----------------------------
+//              },
+//              "geom": geom.default,
+//          },
     // "union": {
     //     "data": {
     //         "keyword": '... **\\|** ... ',
@@ -390,51 +532,51 @@ var examples = {
     //     "geom": geom.default
     // },
 
-    "Step Functions header": {header: 
+    'Step Functions header': {header: 
 `
 
 ### Javascript Step Functions (user defined)
 
 | category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step functions |
 | - | - | - | - | - | - | - | - |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; | &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; | &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 `        
     },
-    "Step Functions": {
+    'Step Functions': {
         group: true
     },
-    "simple step function": {
-        "data": {
-            "keyword": '<id>**(** ... **)**',
-            "input": inputs.simple,
-            "apath": `a.b.add(1)`,
-            "sfuncs": sfuncs.simple,
-            "grammar": '#main-rule-StepFunctionCall'
-            // "no_stript_input": true,
+    'simple step function': {
+        data: {
+            keyword: '<id>**(** ... **)**',
+            input: inputs.simple,
+            apath: `cat.age.add(1)`,
+            sfuncs: sfuncs.simple,
+            grammar: '#main-rule-StepFunctionCall'
+            // no_stript_input: true,
         },
-        "geom": geom.sfuncs
+        geom: geom.sfuncs1
     },
-    "with sequences as parameters": {
-        "data": {
-            "keyword": '<id>**(** ... **)**',
-            "input": inputs.array,
-            "apath": 
+    'with sequences as parameters': {
+        data: {
+            keyword: '<id>**(** ... **)**',
+            input: inputs.array2,
+            apath: 
 `// sequence expressions as parameters
-sum(a.*)`,
-            "sfuncs": sfuncs.seq_par,
-            "grammar": '#main-rule-StepFunctionCall'
+sum(keys.*)`,
+            sfuncs: sfuncs.seq_par,
+            grammar: '#main-rule-StepFunctionCall'
         },
-        "geom": geom.sfuncs
+        geom: geom.sfuncs
     },
-    "returning sequences": {
-        "data": {
-            "keyword": '<id>**(** ... **)**',
-            "input": inputs.simple,
-            "apath": `a.b.to(3)`,
-            "sfuncs": sfuncs.seq_return,
-            "grammar": '#main-rule-StepFunctionCall'
+    'returning sequences': {
+        data: {
+            keyword: '<id>**(** ... **)**',
+            input: inputs.simple,
+            apath: `cat.age.to(3)`,
+            sfuncs: sfuncs.seq_return,
+            grammar: '#main-rule-StepFunctionCall'
         },
-        "geom": geom.sfuncs
+        geom: geom.sfuncs
     },
     // "step function w/ iteration": {
     //     "data": {

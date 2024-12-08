@@ -1,41 +1,61 @@
-<svg class="railroad-diagram" width="222" height="124" viewBox="0 0 222 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="411.5" height="103" viewBox="0 0 411.5 103" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
+<path d="M20 54v20m0 -10h20"></path>
 </g>
-<path d="M40 55h10"></path>
+<path d="M40 64h10"></path>
 <g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M172 55h0"></path>
-<rect x="50" y="36" width="122" height="68" rx="10" ry="10" class="group-box"></rect>
+<path d="M50 64h0"></path>
+<path d="M361.5 64h0"></path>
+<rect x="50" y="36" width="311.5" height="47" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M50 64h10"></path>
+<path d="M351.5 64h10"></path>
+<path d="M131 64h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M60 64h0"></path>
+<path d="M131 64h0"></path>
+<rect x="60" y="53" width="71" height="22"></rect>
+<text x="95.5" y="68">Filter</text>
+</g>
 <g class="Choice">
-<path d="M50 55h18.25"></path>
-<path d="M153.75 55h18.25"></path>
-<path d="M68.25 55h20"></path>
-<g class="terminal literal">
-<path d="M88.25 55h0"></path>
-<path d="M133.75 55h0"></path>
-<rect x="88.25" y="44" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="111" y="59">"+"</text>
+<path d="M141 64h0"></path>
+<path d="M351.5 64h0"></path>
+<path d="M141 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M161 44h170.5"></path>
 </g>
-<path d="M133.75 55h20"></path>
-<path d="M68.25 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<path d="M331.5 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M141 64h20"></path>
+<g class="Sequence">
+<path d="M161 64h0"></path>
+<path d="M331.5 64h0"></path>
+<path d="M206.5 64h10"></path>
 <g class="terminal literal">
-<path d="M88.25 85h0"></path>
-<path d="M133.75 85h0"></path>
-<rect x="88.25" y="74" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="111" y="89">"-"</text>
+<path d="M161 64h0"></path>
+<path d="M206.5 64h0"></path>
+<rect x="161" y="53" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="183.75" y="68">"@"</text>
 </g>
-<path d="M133.75 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M216.5 64h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M226.5 64h0"></path>
+<path d="M331.5 64h0"></path>
+<rect x="226.5" y="53" width="105" height="22"></rect>
+<text x="279" y="68">Identifier</text>
+</g>
+</g>
+<path d="M331.5 64h20"></path>
+</g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M172 28h0"></path>
-<text x="111" y="33" class="comment">AdditiveOperator</text>
+<path d="M193 28h0"></path>
+<text x="121.5" y="33" class="comment">NodeVariableBinding</text>
 </g>
 </g>
-<path d="M172 55h10"></path>
-<path class="End" d="M 182 55 h 20 m 0 -10 v 20"></path>
+<path d="M361.5 64h10"></path>
+<path class="End" d="M 371.5 64 h 20 m 0 -10 v 20"></path>
 </g>
 <style>.ruleId {
   color: black;

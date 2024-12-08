@@ -84,7 +84,10 @@ body {
 
 * {
     user-select: none;
+    /* outline : none; */
+    caret-color: transparent;
 }
+
 
 fieldset {
     padding: 1px;

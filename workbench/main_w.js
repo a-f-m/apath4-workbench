@@ -8,23 +8,29 @@ function set_data(d) {
     set_geom(d.geom)
 }
 
-function restore() {
+function restore(e) {
 
-    const d = restore_data('_default')
-    if (d) set_data(d)
-    if (d) set_geom(d.geom)
+    readSingleFile(e, (content) => {
+
+        const d = JSON.parse(content)
+        if (d) {
+            set_data(d)
+            set_geom(d.geom)
+        }
+    })
 }
 
 function store() {
 
-    store_data('_default', {
+    let d = {
         data: {
             input: monaco_editors.input.getValue(),
             apath: monaco_editors.apath.getValue(),
             sfuncs: monaco_editors.sfuncs.getValue()
         },
         geom: get_geom()
-    })
+    }
+    downloadToFile(JSON.stringify(d, null, 3), '', ' text/plain')
 }
 
 
@@ -91,17 +97,21 @@ function on_editor_change() {
     }
 }
 
-$('#bnt_store_layout').on('click', function () {
+$('#bnt_store').on('click', function () {
     store()
 })
-$('#bnt_restore_layout').on('click', function () {
-    restore()
+$('#bnt_restore').on('click', function (e) {
+    $('#file-input').trigger('click')
 })
 
 $('#toggle_dark').on('change', function () {
-    monaco.editor.setTheme(this.checked ? 'vs-dark' : 'vs')
+    monaco.editor.setTheme(this.checked ? 'apath' : 'vs')
 })
 
+$('#file-input').on('change', function (e) {
+    restore(e)
+})
+    
 $('#toggle_live_eval').on('change', function () {
     $('#bnt_eval_apth').trigger('click')
 })
@@ -127,6 +137,17 @@ function get_exa_file(f) {
     })
 }
 
+function get_wb_file(f) {
+    
+    process_file(f, function (text) {
+        const d = JSON.parse(text)
+        if (d) {
+            set_data(d)
+            set_geom(d.geom)
+        }
+    })
+}
+
 $('#select_topics').on('change', function (e) {
     get_exa_file(this.value)
 })
@@ -142,7 +163,7 @@ $('#bnt_grammar').on('click', function () {
 })
 
 $('#bnt_ast').on('click', function () {
-    const ast = new window.Parser__.Parser().setting({ w_loc: false }).parse(monaco_editors.apath.getValue())
+    const ast = new window.Parser__.Parser().setting({ w_loc: false, no_empty_left: true }).parse(monaco_editors.apath.getValue())
     open_blob(JSON.stringify(ast, null, 3), 'text/plain')
 })
 
@@ -229,16 +250,15 @@ $(function () {
         if (event.ctrlKey && !event.shiftKey) {
             switch (event.code) {
                 case 'KeyS':
-                    $('#bnt_store_layout').trigger('click')
+                    $('#bnt_store').trigger('click')
                     event.preventDefault()
                     break
-                case 'KeyR':
-                    $('#bnt_restore_layout').trigger('click')
+                case 'F7':
+                    $('#bnt_restore').trigger('focus')
                     event.preventDefault()
                     break
                 case 'KeyE':
                     $('#bnt_eval_apth').trigger('click')
-                    // monaco_editors['result'].focus()
                     event.preventDefault()
                     break
                     case 'Numpad0':
@@ -246,7 +266,11 @@ $(function () {
                     $('#bnt_eval_apth').trigger('click')
                     event.preventDefault()
                     break
-                case 'Numpad1':
+                    case 'KeyB':
+                        $('#toggle_dark').trigger('click')
+                        event.preventDefault()
+                        break
+                    case 'Numpad1':
                     monaco_editors['input'].focus()
                     event.preventDefault()
                     break
@@ -270,72 +294,23 @@ $(function () {
                     $('#select_examples').trigger('focus')
                     event.preventDefault()
                     break
+                case 'NumpadDecimal':
+                    save_highlighting()
+                    event.preventDefault()
+                    break
 
                 default:
                     break
                 }
             // console.log('user key')
         } else {
+            if (event.code === 'Escape') {
+                $('#select_examples').trigger('focus')
+                event.preventDefault()
+            }
             return true
         }
     })
-})
-
-
-// ########################################### monaco #######################################################
-
-var monaco_editors = {}
-
-require.config({ paths: { vs: 'monaco/vs' } })
-
-require(['vs/editor/editor.main'], function () {
-
-    function create_editor(e, kind) {
-
-        const d = examples[examples.first_example.value].data
-        return monaco.editor.create(e, {
-            theme: 'vs-dark',
-            // theme: 'vs',
-            language: kind === 'input' ? 'json' : kind === 'apath' ? 'fsharp' : kind === 'sfuncs' ? 'javascript' : 'text',
-            minimap: { enabled: false },
-            lineNumbers: 'off',
-            wordWrap: 'on',
-            automaticLayout: true
-        })
-    }
-    monaco_editors['input'] = create_editor(document.getElementById('monaco_input'), 'input')
-    monaco_editors['apath'] = create_editor(document.getElementById('monaco_apath'), 'apath')
-    monaco_editors['result'] = create_editor(document.getElementById('monaco_result'), 'result')
-    monaco_editors['sfuncs'] = create_editor(document.getElementById('monaco_sfuncs'), 'sfuncs')
-    monaco_editors.input.onDidChangeModelContent(function (e) {
-        on_editor_change()
-    })
-    monaco_editors.apath.onDidChangeModelContent(function (e) {
-        on_editor_change()
-    })
-    monaco_editors.sfuncs.onDidChangeModelContent(function (e) {
-        on_editor_change()
-1    })
-
-    const params = new URLSearchParams(window.location.search)
-
-    // e. g. ?unhide-topic=topic-peter&topic=topic-peter
-    for (const utopic of params.getAll('unhide-topic')) $(`#${utopic}`).removeAttr('hidden')
-
-    let topic = params.get('topic')
-    if (topic === null) topic = 'topic-basic'
-    const t = $(`#select_topics option[id='${topic}']`)
-    t.prop('selected', true)
-    get_exa_file(t.attr('value'))
-    
-    
-    let exa = params.get('exa')
-    if (exa === null) exa = examples.first_example.value
-
-    use_server = params.get('use-server')
-    console.log(use_server)
-
-    set_exa_select(exa)
 })
 
 $('#toggle_fit').prop('checked', true)
@@ -347,4 +322,108 @@ $(function () {
     window.onresize = fit
     fit(undefined, true)
 })
+
+function setup() {
+    
+    const params = new URLSearchParams(window.location.search)
+
+    // e. g. ?unhide-topic=topic-peter&topic=topic-peter
+    for (const utopic of params.getAll('unhide-topic')) $(`#${utopic}`).removeAttr('hidden')
+
+    let topic = params.get('topic')
+    if (topic === null) topic = 'topic-basic'
+    const t = $(`#select_topics option[id='${topic}']`)
+    t.prop('selected', true)
+    get_exa_file(t.attr('value'))
+
+
+    let exa = params.get('exa')
+    if (exa === null) exa = examples.first_example.value
+
+    use_server = params.get('use-server')
+    console.log(use_server)
+
+    set_exa_select(exa)
+
+    let wb_file = params.get('wb-file')
+    if (wb_file !== null) {
+        get_wb_file(wb_file)
+    }
+}
+
+// ################### highlight data
+
+// function to_all_blanks(s) {
+//     return s
+//         // .replaceAll('\n\s*', '')
+//         // .replace(/ +(?= )/g, '')
+//         .replace(/\n\s*/g, '')
+// }
+
+function to_all_blanks(s) {
+    return s.replaceAll('\n', ' ').replace(/ +(?= )/g, '')
+}
+function to_result(s) {
+    return to_all_blanks(s).replaceAll('------', ',').trim().replace(new RegExp(',$'), '')
+}
+
+function no_last_br(s) {
+    return s.toString().replace(new RegExp('\\<br\\/\\>$'), '')
+}
+
+async function build_highlighting(topic) {
+
+    let result = { 
+        cheat_cheet: { apath: {}, input: {}, result: {} }, 
+        doc: { apath: {}, input: {}, result: {} } }
+
+    for (const key in examples) {
+
+        if (examples[key].ignore) continue
+
+        const data = examples[key].data
+        const sf = $('#toggle_strict_failure').prop('checked')
+        if (data) {
+                // .replaceAll(new RegExp('//.*\n', 'g'), '')
+            // const input = data.input_nl
+            const sfuncs = data.sfuncs
+            let r
+            try {
+                r = to_result(window.apath_func_utils_.evaluate(
+                        (data.input_nl ? data.input : to_all_blanks(data.input)),
+                        data.apath, sfuncs, sf).result)
+            } catch (error) {
+                console.log(error)
+                r = 'error'
+            }
+            console.log('hl key: ' + key)
+
+            const apath = data.apath.replaceAll(new RegExp('//.*\n', 'g'), '')
+            await extend_highlight(result.cheat_cheet, key, 
+                apath, 
+                (data.input_nl ? data.input : to_all_blanks(data.input)), 
+                r)
+            await extend_highlight(result.doc, key, 
+                apath, 
+                data.input, 
+                r)
+        }
+    }
+    console.log(result)
+    return result
+}
+
+async function extend_highlight(target, key, apath, input, r) {
+    target.apath[key] = no_last_br(await monaco.editor.colorize(apath, "apath"))
+    target.input[key] = no_last_br(await monaco.editor.colorize(input, "javascript"))
+    target.result[key] = no_last_br(await monaco.editor.colorize(r, "text"))
+}
+
+async function save_highlighting() {
+
+    const topic = $('#select_topics').find(":selected").text()
+    const result = await build_highlighting(topic)
+    downloadToFile('export const highlight = ' + JSON.stringify(result, null, 3), `data-dyn-highlight-${topic}.js`, 'text/plain')
+}
+
 

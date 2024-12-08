@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"cat\": {\n        \"age\": 1\n    } \n}",
+      "apath": "cat.age",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 99.91667175292969,
+            "left": 44.94999694824219
+         },
+         "height": 462.833,
+         "width": 587.833,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 99.89999389648438,
+            "left": 651.8499755859375
+         },
+         "height": 303.25,
+         "width": 605.85,
+         "zindex": "102"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 420.7833251953125,
+            "left": 652.2000122070312
+         },
+         "height": 232.3,
+         "width": 605.85,
+         "zindex": "101"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 580.4000244140625,
+            "left": 44.94999694824219
+         },
+         "height": 72.7,
+         "width": 587.833,
+         "zindex": "104"
+      }
+   }
+}

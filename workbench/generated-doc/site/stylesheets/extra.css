@@ -1,7 +1,8 @@
 :root {
-  --md-primary-fg-color:        #622f21;
+  --md-primary-fg-color: #622f21;
   --md-primary-fg-color--light: #622f21;
-  --md-primary-fg-color--dark:  #622f21;
+  --md-primary-fg-color--dark: #622f21;
+  font-size: 14pt;
 }
 
 .cheat-sheet-ref {
@@ -13,5 +14,76 @@
 }
 
 .md-grid {
-  max-width: 2000px; 
+  max-width: 2000px;
+}
+
+.afm-svg-sub {
+  display: block;
+  margin-top: -28pt;
+}
+
+.md-typeset .admonition.pied-piper,
+.md-typeset details.pied-piper {
+  border-color: #ffa724;
+}
+.md-typeset .pied-piper > .admonition-title,
+.md-typeset .pied-piper > summary {
+  background-color: #ffa724;
+}
+.md-typeset .pied-piper > .admonition-title::before,
+.md-typeset .pied-piper > summary::before {
+  background-color: #ffa724;
+  -webkit-mask-image: var(--md-admonition-icon--pied-piper);
+          mask-image: var(--md-admonition-icon--pied-piper);
+}
+
+/* --------------------------------- exa snippets -----------------------------------  */
+
+.right-align {
+  display: inline-block;
+  text-align: right;
+  float: right;
+}
+
+/* --------------------------------- code highlight -----------------------------------  */
+
+*[class^="mtk"] { 
+  /* color: #000000; */
+/* background-color: #fffffe; */
+  font-family: Consolas, 'Courier New', monospace;
+  font-weight: normal;
+  /* font-size: 14px; */
+  font-size: .6rem;
+  /* line-height: 19px; */
+  white-space: pre;
+/* color: #d4d4d4;background-color: #1e1e1e;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre; */
+}
+
+.mtkb {
+  font-weight: bold;
+}
+
+/* strings: */
+.mtk5 {
+  color: #a31515
+}
+
+/* operator: */
+/* .mtk16 { color: blue }  */
+.mtk16 {
+  font-weight: bold
+}
+
+/* keyword: */
+.mtk9 {
+  font-weight: bold
+}
+
+/* call: */
+.mtk8 {
+  font-weight: bold
+}
+
+.mtk25 {
+  font-weight: lighter
 }

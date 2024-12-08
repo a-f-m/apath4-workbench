@@ -5,18 +5,29 @@ function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-const dir = '.'
+export async function build_bundle() {
 
-fs.copyFileSync(`${dir}/tsconfig-bundle-1.json`, `${dir}/tsconfig.json`)
 
-console.log('wait for CommonJS/Node compilation');
-await sleep(5000)
+    const dir = '.'
 
-ch.execSync(`browserify workbench/apath-wrapper.js > workbench/bundle.js`)
+    fs.copyFileSync(`${dir}/tsconfig-bundle-1.json`, `${dir}/tsconfig.json`)
 
-console.log('bundle building (browserify)');
-// await sleep(10000)
+    console.log('wait for CommonJS/Node compilation');
+    await sleep(5000)
 
-fs.copyFileSync(`${dir}/tsconfig-orig.json`, `${dir}/tsconfig.json`)
+    try {
+        ch.execSync(`browserify workbench/apath-wrapper.js > workbench/bundle.js`)
 
-console.log('ready');
+        console.log('bundle building (browserify)');
+        // await sleep(10000)
+
+    } catch (error) {
+        console.log(error);
+    } finally {
+        fs.copyFileSync(`${dir}/tsconfig-orig.json`, `${dir}/tsconfig.json`)
+    }
+
+
+    console.log('ready')
+
+}

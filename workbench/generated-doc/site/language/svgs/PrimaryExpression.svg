@@ -1,4 +1,4 @@
-<svg class="railroad-diagram" width="556.5" height="296" viewBox="0 0 556.5 296" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="403.5" height="296" viewBox="0 0 403.5 296" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
 <path d="M20 69v20m0 -10h20"></path>
@@ -6,113 +6,113 @@
 <path d="M40 79h10"></path>
 <g class="Group rule">
 <path d="M50 79h0"></path>
-<path d="M506.5 79h0"></path>
-<rect x="50" y="36" width="456.5" height="240" rx="10" ry="10" class="group-box"></rect>
+<path d="M353.5 79h0"></path>
+<rect x="50" y="36" width="303.5" height="240" rx="10" ry="10" class="group-box"></rect>
 <g class="Choice">
 <path d="M50 79h0"></path>
-<path d="M506.5 79h0"></path>
+<path d="M353.5 79h0"></path>
 <path d="M50 79h20"></path>
 <g class="Group rule">
-<path d="M70 79h118.75"></path>
-<path d="M367.75 79h118.75"></path>
-<rect x="188.75" y="60" width="179" height="128" rx="10" ry="10" class="group-box"></rect>
+<path d="M70 79h42.25"></path>
+<path d="M291.25 79h42.25"></path>
+<rect x="112.25" y="60" width="179" height="128" rx="10" ry="10" class="group-box"></rect>
 <g class="Choice">
-<path d="M188.75 79h0"></path>
-<path d="M367.75 79h0"></path>
-<path d="M188.75 79h20"></path>
+<path d="M112.25 79h0"></path>
+<path d="M291.25 79h0"></path>
+<path d="M112.25 79h20"></path>
 <g class="non-terminal rule-ref">
-<path d="M208.75 79h0"></path>
-<path d="M347.75 79h0"></path>
-<rect x="208.75" y="68" width="139" height="22"></rect>
-<text x="278.25" y="83">BooleanLiteral</text>
+<path d="M132.25 79h0"></path>
+<path d="M271.25 79h0"></path>
+<rect x="132.25" y="68" width="139" height="22"></rect>
+<text x="201.75" y="83">BooleanLiteral</text>
 </g>
-<path d="M347.75 79h20"></path>
-<path d="M188.75 79a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<path d="M271.25 79h20"></path>
+<path d="M112.25 79a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
 <g class="non-terminal rule-ref">
-<path d="M208.75 109h0"></path>
-<path d="M347.75 109h0"></path>
-<rect x="208.75" y="98" width="139" height="22"></rect>
-<text x="278.25" y="113">NumericLiteral</text>
+<path d="M132.25 109h0"></path>
+<path d="M271.25 109h0"></path>
+<rect x="132.25" y="98" width="139" height="22"></rect>
+<text x="201.75" y="113">NumericLiteral</text>
 </g>
-<path d="M347.75 109a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
-<path d="M188.75 79a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+<path d="M271.25 109a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M112.25 79a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
 <g class="non-terminal rule-ref">
-<path d="M208.75 139h4.25"></path>
-<path d="M343.5 139h4.25"></path>
-<rect x="213" y="128" width="130.5" height="22"></rect>
-<text x="278.25" y="143">StringLiteral</text>
+<path d="M132.25 139h4.25"></path>
+<path d="M267 139h4.25"></path>
+<rect x="136.5" y="128" width="130.5" height="22"></rect>
+<text x="201.75" y="143">StringLiteral</text>
 </g>
-<path d="M347.75 139a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
-<path d="M188.75 79a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path>
+<path d="M271.25 139a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+<path d="M112.25 79a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path>
 <g class="non-terminal rule-ref">
-<path d="M208.75 169h12.75"></path>
-<path d="M335 169h12.75"></path>
-<rect x="221.5" y="158" width="113.5" height="22"></rect>
-<text x="278.25" y="173">NullLiteral</text>
+<path d="M132.25 169h12.75"></path>
+<path d="M258.5 169h12.75"></path>
+<rect x="145" y="158" width="113.5" height="22"></rect>
+<text x="201.75" y="173">NullLiteral</text>
 </g>
-<path d="M347.75 169a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path>
+<path d="M271.25 169a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path>
 </g>
 <g class="comment">
-<path d="M188.75 52h0"></path>
-<path d="M247.75 52h0"></path>
-<text x="218.25" y="57" class="comment">Literal</text>
+<path d="M112.25 52h0"></path>
+<path d="M171.25 52h0"></path>
+<text x="141.75" y="57" class="comment">Literal</text>
 </g>
 </g>
-<path d="M486.5 79h20"></path>
+<path d="M333.5 79h20"></path>
 <path d="M50 79a10 10 0 0 1 10 10v141a10 10 0 0 0 10 10"></path>
 <g class="Group rule">
 <path d="M70 240h0"></path>
-<path d="M486.5 240h0"></path>
-<rect x="70" y="212" width="416.5" height="56" rx="10" ry="10" class="group-box"></rect>
+<path d="M333.5 240h0"></path>
+<rect x="70" y="212" width="263.5" height="56" rx="10" ry="10" class="group-box"></rect>
 <g class="Sequence">
 <path d="M70 240h10"></path>
-<path d="M476.5 240h10"></path>
-<path d="M210.5 240h10"></path>
+<path d="M323.5 240h10"></path>
+<path d="M134 240h10"></path>
 <g class="non-terminal rule-ref">
 <path d="M80 240h0"></path>
-<path d="M210.5 240h0"></path>
-<rect x="80" y="229" width="130.5" height="22"></rect>
-<text x="145.25" y="244">CompositeStep</text>
+<path d="M134 240h0"></path>
+<rect x="80" y="229" width="54" height="22"></rect>
+<text x="107" y="244">Step</text>
 </g>
 <g class="Choice">
-<path d="M220.5 240h0"></path>
-<path d="M476.5 240h0"></path>
-<path d="M220.5 240a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M144 240h0"></path>
+<path d="M323.5 240h0"></path>
+<path d="M144 240a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
 <g class="Skip">
-<path d="M240.5 220h216"></path>
+<path d="M164 220h139.5"></path>
 </g>
-<path d="M456.5 220a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M220.5 240h20"></path>
+<path d="M303.5 220a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M144 240h20"></path>
 <g class="OneOrMore">
-<path d="M240.5 240h0"></path>
-<path d="M456.5 240h0"></path>
-<path d="M250.5 240a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M164 240h0"></path>
+<path d="M303.5 240h0"></path>
+<path d="M174 240a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
 <g class="Skip">
-<path d="M250.5 260h196"></path>
+<path d="M174 260h119.5"></path>
 </g>
-<path d="M446.5 260a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
-<path d="M240.5 240h10"></path>
-<path d="M446.5 240h10"></path>
+<path d="M293.5 260a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M164 240h10"></path>
+<path d="M293.5 240h10"></path>
 <g class="Sequence">
-<path d="M250.5 240h0"></path>
-<path d="M446.5 240h0"></path>
-<path d="M296 240h10"></path>
+<path d="M174 240h0"></path>
+<path d="M293.5 240h0"></path>
+<path d="M219.5 240h10"></path>
 <g class="terminal literal">
-<path d="M250.5 240h0"></path>
-<path d="M296 240h0"></path>
-<rect x="250.5" y="229" width="45.5" height="22" rx="10" ry="10"></rect>
-<text x="273.25" y="244">"."</text>
+<path d="M174 240h0"></path>
+<path d="M219.5 240h0"></path>
+<rect x="174" y="229" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="196.75" y="244">"."</text>
 </g>
-<path d="M306 240h10"></path>
+<path d="M229.5 240h10"></path>
 <g class="non-terminal rule-ref">
-<path d="M316 240h0"></path>
-<path d="M446.5 240h0"></path>
-<rect x="316" y="229" width="130.5" height="22"></rect>
-<text x="381.25" y="244">CompositeStep</text>
+<path d="M239.5 240h0"></path>
+<path d="M293.5 240h0"></path>
+<rect x="239.5" y="229" width="54" height="22"></rect>
+<text x="266.5" y="244">Step</text>
 </g>
 </g>
 </g>
-<path d="M456.5 240h20"></path>
+<path d="M303.5 240h20"></path>
 </g>
 </g>
 <g class="comment">
@@ -121,7 +121,7 @@
 <text x="89" y="209" class="comment">Path</text>
 </g>
 </g>
-<path d="M486.5 240a10 10 0 0 0 10 -10v-141a10 10 0 0 1 10 -10"></path>
+<path d="M333.5 240a10 10 0 0 0 10 -10v-141a10 10 0 0 1 10 -10"></path>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
@@ -129,8 +129,8 @@
 <text x="114.5" y="33" class="comment">PrimaryExpression</text>
 </g>
 </g>
-<path d="M506.5 79h10"></path>
-<path class="End" d="M 516.5 79 h 20 m 0 -10 v 20"></path>
+<path d="M353.5 79h10"></path>
+<path class="End" d="M 363.5 79 h 20 m 0 -10 v 20"></path>
 </g>
 <style>.ruleId {
   color: black;

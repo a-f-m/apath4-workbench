@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"xxx\": {\n        \"yyy\": {\n            \"uuu\": {\n                \"zzz\": {\n                    \"www\": 99\n                }\n            }\n        }\n    }\n}",
+      "apath": "// xxx \n//    .yyy as y \n//    .uuu \n//    . zzz as zzz\n//    .www\n\n// xxx.yyy@y.uuu.zzz@z.www\n\nxxx.yyy.(\n   _ as y,\n   uuu.zzz.(\n      _ as z, www))\n      \n   \n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 99.93333435058594,
+            "left": 42.23333740234375
+         },
+         "height": 462.817,
+         "width": 552.183,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 99.89999389648438,
+            "left": 612.3333129882812
+         },
+         "height": 303.233,
+         "width": 569.117,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 420.79998779296875,
+            "left": 612.6500244140625
+         },
+         "height": 232.3,
+         "width": 569.117,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 580.38330078125,
+            "left": 42.23333740234375
+         },
+         "height": 72.6833,
+         "width": 552.183,
+         "zindex": "101"
+      }
+   }
+}

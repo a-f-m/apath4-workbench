@@ -23,7 +23,8 @@
             <div id='grp_layout'>
                 <select title="topics (Ctrl+F5)" id="select_topics">
                     <option id="topic-basic" value="data-dyn.js">basic</option>
-                    <option id="topic-peter" value="custom-data/data-dyn-peter.js" hidden>peter's</option>
+                    <option id="topic-peter" value="custom-data/data-dyn-peter.js" hidden>Peter's</option>
+                    <option id="topic-stefan" value="custom-data/data-dyn-stefan.js" hidden>Stefan's</option>
                     <option id="topic-test" value="data-dyn.js---" hidden>...</option>
                 </select>
                 <span>example</span>
@@ -36,16 +37,17 @@
         <fieldset>
             <legend>widgets</legend>
             <div id='grp_layout'>
-                <span title='dark editors'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
-                <span class='button' hidden>
-                    <input id='bnt_store_layout' type='button'
-                    title='stores layout of the widgets in browser storage (Ctrl+S)'
-                    value='store**' />
+                <input type="file" id="file-input" hidden/>
+
+                <span class='button'>
+                    <input id='bnt_store' type='button'
+                    title='stores widgets to a file (Ctrl+S)'
+                    value='store' />
                 </span>
-                <span class='button' hidden>
-                    <input id='bnt_restore_layout' type='button' title='restores layout of the widgets from browser storage (Ctrl+R)' value='restore**' />
-                    <span>-layout</span>
+                <span class='button'>
+                    <input id='bnt_restore' type='button' title='restores widgets from file (no key due to security)' value='restore' />
                 </span>
+                <span title='dark editors (Ctrl+B)'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
                 <span class='button' hidden>
                     <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
                 </span>
@@ -87,11 +89,11 @@
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it)'
+                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it) - related to the current example'
                         value='grammar' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet' value='cheat-sheet' />
+                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet part - related to the current example' value='cheat-sheet' />
                 </span>
                 <span class='button' hidden>
                     <input id='bnt_exa_step_funcs' type='button' title='example step functions'
@@ -101,21 +103,22 @@
         </fieldset>
     </div>
     <div class='main'>
+        <!-- <img style="height: 1.3em;" src="info_24dp_FILL0_wght400_GRAD0_opsz24.svg"/> -->
         <div id='widget_input' class='widget' style='z-index: 101;'>
-            <div class='widget-header'><span title="Ctrl+Numpad1">json input</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad1">json input (press F1 for editor commands)</span></div>
             <div id='monaco_input' class='monaco contentPane'></div>
             <!-- <div class='widget-footer'>lalala</div> -->
         </div>
         <div id='widget_apath' class='widget' style='z-index: 102;'>
-            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression (press F1 for editor commands)</span></div>
             <div id='monaco_apath' class='monaco contentPane'></div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
-            <div class='widget-header'><span title="Ctrl+Numpad4">result</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes)</span></div>
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
-            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions (press F1 for editor commands)</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
     </div>
@@ -129,6 +132,9 @@
         const params = new URLSearchParams(window.location....)
     </script> -->
     <script src='./main_w.js'></script>
+
+    <script src='./monarch.js'></script>
+    <script src='./monaco.js'></script>
     <script>
     </script>
 

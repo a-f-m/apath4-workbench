@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n  \"specversion\": \"1.0\",\n  \"id\": \"8\",\n  \"source\": \"btire\",\n  \"type\": \"pressure.updated\",\n  \"data\": {\n    \"time\": \"1970-01-01T07:00:00Z\",\n    \"front\": 1.93,\n    \"rear\": 4.12\n  }\n}",
+      "apath": "_?(data.front < 4.0 or data.rear < 4.0)",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 102.51666259765625,
+            "left": 42.81666564941406
+         },
+         "height": 488.583,
+         "width": 559.85,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 102.51666259765625,
+            "left": 620.8333129882812
+         },
+         "height": 320.117,
+         "width": 577.017,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 441.25,
+            "left": 621.1666870117188
+         },
+         "height": 245.233,
+         "width": 577.017,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 609.683349609375,
+            "left": 42.81666564941406
+         },
+         "height": 76.75,
+         "width": 559.85,
+         "zindex": "101"
+      }
+   }
+}

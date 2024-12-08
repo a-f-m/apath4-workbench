@@ -760,23 +760,37 @@
 <th>feature / construct</th>
 <th>kind</th>
 <th>remark</th>
-<th>date</th>
+<th>id</th>
 <th>grammar,<br>workbench</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>match values</td>
+<td>new</td>
+<td>step function regex match for values</td>
+<td>R4</td>
+<td><a href="grammar.html#StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=value regex"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+</tr>
+<tr>
+<td>workbench store/restore</td>
+<td>new</td>
+<td>(re-)storing widgets locally</td>
+<td>R3</td>
+<td>see <a href="../workbench/workbench.html#control-panel">workbench</a></td>
+</tr>
+<tr>
 <td>property literal</td>
 <td>changed</td>
 <td>resolved ambiguity for string literals in paths and expressions (<code>`...`</code>)</td>
-<td>2024-10-27</td>
+<td>R2</td>
 <td><a href="grammar.html#properties"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=property literal"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td>arithmetic</td>
 <td>new</td>
 <td>+ - * / % - operators</td>
-<td>2024-10-13</td>
+<td>R1</td>
 <td><a href="grammar.html#basic-expressions"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=arithmetic"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 </tbody>
@@ -789,13 +803,13 @@
 <li><em>rhs</em> paths in assignments</li>
 <li>(composite) step enhancement<ul>
 <li>object-split</li>
-<li>regex over values</li>
+<li>(x) regex over values</li>
 <li>operator to process sequences (sort, reduce)</li>
 </ul>
 </li>
 <li>expressions<ul>
-<li>arithmetic </li>
-<li>some, every</li>
+<li>(x) arithmetic </li>
+<li>some, every, union</li>
 </ul>
 </li>
 <li>pattern matching</li>
