@@ -28,6 +28,12 @@
       
       
 
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M7 8h2v4H8V9H7V8m3 9v1H7v-.92L9 15H7v-1h2.25c.41 0 .75.34.75.75 0 .2-.08.39-.21.52L8.12 17H10m1-13c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1m6 13h-5v-2h5v2m0-6h-5V9h5v2Z"/></svg>');}</style>
+
 
     
     
@@ -1001,7 +1007,21 @@
 
 
 <h1 id="description-by-grammar">Description by Grammar</h1>
-<p><em>apath</em> is an expression language, so the start rule is <a href="#expressions"><em>Expression</em></a>. The grammar will be described top-down<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. Icon <a title="cheat sheet" href="../cheat-sheet.html#cheat-sheet-generated"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> references the related cheat-sheet part. See also <a href="preliminaries.html">basic definitions</a>.</p>
+<p class="annotate"><em>apath</em> is an expression language, so the start rule is <a href="#expressions"><em>Expression</em></a>. The grammar will be described top-down<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. Icon <a title="cheat sheet" href="../cheat-sheet.html#cheat-sheet-generated"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> references the related cheat-sheet part and icon (1) shows an example popup. See also <a href="preliminaries.html">basic definitions</a>.</p>
+<ol>
+<li>
+<p>property <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk12">age</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">1&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- Because a path with steps is the most commonly used and central construct, the grammar here will start at this level.  -->
 <!-- For instance, `#!javascript person.age == 18` checks the equality of a value of a path with a literal value.  -->
 
@@ -1212,7 +1232,21 @@ text.repeat-text {
 <p></p>
 <!-- deferred --8<-- "doc/mkdocs/docs/language/svgs/SequencedExpressionItem.svg" -->
 
-<p>Expressions can be sequenced, delimited by a comma. In this case, its value is the value of the last expression. It is mostly used for side effects, e.g., logging or variable declaration. <a title="cheat sheet" href="../cheat-sheet.html#e-Composite Expressions"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> All expressions are evaluated sequentially. </p>
+<p class="annotate">Expressions can be sequenced, delimited by a comma. In this case, its value is the value of the last expression. It is mostly used for side effects, e.g., logging or variable declaration. All expressions are evaluated sequentially. (1) </p>
+<ol>
+<li>
+<p>sequenced <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-sequenced"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=sequenced"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">logg</span><span class="mtk1">(),&nbsp;</span><span class="mtk12">age</span><span class="mtk1">)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">1&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- If one has no solution, evaluation does not proceed, and the whole sequenced expression has no solution. If one has more than one solution, say $n$, the subsequent expression is evaluated $n$ times. -->
 
 <!-- ??? Note "Note / eval"
@@ -1500,11 +1534,25 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The conditional expression consists of the condition-part, then-part, and optional alternative (else-part). <a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">The conditional expression consists of the condition-part, then-part, and optional alternative (else-part). (1) </p>
+<ol>
+<li>
+<p>conditional <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=conditional"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk9">if</span><span class="mtk1">&nbsp;(</span><span class="mtk12">name</span><span class="mtk1">==</span><span class="mtk5">'jo'</span><span class="mtk1">)&nbsp;</span><span class="mtk12">age</span><span class="mtk1">&nbsp;</span><span class="mtk5">'?'</span><span class="mtk1">)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">1&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- | apath | input[^xxx] | result
 | :------ | :-------- | :--------
-| [exa-apath:basic:conditional] | [exa-input:basic:conditional] | [exa-result:basic:conditional]
-| [exa-apath:basic:conditional] | " | [exa-result:basic:conditional] -->
+| <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk9">if</span><span class="mtk1"> (</span><span class="mtk12">name</span><span class="mtk1">==</span><span class="mtk5">'jo'</span><span class="mtk1">) </span><span class="mtk12">age</span><span class="mtk1"> </span><span class="mtk5">'?'</span><span class="mtk1">)</span></span> | <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span> | <span><span class="mtk1">1 </span></span>
+| <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk9">if</span><span class="mtk1"> (</span><span class="mtk12">name</span><span class="mtk1">==</span><span class="mtk5">'jo'</span><span class="mtk1">) </span><span class="mtk12">age</span><span class="mtk1"> </span><span class="mtk5">'?'</span><span class="mtk1">)</span></span> | " | <span><span class="mtk1">1 </span></span> -->
 
 <details class="note">
 <summary>Tip / else-part</summary>
@@ -1522,14 +1570,58 @@ a
 ``` -->
 
 <!-- ??? Success "sequenced"
-[snippet:doc-exa-snippet-1:sequenced] -->
+    sequenced <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-sequenced"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=sequenced"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">logg</span><span class="mtk1">(), </span><span class="mtk12">age</span><span class="mtk1">)</span></span>
+    **result**:
+
+        <span><span class="mtk1">1 </span></span>
+ -->
 <!-- ??? Success "conditional"
-[snippet:doc-exa-snippet-1:conditional] -->
+    conditional <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=conditional"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk9">if</span><span class="mtk1"> (</span><span class="mtk12">name</span><span class="mtk1">==</span><span class="mtk5">'jo'</span><span class="mtk1">) </span><span class="mtk12">age</span><span class="mtk1"> </span><span class="mtk5">'?'</span><span class="mtk1">)</span></span>
+    **result**:
+
+        <span><span class="mtk1">1 </span></span>
+ -->
 
 <!-- ??? Success "Examples"
-[snippet:doc-exa-snippet-1:sequenced]
+    sequenced <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-sequenced"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=sequenced"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">logg</span><span class="mtk1">(), </span><span class="mtk12">age</span><span class="mtk1">)</span></span>
+    **result**:
+
+        <span><span class="mtk1">1 </span></span>
+
     <hr>
-[snippet:doc-exa-snippet-1:conditional] -->
+    conditional <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=conditional"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk9">if</span><span class="mtk1"> (</span><span class="mtk12">name</span><span class="mtk1">==</span><span class="mtk5">'jo'</span><span class="mtk1">) </span><span class="mtk12">age</span><span class="mtk1"> </span><span class="mtk5">'?'</span><span class="mtk1">)</span></span>
+    **result**:
+
+        <span><span class="mtk1">1 </span></span>
+ -->
 
 <!-- !TODO priority -->
 
@@ -1793,10 +1885,32 @@ text.repeat-text {
 }</style>
 <p></p>
 <!-- ??? Success "logical"
-[snippet:doc-exa-snippet-1:logical]
+    logical <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-logical"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=logical"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1">==1 </span><span class="mtk9">or</span><span class="mtk1"> </span><span class="mtk9">not</span><span class="mtk1"> </span><span class="mtk12">age</span><span class="mtk1">&lt;9)</span></span>
+    **result**:
+
+        <span><span class="mtk1">true </span></span>
+
 
 ??? Success "arithmetic"
-[snippet:doc-exa-snippet-1:arithmetic] -->
+    arithmetic <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-arithmetic"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=arithmetic"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span></span><br/><span><span class="mtk1">    </span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">{</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">,</span></span><br/><span><span class="mtk1">        </span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk5">"jo"</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">}</span></span><br/><span><span class="mtk10">}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1"> + 3 * -1)</span></span>
+    **result**:
+
+        <span><span class="mtk1">-2 </span></span>
+ -->
 
 <h2 id="paths-steps">Paths &amp; Steps</h2>
 <p><a id="main-rule-Path"></a></p>
@@ -2670,9 +2784,34 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>By means of a filter, the <a href="../language/preliminaries.html#def-sequence">sequence</a> retrieved by the base step can be restricted to a subsequence of <a href="../language/preliminaries.html#def-node">nodes</a>. <a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> For every node in the original sequence, the filter expression is evaluated, and the result is passed to the test function (see <a href="eval.html#def-test">test</a>). If the test is <em>true</em>, then the node is contained in the  sub-sequence.</p>
+<p class="annotate">By means of a filter, the <a href="../language/preliminaries.html#def-sequence">sequence</a> retrieved by the base step can be restricted to a subsequence of <a href="../language/preliminaries.html#def-node">nodes</a>. (1) For every node in the original sequence, the filter expression is evaluated, and the result is passed to the test function (see <a href="eval.html#def-test">test</a>). If the test is <em>true</em>, then the node is contained in the  sub-sequence.</p>
+<ol>
+<li>
+<p>filter (predicate) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=filter (predicate)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">[{</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">},</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;2</span><span class="mtk10">}]</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">*</span><span class="mtk9 mtkb">?</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1">==1)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"age":&nbsp;1&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- ??? Success "filter (predicate)"
-[snippet:doc-exa-snippet-1:filter (predicate)] -->
+    filter (predicate) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=filter (predicate)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">[{</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 1</span><span class="mtk10">},</span><span class="mtk1"> </span><span class="mtk10">{</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1"> 2</span><span class="mtk10">}]</span></span>
+    **apath**:
+
+        <span><span class="mtk1">*</span><span class="mtk9 mtkb">?</span><span class="mtk1">(</span><span class="mtk12">age</span><span class="mtk1">==1)</span></span>
+    **result**:
+
+        <span><span class="mtk1">{ "age": 1 } </span></span>
+ -->
 
 <!-- More precisely, for every node $e$ in the sub-sequence [test](eval.md#def-test)($e$) = *true*.  -->
 
@@ -2867,9 +3006,34 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Subscripts are reserved for arrays, and the stated expression must evaluate to a number. <a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">Subscripts are reserved for arrays, and the stated expression must evaluate to a number. (1)</p>
+<ol>
+<li>
+<p>subscript <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=subscript"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span><span class="mtk5">"names"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">[</span><span class="mtk5">"jo"</span><span class="mtk10">,</span><span class="mtk1">&nbsp;</span><span class="mtk5">"lu"</span><span class="mtk10">]}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">names</span><span class="mtk1">[1]</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">"lu"&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- ??? Success "subscript"
-[snippet:doc-exa-snippet-1:subscript] -->
+    subscript <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&exa=subscript"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span>
+
+    **input**:
+
+        <span><span class="mtk10">{</span><span class="mtk5">"names"</span><span class="mtk10">:</span><span class="mtk1"> </span><span class="mtk10">[</span><span class="mtk5">"jo"</span><span class="mtk10">,</span><span class="mtk1"> </span><span class="mtk5">"lu"</span><span class="mtk10">]}</span></span>
+    **apath**:
+
+        <span><span class="mtk12">names</span><span class="mtk1">[1]</span></span>
+    **result**:
+
+        <span><span class="mtk1">"lu" </span></span>
+ -->
 
 <details class="note">
 <summary>Note / nested arrays</summary>
@@ -3528,7 +3692,45 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Property values of an object can be selected by an identifier that must not be a reserved word. If the property name is not a regular identifier (e.g. <code>#1</code>), a so-called name literal can be used.  If a regex is given, all properties with names conforming to it will be taken. <a title="cheat sheet" href="../cheat-sheet.html#e-property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">Property values of an object can be selected by an identifier that must not be a reserved word. (1) If the property name is not a regular identifier (e.g. <code>#1</code>), a so-called name literal can be used. (2) If a regex is given, all properties with names conforming to it will be taken. (3)</p>
+<ol>
+<li>
+<p>property <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-property"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk12">age</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">1&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>property literal <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-property literal"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=property literal"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"#key"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;8</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"#id"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;7</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk5">`#id`</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">7&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>property regex <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-property regex"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=property regex"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"#key"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;8</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"#id"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;7</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk5">/#.*/</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">8&nbsp;,&nbsp;7&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <p><svg class="railroad-diagram" width="259.5" height="520" viewBox="0 0 259.5 520" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
@@ -4342,7 +4544,33 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>To retrieve all property values of an object or all elements of an array, the children construct can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-children (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> To access the <a href="../language/preliminaries.html#def-context node">context node</a>, use the following: <a title="cheat sheet" href="../cheat-sheet.html#e-self"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">To retrieve all property values of an object or all elements of an array, the children construct can be used. (1) To access the <a href="../language/preliminaries.html#def-context node">context node</a>, use the following: (2)</p>
+<ol>
+<li>
+<p>children (array) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-children (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=children (array)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span><span class="mtk5">"names"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">[</span><span class="mtk5">"jo"</span><span class="mtk10">,</span><span class="mtk1">&nbsp;</span><span class="mtk5">"lu"</span><span class="mtk10">]}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">"jo"&nbsp;,&nbsp;"lu"&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>self <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-self"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=self"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk9 mtkb">_</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"age":&nbsp;1,&nbsp;"name":&nbsp;"jo"&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <p><a id="main-rule-Self"></a></p>
 <p><svg class="railroad-diagram" width="211" height="124" viewBox="0 0 211 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -5526,7 +5754,21 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p>As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> If it is empty, no assignment is performed.</p>
+<p class="annotate">As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) is an expression whose value must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>. (1) If it is empty, no assignment is performed.</p>
+<ol>
+<li>
+<p>construction (object) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=construction (object)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"p"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"name"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{&nbsp;</span><span class="mtk12">id</span><span class="mtk1">:&nbsp;2,&nbsp;</span><span class="mtk5">'#call'</span><span class="mtk1">:&nbsp;</span><span class="mtk12">p</span><span class="mtk1">&nbsp;}</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"id":&nbsp;2,&nbsp;"#call":&nbsp;"name"&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- [^cseq]: If the sequence has more than one element, the value is not automatically an array as in other path languages. If this behavior is intended, the right-hand side can use the array constructor `#!javascript [...]`. -->
 <!-- [^cseq]: Other path languages allow sequences with more than one element, which are automatically resolved to an array. We omit this functionality for clarity. If this behavior is intended, the right-hand side can simply use the array constructor `#!javascript [...]`. -->
 
@@ -5534,8 +5776,36 @@ text.repeat-text {
 <summary>Note / property value</summary>
 <p>If the sequence has more than one element, the value is not automatically an array as in other path languages, instead an error is thrown. If array construction is intended, the right-hand side can use the array constructor <code class="language-javascript highlight"><span class="p">[...]</span></code>.</p>
 </details>
-<p>The property name can be at least an identifier or string -- we adopt the relaxed definition from javascript instead of JSON. If a property name shall be dynamically created, a parenthesized expression has to be used. In this case, its evaluation must be a string. <a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property name"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
-<p>So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence, that has to be an <em>object</em>, are embedded in the constructed object, possibly overwriting previous properties. <a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">The property name can be at least an identifier or string -- we adopt the relaxed definition from javascript instead of JSON. If a property name shall be dynamically created, a parenthesized expression has to be used. In this case, its evaluation must be a string. (1)</p>
+<ol>
+<li>
+<p>... dynamic property name <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property name"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=... dynamic property name"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"p"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"name"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{&nbsp;(</span><span class="mtk12">p</span><span class="mtk1">):&nbsp;</span><span class="mtk5">'jo'</span><span class="mtk1">&nbsp;}</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"name":&nbsp;"jo"&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
+<p class="annotate">So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence, that has to be an <em>object</em>, are embedded in the constructed object, possibly overwriting previous properties. (1)</p>
+<ol>
+<li>
+<p>... embedding <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=... embedding"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"p"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"name"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{&nbsp;</span><span class="mtk9 mtkb">_</span><span class="mtk1">,&nbsp;</span><span class="mtk12">age</span><span class="mtk1">:&nbsp;3&nbsp;}</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"age":&nbsp;3,&nbsp;"p":&nbsp;"name"&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <details class="note">
 <summary>Tip / object embeddings</summary>
 <p>By this an extension or modification of objects can be easily done, e. g., the expression pattern <code class="language-javascript highlight"><span class="p">{</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="p">...}</span></code> extends or modifies the context node (<code>'_'</code>) by subsequent assignments.</p>
@@ -5775,7 +6045,33 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The array constructor takes a list of expression values as consecutive array elements. <a title="cheat sheet" href="../cheat-sheet.html#e-construction (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a>, all its elements will be embedded. <a title="cheat sheet" href="../cheat-sheet.html#e-... sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p class="annotate">The array constructor takes a list of expression values as consecutive array elements. (1) If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a>, all its elements will be embedded. (2)</p>
+<ol>
+<li>
+<p>construction (array) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-construction (array)"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=construction (array)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;1</span><span class="mtk10">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"p"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"name"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">[&nbsp;3,&nbsp;</span><span class="mtk12">age</span><span class="mtk1">&nbsp;]</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">[&nbsp;3,&nbsp;1&nbsp;]&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>... sequences <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=basic&amp;exa=... sequences"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"names"</span><span class="mtk10">:</span><span class="mtk1">&nbsp;</span><span class="mtk10">[</span><span class="mtk5">"jo"</span><span class="mtk10">,</span><span class="mtk1">&nbsp;</span><span class="mtk5">"miau"</span><span class="mtk10">]</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">}</span></span><br><span><span class="mtk10">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk12">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">[&nbsp;</span><span class="mtk12">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*,&nbsp;</span><span class="mtk5">'lu'</span><span class="mtk1">&nbsp;]</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">[&nbsp;"jo",&nbsp;"miau",&nbsp;"lu"&nbsp;]&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
 <!-- !TODO array first class
 
 !TODO bool test -->
