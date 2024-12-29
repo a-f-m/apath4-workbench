@@ -40,9 +40,29 @@
 /* --------------------------------- exa snippets -----------------------------------  */
 
 .right-align {
-  display: inline-block;
+  /* display: inline-block; */
   text-align: right;
   float: right;
+}
+
+.afm-svg-sub {
+  display: block;
+  margin-top: -28pt;
+}
+
+/* --------------------------------- icons -----------------------------------  */
+
+.ref-icon-eval {
+  vertical-align: text-bottom;
+}
+
+.ref-icon-sheet {
+  /* vertical-align: text-bottom; */
+  vertical-align: sub;
+}
+
+.md-annotation {
+  vertical-align: text-top;
 }
 
 /* --------------------------------- code highlight -----------------------------------  */
@@ -74,8 +94,13 @@
   font-weight: bold
 }
 
-/* keyword: */
+/* comment: */
 .mtk9 {
+  color: gray;
+}
+
+/* keyword: */
+.mtk10 {
   font-weight: bold
 }
 

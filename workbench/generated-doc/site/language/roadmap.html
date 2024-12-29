@@ -399,27 +399,6 @@
   
   
     <li class="md-nav__item">
-      <a href="preliminaries.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Preliminaries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
@@ -470,6 +449,8 @@
       
         
       
+        
+      
     
     
       
@@ -482,10 +463,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -496,12 +477,33 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -569,6 +571,27 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="programatic.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programmatic Use
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -763,14 +786,42 @@
 <table>
 <thead>
 <tr>
-<th>feature / construct</th>
+<th>feature / construct / doc</th>
 <th>kind</th>
 <th>remark</th>
 <th>id</th>
-<th>grammar,<br>workbench</th>
+<th>grammar / workbench / section</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>guide</td>
+<td>new</td>
+<td>doc section: guide with running example</td>
+<td>R6</td>
+<td>see <a href="guide.html">guide</a></td>
+</tr>
+<tr>
+<td>programmatic use</td>
+<td>new</td>
+<td>doc section with API use</td>
+<td>R6</td>
+<td>see <a href="programatic.html">programmatic use</a></td>
+</tr>
+<tr>
+<td>(semi-formal) semantics</td>
+<td>new</td>
+<td>doc section with processing table</td>
+<td>R6</td>
+<td>see <a href="eval.html#processing-table">evaluation</a></td>
+</tr>
+<tr>
+<td>variables</td>
+<td>new</td>
+<td>variable declaration in scope expressions</td>
+<td>R5</td>
+<td><a href="grammar.html#main-rule-VariableAssignment"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=variable assignment"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+</tr>
 <tr>
 <td>match values</td>
 <td>new</td>
@@ -797,24 +848,24 @@
 <td>new</td>
 <td>+ - * / % - operators</td>
 <td>R1</td>
-<td><a href="grammar.html#main-rule-Expression"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=arithmetic"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="grammar.html#ordinary-expressions"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=arithmetic"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="roadmap">Roadmap</h2>
 <p>The following constructs/functionality are planned (not ordered by priority).</p>
-<ul>
-<li>variables</li>
-<li>apath step functions</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> variables</li>
+<li>(recursive) apath step functions</li>
 <li><em>rhs</em> paths in assignments</li>
-<li>(composite) step enhancement<ul>
+<li>(composite) step enhancement<ul class="task-list">
 <li>object-split</li>
-<li>(x) regex over values</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> regex over values</li>
 <li>operator to process sequences (sort, reduce)</li>
 </ul>
 </li>
-<li>expressions<ul>
-<li>(x) arithmetic </li>
+<li>expressions<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> arithmetic </li>
 <li>some, every, union</li>
 </ul>
 </li>

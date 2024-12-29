@@ -1,0 +1,43 @@
+{
+  "flatOwner": {
+    "name": "Miller",
+    "age": 17,
+    "location": "Berlin, Germany",
+    "#post-code": 12205,
+    "mobility": {
+      "driverLic": true,
+      "car": "transporter"
+    },
+    "favorites": [ "Coen", "Dylan", "Nietzsche" ]
+  },
+  "inventory": [
+    {
+      "date": "2023-10-05",
+      "items": [
+        {
+          "category": "furniture",
+          "name": "chair",
+          "price": 50.00,
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "date": "2024-10-01",
+      "items": [
+        {
+          "category": "electronic",
+          "name": "pc",
+          "price": 1800.78,
+          "quantity": 1
+        },
+        {
+          "category": "furniture",
+          "name": "table",
+          "price": 100.10,
+          "quantity": 2
+        }
+      ]
+    }
+  ]
+}

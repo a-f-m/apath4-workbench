@@ -12,7 +12,7 @@
         <link rel="prev" href="step-functions.html">
       
       
-        <link rel="next" href="../workbench/workbench.html">
+        <link rel="next" href="programatic.html">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -404,27 +404,6 @@
   
   
     <li class="md-nav__item">
-      <a href="preliminaries.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Preliminaries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
@@ -477,6 +456,8 @@
       
         
       
+        
+      
     
     
       
@@ -487,10 +468,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -501,12 +482,33 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -632,6 +634,27 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="programatic.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programmatic Use
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -765,7 +788,7 @@
 
 <h1 id="evaluation">Evaluation</h1>
 <h2 id="boolean-evaluation">Boolean Evaluation</h2>
-<p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a sequence of nodes, it is necessary to precisely define its evaluation to an boolean value.</p>
+<p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a <a href="../language/preliminaries.html#def-sequence">sequence</a> of nodes, it is necessary to precisely define its evaluation to an boolean value.</p>
 <p>The boolean function <a id='def-test'><strong>test</strong></a> maps sequence <span class="arithmatex">\(S\)</span> to a boolean value:</p>
 <ol>
 <li>)&nbsp;&nbsp; if <span class="arithmatex">\(S\)</span> is a sequence with more than one element, the boolean value is <strong>true</strong></li>
@@ -780,8 +803,100 @@
 <!-- !TODO rem on strings and null -->
 
 <h2 id="processing-table">Processing Table</h2>
-<p>...forthcoming...</p>
-<!-- --8<-- "doc/mkdocs/docs/filler.html" -->
+<p>The evaluations of essential, compound expressions whose evaluations could not be immediately apparent, are the focus of this section.</p>
+<p>The semantic function <strong>eval</strong> maps an expression <code>X</code> and a context node <span class="arithmatex">\(o\)</span>, which is initially the input node, to a sequence of nodes, and is partially defined in the following table.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">language element</th>
+<th style="text-align: left;">expression pattern</th>
+<th style="text-align: left;">evaluation<br>context node: <span class="arithmatex">\(o\)</span><br>shortcut!: <strong>eval</strong>(<code>X</code>) =  <strong>eval</strong>(<code>X</code>, <span class="arithmatex">\(o\)</span>)</th>
+<th style="text-align: left;">remark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">self</td>
+<td style="text-align: left;"><code>_</code></td>
+<td style="text-align: left;"><strong>return</strong> <span class="arithmatex">\(o\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-scope expression'></a>scope expression</td>
+<td style="text-align: left;"><code>X</code>, <code>Y</code></td>
+<td style="text-align: left;"><strong>eval</strong>(<code>X</code>)<br><strong>return</strong> <strong>eval</strong>(<code>Y</code>)</td>
+<td style="text-align: left;"><code>X</code>,<code>Y</code>,<code>Z</code> <span class="arithmatex">\(=\)</span> ((<code>X</code>,<code>Y</code>),<code>Z</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-conditional'></a>conditional</td>
+<td style="text-align: left;">if (<code>B</code>) <code>X</code> <code>Y</code></td>
+<td style="text-align: left;">if (test(<strong>eval</strong>(<code>B</code>))) then <strong>return</strong> <strong>eval</strong>(<code>X</code>)<br>else <strong>return</strong> <strong>eval</strong>(<code>Y</code>)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-property'></a>path</td>
+<td style="text-align: left;"><code>X</code><strong>.</strong><code>Y</code></td>
+<td style="text-align: left;">let <span class="arithmatex">\(R\)</span> be the empty sequence<br>for every <span class="arithmatex">\(x\)</span> in <strong>eval</strong>(<code>X</code>) do<br><span class="arithmatex">\(\;\;\;\)</span>for every <span class="arithmatex">\(y\)</span> in <strong>eval</strong>(<code>Y</code>, <span class="arithmatex">\(x\)</span>) do<br><span class="arithmatex">\(\;\;\;\;\;\;\)</span>include <span class="arithmatex">\(y\)</span> in <span class="arithmatex">\(R\)</span><br><strong>return</strong> <span class="arithmatex">\(R\)</span></td>
+<td style="text-align: left;"><code>X</code>.<code>Y</code>.<code>Z</code> <span class="arithmatex">\(=\)</span> ((<code>X</code>.<code>Y</code>).<code>Z</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-filter (predicate)'></a>filter</td>
+<td style="text-align: left;"><code>X</code>?(<code>Y</code>)</td>
+<td style="text-align: left;">let <span class="arithmatex">\(R\)</span> be the empty sequence<br> for every <span class="arithmatex">\(x\)</span> in <strong>eval</strong>(<code>X</code>) do<br><span class="arithmatex">\(\;\;\;\)</span>if (test(<strong>eval</strong>(<code>Y</code>, <span class="arithmatex">\(x\)</span>))) then include <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(R\)</span><br><strong>return</strong> <span class="arithmatex">\(R\)</span></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-construction (object)'></a>construction (object)</td>
+<td style="text-align: left;">{ <code>p</code> : <code>X</code>, ... }</td>
+<td style="text-align: left;"><strong>return</strong> { <code>p</code> : <strong>eval</strong>(<code>X</code>), ... }</td>
+<td style="text-align: left;"><code>p</code> is an identifier or string</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-... dynamic property name'></a>... dynamic property name</td>
+<td style="text-align: left;">{ (<code>X</code>) : <code>Y</code>, ... }</td>
+<td style="text-align: left;"><strong>return</strong> { <strong>eval</strong>(<code>X</code>) : <strong>eval</strong>(<code>Y</code>), ... }</td>
+<td style="text-align: left;"><code>X</code> must evaluate to a string</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a id='eval-... embedding'></a>... embedding</td>
+<td style="text-align: left;">{ <code>X</code>, ... }</td>
+<td style="text-align: left;"><strong>return</strong> { properties(<strong>eval</strong>(<code>X</code>)), ... }</td>
+<td style="text-align: left;"><code>X</code> must evaluate to an object. properties(<span class="arithmatex">\(x\)</span>) 'embeds' the properties of <span class="arithmatex">\(x\)</span> into the enclosing object</td>
+</tr>
+</tbody>
+</table>
+<!-- | path | `X`**.**`Y` | for every $x_i$ in **eval**(`X`):<br>$\;\;\;$let $S_i$ = **eval**(`Y`, $x_i$)<br>**return** flatten(< ..., $S_i$, ... >) [^1] | `X`.`Y`.`Z` $=$ ((`X`.`Y`).`Z`) -->
+
+<!-- | `X`.`Y` | let $S$ = **eval**(`X`), n = size($S$)<br>for i=1..n: let $S_i$ = **eval**(`Y`, $S$[i])<br>return flatten (<$S_1$, ... , $S_n$>)  -->
+
+<!-- | $S$ = <{a: [1, 2]},{a: [3]}><br>$S_1$ = <1, 2><br>return <<1, 2>, 3> = <1, 2, 3> -->
+
+<!-- to have proper page view: -->
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 

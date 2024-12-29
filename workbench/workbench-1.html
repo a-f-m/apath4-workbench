@@ -23,6 +23,7 @@
             <div id='grp_layout'>
                 <select title="topics (Ctrl+F5)" id="select_topics">
                     <option id="topic-basic" value="data-dyn.js">basic</option>
+                    <option id="topic-guide" value="data-dyn-guide.js">guide</option>
                     <option id="topic-peter" value="custom-data/data-dyn-peter.js" hidden>Peter's</option>
                     <option id="topic-stefan" value="custom-data/data-dyn-stefan.js" hidden>Stefan's</option>
                     <option id="topic-test" value="data-dyn.js---" hidden>...</option>
@@ -82,18 +83,27 @@
                     <input id='bnt_doc' type='button' title='documentation' value='doc' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression'
+                    <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression (Ctrl+., Ctrl+A)'
                         value='AST' />
                 </span>
                 <span class='button' hidden>
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
+                <span class='button' hidden>
+                    <input id='bnt_save_as_dyn' type='button' title='internal' value='save as dyn**' 
+                        />
+                    </span>
+                    <!-- onclick='as_dyn=true; document.getElementById("bnt_store").click()' -->
+                <span class='button' hidden>
+                    <input id='bnt_load_dyn' type='button' title='internal' value='load dyn**' 
+                    />
+                </span>
                 <span class='button'>
-                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it) - related to the current example'
+                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it) - related to the current example (Ctrl+., Ctrl+G)'
                         value='grammar' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet part - related to the current example' value='cheat-sheet' />
+                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet part - related to the current example (Ctrl+., Ctrl+C)' value='cheat-sheet' />
                 </span>
                 <span class='button' hidden>
                     <input id='bnt_exa_step_funcs' type='button' title='example step functions'
@@ -124,7 +134,12 @@
     </div>
 
     <script src='./widgets.js'></script>
-    <script src='./bundle.js'></script>
+    <!-- deprecated <script src='./bundle.js'></script> -->
+    <script>
+        // TODO for now necessary for rollup
+        var fs, path;
+    </script>
+    <script src='./bundle-rollup.js'></script>
     <script src='./util.js'></script>
     <script src='./data-dyn.js'></script>
     <script src='./data.js'></script>

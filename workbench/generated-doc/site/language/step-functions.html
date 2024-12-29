@@ -404,27 +404,6 @@
   
   
     <li class="md-nav__item">
-      <a href="preliminaries.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Preliminaries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
@@ -477,6 +456,8 @@
       
         
       
+        
+      
     
     
       
@@ -487,10 +468,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -501,12 +482,33 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -632,6 +634,27 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="programatic.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programmatic Use
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -764,7 +787,7 @@
 
 
 <h1 id="step-functions">Step Functions</h1>
-<p>Step functions support the reuse of functionality and the building of custom language elements. Especially the latter one is essential for building domain specific languages. <a title="grammar element" href="grammar.html#main-rule-StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg"/></a><a title="cheat sheet" href="../cheat-sheet.html#javascript-step-functions-user-defined"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
+<p>Step functions support the reuse of functionality and the building of custom language elements. Especially the latter one is essential for building domain specific languages. <a title="grammar element" href="grammar.html#main-rule-StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg"/></a><a title="cheat sheet" href="../cheat-sheet.html#javascript-step-functions-user-defined"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
 <p>Step functions are divided in</p>
 <ul>
 <li><a href="#apath">apath functions</a> that enable (parametrizable) reuse of expressions</li>
@@ -798,9 +821,9 @@ theme:
 <li><span class="arithmatex">\(x\)</span> is <strong>neither</strong> <em>null</em>, <em>undefined</em>, a <em>string</em>, or an <em>array</em>, and</li>
 <li><span class="arithmatex">\(x\)</span> is <em>javascript-iterable</em> (see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol">Iteration protocols</a>)</li>
 </ul>
-<p>To check wether an argument <code>argI</code> is <a href="#def-apath-js-iterable">apath-js-iterable</a>, the runtime function <code>isApathIterable</code> can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-with sequences as parameters"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
-<!-- A return value of type apath-js-iterable represent sequences that are consumed by the path evaluation component where their elements are passed to the subsequent step one by one. <a title="cheat sheet" href="../cheat-sheet.html#e-returning sequences"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a>  -->
-<p>The return value <em>undefined</em> indicates that no solution exists. In this case, at the path evaluation component, no further steps are performed, and the path has no solution <a title="cheat sheet" href="../cheat-sheet.html#e-simple step function"><img src="../pics/clarity--clipboard-solid-badged.svg"/></a>. It is semantically equivalent to returning an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>.</p>
+<p>To check wether an argument <code>argI</code> is <a href="#def-apath-js-iterable">apath-js-iterable</a>, the runtime function <code>isApathIterable</code> can be used. <a title="cheat sheet" href="../cheat-sheet.html#e-with sequences as parameters"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
+<!-- A return value of type apath-js-iterable represent sequences that are consumed by the path evaluation component where their elements are passed to the subsequent step one by one. <a title="cheat sheet" href="../cheat-sheet.html#e-returning sequences"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a>  -->
+<p>The return value <em>undefined</em> indicates that no solution exists. In this case, at the path evaluation component, no further steps are performed, and the path has no solution <a title="cheat sheet" href="../cheat-sheet.html#e-simple step function"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a>. It is semantically equivalent to returning an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>.</p>
 <!-- [^undef] -->
 
 <!-- [^undef]: To allow *undefined* and **not** to enforce an empty sequence avoids unnecessary wrapping of objects, especially when js library functions are used within return-expressions.  -->

@@ -20,6 +20,16 @@ function restore(e) {
     })
 }
 
+function restore_1(e) {
+
+    readSingleFile(e, (content) => {
+
+        const d = JSON.parse(content)
+        examples = d
+        set_exa_select(examples.first_example.value)
+    })
+}
+
 function store() {
 
     let d = {
@@ -31,6 +41,11 @@ function store() {
         geom: get_geom()
     }
     downloadToFile(JSON.stringify(d, null, 3), '', ' text/plain')
+}
+
+function store_1() {
+
+    downloadToFile(JSON.stringify(examples, null, 3), '', 'application/json')
 }
 
 
@@ -120,7 +135,8 @@ $('#toggle_strict_failure').on('change', function () {
 })
 
 $('#select_examples').on('change', function (e) {
-    const valueSelected = this.value
+    const valueSelected = ree_exa = this.value
+    localStorage.setItem('ree_exa', valueSelected)
     const exa = examples[valueSelected]
     set_data(exa)
     fit(undefined, true)
@@ -133,6 +149,16 @@ function get_exa_file(f) {
         eval(text)
         //
         console.log(examples = data_dyn())
+        ree_exa = examples.first_example.value
+        set_exa_select(ree_exa)
+        localStorage.setItem('ree_exa', ree_exa)
+    })
+}
+
+function get_exa_file_1(f) {
+    
+    process_file(f, function (text) {
+        examples = JSON.parse(text)
         set_exa_select(examples.first_example.value)
     })
 }
@@ -149,6 +175,8 @@ function get_wb_file(f) {
 }
 
 $('#select_topics').on('change', function (e) {
+    ree_topic = $(this).find(':selected').attr('id')
+    localStorage.setItem('ree_topic', ree_topic)
     get_exa_file(this.value)
 })
 
@@ -163,7 +191,9 @@ $('#bnt_grammar').on('click', function () {
 })
 
 $('#bnt_ast').on('click', function () {
-    const ast = new window.Parser__.Parser().setting({ w_loc: false, no_empty_left: true }).parse(monaco_editors.apath.getValue())
+    const ast = new window.Parser__.Parser()
+        .setting({ w_loc: false, no_empty_left: true, w_data: false })
+        .parse(monaco_editors.apath.getValue())
     open_blob(JSON.stringify(ast, null, 3), 'text/plain')
 })
 
@@ -176,6 +206,17 @@ $('#bnt_trp').on('click', async function () {
 
     open_blob(trp, 'text/plain')
 })
+
+$('#bnt_save_as_dyn').on('click', function () {
+    console.log(JSON.stringify(data_dyn(), null, 3))
+    // open_blob(JSON.stringify(examples, null, 3), 'application/json')
+    downloadToFile(JSON.stringify(examples, null, 3), 'dyn-test.json', 'application/json')
+
+})
+$('#bnt_load_dyn').on('click', function (e) {
+    $('#file-input').trigger('click')
+})
+
 
 $('#bnt_doc').on('click', async function () {
     // open_link('doc/doc-1.html')
@@ -232,77 +273,110 @@ function set_exa_select(exa) {
 
 // ################### keys
 
-var last_key
+var period_pressed
 
 $(function () {
     $(document).on('keydown', function (event) {
         // console.log(event)
         const key = String.fromCharCode(event.which)
         // console.log('charkey: ' + key)
-        console.log('code: ' + event.code)
+        // console.log('code: ' + event.code)
         
         // if (last_key === 'ControlLeft' && event.code === 'Digit1') {
         //     console.log('hi')
         //     event.preventDefault()
         // }
+
+        // console.log('enter: ' + period_pressed)
+
+        const keys = 'KeyS|F7|KeyE|Numpad0|KeyB|Numpad1|Numpad2|Numpad3|Numpad4|F5|F6|NumpadDecimal|KeyA|KeyG|KeyC'
+        const is_key = event.code.match(keys)
         
-        last_key = event.code
         if (event.ctrlKey && !event.shiftKey) {
-            switch (event.code) {
-                case 'KeyS':
-                    $('#bnt_store').trigger('click')
-                    event.preventDefault()
-                    break
-                case 'F7':
-                    $('#bnt_restore').trigger('focus')
-                    event.preventDefault()
-                    break
-                case 'KeyE':
-                    $('#bnt_eval_apth').trigger('click')
-                    event.preventDefault()
-                    break
+            if (!period_pressed) {
+                switch (event.code) {
+                    // case 'Period':
+                    //     period_pressed = true
+                    //     break
+
+                    case 'KeyS':
+                        $('#bnt_store').trigger('click')
+                        event.preventDefault()
+                        break
+                    case 'F7':
+                        $('#bnt_restore').trigger('focus')
+                        event.preventDefault()
+                        break
+                    case 'KeyE':
+                        $('#bnt_eval_apth').trigger('click')
+                        event.preventDefault()
+                        break
                     case 'Numpad0':
-                    $('#toggle_live_eval').prop('checked', ! $('#toggle_live_eval').prop('checked'))
-                    $('#bnt_eval_apth').trigger('click')
-                    event.preventDefault()
-                    break
+                        $('#toggle_live_eval').prop('checked', !$('#toggle_live_eval').prop('checked'))
+                        $('#bnt_eval_apth').trigger('click')
+                        event.preventDefault()
+                        break
                     case 'KeyB':
                         $('#toggle_dark').trigger('click')
                         event.preventDefault()
                         break
                     case 'Numpad1':
-                    monaco_editors['input'].focus()
-                    event.preventDefault()
-                    break
-                case 'Numpad2':
-                    monaco_editors['apath'].focus()
-                    event.preventDefault()
-                    break
-                case 'Numpad3':
-                    monaco_editors['sfuncs'].focus()
-                    event.preventDefault()
-                    break
-                case 'Numpad4':
-                    monaco_editors['result'].focus()
-                    event.preventDefault()
-                    break
-                case 'F5':
-                    $('#select_topics').trigger('focus')
-                    event.preventDefault()
-                    break
-                case 'F6':
-                    $('#select_examples').trigger('focus')
-                    event.preventDefault()
-                    break
-                case 'NumpadDecimal':
-                    save_highlighting()
-                    event.preventDefault()
-                    break
+                        monaco_editors['input'].focus()
+                        event.preventDefault()
+                        break
+                    case 'Numpad2':
+                        monaco_editors['apath'].focus()
+                        event.preventDefault()
+                        break
+                    case 'Numpad3':
+                        monaco_editors['sfuncs'].focus()
+                        event.preventDefault()
+                        break
+                    case 'Numpad4':
+                        monaco_editors['result'].focus()
+                        event.preventDefault()
+                        break
+                    case 'F5':
+                        $('#select_topics').trigger('focus')
+                        event.preventDefault()
+                        break
+                    case 'F6':
+                        $('#select_examples').trigger('focus')
+                        event.preventDefault()
+                        break
+                    case 'NumpadDecimal':
+                        save_highlighting()
+                        event.preventDefault()
+                        break
 
-                default:
-                    break
+                    default:
+                        break
                 }
+            } else {
+                switch (event.code) {
+                    case 'KeyA':
+                        $('#bnt_ast').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
+                    case 'KeyG':
+                        $('#bnt_grammar').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
+                    case 'KeyC':
+                        $('#bnt_cheat_sheet').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
+                    default:
+                        break
+                }
+
+            }
             // console.log('user key')
+            if (!period_pressed) period_pressed = event.code === 'Period'
+            // console.log('leave: ' + period_pressed)
         } else {
             if (event.code === 'Escape') {
                 $('#select_examples').trigger('focus')
@@ -324,20 +398,27 @@ $(function () {
 })
 
 function setup() {
+
+    // for reentrant after F5
     
     const params = new URLSearchParams(window.location.search)
 
+    const clear = params.get('clear')
+    if (clear === null || clear === 'true') localStorage.clear()
+    const ree_topic = localStorage.getItem('ree_topic')
+    const ree_exa = localStorage.getItem('ree_exa')
+    
     // e. g. ?unhide-topic=topic-peter&topic=topic-peter
     for (const utopic of params.getAll('unhide-topic')) $(`#${utopic}`).removeAttr('hidden')
 
-    let topic = params.get('topic')
+    let topic = ree_topic ? ree_topic : params.get('topic')
     if (topic === null) topic = 'topic-basic'
     const t = $(`#select_topics option[id='${topic}']`)
     t.prop('selected', true)
     get_exa_file(t.attr('value'))
 
 
-    let exa = params.get('exa')
+    let exa = ree_exa ? ree_exa : params.get('exa')
     if (exa === null) exa = examples.first_example.value
 
     use_server = params.get('use-server')
@@ -398,7 +479,7 @@ async function build_highlighting(topic) {
             }
             console.log('hl key: ' + key)
 
-            const apath = data.apath.replaceAll(new RegExp('//.*\n', 'g'), '')
+            const apath = data.with_comments ? data.apath : data.apath.replaceAll(new RegExp('//.*\n', 'g'), '')
             await extend_highlight(result.cheat_cheet, key, 
                 apath, 
                 (data.input_nl ? data.input : to_all_blanks(data.input)), 

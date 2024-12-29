@@ -159,6 +159,14 @@ simple3:
         "names": ["jo", "miau"]
     }
 }`,
+simple4:
+`{
+    "cat": {
+        "age": 1,
+        "name": "jo",
+        "id": 3
+    }
+}`,
 array:
 `{"names": ["jo", "lu"]}`,
 array1:
@@ -295,6 +303,57 @@ var examples = {
         },
         geom: geom.default
     },
+    'Restriction': {
+        group: true
+    },
+    'filter (predicate)': {
+        data: {
+            keyword: '... **?(** ... **)**',
+            input: inputs.array1,
+            apath: `*?(age==1)`,
+            grammar: '#main-rule-Filter'
+        },
+        geom: geom.default
+    },
+    'subscript': {
+        data: {
+            keyword: '... **[** ... **]**',
+            input: inputs.array,
+            apath: `//second array item\nnames[1]`,
+            grammar: '#main-rule-Subscript'
+        },
+        geom: geom.default
+    },
+    'value regex': {
+        data: {
+            keyword: '**match(** ... **)**',
+            input: inputs.array1,
+            apath: `*?(age.match('1|2'))`,
+            grammar: '#main-rule-StepFunctionCall',
+            remark: 'values conforming to a regex'
+        },
+        geom: geom.default
+    },
+    'regex groups': {
+        data: {
+            keyword: '**match(** ... **)**',
+            input: inputs.array,
+            apath: `names.*.match('j(o)')`,
+            grammar: '#main-rule-StepFunctionCall',
+            remark: 'yields a match object with groups'
+        },
+        geom: geom.default
+    },
+    'regex named groups': {
+        data: {
+            keyword: '**match(** ... **)**',
+            input: inputs.array,
+            apath: `names.*.match('(?<x>.)u')`,
+            grammar: '#main-rule-StepFunctionCall',
+            remark: 'match object contains named groups'
+        },
+        geom: geom.default
+    },
     'Construction': {
         group: true
     },
@@ -321,10 +380,10 @@ var examples = {
     '... embedding': {
         data: {
             keyword: '**{** ... **}**',
-            input: inputs.simple2,
-            apath: `cat.{ _, age: 3 }`,
+            input: inputs.simple4,
+            apath: `cat.{ _, age: 3, id: none }`,
             grammar: '#main-rule-PropertyAssignment',
-            remark: "value is embedded, here 'self' ('_'), and age is newly assigned"
+            remark: "value is embedded, here 'self' ('_'), age is newly assigned, and id is removed"
         },
         geom: geom.default
     },
@@ -344,47 +403,6 @@ var examples = {
             apath: `cat.[ names.*, 'lu' ]`,
             grammar: '#main-rule-ArrayConstruction',
             remark: 'sequences are embedded flat. use [names.*] otherwise'
-        },
-        geom: geom.default
-    },
-    'Restriction': {
-        group: true
-    },
-    'filter (predicate)': {
-        data: {
-            keyword: '... **?(** ... **)**',
-            input: inputs.array1,
-            apath: `*?(age==1)`,
-            grammar: '#main-rule-Filter'
-        },
-        geom: geom.default
-    },
-    'subscript': {
-        data: {
-            keyword: '... **[** ... **]**',
-            input: inputs.array,
-            apath: `//second array item\nnames[1]`,
-            grammar: '#main-rule-Subscript'
-        },
-        geom: geom.default
-    },
-    'value regex': {
-        data: {
-            keyword: '**match(** ... **)**',
-            input: inputs.array,
-            apath: `names.*.match('j(o)')`,
-            grammar: '#main-rule-StepFunctionCall',
-            remark: 'yields a match object with groups'
-        },
-        geom: geom.default
-    },
-    'value regex named': {
-        data: {
-            keyword: '**match(** ... **)**',
-            input: inputs.array,
-            apath: `names.*.match('(?<x>.)u')`,
-            grammar: '#main-rule-StepFunctionCall',
-            remark: 'match object contains named groups'
         },
         geom: geom.default
     },
@@ -432,7 +450,7 @@ var examples = {
     'Composite Expressions': {
         group: true
     },
-    'sequenced': {
+    'scope expression': {
         data: {
             keyword: '... **,** ... ',
             input: inputs.simple1,
@@ -447,81 +465,84 @@ var examples = {
         data: {
             keyword: '**if** **(** ... **)** ... ',
             input: inputs.simple1,
-            apath: `cat.(if (name=='jo') age '?')`,
+            apath: `cat.(if (age < 10) age 'old')`,
             grammar: '#main-rule-OrdinaryExpression',
             remark: 'expression value depending on a condition'
         },
         geom: geom.default
     },
-//          'Node Variables': {
-//              group: true
-//          },
-//          'variable reference': {
-//              data: {
-//                  keyword: '**$** ...',
-//                  input: inputs.simple,
-//                  grammar: '#main-rule-VariableReference',
-//                  apath: `$root.cat`,
-//                  remark: `e.g. predefined variable 'root' for the input`
-//              },
-//              geom: geom.default
-//          },
-//          'variable binding 1': {
-//              data: {
-//                  keyword: '... **@** ...',
-//                  input: inputs.var1,
-//                  input_nl: true,
-//                  grammar: '#main-rule-NodeVariableBinding',
-//                  remark: 'a node is bound to a variable, referenced in subsequent expressions',
-//                  apath: 
-//      //----------------------------
-//      // cat 
-//      //   .(mom.age - age) as k
-//      //   .('gave birth: ' + $k)
-//      // `cat as child
-//      //   .mom 
-//      //   .('gave birth: '
-//      //       + (age - $child.age))`
-//      // `cat as child .mom
-//      //   .('gave birth: '
-//      //       + (age - $child.age))`
-//      // `child=nil,
-//      // cat@child.mom
-//      //   .('gave birth: '
-//      //       + (age - $child.age))`
-//      `child = cat,
-//      cat.mom
-//        .('gave birth: '
-//            + (age - $child.age))`
-//      //----------------------------
-//              },
-//              "geom": geom.default,
-//          },
-//          'variable binding 2': {
-//              data: {
-//                  keyword: '... **@** ...',
-//                  input: inputs.var2,
-//                  input_nl: true,
-//                  grammar: '#main-rule-NodeVariableBinding',
-//                  remark: `'nested loop' with variables in sequenced expressions`,
-//                  apath: 
-//      //----------------------------
-//      // `cats .* as cat,
-//      // dogs .* as dog,
-//      // if ($cat != $dog)
-//      //    $cat + ' loves ' + $dog`
-//      // `cats.*$cat,
-//      // dogs.*$dog,
-//      // if ($cat != $dog)
-//      //    $cat + ' loves ' + $dog`
-//      `cat=nil, dog=nil,
-//      cats.*@cat, dogs.*@dog,
-//      if ($cat != $dog)
-//         $cat + ' loves ' + $dog`
-//      //----------------------------
-//              },
-//              "geom": geom.default,
-//          },
+    'Variables': {
+        group: true
+    },
+    'variable reference': {
+        data: {
+            keyword: '**$** ...',
+            input: inputs.simple,
+            grammar: '#main-rule-VariableReference',
+            apath: `$root.cat`,
+            remark: `e.g. predefined variable 'root' for the input`
+        },
+        geom: geom.default
+    },
+    'variable assignment': {
+        data: {
+            keyword: '... **=** ...',
+            input: inputs.simple,
+            grammar: '#main-rule-VariableAssignment',
+            remark: 'usual assignment of values',
+            apath: 
+//----------------------------
+`toLive = 15 - cat.age,
+$toLive`
+//----------------------------
+        },
+        "geom": geom.default,
+    },
+    '... memoizing nodes': {
+        data: {
+            keyword: '... **=** ...',
+            input: inputs.var1,
+            input_nl: true,
+            grammar: '#main-rule-VariableAssignment',
+            remark: 'a node is bound to a variable, referenced in subsequent paths',
+            apath: 
+//----------------------------
+// `cat @child
+//     .mom
+//     .('gave birth at age '
+//         + (age - $child.age))`
+`cat.(child=_,
+     mom.('gave birth at age '
+          + (age - $child.age)))`
+//----------------------------
+        },
+        "geom": geom.default,
+    },
+    '... joins': {
+        data: {
+            keyword: '... **=** ...',
+            input: inputs.var2,
+            input_nl: true,
+            grammar: '#main-rule-VariableAssignment',
+            remark: `"joins" with variables in scope expressions and paths`,
+            apath: 
+//----------------------------
+// `cats = cats.*, dogs = dogs.*,
+// $cats @c
+//     .$dogs ?(_ != $c) @d
+//         .($c + ' loves ' + $d)`
+`cats = cats.*, dogs = dogs.*,
+$cats.(cat=_,       
+       $dogs ?(_ != $cat).
+        ($cat + ' loves ' + _))`
+
+// cats = cats.*, dogs = dogs.*,
+// $cats @c .$dogs @d.
+//    (if ($c != $d) $c + ' loves ' + $d)
+//----------------------------
+        },
+        "geom": geom.default,
+    },
     // "union": {
     //     "data": {
     //         "keyword": '... **\\|** ... ',

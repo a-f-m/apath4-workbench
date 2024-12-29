@@ -1,7 +1,7 @@
 {
    "data": {
       "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 17,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 2\n        }\n      ]\n    }\n  ]\n}",
-      "apath": "flatOwner.{\n    if (mobility.driverLic \n        and favorites[2] == 'Nietzsche') \n            {lala: mobility}\n        \n}",
+      "apath": "flatOwner.{\n    if (mobility.driverLic and ) \n}",
       "sfuncs": ""
    },
    "geom": {

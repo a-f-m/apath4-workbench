@@ -35,7 +35,8 @@ require(['vs/editor/editor.main'], function () {
             minimap: { enabled: false },
             // lineNumbers: 'off',
             wordWrap: 'on',
-            tabSize: 3,
+            tabSize: 2,
+            // fontSize: 14,
             automaticLayout: true,
             // "bracketPairColorization.enabled": false
         })

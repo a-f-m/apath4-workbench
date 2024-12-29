@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{ \n  \"cats\": [{\"id\":\"jo\"}, {\"id\":\"lu\"}],\n  \"dogs\": [{\"id\":\"bay\"}, {\"id\":\"jo\"}]\n}",
+      "apath": "// \"joins\" with variables in sequenced expressions and paths\ncats = cats.*, dogs = dogs.*,\n$cats.(cat=_,\n  $dogs ?(id != $cat.id)\n    .($cat.text() + ' loves ' + _.text()))",
+      "sfuncs": "[\r\n   function text(ctx_node) {\r\n      return JSON.stringify(ctx_node).replaceAll('\"', \"'\")\r\n   }\r\n]"
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 103.48333740234375,
+            "left": 46.366668701171875
+         },
+         "height": 412.833,
+         "width": 606.317,
+         "zindex": "104"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 103.44999694824219,
+            "left": 672.38330078125
+         },
+         "height": 326.167,
+         "width": 624.9,
+         "zindex": "102"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 448.66668701171875,
+            "left": 672.7333374023438
+         },
+         "height": 249.867,
+         "width": 624.9,
+         "zindex": "101"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 535.3333129882812,
+            "left": 46.366668701171875
+         },
+         "height": 163.2,
+         "width": 606.317,
+         "zindex": "103"
+      }
+   }
+}

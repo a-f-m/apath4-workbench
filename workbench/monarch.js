@@ -2,7 +2,7 @@ const tokenProvider = {
 
     operators: /[_?]+/,
 
-    keywords: ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'func'],
+    keywords: ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'func', 'nil', 'none'],
 
     // Define tokenizer for your language
     tokenizer: {
@@ -15,10 +15,12 @@ const tokenProvider = {
             [/@operators/, 'operator'],
 
             // function call
-            [/(?!(self|_|and|or|not|if|def|as|func))\w+(?=\()/, 'call'],
+            [/(?!(self|_|and|or|not|if|def|func))\w+(?=\()/, 'call'],
             
-            // as-self
+            // as-self deferred
             [/(as)(\$)/, ['keyword', 'varRef']],
+
+            [/\w+\s*(?=\=[^\=])/, 'variable'],
 
             [/\@/, { token: 'bind', next: '@afterNodeVar' }],
             [/as/, { token: 'bind', next: '@afterNodeVar' }],
@@ -118,7 +120,8 @@ const rules1 = [
     { token: 'varRef', foreground: light_light_blue },
     // { token: 'variable', foreground: green },
     // { token: 'varRef', foreground: dark_green },
-    { token: 'number', foreground: light_grey }
+    { token: 'number', foreground: light_grey },
+    { token: 'comment', foreground: dark_green }
 ]
 const rules2 = [
     { token: 'identifier-ap', foreground: light_grey },

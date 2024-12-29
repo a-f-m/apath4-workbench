@@ -1,41 +1,72 @@
-<svg class="railroad-diagram" width="313" height="124" viewBox="0 0 313 124" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="584.5" height="112" viewBox="0 0 584.5 112" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
-<path d="M20 45v20m0 -10h20"></path>
+<path d="M20 54v20m0 -10h20"></path>
 </g>
-<path d="M40 55h10"></path>
+<path d="M40 64h10"></path>
 <g class="Group rule">
-<path d="M50 55h0"></path>
-<path d="M263 55h0"></path>
-<rect x="50" y="36" width="213" height="68" rx="10" ry="10" class="group-box"></rect>
+<path d="M50 64h0"></path>
+<path d="M534.5 64h0"></path>
+<rect x="50" y="36" width="484.5" height="56" rx="10" ry="10" class="group-box"></rect>
+<g class="Sequence">
+<path d="M50 64h10"></path>
+<path d="M524.5 64h10"></path>
+<path d="M224.5 64h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M60 64h0"></path>
+<path d="M224.5 64h0"></path>
+<rect x="60" y="53" width="164.5" height="22"></rect>
+<text x="142.25" y="68">InScopeExpression</text>
+</g>
 <g class="Choice">
-<path d="M50 55h0"></path>
-<path d="M263 55h0"></path>
-<path d="M50 55h20"></path>
-<g class="non-terminal rule-ref">
-<path d="M70 55h0"></path>
-<path d="M243 55h0"></path>
-<rect x="70" y="44" width="173" height="22"></rect>
-<text x="156.5" y="59">VariableAssignment</text>
+<path d="M234.5 64h0"></path>
+<path d="M524.5 64h0"></path>
+<path d="M234.5 64a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g class="Skip">
+<path d="M254.5 44h250"></path>
 </g>
-<path d="M243 55h20"></path>
-<path d="M50 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
-<g class="non-terminal rule-ref">
-<path d="M70 85h0"></path>
-<path d="M243 85h0"></path>
-<rect x="70" y="74" width="173" height="22"></rect>
-<text x="156.5" y="89">OrdinaryExpression</text>
+<path d="M504.5 44a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M234.5 64h20"></path>
+<g class="OneOrMore">
+<path d="M254.5 64h0"></path>
+<path d="M504.5 64h0"></path>
+<path d="M264.5 64a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path>
+<g class="Skip">
+<path d="M264.5 84h230"></path>
 </g>
-<path d="M243 85a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M494.5 84a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path>
+<path d="M254.5 64h10"></path>
+<path d="M494.5 64h10"></path>
+<g class="Sequence">
+<path d="M264.5 64h0"></path>
+<path d="M494.5 64h0"></path>
+<path d="M310 64h10"></path>
+<g class="terminal literal">
+<path d="M264.5 64h0"></path>
+<path d="M310 64h0"></path>
+<rect x="264.5" y="53" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="287.25" y="68">","</text>
+</g>
+<path d="M320 64h10"></path>
+<g class="non-terminal rule-ref">
+<path d="M330 64h0"></path>
+<path d="M494.5 64h0"></path>
+<rect x="330" y="53" width="164.5" height="22"></rect>
+<text x="412.25" y="68">InScopeExpression</text>
+</g>
+</g>
+</g>
+<path d="M504.5 64h20"></path>
+</g>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M193 28h0"></path>
-<text x="121.5" y="33" class="comment">SequencedExpression</text>
+<path d="M165 28h0"></path>
+<text x="107.5" y="33" class="comment">ScopeExpression</text>
 </g>
 </g>
-<path d="M263 55h10"></path>
-<path class="End" d="M 273 55 h 20 m 0 -10 v 20"></path>
+<path d="M534.5 64h10"></path>
+<path class="End" d="M 544.5 64 h 20 m 0 -10 v 20"></path>
 </g>
 <style>.ruleId {
   color: black;

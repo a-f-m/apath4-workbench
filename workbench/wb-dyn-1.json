@@ -1,0 +1,1392 @@
+{
+   "first_example": {
+      "value": "property"
+   },
+   "basic": {
+      "header": "\n### Basic Functionality\n\n| category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | \n| - | - | - | - | - | - | - | \n| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; |\n"
+   },
+   "Selection": {
+      "group": true
+   },
+   "property": {
+      "data": {
+         "keyword": "<id>",
+         "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+         "apath": "cat.age",
+         "grammar": "#main-rule-Property",
+         "input_nl": false,
+         "apath_nl": false
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "property literal": {
+      "data": {
+         "keyword": "**`` ` ``** ... **`` ` ``**",
+         "input": "{\n    \"cat\": {\n        \"#key\": 8,\n        \"#id\": 7\n    }\n}",
+         "apath": "cat.`#id`",
+         "grammar": "#main-rule-Property",
+         "remark": "non-identifier properties names"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "property regex": {
+      "data": {
+         "keyword": "**/** ... **/**",
+         "input": "{\n    \"cat\": {\n        \"#key\": 8,\n        \"#id\": 7\n    }\n}",
+         "apath": "cat./#.*/",
+         "grammar": "#main-rule-Property",
+         "remark": "all properties with names conforming to a regex"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "children (array)": {
+      "data": {
+         "keyword": "**\\***",
+         "input": "{\"names\": [\"jo\", \"lu\"]}",
+         "apath": "names.*",
+         "grammar": "#main-rule-Children",
+         "remark": "all array items"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "children (object)": {
+      "data": {
+         "keyword": "**\\***",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "cat.*",
+         "grammar": "#main-rule-Children",
+         "remark": "all property values"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "self": {
+      "data": {
+         "keyword": "**_** \\| **self**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "cat._",
+         "grammar": "#main-rule-Self",
+         "remark": "current context node ('_' or 'self')"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Restriction": {
+      "group": true
+   },
+   "filter (predicate)": {
+      "data": {
+         "keyword": "... **?(** ... **)**",
+         "input": "[{\"age\": 1}, {\"age\": 2}]",
+         "apath": "*?(age==1)",
+         "grammar": "#main-rule-Filter"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "subscript": {
+      "data": {
+         "keyword": "... **[** ... **]**",
+         "input": "{\"names\": [\"jo\", \"lu\"]}",
+         "apath": "//second array item\nnames[1]",
+         "grammar": "#main-rule-Subscript"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "value regex": {
+      "data": {
+         "keyword": "**match(** ... **)**",
+         "input": "[{\"age\": 1}, {\"age\": 2}]",
+         "apath": "*?(age.match('1|2'))",
+         "grammar": "#main-rule-StepFunctionCall",
+         "remark": "values conforming to a regex"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "regex groups": {
+      "data": {
+         "keyword": "**match(** ... **)**",
+         "input": "{\"names\": [\"jo\", \"lu\"]}",
+         "apath": "names.*.match('j(o)')",
+         "grammar": "#main-rule-StepFunctionCall",
+         "remark": "yields a match object with groups"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "regex named groups": {
+      "data": {
+         "keyword": "**match(** ... **)**",
+         "input": "{\"names\": [\"jo\", \"lu\"]}",
+         "apath": "names.*.match('(?<x>.)u')",
+         "grammar": "#main-rule-StepFunctionCall",
+         "remark": "match object contains named groups"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Construction": {
+      "group": true
+   },
+   "construction (object)": {
+      "data": {
+         "keyword": "**{** ... **}**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"p\": \"name\"\n    }\n}",
+         "apath": "cat.{ id: 2, '#call': p }",
+         "grammar": "#main-rule-ObjectConstruction",
+         "remark": "property name: identifier or string"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "... dynamic property name": {
+      "data": {
+         "keyword": "**{** ... **}**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"p\": \"name\"\n    }\n}",
+         "apath": "cat.{ (p): 'jo' }",
+         "grammar": "#main-rule-PropertyAssignment",
+         "remark": "property name: parenthesized expression evaluated to string"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "... embedding": {
+      "data": {
+         "keyword": "**{** ... **}**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"p\": \"name\"\n    }\n}",
+         "apath": "cat.{ _, age: 3 }",
+         "grammar": "#main-rule-PropertyAssignment",
+         "remark": "value is embedded, here 'self' ('_'), and age is newly assigned"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "construction (array)": {
+      "data": {
+         "keyword": "**[** ... **]**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"p\": \"name\"\n    }\n}",
+         "apath": "cat.[ 3, age ]",
+         "grammar": "#main-rule-ArrayConstruction"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "... sequences": {
+      "data": {
+         "keyword": "**[** ... **]**",
+         "input": "{\n    \"cat\": {\n        \"names\": [\"jo\", \"miau\"]\n    }\n}",
+         "apath": "cat.[ names.*, 'lu' ]",
+         "grammar": "#main-rule-ArrayConstruction",
+         "remark": "sequences are embedded flat. use [names.*] otherwise"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Basic Expressions": {
+      "group": true
+   },
+   "equality": {
+      "data": {
+         "keyword": "**==, !=**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "// ==, !=\ncat.(age == 1)",
+         "grammar": "#main-rule-Expression"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "relational": {
+      "data": {
+         "keyword": "**<**, **>**, **<=**, **>=**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "// <, >, <=, >=\ncat.(age < 2)",
+         "grammar": "#main-rule-Expression"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "logical": {
+      "data": {
+         "keyword": "**and, or, not**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "// and, or, not\ncat.(age==1 or not age<9)",
+         "grammar": "#main-rule-Expression"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "arithmetic": {
+      "data": {
+         "keyword": "**+**, **-**, **&ast;**, **/**, **%**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "// +, -, *, /, %\ncat.(age + 3 * -1)",
+         "grammar": "#main-rule-Expression"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Composite Expressions": {
+      "group": true
+   },
+   "scope expression": {
+      "data": {
+         "keyword": "... **,** ... ",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "cat.(age.logg(), age)",
+         "sfuncs": "[\n    function logg(ctx_node) {\n        console.log(ctx_node)\n        return true\n    }\n]",
+         "grammar": "#main-rule-Expression",
+         "remark": "evaluates sequentially and returns value of last expression"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 63.133331298828125
+            },
+            "height": 390.217,
+            "width": 566.267,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 647.9166870117188
+            },
+            "height": 340.8,
+            "width": 583.6,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 452.3666687011719,
+               "left": 648.2666625976562
+            },
+            "height": 261.05,
+            "width": 583.6,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 501.70001220703125,
+               "left": 63.133331298828125
+            },
+            "height": 211.65,
+            "width": 566.267,
+            "zindex": "104"
+         }
+      }
+   },
+   "conditional": {
+      "data": {
+         "keyword": "**if** **(** ... **)** ... ",
+         "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+         "apath": "cat.(if (age < 10) age 'old')",
+         "grammar": "#main-rule-OrdinaryExpression",
+         "remark": "expression value depending on a condition"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Variables": {
+      "group": true
+   },
+   "variable reference": {
+      "data": {
+         "keyword": "**$** ...",
+         "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+         "grammar": "#main-rule-VariableReference",
+         "apath": "$root.cat",
+         "remark": "e.g. predefined variable 'root' for the input"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "variable assignment": {
+      "data": {
+         "keyword": "... **=** ...",
+         "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+         "grammar": "#main-rule-VariableAssignment",
+         "remark": "usual assignment of values",
+         "apath": "toLive = 15 - cat.age,\n$toLive"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "... memoizing nodes": {
+      "data": {
+         "keyword": "... **=** ...",
+         "input": "{ \"cat\": {\n    \"mom\": {\"age\": 5},\n    \"age\": 2 \n}}",
+         "input_nl": true,
+         "grammar": "#main-rule-VariableAssignment",
+         "remark": "a node is bound to a variable, referenced in subsequent paths",
+         "apath": "cat.(child=_,\n     mom.('gave birth at age '\n          + (age - $child.age)))"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "... joins": {
+      "data": {
+         "keyword": "... **=** ...",
+         "input": "{ \n  \"cats\": [\"jo\", \"lu\"],\n  \"dogs\": [\"bay\", \"jo\"]\n}",
+         "input_nl": true,
+         "grammar": "#main-rule-VariableAssignment",
+         "remark": "\"joins\" with variables in scope expressions and paths",
+         "apath": "cats = cats.*, dogs = dogs.*,\n$cats.(cat=_,       \n       $dogs ?(_ != $cat)\n        .($cat + ' loves ' + _))"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 79.81666564941406,
+               "left": 66.60000610351562
+            },
+            "height": 508.167,
+            "width": 597.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 79.80000305175781,
+               "left": 683.36669921875
+            },
+            "height": 332.95,
+            "width": 615.7,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 432.1166687011719,
+               "left": 683.7166748046875
+            },
+            "height": 255.067,
+            "width": 615.7,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 607.3499755859375,
+               "left": 66.60000610351562
+            },
+            "height": 79.8167,
+            "width": 597.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "Step Functions header": {
+      "header": "\n\n### Javascript Step Functions (user defined)\n\n| category | remark | keyword/<br>symbol<br>(-pattern) [[1](#1)] | apath | input [[1](#1)] | result | grammar/<br>workbench [[2](#2)] | step functions |\n| - | - | - | - | - | - | - | - |\n| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; | &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |\n"
+   },
+   "Step Functions": {
+      "group": true
+   },
+   "simple step function": {
+      "data": {
+         "keyword": "<id>**(** ... **)**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+         "apath": "cat.age.add(1)",
+         "sfuncs": "[\n    // 'ctx_node' (context node) is the object passed \n    // from the previous step - followed by parameters\n    function add(ctx_node, k) {\n        return typeof ctx_node === 'number' && typeof k === 'number' ?\n                ctx_node + k : undefined\n                // 'undefined' stops evaluation with no solution\n    }\n]",
+         "grammar": "#main-rule-StepFunctionCall"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 105.78334045410156,
+               "left": 44.16667175292969
+            },
+            "height": 360.583,
+            "width": 577.383,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 105.78334045410156,
+               "left": 640.433349609375
+            },
+            "height": 341.117,
+            "width": 595.05,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 466.8833312988281,
+               "left": 640.7999877929688
+            },
+            "height": 261.3,
+            "width": 595.05,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 486.3666687011719,
+               "left": 44.16667175292969
+            },
+            "height": 241.85,
+            "width": 577.383,
+            "zindex": "104"
+         }
+      }
+   },
+   "with sequences as parameters": {
+      "data": {
+         "keyword": "<id>**(** ... **)**",
+         "input": "{\"keys\": [1, 2, 3]}",
+         "apath": "// sequence expressions as parameters\nsum(keys.*)",
+         "sfuncs": "[\n    function sum(ctx_node, seq) {\n        let sum = 0\n        if (!apart.isApathIterable(seq)) return seq\n        for (const x of seq) sum += x\n        return sum\n    }\n]",
+         "grammar": "#main-rule-StepFunctionCall"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 63.133331298828125
+            },
+            "height": 390.217,
+            "width": 566.267,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 647.9166870117188
+            },
+            "height": 340.8,
+            "width": 583.6,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 452.3666687011719,
+               "left": 648.2666625976562
+            },
+            "height": 261.05,
+            "width": 583.6,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 501.70001220703125,
+               "left": 63.133331298828125
+            },
+            "height": 211.65,
+            "width": 566.267,
+            "zindex": "104"
+         }
+      }
+   },
+   "returning sequences": {
+      "data": {
+         "keyword": "<id>**(** ... **)**",
+         "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+         "apath": "cat.age.to(3)",
+         "sfuncs": "[\n    // a sequence is returned by using a generator. in general an iterable\n    function* to(ctx_node, k) {\n        for (let i = ctx_node; i <= k; i++) yield i\n    }\n]",
+         "grammar": "#main-rule-StepFunctionCall"
+      },
+      "geom": {
+         "widget_input": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 63.133331298828125
+            },
+            "height": 390.217,
+            "width": 566.267,
+            "zindex": "103"
+         },
+         "widget_apath": {
+            "pos": {
+               "top": 91.60000610351562,
+               "left": 647.9166870117188
+            },
+            "height": 340.8,
+            "width": 583.6,
+            "zindex": "102"
+         },
+         "widget_result": {
+            "pos": {
+               "top": 452.3666687011719,
+               "left": 648.2666625976562
+            },
+            "height": 261.05,
+            "width": 583.6,
+            "zindex": "101"
+         },
+         "widget_sfuncs": {
+            "pos": {
+               "top": 501.70001220703125,
+               "left": 63.133331298828125
+            },
+            "height": 211.65,
+            "width": 566.267,
+            "zindex": "104"
+         }
+      }
+   }
+}

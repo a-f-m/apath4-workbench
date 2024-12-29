@@ -1,7 +1,7 @@
 {
    "data": {
       "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 17,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 2\n        }\n      ]\n    }\n  ]\n}",
-      "apath": "flatOwner.{\n    if (mobility.driverLic \n        and favorites[2] == 'Nietzsche') \n            {lala: mobility}\n        \n}",
+      "apath": "{\r\n    (flatOwner.name): {\r\n      flatOwner,\r\n      name: none,\r\n      mobility: none\r\n    }\r\n}",
       "sfuncs": ""
    },
    "geom": {
@@ -10,8 +10,8 @@
             "top": 103.46665954589844,
             "left": 43.01666259765625
          },
-         "height": 497.867,
-         "width": 562.567,
+         "height": 497.85,
+         "width": 562.55,
          "zindex": "103"
       },
       "widget_apath": {
@@ -19,26 +19,26 @@
             "top": 103.44999694824219,
             "left": 623.8333129882812
          },
-         "height": 326.2,
-         "width": 579.817,
+         "height": 326.183,
+         "width": 579.8,
          "zindex": "104"
       },
       "widget_result": {
          "pos": {
             "top": 448.6499938964844,
-            "left": 624.1666870117188
+            "left": 624.183349609375
          },
          "height": 249.9,
-         "width": 579.817,
+         "width": 579.8,
          "zindex": "102"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 620.3333129882812,
+            "top": 620.316650390625,
             "left": 43.01666259765625
          },
-         "height": 78.2,
-         "width": 562.567,
+         "height": 78.1833,
+         "width": 562.55,
          "zindex": "101"
       }
    }

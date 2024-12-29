@@ -30,8 +30,8 @@
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M193 28h0"></path>
-<text x="121.5" y="33" class="comment">SequencedExpression</text>
+<path d="M179 28h0"></path>
+<text x="114.5" y="33" class="comment">InScopeExpression</text>
 </g>
 </g>
 <path d="M263 55h10"></path>

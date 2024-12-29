@@ -13,10 +13,10 @@
 <path d="M263 55h0"></path>
 <path d="M50 55h20"></path>
 <g class="non-terminal rule-ref">
-<path d="M70 55h0"></path>
-<path d="M243 55h0"></path>
-<rect x="70" y="44" width="173" height="22"></rect>
-<text x="156.5" y="59">VariableAssignment</text>
+<path d="M70 55h12.75"></path>
+<path d="M230.25 55h12.75"></path>
+<rect x="82.75" y="44" width="147.5" height="22"></rect>
+<text x="156.5" y="59">VariableBinding</text>
 </g>
 <path d="M243 55h20"></path>
 <path d="M50 55a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
@@ -30,8 +30,8 @@
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>
-<path d="M193 28h0"></path>
-<text x="121.5" y="33" class="comment">SequencedExpression</text>
+<path d="M151 28h0"></path>
+<text x="100.5" y="33" class="comment">TopExpression</text>
 </g>
 </g>
 <path d="M263 55h10"></path>

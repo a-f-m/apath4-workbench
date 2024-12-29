@@ -466,27 +466,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../language/preliminaries.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Preliminaries
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../cheat-sheet.html" class="md-nav__link">
         
   
@@ -537,6 +516,8 @@
       
         
       
+        
+      
     
     
       
@@ -549,10 +530,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -563,12 +544,33 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             Language Elements
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/preliminaries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preliminaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -636,6 +638,27 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language/programatic.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programmatic Use
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -785,7 +808,7 @@
 <li><em>Constraints</em></li>
 </ul>
 <p>Simple selections as well as complex and <strong>re-usable</strong> expressions can be defined. <em>Variables</em> enable the reuse of existing values, whereas so-called <strong><em>step functions</em></strong> support reuse of expressions and the <strong>building of custom language</strong> elements. </p>
-<p>The concrete and abstract syntax are well-defined, using <em>Parsing Expression Grammars</em> and <em>Algebraic Data Types</em>, respectively. Implementation follows the concept of <em>transpilation</em> (for now to <em>JavaScript</em>), that ensures <strong>performant execution</strong> and can be adapted to support other target languages.</p>
+<p>The concrete and abstract syntax are well-defined, using <em>Parsing Expression Grammars</em> and <em>Algebraic Data Types</em>, respectively. Implementation is based on <em>compilation</em> (for now to <em>JavaScript</em>) instead of <em>interpretation</em> (of the <em>abstract syntax tree</em>), that ensures <strong>performant execution</strong> and can be adapted to support other target languages.</p>
 <p>Specification and development are in progress, so every feature described here will be implemented step by step. A first version of <em>apath</em> - with similar syntax - was created in April 2016, targeted at <em>java</em> (with AST interpretation) and used in <strong>real-live projects</strong>. Considerations for improvement and extensions led to the present version. </p>
 <h2 id="remark-on-constraints">Remark on Constraints</h2>
 <p>In addition to the functionality of a selection and transformation language, it is planned to offer language elements for <em>logical constraints</em>. </p>

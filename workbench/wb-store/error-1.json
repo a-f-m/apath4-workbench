@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n  \"inventory\": [\n      {\n          \"date\": \"2024-10-01\",\n          \"items\": [\n              {\n                  \"category\": \"electronic\",\n                  \"name\": \"pc\",\n                  \"price\": 45.78,\n                  \"quantity\": 1\n              },\n              {\n                  \"category\": \"furniture\",\n                  \"name\": \"table\",\n                  \"price\": 100.10,\n                  \"quantity\": 2\n              }\n          ]\n      },\n      {\n          \"date\": \"2024-10-05\",\n          \"items\": [\n              {\n                  \"category\": \"furniture\",\n                  \"name\": \"table\",\n                  \"price\": 100.10,\n                  \"quantity\": 3\n              },\n              {\n                  \"category\": \"furniture\",\n                  \"name\": \"chair\",\n                  \"price\": 200.50,\n                  \"quantity\": 1\n              }\n          ]\n      }\n  ]\n}",
+      "apath": "// flat list of inventory item strings.\n// if I introduce variables (after order.*, coming soon ;), \n// the date can be stored and used in an row\n[\n    inventory.*.items.*.(date=date,\n        (name + ': ' \n         + price + '€ ' \n         + '(' + category + '. ' + $date + ')'))\n]",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 103.48333740234375,
+            "left": 45.19999694824219
+         },
+         "height": 497.867,
+         "width": 590.967,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 103.46665954589844,
+            "left": 655.36669921875
+         },
+         "height": 326.2,
+         "width": 609.083,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 448.6499938964844,
+            "left": 655.7166748046875
+         },
+         "height": 249.9,
+         "width": 609.083,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 620.3333129882812,
+            "left": 45.19999694824219
+         },
+         "height": 78.2,
+         "width": 590.967,
+         "zindex": "101"
+      }
+   }
+}
