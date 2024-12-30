@@ -229,8 +229,8 @@ var examples = {
             input: inputs.running,
             apath:
 //-----------------------
-`inventory.*?(date < '2024-10-04').
-    items.*?(category == 'furniture').
+`inventory.* ?(date < '2024-10-04').
+    items.* ?(category == 'furniture').
         (price * quantity)
 `
 //-----------------------
@@ -248,7 +248,8 @@ var examples = {
 `inventory.*.
   (
     d = date,
-    _?(date.match('\\\\d{4}-10-\\\\d{2}')).
+    // '_' is the context node passed by 'inventory.*'
+    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
       items.*.
         (quantity + ' ' + name + ': '
          + (price*quantity) + '€ '
@@ -258,6 +259,7 @@ var examples = {
 `
 //-----------------------
             ,
+            with_comments: true,
             grammar: '#main-rule-StepFunctionCall',
         },
         geom: geom.default
@@ -291,7 +293,7 @@ var examples = {
 `inventory.*.
   (
     d = date,
-    _?(date.match('\\\\d{4}-10-\\\\d{2}')).
+    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
       items.*.
         {
           date: $d,

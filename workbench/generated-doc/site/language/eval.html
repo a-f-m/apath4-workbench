@@ -803,14 +803,14 @@
 <!-- !TODO rem on strings and null -->
 
 <h2 id="processing-table">Processing Table</h2>
-<p>The evaluations of essential, compound expressions whose evaluations could not be immediately apparent, are the focus of this section.</p>
-<p>The semantic function <strong>eval</strong> maps an expression <code>X</code> and a context node <span class="arithmatex">\(o\)</span>, which is initially the input node, to a sequence of nodes, and is partially defined in the following table.</p>
+<p>The evaluations of essential expressions whose evaluations could not be immediately apparent, are the focus of this section.</p>
+<p>The semantic function <strong>eval</strong> maps an expression <span class="arithmatex">\(E\)</span> and a context node <span class="arithmatex">\(o\)</span>, which is initially the input node, to a <a href="../language/preliminaries.html#def-sequence">sequence</a> of nodes, and is partially defined in the following table.</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">language element</th>
-<th style="text-align: left;">expression pattern</th>
-<th style="text-align: left;">evaluation<br>context node: <span class="arithmatex">\(o\)</span><br>shortcut!: <strong>eval</strong>(<code>X</code>) =  <strong>eval</strong>(<code>X</code>, <span class="arithmatex">\(o\)</span>)</th>
+<th style="text-align: left;">expression pattern <span class="arithmatex">\(E\)</span></th>
+<th style="text-align: left;">eval(<span class="arithmatex">\(E\)</span>, <span class="arithmatex">\(o\)</span>)<br>(evaluation of <span class="arithmatex">\(E\)</span> with context node <span class="arithmatex">\(o\)</span>)<br>shortcut!: <strong>eval</strong>(<span class="arithmatex">\(Q\)</span>) =  <strong>eval</strong>(<span class="arithmatex">\(Q\)</span>, <span class="arithmatex">\(o\)</span>) for arbitrary <span class="arithmatex">\(Q\)</span></th>
 <th style="text-align: left;">remark</th>
 </tr>
 </thead>
@@ -834,21 +834,21 @@
 <td style="text-align: left;"><code>X</code>,<code>Y</code>,<code>Z</code> <span class="arithmatex">\(=\)</span> ((<code>X</code>,<code>Y</code>),<code>Z</code>)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><a id='eval-conditional'></a>conditional</td>
-<td style="text-align: left;">if (<code>B</code>) <code>X</code> <code>Y</code></td>
-<td style="text-align: left;">if (test(<strong>eval</strong>(<code>B</code>))) then <strong>return</strong> <strong>eval</strong>(<code>X</code>)<br>else <strong>return</strong> <strong>eval</strong>(<code>Y</code>)</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr>
 <td style="text-align: left;"><a id='eval-property'></a>path</td>
 <td style="text-align: left;"><code>X</code><strong>.</strong><code>Y</code></td>
 <td style="text-align: left;">let <span class="arithmatex">\(R\)</span> be the empty sequence<br>for every <span class="arithmatex">\(x\)</span> in <strong>eval</strong>(<code>X</code>) do<br><span class="arithmatex">\(\;\;\;\)</span>for every <span class="arithmatex">\(y\)</span> in <strong>eval</strong>(<code>Y</code>, <span class="arithmatex">\(x\)</span>) do<br><span class="arithmatex">\(\;\;\;\;\;\;\)</span>include <span class="arithmatex">\(y\)</span> in <span class="arithmatex">\(R\)</span><br><strong>return</strong> <span class="arithmatex">\(R\)</span></td>
 <td style="text-align: left;"><code>X</code>.<code>Y</code>.<code>Z</code> <span class="arithmatex">\(=\)</span> ((<code>X</code>.<code>Y</code>).<code>Z</code>)</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a id='eval-conditional'></a>conditional</td>
+<td style="text-align: left;">if (<code>B</code>) <code>X</code> <code>Y</code></td>
+<td style="text-align: left;">if (<a href="#def-test">test</a>(<strong>eval</strong>(<code>B</code>))) then <strong>return</strong> <strong>eval</strong>(<code>X</code>)<br>else <strong>return</strong> <strong>eval</strong>(<code>Y</code>)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
 <td style="text-align: left;"><a id='eval-filter (predicate)'></a>filter</td>
 <td style="text-align: left;"><code>X</code>?(<code>Y</code>)</td>
-<td style="text-align: left;">let <span class="arithmatex">\(R\)</span> be the empty sequence<br> for every <span class="arithmatex">\(x\)</span> in <strong>eval</strong>(<code>X</code>) do<br><span class="arithmatex">\(\;\;\;\)</span>if (test(<strong>eval</strong>(<code>Y</code>, <span class="arithmatex">\(x\)</span>))) then include <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(R\)</span><br><strong>return</strong> <span class="arithmatex">\(R\)</span></td>
+<td style="text-align: left;">let <span class="arithmatex">\(R\)</span> be the empty sequence<br> for every <span class="arithmatex">\(x\)</span> in <strong>eval</strong>(<code>X</code>) do<br><span class="arithmatex">\(\;\;\;\)</span>if (<a href="#def-test">test</a>(<strong>eval</strong>(<code>Y</code>, <span class="arithmatex">\(x\)</span>))) then include <span class="arithmatex">\(x\)</span> in <span class="arithmatex">\(R\)</span><br><strong>return</strong> <span class="arithmatex">\(R\)</span></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr>
@@ -867,10 +867,12 @@
 <td style="text-align: left;"><a id='eval-... embedding'></a>... embedding</td>
 <td style="text-align: left;">{ <code>X</code>, ... }</td>
 <td style="text-align: left;"><strong>return</strong> { properties(<strong>eval</strong>(<code>X</code>)), ... }</td>
-<td style="text-align: left;"><code>X</code> must evaluate to an object. properties(<span class="arithmatex">\(x\)</span>) 'embeds' the properties of <span class="arithmatex">\(x\)</span> into the enclosing object</td>
+<td style="text-align: left;"><code>X</code> must evaluate to a <a href="preliminaries.html#def-singleton">singleton</a> containing an object. properties(<span class="arithmatex">\(x\)</span>) 'embeds' the properties of <span class="arithmatex">\(x\)</span> into the enclosing object</td>
 </tr>
 </tbody>
 </table>
+<!-- !TODO embedding in arrays -->
+
 <!-- | path | `X`**.**`Y` | for every $x_i$ in **eval**(`X`):<br>$\;\;\;$let $S_i$ = **eval**(`Y`, $x_i$)<br>**return** flatten(< ..., $S_i$, ... >) [^1] | `X`.`Y`.`Z` $=$ ((`X`.`Y`).`Z`) -->
 
 <!-- | `X`.`Y` | let $S$ = **eval**(`X`), n = size($S$)<br>for i=1..n: let $S_i$ = **eval**(`Y`, $S$[i])<br>return flatten (<$S_1$, ... , $S_n$>)  -->
