@@ -95,6 +95,10 @@
     function escape_quote(x) {
         return x.replace("'", "\\'");
     }
+    function escape_regex(x) {
+        const regexc = '(\\.|\\+|\\*|\\?|\\^|\\$|\\(|\\)|\\[|\\]|\\{|\\}|\\||\\\\)';
+        return x.replaceAll(new RegExp(regexc, 'g'), '\\$1');
+    }
     function replace_marker_in_file(file, begin_marker, end_marker, replacement) {
         let s = fs.readFileSync(file, { encoding: 'utf-8' });
         s = replace_marker(s, begin_marker, end_marker, replacement);
@@ -111,7 +115,7 @@
     function replace_mult_in_file(file, repl_list) {
         let doc = fs.readFileSync(file, { encoding: 'utf-8' });
         for (const x of repl_list)
-            doc = doc.replace(new RegExp(x.regex, 'gm'), x.repl);
+            doc = doc.replace(new RegExp(x.regex, 'gms'), x.repl);
         fs.writeFileSync(file, doc);
     }
     function walk_files(dir, path_regex, func, recursive = false) {
@@ -174,6 +178,7 @@
         decode_to_object: decode_to_object,
         encode_object: encode_object,
         escape_quote: escape_quote,
+        escape_regex: escape_regex,
         ind_: ind_,
         is_object: is_object,
         is_primitive: is_primitive,
