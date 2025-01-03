@@ -524,7 +524,7 @@ $toLive`
             input: inputs.var2,
             input_nl: true,
             grammar: '#main-rule-VariableAssignment',
-            remark: `"joins" with variables in scope expressions and paths`,
+            remark: `"joins" with variables storing sequences`,
             apath: 
 //----------------------------
 // `cats = cats.*, dogs = dogs.*,

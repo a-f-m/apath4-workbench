@@ -4,43 +4,43 @@ function () {
     var geom = {
 
         sfuncs: {
-            "widget_input": {
-              "pos": {
-                "top": 91.60000610351562,
-                "left": 63.133331298828125
-              },
-              "height": 390.217,
-              "width": 566.267,
-              "zindex": "103"
-            },
-            "widget_apath": {
-              "pos": {
-                "top": 91.60000610351562,
-                "left": 647.9166870117188
-              },
-              "height": 340.8,
-              "width": 583.6,
-              "zindex": "102"
-            },
-            "widget_result": {
-              "pos": {
-                "top": 452.3666687011719,
-                "left": 648.2666625976562
-              },
-              "height": 261.05,
-              "width": 583.6,
-              "zindex": "101"
-            },
-            "widget_sfuncs": {
-              "pos": {
-                "top": 501.70001220703125,
-                "left": 63.133331298828125
-              },
-              "height": 211.65,
-              "width": 566.267,
-              "zindex": "104"
-            }
+          "widget_input": {
+             "pos": {
+                "top": 110.10000610351562,
+                "left": 45.26666259765625
+             },
+             "height": 362.233,
+             "width": 591.883,
+             "zindex": "101"
           },
+          "widget_apath": {
+             "pos": {
+                "top": 110.06666564941406,
+                "left": 656.36669921875
+             },
+             "height": 314.017,
+             "width": 610.033,
+             "zindex": "104"
+          },
+          "widget_result": {
+             "pos": {
+                "top": 442.3500061035156,
+                "left": 656.7000122070312
+             },
+             "height": 240.567,
+             "width": 610.033,
+             "zindex": "102"
+          },
+          "widget_sfuncs": {
+             "pos": {
+                "top": 490.6000061035156,
+                "left": 45.26666259765625
+             },
+             "height": 192.283,
+             "width": 591.883,
+             "zindex": "103"
+          }
+       },
         sfuncs1 : {
             "widget_input": {
                 "pos": {
@@ -169,13 +169,12 @@ running:
 var sfuncs = {
 simple:
 `[
-    // 'ctx_node' (context node) is the object passed 
-    // from the previous step - followed by parameters
-    function add(ctx_node, k) {
-        return typeof ctx_node === 'number' && typeof k === 'number' ?
-                ctx_node + k : undefined
-                // 'undefined' stops evaluation with no solution
-    }
+  function formatCurrency(ctx_node, locales, currency) {
+    if (typeof ctx_node !== 'number') return undefined
+    return new Intl.NumberFormat(
+      locales, { style: 'currency', currency })
+        .format(ctx_node)
+  }
 ]`,
 }
 
@@ -411,6 +410,34 @@ items = inventory.*.items.*,
             grammar: '#main-rule-VariableAssignment',
         },
         geom: geom.default
+    },
+
+    'js step functions': {
+        group: true
+    },
+
+    'simple js step func': {
+        data: {
+            input: inputs.running,
+            apath:
+//-----------------------
+`inventory.*.
+  (
+    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
+      items.*.
+        (quantity + ' ' + name + ': '
+         // step func for formatting
+         + (price*quantity).formatCurrency('de-DE', 'EUR')
+        )
+  )
+`
+//-----------------------
+            ,
+            sfuncs: sfuncs.simple,
+            with_comments: true,
+            grammar: '#main-rule-VariableAssignment',
+        },
+        geom: geom.sfuncs
     },
 
 }
