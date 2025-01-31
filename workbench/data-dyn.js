@@ -173,6 +173,8 @@ array1:
 `[{"age": 1}, {"age": 2}]`,
 array2:
 `{"keys": [1, 2, 3]}`,
+array3:
+`[{"age": 1}, {"age": 9}, {"age": 11}]`,
 var1:
 `{ "cat": {
     "mom": {"age": 5},
@@ -320,6 +322,7 @@ var examples = {
             keyword: '... **[** ... **]**',
             input: inputs.array,
             apath: `//second array item\nnames[1]`,
+            // aaseq: true,
             grammar: '#main-rule-Subscript'
         },
         geom: geom.default
@@ -327,7 +330,7 @@ var examples = {
     'value regex': {
         data: {
             keyword: '**match(** ... **)**',
-            input: inputs.array1,
+            input: inputs.array3,
             apath: `*?(age.match('1|2'))`,
             grammar: '#main-rule-StepFunctionCall',
             remark: 'values conforming to a regex'

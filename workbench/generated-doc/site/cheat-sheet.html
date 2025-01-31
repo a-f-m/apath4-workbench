@@ -11,7 +11,9 @@
  *--------------------------------------------------------------------------------------------*/
 
 .vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
 	display: none;
 }
 
@@ -23,7 +25,7 @@
 <style>
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
+                font-size: 12px;
                 line-height: 1.6;
             }
         </style>
@@ -293,8 +295,8 @@ body {
 <td><span>values conforming to a regex</span></td>
 <td><strong>match(</strong> ... <strong>)</strong></td>
 <td><span><span class="mtk1">*</span><span class="mtk10 mtkb">?</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'1|2'</span><span class="mtk1">))</span></span></td>
-<td><span><span class="mtk11">[{</span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">},</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 2</span><span class="mtk11">}]</span></span></td>
-<td>{ &quot;age&quot;: 1 } , { &quot;age&quot;: 2 }</td>
+<td><span><span class="mtk11">[{</span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">},</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 9</span><span class="mtk11">},</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 11</span><span class="mtk11">}]</span></span></td>
+<td>{ &quot;age&quot;: 1 } , { &quot;age&quot;: 11 }</td>
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=value regex"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>

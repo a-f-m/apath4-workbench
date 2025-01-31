@@ -1,45 +1,45 @@
 {
    "data": {
-      "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 28,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 1\n        }\n      ]\n    }\n  ]\n}",
-      "apath": "inventory.*.\n  (\n    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).\n      items.*.\n        (quantity + ' ' + name + ': '\n         // step func for formatting\n         + (price*quantity).formatCurrency('de-DE', 'EUR')\n        )\n  )\n",
-      "sfuncs": "[\n  function formatCurrency(ctx_node, locales, currency) {\n    if (ctx_node === undefined) return undefined\n    return new Intl.NumberFormat(\n      locales, { style: 'currency', currency })\n        .format(ctx_node)\n  }\n]"
+      "input": "[{\"age\": 1}, {\"age\": 9}, {\"agex\": 11}]",
+      "apath": "// values conforming to a regex\n*?(*.match('^(1|2)'))",
+      "sfuncs": ""
    },
    "geom": {
       "widget_input": {
          "pos": {
-            "top": 102.83332824707031,
-            "left": 45.26666259765625
+            "top": 101.88333129882812,
+            "left": 45.21665954589844
          },
-         "height": 371.433,
-         "width": 591.883,
-         "zindex": "102"
+         "height": 482.133,
+         "width": 591.433,
+         "zindex": "103"
       },
       "widget_apath": {
          "pos": {
-            "top": 102.80000305175781,
-            "left": 656.36669921875
+            "top": 101.86666870117188,
+            "left": 655.8499755859375
          },
-         "height": 322,
-         "width": 610.033,
+         "height": 315.9,
+         "width": 609.567,
          "zindex": "104"
       },
       "widget_result": {
          "pos": {
-            "top": 443.51666259765625,
-            "left": 656.7000122070312
+            "top": 436.1333312988281,
+            "left": 656.2000122070312
          },
-         "height": 246.667,
-         "width": 610.033,
-         "zindex": "101"
+         "height": 242,
+         "width": 609.567,
+         "zindex": "102"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 493,
-            "left": 45.26666259765625
+            "top": 602.38330078125,
+            "left": 45.21665954589844
          },
-         "height": 197.167,
-         "width": 591.883,
-         "zindex": "103"
+         "height": 75.7333,
+         "width": 591.433,
+         "zindex": "101"
       }
    }
 }

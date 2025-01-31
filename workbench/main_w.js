@@ -2,6 +2,8 @@
 
 function set_data(d) {
 
+    const aaseq = d.data.aaseq
+    // $('#toggle_arrays_as_seq').prop('checked', aaseq === true)
     monaco_editors.input.setValue(d.data.input)
     monaco_editors.apath.setValue((d.data.remark ? '// ' + d.data.remark + '\n' : '') + d.data.apath)
     monaco_editors.sfuncs.setValue(d.data.sfuncs ? d.data.sfuncs : '')
@@ -57,10 +59,11 @@ var use_server = true
 async function eval_(input, apath, sfuncs) {
 
     const sf = $('#toggle_strict_failure').prop('checked')
+    const aas = $('#toggle_arrays_as_seq').prop('checked')
     if (!use_server) {
-        return window.apath_func_utils_.evaluate(input, apath, sfuncs, sf)
+        return window.apath_func_utils_.evaluate(input, apath, sfuncs, sf, aas)
     } else {
-        const args = window.Utils_.encode_object([input, apath, sfuncs, sf])
+        const args = window.Utils_.encode_object([input, apath, sfuncs, sf, aas])
         let ret
         $.ajax({
             url: `op?func=eval&args=${args}`, 
@@ -133,6 +136,9 @@ $('#toggle_live_eval').on('change', function () {
 $('#toggle_strict_failure').on('change', function () {
     $('#bnt_eval_apth').trigger('click')
 })
+$('#toggle_arrays_as_seq').on('change', function () {
+    $('#bnt_eval_apth').trigger('click')
+})
 
 $('#select_examples').on('change', function (e) {
     const valueSelected = ree_exa = this.value
@@ -192,7 +198,8 @@ $('#bnt_grammar').on('click', function () {
 
 $('#bnt_ast').on('click', function () {
     const ast = new window.Parser__.Parser()
-        .setting({ w_loc: false, no_empty_left: true, w_data: false })
+        // .setting({ w_loc: false, no_empty_left: true, w_data: false })
+        .setting({ w_loc: false })
         .parse(monaco_editors.apath.getValue())
     open_blob(JSON.stringify(ast, null, 3), 'text/plain')
 })
@@ -391,6 +398,7 @@ $('#toggle_fit').prop('checked', true)
 $('#toggle_dark').prop('checked', true)
 $('#toggle_live_eval').prop('checked', true)
 $('#toggle_strict_failure').prop('checked', false)
+$('#toggle_arrays_as_seq').prop('checked', false)
 $(function () {
     console.log('ready!')
     window.onresize = fit
@@ -464,6 +472,7 @@ async function build_highlighting(topic) {
 
         const data = examples[key].data
         const sf = $('#toggle_strict_failure').prop('checked')
+        const aas = $('#toggle_arrays_as_seq').prop('checked')
         if (data) {
                 // .replaceAll(new RegExp('//.*\n', 'g'), '')
             // const input = data.input_nl
@@ -472,7 +481,7 @@ async function build_highlighting(topic) {
             try {
                 r = to_result(window.apath_func_utils_.evaluate(
                         (data.input_nl ? data.input : to_all_blanks(data.input)),
-                        data.apath, sfuncs, sf).result)
+                        data.apath, sfuncs, sf, aas).result)
             } catch (error) {
                 console.log(error)
                 r = 'error'

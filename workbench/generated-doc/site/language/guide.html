@@ -1134,7 +1134,7 @@
 </span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a><span class="p">}</span>
 </span></code></pre></div></li>
 </ol>
-<p>selects all items purchased in any October and calculates their total prices The output contains the date inherited from the inventory property. For this purpose, the inventory date is assigned to the variable <code>d</code> and used later.</p>
+<p>selects all items purchased in any October and calculates their total prices The output contains the date inherited from the inventory property. For this purpose, the inventory date is assigned to a variable (<code>d = date</code>) and used later (<code>$d</code>) to produce the output</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span><span class="mtk1">"3 chair: 150€ (2023-10-05)" , "1 pc: 1800.78€ </span><span class="mtk1">(2024-10-01)" , "1 table: 100.1€ (2024-10-01)" </span></span>
 </span></code></pre></div>
 <p>The following example make use of the object returned by the <code>match</code> function.</p>
@@ -1300,7 +1300,7 @@
 </span><span id="__span-18-43"><a id="__codelineno-18-43" name="__codelineno-18-43" href="#__codelineno-18-43"></a><span class="p">}</span>
 </span></code></pre></div></li>
 </ol>
-<p>transforms the running example into an object that has the top property name stemming from a property value, using the parenthesized expression <code>(name)</code>. The <code>flatOwner</code> is embedded (<code>_</code>), the <code>location</code> modified, and some properties are removed:</p>
+<p>transforms the running example into an object that has the top property name stemming from a property value, using the parenthesized expression <code>(name)</code>. The <code>flatOwner</code> is embedded (<code>_</code>), the <code>location</code> modified, and some properties are removed (via keyword <code>none</code>):</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span><span class="mtk1">{ "Miller": { "age": 28, "location": "Germany", "#</span><span class="mtk1">post-code": 12205 } } </span></span>
 </span></code></pre></div>
 <p>The expression</p>

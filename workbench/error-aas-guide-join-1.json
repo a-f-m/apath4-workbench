@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 28,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 1\n        }\n      ]\n    }\n  ]\n}",
+      "apath": "preferred = ['chair', 'pc'],\nitems = inventory.items,\n$preferred,\n$items\n// [\n//   $preferred.(\n//       p=_,\n//       $items ?(name == $p))\n// ]\n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 135.64999389648438,
+            "left": 44.81666564941406
+         },
+         "height": 618.05,
+         "width": 586.017,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 135.64999389648438,
+            "left": 649.8499755859375
+         },
+         "height": 404.933,
+         "width": 603.983,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 564.1500244140625,
+            "left": 650.2000122070312
+         },
+         "height": 310.2,
+         "width": 603.983,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 777.2833251953125,
+            "left": 44.81666564941406
+         },
+         "height": 97.0833,
+         "width": 586.017,
+         "zindex": "101"
+      }
+   }
+}

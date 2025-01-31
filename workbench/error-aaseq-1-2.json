@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"cat\": {\n        \"cut\": {\"names\": [\"jo\", \"miau\"]}\n    }\n}",
+      "apath": "// sequences are embedded flat. use [names.*] otherwise\ncat.[ cut.names, 'lu' ]",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 118.96665954589844,
+            "left": 41.5
+         },
+         "height": 453.533,
+         "width": 542.717,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 118.96665954589844,
+            "left": 601.8333129882812
+         },
+         "height": 297.15,
+         "width": 559.35,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 433.3999938964844,
+            "left": 602.1500244140625
+         },
+         "height": 227.633,
+         "width": 559.35,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 589.7666625976562,
+            "left": 41.5
+         },
+         "height": 71.2333,
+         "width": 542.717,
+         "zindex": "101"
+      }
+   }
+}

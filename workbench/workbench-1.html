@@ -10,8 +10,8 @@
     <!-- <script src='js-cookie-3.0.5//js.cookie.min.js'></script> -->
     <link rel='stylesheet' href='workbench-1.css' />
     <script src='./monaco/vs/loader.js'></script>
+    <script async src='https://andreas-fm-24.net/test?snipp=workbench-1.html'></script>
 </head>
-<script async src='https://andreas-fm-24.net/test?snipp=workbench-1.html'></script>
 
 <body>
     <div class="logo">
@@ -67,6 +67,9 @@
                         eval</label></span>
                 <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
                         failure</label></span>
+                <br>
+                <span title='arrays as sequence'><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence
+                        </label></span>
                 <!-- <div class='txt_file_url'>
                     <span>
                         default step function file url (must be absolute!): <input type="text" id="txt_default_step_funcs"
@@ -87,7 +90,7 @@
                     <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression (Ctrl+., Ctrl+A)'
                         value='AST' />
                 </span>
-                <span class='button' hidden>
+                <span class='button' >
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
                 <span class='button' hidden>
