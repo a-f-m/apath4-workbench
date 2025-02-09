@@ -146,6 +146,10 @@ body {
     font-size: 11px;
 }
 
+.group-font {
+    font-size: 14px;
+}
+
 *[class^="mtk"] { 
     /* color: #000000; */
 /* background-color: #fffffe; */
@@ -201,7 +205,7 @@ body {
 <td> </td>
 </tr>
 <tr>
-<td><span id="e-Selection"><em><strong>Selection</strong></em></span></td>
+<td><span class="group-font" id="e-Selection"><em><strong>Selection</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -237,6 +241,15 @@ body {
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=property regex"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
+<td><span id="e-dynamic property">dynamic property</span></td>
+<td><span>expression value used as the property name</span></td>
+<td><strong>prop(</strong> ... <strong>)</strong></td>
+<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">p</span><span class="mtk1">)</span></span></td>
+<td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 8</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;p&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
+<td>8</td>
+<td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+</tr>
+<tr>
 <td><span id="e-children (array)">children (array)</span></td>
 <td><span>all array items</span></td>
 <td><strong>*</strong></td>
@@ -264,7 +277,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Self"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=self"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Restriction"><em><strong>Restriction</strong></em></span></td>
+<td><span class="group-font" id="e-Restriction"><em><strong>Restriction</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -318,7 +331,7 @@ body {
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=regex named groups"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Construction"><em><strong>Construction</strong></em></span></td>
+<td><span class="group-font" id="e-Construction"><em><strong>Construction</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -336,13 +349,13 @@ body {
 <td><a href="language/grammar.html#main-rule-ObjectConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=construction (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... dynamic property name">... dynamic property name</span></td>
-<td><span>property name: parenthesized expression evaluated to string</span></td>
+<td><span id="e-... dynamic property">... dynamic property</span></td>
+<td><span>expression value used as the property name</span></td>
 <td></td>
-<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ (</span><span class="mtk13">p</span><span class="mtk1">): </span><span class="mtk5">'jo'</span><span class="mtk1"> }</span></span></td>
+<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">p</span><span class="mtk1">): </span><span class="mtk5">'jo'</span><span class="mtk1"> }</span></span></td>
 <td></td>
 <td>{ &quot;name&quot;: &quot;jo&quot; }</td>
-<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... dynamic property name"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td><span id="e-... embedding">... embedding</span></td>
@@ -372,7 +385,7 @@ body {
 <td><a href="language/grammar.html#main-rule-ArrayConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... sequences"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Basic Expressions"><em><strong>Basic Expressions</strong></em></span></td>
+<td><span class="group-font" id="e-Basic Expressions"><em><strong>Basic Expressions</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -417,7 +430,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=arithmetic"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Composite Expressions"><em><strong>Composite Expressions</strong></em></span></td>
+<td><span class="group-font" id="e-Composite Expressions"><em><strong>Composite Expressions</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -444,7 +457,7 @@ body {
 <td><a href="language/grammar.html#main-rule-OrdinaryExpression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=conditional"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-Variables"><em><strong>Variables</strong></em></span></td>
+<td><span class="group-font" id="e-Variables"><em><strong>Variables</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
@@ -516,7 +529,7 @@ body {
 <td>        </td>
 </tr>
 <tr>
-<td><span id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
+<td><span class="group-font" id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>

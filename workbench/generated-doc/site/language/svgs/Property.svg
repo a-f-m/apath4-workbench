@@ -1,4 +1,4 @@
-<svg class="railroad-diagram" width="546.5" height="268" viewBox="0 0 546.5 268" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="railroad-diagram" width="546.5" height="330" viewBox="0 0 546.5 330" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
 <path d="M20 69v20m0 -10h20"></path>
@@ -7,7 +7,7 @@
 <g class="Group rule">
 <path d="M50 79h0"></path>
 <path d="M496.5 79h0"></path>
-<rect x="50" y="36" width="446.5" height="212" rx="10" ry="10" class="group-box"></rect>
+<rect x="50" y="36" width="446.5" height="274" rx="10" ry="10" class="group-box"></rect>
 <g class="Choice">
 <path d="M50 79h0"></path>
 <path d="M496.5 79h0"></path>
@@ -149,6 +149,52 @@
 </g>
 </g>
 <path d="M476.5 221a10 10 0 0 0 10 -10v-122a10 10 0 0 1 10 -10"></path>
+<path d="M50 79a10 10 0 0 1 10 10v184a10 10 0 0 0 10 10"></path>
+<g class="Sequence">
+<path d="M70 283h8.5"></path>
+<path d="M468 283h8.5"></path>
+<path d="M149.5 283h10"></path>
+<g class="terminal literal">
+<path d="M78.5 283h0"></path>
+<path d="M149.5 283h0"></path>
+<rect x="78.5" y="272" width="71" height="22" rx="10" ry="10"></rect>
+<text x="114" y="287">"prop"</text>
+</g>
+<path d="M159.5 283h10"></path>
+<path d="M215 283h10"></path>
+<g class="terminal literal">
+<path d="M169.5 283h0"></path>
+<path d="M215 283h0"></path>
+<rect x="169.5" y="272" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="192.25" y="287">"("</text>
+</g>
+<path d="M225 283h10"></path>
+<path d="M402.5 283h10"></path>
+<g class="Group rule">
+<path d="M235 283h0"></path>
+<path d="M402.5 283h0"></path>
+<rect x="235" y="264" width="167.5" height="38" rx="10" ry="10" class="group-box"></rect>
+<g class="non-terminal rule-ref">
+<path d="M235 283h10"></path>
+<path d="M392.5 283h10"></path>
+<rect x="245" y="272" width="147.5" height="22"></rect>
+<text x="318.75" y="287">ScopeExpression</text>
+</g>
+<g class="comment">
+<path d="M235 256h0"></path>
+<path d="M315 256h0"></path>
+<text x="275" y="261" class="comment">Expression</text>
+</g>
+</g>
+<path d="M412.5 283h10"></path>
+<g class="terminal literal">
+<path d="M422.5 283h0"></path>
+<path d="M468 283h0"></path>
+<rect x="422.5" y="272" width="45.5" height="22" rx="10" ry="10"></rect>
+<text x="445.25" y="287">")"</text>
+</g>
+</g>
+<path d="M476.5 283a10 10 0 0 0 10 -10v-184a10 10 0 0 1 10 -10"></path>
 </g>
 <g class="comment">
 <path d="M50 28h0"></path>

@@ -316,7 +316,7 @@ var examples = {
 //-----------------------
 `flatOwner.
   {
-    (name): {
+    prop(name): {
       _,
       name: none,
       location: location.match('.*, (.*)').groups[1],

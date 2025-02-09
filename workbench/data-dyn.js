@@ -139,6 +139,13 @@ simple_litprop1:
         "#id": 7
     }
 }`,
+simple_dynprop1:
+`{
+    "cat": {
+        "age": 8,
+        "p": "age"
+    }
+}`,
 simple1:
 `{
     "cat": {
@@ -274,6 +281,16 @@ var examples = {
         },
         geom: geom.default
     },
+    'dynamic property': {
+        data: {
+            keyword: '**prop(** ... **)**',
+            input: inputs.simple_dynprop1,
+            apath: 'cat.prop(p)',
+            grammar: '#main-rule-Property',
+            remark: 'expression value used as the property name'
+        },
+        geom: geom.default
+    },
     'children (array)': {
         data: {
             keyword: '**\\***',
@@ -370,13 +387,13 @@ var examples = {
         },
         geom: geom.default
     },
-    '... dynamic property name': {
+    '... dynamic property': {
         data: {
             keyword: '**{** ... **}**',
             input: inputs.simple2,
-            apath: `cat.{ (p): 'jo' }`,
+            apath: `cat.{ prop(p): 'jo' }`,
             grammar: '#main-rule-PropertyAssignment',
-            remark: 'property name: parenthesized expression evaluated to string'
+            remark: 'expression value used as the property name'
         },
         geom: geom.default
     },

@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"location\": \"here\",\n    \"messages\": {\"here\": [\"me\"], \"there\": [\"you\"]}\n}",
+      "apath": "loc = location, messages.prop($loc)",
+      "sfuncs": "[\r\n  function prop(ctx_node, s) {\r\n    return ctx_node[s]\r\n  }\r\n]"
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 96.78334045410156,
+            "left": 41.05000305175781
+         },
+         "height": 257.067,
+         "width": 536.85,
+         "zindex": "104"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 96.78334045410156,
+            "left": 595.3333129882812
+         },
+         "height": 283.083,
+         "width": 553.317,
+         "zindex": "103"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 396.33331298828125,
+            "left": 595.63330078125
+         },
+         "height": 216.867,
+         "width": 553.317,
+         "zindex": "101"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 375.316650390625,
+            "left": 41.05000305175781
+         },
+         "height": 237.883,
+         "width": 536.85,
+         "zindex": "102"
+      }
+   }
+}

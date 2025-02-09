@@ -99,7 +99,9 @@ $('#bnt_eval_apth').on('click', async function () {
         const results = e.result
         if (results === null) {
         } else {
-            result_editor.setValue(e.empty_ast ? '' : results === '' ? '- no solutions found -' : results)
+            let base_result = e.empty_ast ? '' : results === '' ? '- no solutions found -' : results
+            if (e.warnings.length !== 0) base_result = `warnings: ${e.warnings.toString()}\n++++++++++++\n\n` + base_result
+            result_editor.setValue(base_result)
         }
 
     } catch (error) {

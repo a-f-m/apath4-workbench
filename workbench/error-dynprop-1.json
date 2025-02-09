@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"p\": [\"name\"]\n    }\n}",
+      "apath": "// property name: parenthesized expression evaluated to string\ncat.{ (p): 'jo' }",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 115.35000610351562,
+            "left": 41.05000305175781
+         },
+         "height": 417.767,
+         "width": 536.85,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 115.35000610351562,
+            "left": 595.316650390625
+         },
+         "height": 273.717,
+         "width": 553.317,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 404.98333740234375,
+            "left": 595.63330078125
+         },
+         "height": 209.683,
+         "width": 553.317,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 549.0166625976562,
+            "left": 41.05000305175781
+         },
+         "height": 65.61670000000001,
+         "width": 536.85,
+         "zindex": "101"
+      }
+   }
+}

@@ -588,7 +588,7 @@
         
   
   <span class="md-ellipsis">
-    Grammar
+    Grammar-based Description
   </span>
   
 
@@ -1248,7 +1248,7 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span><span class="mtk1">{ "date": "2023-10-05", "total price": 150 } , { "</span><span class="mtk1">date": "2024-10-01", "total price": 1800.78 } , { </span><span class="mtk1">"date": "2024-10-01", "total price": 100.1 } </span></span>
 </span></code></pre></div>
 <p>In some applications it can happen that property names are not fixed and contain information that is otherwise given as a value. Furthermore, transformations are based on embedding input objects into the output:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span><span class="mtk13">flatOwner</span><span class="mtk1 mtkb">.</span></span><br/><span><span class="mtk1">  {</span></span><br/><span><span class="mtk1">    (</span><span class="mtk13">name</span><span class="mtk1">): {</span></span><br/><span><span class="mtk1">      </span><span class="mtk10 mtkb">_</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">name</span><span class="mtk1">: </span><span class="mtk10">none</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">location</span><span class="mtk1">: </span><span class="mtk13">location</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'.*, (.*)'</span><span class="mtk1">)</span><span class="mtk1 mtkb">.</span><span class="mtk13">groups</span><span class="mtk1">[1],</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">mobility</span><span class="mtk1">: </span><span class="mtk10">none</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">favorites</span><span class="mtk1">: </span><span class="mtk10">none</span></span><br/><span><span class="mtk1">    }</span></span><br/><span><span class="mtk1">  }</span></span><br/><span><span></span></span> <a class='right-align' title="workbench" href="../../../workbench-1.html?topic=topic-guide&exa=dynamic name / embedding"><img src="../pics/mdi--application-cog.svg" width="18px"></a>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span><span class="mtk13">flatOwner</span><span class="mtk1 mtkb">.</span></span><br/><span><span class="mtk1">  {</span></span><br/><span><span class="mtk1">    </span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">name</span><span class="mtk1">): {</span></span><br/><span><span class="mtk1">      </span><span class="mtk10 mtkb">_</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">name</span><span class="mtk1">: </span><span class="mtk10">none</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">location</span><span class="mtk1">: </span><span class="mtk13">location</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'.*, (.*)'</span><span class="mtk1">)</span><span class="mtk1 mtkb">.</span><span class="mtk13">groups</span><span class="mtk1">[1],</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">mobility</span><span class="mtk1">: </span><span class="mtk10">none</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">      </span><span class="mtk13">favorites</span><span class="mtk1">: </span><span class="mtk10">none</span></span><br/><span><span class="mtk1">    }</span></span><br/><span><span class="mtk1">  }</span></span><br/><span><span></span></span> <a class='right-align' title="workbench" href="../../../workbench-1.html?topic=topic-guide&exa=dynamic name / embedding"><img src="../pics/mdi--application-cog.svg" width="18px"></a>
 </span></code></pre></div>
 <p class="annotate"><span class="afm-svg-sub">
 (1)
@@ -1300,7 +1300,7 @@
 </span><span id="__span-18-43"><a id="__codelineno-18-43" name="__codelineno-18-43" href="#__codelineno-18-43"></a><span class="p">}</span>
 </span></code></pre></div></li>
 </ol>
-<p>transforms the running example into an object that has the top property name stemming from a property value, using the parenthesized expression <code>(name)</code>. The <code>flatOwner</code> is embedded (<code>_</code>), the <code>location</code> modified, and some properties are removed (via keyword <code>none</code>):</p>
+<p>transforms the running example into an object that has the top property name stemming from a property value, using the expression <code>prop(name)</code>, where <code>name</code> is the flat owner property containing its name. Furthermore, the <code>flatOwner</code> is embedded (<code>_</code>), the <code>location</code> modified, and some properties are removed (via keyword <code>none</code>):</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span><span class="mtk1">{ "Miller": { "age": 28, "location": "Germany", "#</span><span class="mtk1">post-code": 12205 } } </span></span>
 </span></code></pre></div>
 <p>The expression</p>
@@ -1618,7 +1618,7 @@
 <p>here '+' is the concatenation of strings.&#160;<a class="footnote-backref" href="#fnref:plus" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:mult-res">
-<p>Multiple results are delimited by comma.&#160;<a class="footnote-backref" href="#fnref:mult-res" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Multiple results are delimited by comma in the example output.&#160;<a class="footnote-backref" href="#fnref:mult-res" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

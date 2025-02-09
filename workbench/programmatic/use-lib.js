@@ -13,18 +13,12 @@ apath.step_func(f)
 // get the evaluator
 const evaluator = apath.transpile('a.b.f()')
 
-// evaluate
-const result = Array.from(evaluator.evaluate_json('{ "a": { "b": 1 } }'))
+// evaluate; 'results' is an iterator over found solutions
+const results = evaluator.evaluate_json('{ "a": { "b": 1 } }')
 
-// show result
-console.log(JSON.stringify(result)) // [2]
+// iterate results
+for (const result of results) console.log(result) // --> 2
 
-// or in one expression
-console.log(
-    JSON.stringify(
-        Array.from(
-            new Apath().step_func(f).transpile('a.b.f()')
-                .evaluate_json('{ "a": { "b": 1 } }'))))
-
-
-
+// directly with an object and only the first result
+// (more performant due to 'bypassing' the iterator)
+console.log(evaluator.evaluate_first({ a: { b: 1 } })) // --> 2
