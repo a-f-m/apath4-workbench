@@ -2,7 +2,7 @@ const tokenProvider = {
 
     operators: /[_?]+/,
 
-    keywords: ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'func', 'nil', 'none', 'prop'],
+    keywords: ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'nil', 'none', 'prop', 'match', 'func'],
 
     // Define tokenizer for your language
     tokenizer: {

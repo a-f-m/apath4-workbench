@@ -809,9 +809,8 @@
 <li><em>Construction &amp; Transformation</em></li>
 <li><em>Constraints</em></li>
 </ul>
-<p>Simple selections as well as complex and <strong>re-usable</strong> expressions can be defined. <em>Variables</em> enable the reuse of existing values, whereas so-called <strong><em>step functions</em></strong> support reuse of expressions and the <strong>building of custom language</strong> elements. </p>
-<p>The concrete and abstract syntax are well-defined, using <em>Parsing Expression Grammars</em> and <em>Algebraic Data Types</em>, respectively. Implementation is based on <em>compilation</em> (for now to <em>JavaScript</em>) instead of <em>interpretation</em> (of the <em>abstract syntax tree</em>), that ensures <strong>performant execution</strong> and can be adapted to support other target languages.</p>
-<p>Specification and development are in progress, so every feature described here will be implemented step by step. A first version of <em>apath</em> - with similar syntax - was created in April 2016, targeted at <em>java</em> (with AST interpretation) and used in <strong>real-life projects</strong>. Considerations for improvement and extensions led to the present version. </p>
+<p>Simple selections as well as complex and <strong>re-usable</strong> expressions can be defined. <strong>Variables</strong> enable the reuse of existing values, whereas so-called <strong><em>step functions</em></strong> support reuse of expressions and the <strong>building of custom language</strong> elements. </p>
+<p>The concrete and abstract syntax are <strong>well-defined</strong>, using <em>Parsing Expression Grammars</em> and <em>Algebraic Data Types</em>, respectively. Implementation is based on <em>compilation</em> (for now to <em>JavaScript</em>) instead of <em>interpretation</em> (of the <em>abstract syntax tree</em>), that ensures <strong>performant execution</strong> and can be adapted to support other target languages. Specification and development are in progress, so every feature described here will be implemented step by step.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <h2 id="remark-on-constraints">Remark on Constraints</h2>
 <p>In addition to the functionality of a selection and transformation language, it is planned to offer language elements for <em>logical constraints</em>. </p>
 <p>Logical constraints will enable <strong>consistency checks</strong> for objects as well as <strong>rule definitions</strong> for <em>derived values</em>.  </p>
@@ -820,7 +819,7 @@
 <ul>
 <li><a href="../sources/xpath-semantics.pdf"><em>Philip Wadler (2000). A Formal Semantics of Patterns in XSLT and XPath. Markup Languages 2(2): 183-202</em></a></li>
 </ul>
-<p>enhanced by predicate logic based formalization of constraints.</p>
+<p>enhanced by predicate logic based formalization of constraints. For the time being, a semi-formal description can be found in the <a href="../language/eval.html#processing-table">evaluation</a> section.</p>
 <!-- [^2]: Because transpilation work only on the abstract syntax tree, it  -->
 
 <!-- Together with external functions (e.g. JavaScript) the language is *Turing-complete*.
@@ -844,6 +843,9 @@ The concrete syntax is defined with [Parsing Expression Grammars](https://en.wik
 <ol>
 <li id="fn:1">
 <p>Although the name suggests a path language, it is designed for complex transformations oriented towards <em>xslt</em> and general term transformations as well as logical constraints.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>A first version of <em>apath</em> - with similar syntax - was created in April 2016, targeted at <em>java</em> (with AST interpretation) and used in <strong>real-life projects</strong>. Considerations for improvement and extensions led to the present version.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

@@ -251,7 +251,7 @@ var examples = {
     _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
       items.*.
         (quantity + ' ' + name + ': '
-         + (price*quantity) + '€ '
+         + (price * quantity) + '€ '
          + '(' + $d + ')'
         )
   )
@@ -285,6 +285,24 @@ var examples = {
     },
 
     'object construction': {
+        data: {
+            input: inputs.running,
+            apath:
+//-----------------------
+`{
+  driverLic: flatOwner.mobility.driverLic,
+  car: "van"
+}
+`
+//-----------------------
+            ,
+            with_comments: true,
+            grammar: '#main-rule-ObjectConstruction',
+        },
+        geom: geom.default
+    },
+
+    'object sequence construction': {
         data: {
             input: inputs.running,
             apath:
@@ -427,7 +445,7 @@ items = inventory.*.items.*,
       items.*.
         (quantity + ' ' + name + ': '
          // step func for formatting
-         + (price*quantity).formatCurrency('de-DE', 'EUR')
+         + (price * quantity).formatCurrency('de-DE', 'EUR')
         )
   )
 `

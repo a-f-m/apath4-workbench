@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+      "apath": "f(x) = 99,\r\n88\r\n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 101.01666259765625,
+            "left": 41.01666259765625
+         },
+         "height": 473.55,
+         "width": 536.4,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 101,
+            "left": 594.816650390625
+         },
+         "height": 310.267,
+         "width": 552.85,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 429.316650390625,
+            "left": 595.13330078125
+         },
+         "height": 237.683,
+         "width": 552.85,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 592.63330078125,
+            "left": 41.01666259765625
+         },
+         "height": 74.3833,
+         "width": 536.4,
+         "zindex": "101"
+      }
+   }
+}
