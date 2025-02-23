@@ -563,6 +563,45 @@ $cats.(cat=_,
         },
         "geom": geom.default,
     },
+
+    'Step Functions': {
+        group: true
+    },
+
+    'reusable expressions': {
+        data: {
+            keyword: '**func** <id>**(**...**)** = ...',
+            input: inputs.simple1,
+            grammar: '#main-rule-StepFunctionDefinition',
+            remark: `simple expressions over the context node`,
+            apath: 
+//----------------------------
+`func plus(k) = _ + $k,
+cat.age.plus(10)`
+//----------------------------
+        },
+        "geom": geom.default,
+    },
+
+    'recursion': {
+        data: {
+            keyword: '**func** <id>**(**...**)** = ...',
+            input: inputs.simple1,
+            grammar: '#main-rule-StepFunctionDefinition',
+            remark: `with global and local variables`,
+            apath: 
+//----------------------------
+`to = 5,
+func recIncr(x) = (
+    y = $x + 1,
+    if ($y == $to) $y recIncr($y)), 
+recIncr(0)`
+//----------------------------
+        },
+        "geom": geom.default,
+    },
+
+
     // "union": {
     //     "data": {
     //         "keyword": '... **\\|** ... ',
@@ -583,7 +622,7 @@ $cats.(cat=_,
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp; | &nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 `        
     },
-    'Step Functions': {
+    'JS Step Functions': {
         group: true
     },
     'simple step function': {

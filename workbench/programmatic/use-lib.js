@@ -8,7 +8,7 @@ function f(ctx_node) {
 const apath = new Apath()
 
 // adding the step func
-apath.step_func(f)
+apath.add_js_func(f)
 
 // get the evaluator
 const evaluator = apath.transpile('a.b.f()')

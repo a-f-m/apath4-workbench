@@ -1,7 +1,7 @@
 {
    "data": {
       "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
-      "apath": "func f() = _ + 99,\ncat.age.f()",
+      "apath": "func f(x) = age + $x,\ncat.f(99)",
       "sfuncs": ""
    },
    "geom": {
@@ -10,7 +10,7 @@
             "top": 100.71665954589844,
             "left": 44
          },
-         "height": 470.667,
+         "height": 470.683,
          "width": 575.2,
          "zindex": "103"
       },
@@ -34,7 +34,7 @@
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 589.3333129882812,
+            "top": 589.3499755859375,
             "left": 44
          },
          "height": 73.9333,

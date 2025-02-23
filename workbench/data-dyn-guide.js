@@ -444,7 +444,7 @@ items = inventory.*.items.*,
     _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
       items.*.
         (quantity + ' ' + name + ': '
-         // step func for formatting
+         // step func call for formatting
          + (price * quantity).formatCurrency('de-DE', 'EUR')
         )
   )

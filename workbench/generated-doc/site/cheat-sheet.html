@@ -501,6 +501,33 @@ body {
 <td>&quot;jo loves bay&quot; , &quot;lu loves bay&quot; , &quot;lu loves jo&quot;</td>
 <td><a href="language/grammar.html#main-rule-VariableAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... joins"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
+<tr>
+<td><span class="group-font" id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><span id="e-reusable expressions">reusable expressions</span></td>
+<td><span>simple expressions over the context node</span></td>
+<td><strong>func</strong> &lt;id&gt;<strong>(</strong>...<strong>)</strong> = ...</td>
+<td><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">plus</span><span class="mtk1">(</span><span class="mtk13">k</span><span class="mtk1">) = </span><span class="mtk10 mtkb">_</span><span class="mtk1"> + </span><span class="mtk7">$</span><span class="mtk4">k</span><span class="mtk1">,</span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">plus</span><span class="mtk1">(10)</span></span></td>
+<td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;name&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;jo&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
+<td>11</td>
+<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=reusable expressions"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+</tr>
+<tr>
+<td><span id="e-recursion">recursion</span></td>
+<td><span>with global and local variables</span></td>
+<td></td>
+<td><span><span class="mtk4">to </span><span class="mtk1">= 5,</span></span><br/><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = (</span></span><br/><span><span class="mtk1">    </span><span class="mtk4">y </span><span class="mtk1">= </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1"> + 1,</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">if</span><span class="mtk1"> (</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> == </span><span class="mtk7">$</span><span class="mtk4">to</span><span class="mtk1">) </span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">)), </span></span><br/><span><span class="mtk4">recIncr</span><span class="mtk1">(0)</span></span></td>
+<td></td>
+<td>5</td>
+<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=recursion"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="javascript-step-functions-user-defined">Javascript Step Functions (user defined)</h3>
@@ -529,7 +556,7 @@ body {
 <td>        </td>
 </tr>
 <tr>
-<td><span class="group-font" id="e-Step Functions"><em><strong>Step Functions</strong></em></span></td>
+<td><span class="group-font" id="e-JS Step Functions"><em><strong>JS Step Functions</strong></em></span></td>
 <td></td>
 <td></td>
 <td></td>
