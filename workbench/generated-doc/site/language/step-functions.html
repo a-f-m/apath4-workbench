@@ -20,7 +20,7 @@
     
     
       
-        <title>Step Functions - apath documentation (beta)</title>
+        <title>Javascript Step Functions - apath documentation (beta)</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#step-functions" class="md-skip">
+        <a href="#javascript-step-functions" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Step Functions
+              Javascript Step Functions
             
           </span>
         </div>
@@ -547,63 +547,15 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Step Functions
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="step-functions.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Step Functions
+    Javascript Step Functions
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#apath-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      apath functions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#javascript" class="md-nav__link">
-    <span class="md-ellipsis">
-      Javascript
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -747,32 +699,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#apath-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      apath functions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#javascript" class="md-nav__link">
-    <span class="md-ellipsis">
-      Javascript
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -787,17 +713,8 @@
 
 
 <script async src='https://andreas-fm-24.net/test?snipp=doc/mkdocs/site/language/step-functions.html'></script>
-<h1 id="step-functions">Step Functions</h1>
-<p>Step functions support the reuse of functionality and the building of custom language elements. Especially the latter one is essential for building domain specific languages. <a title="grammar element" href="grammar.html#main-rule-StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg"/></a><a title="cheat sheet" href="../cheat-sheet.html#javascript-step-functions-user-defined"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a></p>
-<p>Step functions are divided in</p>
-<ul>
-<li><a href="#apath">apath functions</a> that enable (parametrizable) reuse of expressions</li>
-<li><a href="#javascript">javascript</a> functions (the current host language) that enable functionality (so far) not expressable with <em>apath</em>, and the invocation of other services.</li>
-</ul>
-<h3 id="apath-functions"><em>apath</em> functions</h3>
-<p>...forthcoming...</p>
-<h3 id="javascript">Javascript</h3>
-<p>Step functions have to conform to the following form: </p>
+<h1 id="javascript-step-functions">Javascript Step Functions</h1>
+<p>Functions (the current host language) that enable functionality (so far) not expressable with <em>apath</em>, and the invocation of other services. They have to conform to the following form: </p>
 <div class="language-javascript highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">func</span><span class="o">-</span><span class="nx">id</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">ctx_node</span><span class="p">,</span><span class="w"> </span><span class="nx">arg1</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="nx">argN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">// ... process context node &#39;ctx_node&#39; and arguments</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// ... possibly check an argument with &#39;apart.isApathIterable(argI)&#39;</span>

@@ -753,7 +753,7 @@
         
   
   <span class="md-ellipsis">
-    Step Functions
+    Javascript Step Functions
   </span>
   
 
@@ -1491,7 +1491,7 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p class="annotate">The grammar starts with consecutive expressions, delimited by comma. In this case, its value is the value of the last one. It is mostly used for side effects, e.g., logging or variable assignment. (1) <a title="evaluation" href="../language/eval.html#eval-scope expression"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
+<p class="annotate">The grammar starts with consecutive expressions, delimited by comma. In this case, its value is the value of the last one. It is mostly used for side effects, e.g., logging or variable assignment.(1) <a title="evaluation" href="../language/eval.html#eval-scope expression"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
 <ol>
 <li>
 <p>scope expression <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-scope expression"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=scope expression"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -1929,7 +1929,47 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p>...TODO...</p>
+<p>Step functions support the reuse of functionality and the building of custom language elements. Step functions are divided in functions written in <em>apath</em> itself (described here) or written in <a href="step-functions.html"><em>javascript</em></a>.</p>
+<p class="annotate">A function definition is introduced with the <code>func</code> keyword, followed by a parameter list and the expression it should return. The context of the specified expression is the one that was valid when the function was <a href="#main-rule-StepFunctionCall">called</a>. Parameters are referenced in the same way as <a href="#main-rule-VariableReference">variables</a>.(1) Frequently used constructions can be reused(2), and complex functions can be defined with local variables and access to global variables.(3)</p>
+<ol>
+<li>
+<p>reusable expressions <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-reusable expressions"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=reusable expressions"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">func</span><span class="mtk1">&nbsp;</span><span class="mtk4">plus</span><span class="mtk1">(</span><span class="mtk13">k</span><span class="mtk1">)&nbsp;=&nbsp;</span><span class="mtk10 mtkb">_</span><span class="mtk1">&nbsp;+&nbsp;</span><span class="mtk7">$</span><span class="mtk4">k</span><span class="mtk1">,</span></span><br><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">plus</span><span class="mtk1">(10)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">11&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>... construction <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=... construction"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk10">func</span><span class="mtk1">&nbsp;</span><span class="mtk4">callName</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">)&nbsp;=&nbsp;{&nbsp;</span><span class="mtk13">id</span><span class="mtk1">:&nbsp;</span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1">,&nbsp;</span><span class="mtk5">'#call'</span><span class="mtk1">:&nbsp;</span><span class="mtk13">name</span><span class="mtk1">&nbsp;},</span></span><br><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">callName</span><span class="mtk1">(2)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"id":&nbsp;2,&nbsp;"#call":&nbsp;"jo"&nbsp;}&nbsp;</span></span>
+</code></pre></div>
+</li>
+<li>
+<p>recursion <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-recursion"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=recursion"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p><strong>input</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
+</code></pre></div>
+<p><strong>apath</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk4">to&nbsp;</span><span class="mtk1">=&nbsp;5,</span></span><br><span><span class="mtk10">func</span><span class="mtk1">&nbsp;</span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">)&nbsp;=&nbsp;(</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk4">y&nbsp;</span><span class="mtk1">=&nbsp;</span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1">&nbsp;+&nbsp;1,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk10">if</span><span class="mtk1">&nbsp;(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">&nbsp;==&nbsp;</span><span class="mtk7">$</span><span class="mtk4">to</span><span class="mtk1">)&nbsp;</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">&nbsp;</span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">)),&nbsp;</span></span><br><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1">)</span></span>
+</code></pre></div>
+<p><strong>result</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">5&nbsp;</span></span>
+</code></pre></div>
+</li>
+</ol>
+<p>TODO remark for '(...)' body</p>
 <h3 id="variables">Variables</h3>
 <p><svg class="railroad-diagram" width="483.5" height="94" viewBox="0 0 483.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -2098,7 +2138,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">Variables enables the reuse of values. They are declared implicitly the first time they are assigned. Their scope is the <a href="#main-rule-Expression"><code>ScopeExpression</code></a> in which they were declared. (1) As well as being used to store simple values, they can be used to memorize nodes that are referenced (with the <code>$</code> symbol) in subsequent paths. (2) Finally, entire sequences can also be saved, enabling you to realize joins. (3)</p>
+<p class="annotate">Variables enables the reuse of values. They are declared implicitly the first time they are assigned. Their scope is the <a href="#main-rule-Expression"><code>ScopeExpression</code></a> in which they were declared.(1) As well as being used to store simple values, they can be used to memorize nodes that are referenced (with the <code>$</code> symbol) in subsequent paths.(2) Finally, entire sequences can also be saved, enabling you to realize joins.(3)</p>
 <ol>
 <li>
 <p>variable assignment <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-variable assignment"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=variable assignment"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -2139,7 +2179,7 @@ text.repeat-text {
 </ol>
 <details class="note">
 <summary>Note / Design</summary>
-<p>The dollar symbol <code>$</code> is only used for referencing variables. Within the assignment expression or in the parameters of a function declaration (forthcoming), it is omitted for reasons of better readability, thus following the design of some scripting languages (e.g., shell scripting). This is because it is clearly decidable in the places of the assignment statement, whereas in referencing it could collide with a property name, for instance.</p>
+<p>The dollar symbol <code>$</code> is only used for referencing variables. Within the assignment expression or in the parameters of a function declaration, it is omitted for reasons of better readability, thus following the design of some scripting languages (e.g., shell scripting). This is because it is clearly decidable in the places of the assignment statement, whereas in referencing it could collide with a property name, for instance.</p>
 </details>
 <h3 id="ordinary-expressions">Ordinary Expressions</h3>
 <p><a id="main-rule-OrdinaryExpression"></a></p>
@@ -2572,7 +2612,7 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p class="annotate">The conditional consists of the condition-part, then-part, and optional alternative (else-part). (1) <a title="evaluation" href="../language/eval.html#eval-conditional"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
+<p class="annotate">The conditional consists of the condition-part, then-part, and optional alternative (else-part).(1) <a title="evaluation" href="../language/eval.html#eval-conditional"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
 <ol>
 <li>
 <p>conditional <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-conditional"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=conditional"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -2609,7 +2649,7 @@ a
 
 <!-- !TODO priority -->
 
-<p>Basic elements, starting from <code>LogicalORExpression</code>, follow the usual logical and relational syntax of programming languages <a title="cheat sheet" href="../cheat-sheet.html#e-Basic Expressions"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a>. <em>apath</em> mostly reuses <em>javascript</em> syntax, adopted from the javascript-PEG-grammar with slight changes.</p>
+<p>Basic elements, starting from <code>LogicalORExpression</code>, follow the usual logical and relational syntax of programming languages.<a title="cheat sheet" href="../cheat-sheet.html#e-Basic Expressions"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <em>apath</em> mostly reuses <em>javascript</em> syntax, adopted from the javascript-PEG-grammar with slight changes.</p>
 <p>The keywords <code>and</code>/<code>or</code>/<code>not</code> (instead of <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) are used and equality/relational expressions (<code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&gt;</code>) are defined as usual, see <a href="#compact-ebnf-grammar">compact grammar</a> for details. Also, as usual, the atomic parts are primary expressions, and they now contain paths:</p>
 <p><a id="main-rule-PrimaryExpression"></a></p>
 <p><svg class="railroad-diagram" width="403.5" height="326" viewBox="0 0 403.5 326" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -3070,7 +3110,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>Paths consist of 'dot'-separated steps. Every step yields a <a href="../language/preliminaries.html#def-sequence">sequence</a> of <a href="../language/preliminaries.html#def-node">nodes</a> that are passed one by one to the subsequent step. This passed <a href="../language/preliminaries.html#def-node">node</a> is called <a id="def-context node"><strong>context node</strong></a>. The solution of a path is the yielded sequence of the last step. If one step yields an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>, no further steps are performed, and the solution of the whole path is the empty sequence. <a title="cheat sheet" href="../cheat-sheet.html#e-property"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="evaluation" href="../language/eval.html#eval-property"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
+<p>Paths consist of 'dot'-separated steps. Every step yields a <a href="../language/preliminaries.html#def-sequence">sequence</a> of <a href="../language/preliminaries.html#def-node">nodes</a> that are passed one by one to the subsequent step. This passed <a href="../language/preliminaries.html#def-node">node</a> is called <a id="def-context node"><strong>context node</strong></a>. The solution of a path is the yielded sequence of the last step. If one step yields an <a href="../language/preliminaries.html#def-empty sequence">empty sequence</a>, no further steps are performed, and the solution of the whole path is the empty sequence.<a title="cheat sheet" href="../cheat-sheet.html#e-property"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="evaluation" href="../language/eval.html#eval-property"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
 <p><svg class="railroad-diagram" width="608" height="206" viewBox="0 0 608 206" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
 <g class="Start">
@@ -3344,8 +3384,8 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>A step is a filter, a subscription, or solely a basic step (if none of the optional branches are chosen). <a title="cheat sheet" href="../cheat-sheet.html#e-Restriction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
-<!-- A step is a binding to a node variable, a filter, a subscription, or solely a basic step (if none of the optional branches are chosen). <a title="cheat sheet" href="../cheat-sheet.html#e-Restriction"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> -->
+<p>A step is a filter, a subscription, or solely a basic step (if none of the optional branches are chosen).<a title="cheat sheet" href="../cheat-sheet.html#e-Restriction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<!-- A step is a binding to a node variable, a filter, a subscription, or solely a basic step (if none of the optional branches are chosen).<a title="cheat sheet" href="../cheat-sheet.html#e-Restriction"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> -->
 
 <!-- ### Node Variables
 
@@ -3354,7 +3394,7 @@ TODO diff resp. ctx, bind '@' to jsonata
  <a id='main-rule-VariableNodeAssignment'></a> 
 
 
-Node variables can be used to memorize nodes during evaluation for later use. Every node of the [[#**sequence**]] retrieved by the base step is bound to the variable and passed to subsequent expressions where this variable can be [referenced](#variable-reference). <a title="cheat sheet" href="../cheat-sheet.html#e-variable binding 1"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> 
+Node variables can be used to memorize nodes during evaluation for later use. Every node of the [[#**sequence**]] retrieved by the base step is bound to the variable and passed to subsequent expressions where this variable can be [referenced](#variable-reference).<a title="cheat sheet" href="../cheat-sheet.html#e-variable binding 1"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> 
 
 The scope of the variable bound in a [step](#paths-steps) are all expressions right to the declaration, also outside the path. Analogously, the scope of the variable bound in an ordinary expression of a [scope expression](#composite-expressions) are all expressions right-sided, again also outside the scope expression. 
 
@@ -3568,7 +3608,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">By means of a filter, the <a href="../language/preliminaries.html#def-sequence">sequence</a> retrieved by <code>Subscript</code> can be restricted to a subsequence of <a href="../language/preliminaries.html#def-node">nodes</a>. For every node in the original sequence, the filter expression is evaluated, and the result is passed to the test function (see <a href="eval.html#def-test">test</a>). If the test yields <em>true</em>, then the node is contained in the sub-sequence. (1) <a title="evaluation" href="../language/eval.html#eval-filter (predicate)"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
+<p class="annotate">By means of a filter, the <a href="../language/preliminaries.html#def-sequence">sequence</a> retrieved by <code>Subscript</code> can be restricted to a subsequence of <a href="../language/preliminaries.html#def-node">nodes</a>. For every node in the original sequence, the filter expression is evaluated, and the result is passed to the test function (see <a href="eval.html#def-test">test</a>). If the test yields <em>true</em>, then the node is contained in the sub-sequence.(1) <a title="evaluation" href="../language/eval.html#eval-filter (predicate)"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
 <ol>
 <li>
 <p>filter (predicate) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-filter (predicate)"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=filter (predicate)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -3774,7 +3814,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">Subscripts are reserved for arrays, and the index expression must evaluate to a number. (1)</p>
+<p class="annotate">Subscripts are reserved for arrays, and the index expression must evaluate to a number.(1)</p>
 <ol>
 <li>
 <p>subscript <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-subscript"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=subscript"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -4087,7 +4127,7 @@ text.repeat-text {
 <g class="comment">
 <path d="M183.75 583h0"></path>
 <path d="M312.75 583h0"></path>
-<text x="248.25" y="588" class="comment">VariableReference</text>
+<text x="248.25" y="588" class="comment"><a id="main-rule-VariableReference"><tspan class="subRuleAnchor">VariableReference</tspan></a></text>
 </g>
 </g>
 <path d="M488 610a10 10 0 0 0 10 -10v-502a10 10 0 0 1 10 -10"></path>
@@ -4223,7 +4263,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>A basic step is a step function call, a property value selection, all children, a parenthesized expression, the <a href="#def-context node">context node</a> itself, or a variable reference. <a title="cheat sheet" href="../cheat-sheet.html#e-Selection"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> Furthermore, objects and arrays can be created. <a title="cheat sheet" href="../cheat-sheet.html#e-Construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
+<p>A basic step is a step function call, a property value selection, all children, a parenthesized expression, the <a href="#def-context node">context node</a> itself, or a variable reference.<a title="cheat sheet" href="../cheat-sheet.html#e-Selection"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> Furthermore, objects and arrays can be created.<a title="cheat sheet" href="../cheat-sheet.html#e-Construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> </p>
 <!-- Finally, variables, bound in previous steps, can be referenced. -->
 
 <h3 id="selection">Selection</h3>
@@ -4558,7 +4598,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">Property values of an object can be selected by an identifier that must not be a reserved word. (1) If the property name is not a regular identifier (e.g. <code>#1</code>), a so-called name literal can be used. (2) If a regex is given, all properties with names conforming to it will be taken. (3)</p>
+<p class="annotate">Property values of an object can be selected by an identifier that must not be a reserved word.(1) If the property name is not a regular identifier (e.g. <code>#1</code>), a so-called name literal can be used.(2) If a regex is given, all properties with names conforming to it will be taken.(3)</p>
 <ol>
 <li>
 <p>property <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-property"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -4597,7 +4637,7 @@ text.repeat-text {
 </code></pre></div>
 </li>
 </ol>
-<p class="annotate">Dynamic property names can be realized with the help of the <code>prop</code> keyword. In this case, the evaluation of the argument must be a string. (1)</p>
+<p class="annotate">Dynamic property names can be realized with the help of the <code>prop</code> keyword. In this case, the evaluation of the argument must be a string.(1)</p>
 <ol>
 <li>
 <p>dynamic property <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-dynamic property"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=dynamic property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -5301,7 +5341,7 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p>Step function calls can take arguments and yield a <a href="../language/preliminaries.html#def-sequence">sequence</a> defined by the function. <a title="cheat sheet" href="../cheat-sheet.html#javascript-step-functions-user-defined"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> They are prominently used for extending apath, see <a href="step-functions.html">Step Functions</a> for details.</p>
+<p>Step function calls can take arguments and yield a <a href="../language/preliminaries.html#def-sequence">sequence</a> defined by an <a href="#main-rule-StepFunctionDefinition"><em>apath</em> function</a> or <a href="step-functions.html">javascript</a>. Whenever they are invoked, the current context node is passed and used as usual within the body of the function. </p>
 <h4 id="children-self">Children &amp; Self</h4>
 <p><a id="main-rule-Children"></a></p>
 <p><svg class="railroad-diagram" width="166" height="94" viewBox="0 0 166 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -5451,7 +5491,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">To retrieve all property values of an object or all elements of an array, the children construct can be used. (1) To access the <a href="#def-context node">context node</a>, use the following: (2)</p>
+<p class="annotate">To retrieve all property values of an object or all elements of an array, the children construct can be used.(1) To access the <a href="#def-context node">context node</a>, use the following: (2)</p>
 <ol>
 <li>
 <p>children (array) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-children (array)"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=children (array)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -5807,7 +5847,7 @@ text.repeat-text {
 </svg>
 
 Previously declared and [bound variables](#node-variables) are referenced with the dollar symbol `$`. The current
-input for the apath expression is referenced using the reserved variable *root* (`$root`). <a title="cheat sheet" href="../cheat-sheet.html#e-variable reference"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> 
+input for the apath expression is referenced using the reserved variable *root* (`$root`).<a title="cheat sheet" href="../cheat-sheet.html#e-variable reference"><img class='ref-icon-sheet' src="../pics/clarity--clipboard-solid-badged.svg"/></a> 
 -->
 
 <h3 id="construction">Construction</h3>
@@ -6051,7 +6091,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p>The construction of objects and arrays conforms to JSON/javascript syntax with special enhancements. <a title="cheat sheet" href="../cheat-sheet.html#e-Construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
+<p>The construction of objects and arrays conforms to JSON/javascript syntax with special enhancements.<a title="cheat sheet" href="../cheat-sheet.html#e-Construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a></p>
 <h4 id="objects">Objects</h4>
 <p><a id="main-rule-ObjectConstruction"></a></p>
 <p><svg class="railroad-diagram" width="772.5" height="152" viewBox="0 0 772.5 152" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -6682,18 +6722,18 @@ text.repeat-text {
 }</style>
 <p>
 </p>
-<p class="annotate">As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>. If it is empty, no assignment is performed. If the value is <code>none</code> then the property will be undefined (1) <a title="evaluation" href="../language/eval.html#eval-construction (object)"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
+<p class="annotate">As usual, an object is built with a list of property assignments. The property value (<em>right-hand side</em> of an assignment) must be a <a href="../language/preliminaries.html#def-singleton">singleton</a> or <a href="../language/preliminaries.html#def-empty sequence">empty</a>. If it is empty, no assignment is performed. If the value is <code>none</code> then the property will be undefined.(1) <a title="evaluation" href="../language/eval.html#eval-construction (object)"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a></p>
 <ol>
 <li>
 <p>construction (object) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-construction (object)"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=construction (object)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
 <p><strong>input</strong>:</p>
-<div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"p"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"name"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
 </code></pre></div>
 <p><strong>apath</strong>:</p>
-<div class="language-text highlight"><pre><span></span><code><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{&nbsp;</span><span class="mtk13">id</span><span class="mtk1">:&nbsp;2,&nbsp;</span><span class="mtk5">'#call'</span><span class="mtk1">:&nbsp;</span><span class="mtk13">p</span><span class="mtk1">&nbsp;}</span></span>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{&nbsp;</span><span class="mtk13">id</span><span class="mtk1">:&nbsp;2,&nbsp;</span><span class="mtk5">'#call'</span><span class="mtk1">:&nbsp;</span><span class="mtk13">name</span><span class="mtk1">&nbsp;}</span></span>
 </code></pre></div>
 <p><strong>result</strong>:</p>
-<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"id":&nbsp;2,&nbsp;"#call":&nbsp;"name"&nbsp;}&nbsp;</span></span>
+<div class="language-text highlight"><pre><span></span><code><span><span class="mtk1">{&nbsp;"id":&nbsp;2,&nbsp;"#call":&nbsp;"jo"&nbsp;}&nbsp;</span></span>
 </code></pre></div>
 </li>
 </ol>
@@ -6705,7 +6745,7 @@ text.repeat-text {
 <p>If the sequence has more than one element, the value is not automatically an array as in other path languages, instead an error is thrown. If array construction is intended, the right-hand side can use the array constructor <code class="language-javascript highlight"><span class="p">[...]</span></code>.</p>
 </details>
 <p>The property name can be at least an identifier or string -- we adopt the relaxed definition from javascript instead of JSON. </p>
-<p class="annotate">If a property name shall be dynamically created, the <code>prop</code> keyword has to be used. In this case, the evaluation of the argument must be <a href="../language/preliminaries.html#def-empty sequence">empty</a> or a string. If empty, no assignment is performed, otherwise the string is used as the property name (1) <a title="evaluation" href="../language/eval.html#eval-... dynamic property"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a> </p>
+<p class="annotate">If a property name shall be dynamically created, the <code>prop</code> keyword has to be used. In this case, the evaluation of the argument must be <a href="../language/preliminaries.html#def-empty sequence">empty</a> or a string. If empty, no assignment is performed, otherwise the string is used as the property name.(1) <a title="evaluation" href="../language/eval.html#eval-... dynamic property"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a> </p>
 <ol>
 <li>
 <p>... dynamic property <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... dynamic property"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=... dynamic property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -6720,7 +6760,7 @@ text.repeat-text {
 </code></pre></div>
 </li>
 </ol>
-<p class="annotate">So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence, that has to be an <em>object</em>, are embedded in the constructed object, possibly overwriting previous properties. (1) <a title="evaluation" href="../language/eval.html#eval-... embedding"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a> </p>
+<p class="annotate">So-called embeddings can be realized by omitting the property name. In this case, the value of the expression can be a <a href="../language/preliminaries.html#def-sequence">sequence</a> with more than one element. The properties of every <a href="../language/preliminaries.html#def-node">node</a> in this sequence, that has to be an <em>object</em>, are embedded in the constructed object, possibly overwriting previous properties.(1) <a title="evaluation" href="../language/eval.html#eval-... embedding"><img class="ref-icon-eval" src="../pics/tabler--file-lambda.svg"></a> </p>
 <ol>
 <li>
 <p>... embedding <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... embedding"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=... embedding"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
@@ -6974,7 +7014,7 @@ text.repeat-text {
   fill: none;
 }</style>
 <p></p>
-<p class="annotate">The array constructor takes a list of values as consecutive array elements. (1) If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a>, all its elements will be embedded. (2)</p>
+<p class="annotate">The array constructor takes a list of values as consecutive array elements.(1) If one value is not a <a href="../language/preliminaries.html#def-singleton">singleton</a>, all its elements will be embedded.(2)</p>
 <ol>
 <li>
 <p>construction (array) <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-construction (array)"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=construction (array)"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>

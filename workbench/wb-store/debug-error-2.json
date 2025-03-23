@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\"names\": [\"jo\", \"lu\"]}",
+      "apath": "//second array item\nnames[1]",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 96.43333435058594,
+            "left": 249.39999389648438
+         },
+         "height": 428.483,
+         "width": 463.85,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 96.43333435058594,
+            "left": 728.2999877929688
+         },
+         "height": 280.75,
+         "width": 478.05,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 393.5,
+            "left": 728.566650390625
+         },
+         "height": 215.083,
+         "width": 478.05,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 541.2666625976562,
+            "left": 249.39999389648438
+         },
+         "height": 67.3,
+         "width": 463.85,
+         "zindex": "101"
+      }
+   }
+}

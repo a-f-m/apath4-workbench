@@ -11,14 +11,14 @@ const apath = new Apath()
 apath.add_js_func(f)
 
 // get the evaluator
-const evaluator = apath.transpile('a.b.f()')
+const evaluator = apath.transpile('a.*.b.f()')
 
 // evaluate - 'results' is an iterator over found solutions
-const results = evaluator.evaluate_json('{ "a": { "b": 1 } }')
-// with an object: ... evaluator.evaluate({ a: { b: 1 } })
+const results = evaluator.evaluate_json('{ "a": [{ "b": 1 }, { "b": 2 }] }')
+// with an object: ... evaluator.evaluate({ a: [{ b: 1 }, { b: 2 }] })
 
 // iterate results
-for (const result of results) console.log(result) // --> 2
+for (const result of results) console.log(result) // --> 2, 3
 
 // only the first result (more performant due to bypassing the iterator)
-console.log(evaluator.evaluate_first({ a: { b: 1 } })) // --> 2
+console.log(evaluator.evaluate_first({ a: [{ b: 1 }, { b: 2 }] })) // --> 2

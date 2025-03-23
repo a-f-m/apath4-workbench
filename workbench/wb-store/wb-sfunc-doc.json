@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\n    \"cat\": {\n        \"age\": 1,\n        \"name\": \"jo\"\n    }\n}",
+      "apath": "func <func-id>(arg1, ... , argN) = \n  { id: $x, '#call': name },\n",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 98.33332824707031,
+            "left": 41.21665954589844
+         },
+         "height": 447.083,
+         "width": 539.1,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 98.31666564941406,
+            "left": 597.8333129882812
+         },
+         "height": 292.933,
+         "width": 555.633,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 408.2833251953125,
+            "left": 598.1500244140625
+         },
+         "height": 224.4,
+         "width": 555.633,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 562.4500122070312,
+            "left": 41.21665954589844
+         },
+         "height": 70.2333,
+         "width": 539.1,
+         "zindex": "101"
+      }
+   }
+}

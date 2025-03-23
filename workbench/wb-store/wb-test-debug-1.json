@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "{\"a\":{\"b\":{\"c\":99}}}",
+      "apath": "a.b.c",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 119.09375,
+            "left": 65.09375
+         },
+         "height": 651.641,
+         "width": 851.219,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 119.046875,
+            "left": 944.0625
+         },
+         "height": 443.266,
+         "width": 877.344,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 570.875,
+            "left": 944.53125
+         },
+         "height": 327.062,
+         "width": 877.344,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 795.625,
+            "left": 65.09375
+         },
+         "height": 102.312,
+         "width": 851.219,
+         "zindex": "101"
+      }
+   }
+}

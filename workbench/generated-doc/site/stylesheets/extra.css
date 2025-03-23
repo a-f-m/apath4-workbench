@@ -40,7 +40,6 @@
 /* --------------------------------- exa snippets -----------------------------------  */
 
 .right-align {
-  /* display: inline-block; */
   text-align: right;
   float: right;
 }

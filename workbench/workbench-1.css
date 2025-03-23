@@ -1,11 +1,117 @@
+#dialog_ctrl_more div {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+#dialog_ctrl_more fieldset div {
+    margin-left: 10px;
+}
+
+.horizontal-align {
+    display: inline-block;   /* Setzt das Layout auf Inline-Block */
+}
+
+.horizontal-align img,
+.horizontal-align span {
+    display: inline-block;   /* Macht alle Elemente inline-block */
+    vertical-align: middle;  /* Vertikale Zentrierung */
+}
+
+.debug-frame {
+    border: 1px solid darkgray;
+    padding-top: 2px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.debug-frame img {
+    cursor: pointer;
+}
+
+.debug-general-button {
+    border: 1px solid darkgray;
+    display: inline-block;
+    border-radius: 5px;
+    vertical-align: text-bottom;
+    cursor: pointer;
+}
+
+.debug-button {
+    border: none;
+    background-color: transparent;
+}
+
+.inlineDecorationPre {
+    background-color: rgba(255, 0, 0, 0.25);
+    padding-bottom: 2px
+}
+.inlineDecorationPost {
+	/* text-decoration: dashed underline; */
+    /* text-decoration-color: red; */
+	font-style: oblique;
+    background-color: rgba(255, 0, 0, 0.25);
+    padding-bottom: 2px
+}
+.inlineDecorationBreakpoint-old {
+  	/* text-decoration: double underline;
+    text-decoration-color: red; */
+
+    text-decoration: underline; /* Unterstreichung */
+    text-decoration-color: rgb(183, 2, 2); /* Farbe der Unterstreichung */
+    text-decoration-thickness: 4px; /* Dicke der Unterstreichung */
+    text-underline-offset: 4px; /* Abstand der Unterstreichung zum Text */
+
+    /* background-color: rgba(255, 0, 0, 0.512); */
+    /* border-radius: 50%; */
+}
+
+.inlineDecorationBreakpoint {
+    color: rgb(255, 78, 78) !important;
+}
+
 .widget {
     position: absolute;
     /* border: 1px solid #4288b3; */
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
+    border-radius: 4px;
     margin: 10px;
     /* resize: both; */
     overflow: hidden;
 }
+
+hr::before {
+    content: "debugging";
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: ghostwhite;
+    padding: 0 10px;
+}
+hr {
+    margin-bottom: 12px;
+}
+.info {
+    text-align: right;
+    float: right;
+}
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1001;
+}
+  
+
+.dia-widget {
+    z-index: 1000;
+    background-color: ghostwhite;
+    padding: 0px;
+}
+
 
 .monaco {
     /* border: 1px solid grey; */
@@ -36,6 +142,22 @@
     
 }
 
+/* .header select, */
+.header input {
+
+    /* cursor: pointer; */
+}
+
+.custom-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: inline-block; /* Macht den Button inline-block */
+}
+
+
 /* .logo {
     
     display: flex;
@@ -55,12 +177,14 @@
     /* background-color: bisque; */
     /* background-color: wheat; */
     /* background-color: antiquewhite; */
-    background-color: #ffeecf;
+    /* background-color: #ffeecf; */
+    background-color: #f5deb3;
     font-weight: bold;
 }
 
 .widget-header {
-    padding: 6px;
+    padding: 4px;
+    cursor: grabbing;
 }
 
 body {
@@ -72,6 +196,7 @@ body {
 
 html,
 body {
+    min-width: 1180px;
     height: 100%;
 }
 

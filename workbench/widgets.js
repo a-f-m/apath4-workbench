@@ -70,6 +70,7 @@ $('.widget').on('mousedown', function () {
 
 // --------------------------------------- ----- ----------------------------------
 
+var special_left_trans = 0.000
 
 function fit(_, force) {
 
@@ -106,7 +107,7 @@ function transl() {
         const pos = $(this).position()
         const l = pos.left - delta.x
         const t = pos.top - delta.y
-        if (!(t <= 0 || l <= 0)) $(this).css({ left: l, top: t + hh })
+        if (!(t <= 0 || l <= 0)) $(this).css({ left: l + special_left_trans, top: t + hh })
     })
 
 
@@ -138,7 +139,7 @@ function calc_fit() {
     let t = calc_fit_t('top')
     let l = calc_fit_t('left')
     let h = calc_fit_t('height', t)
-    let w = calc_fit_t('width', l)
+    let w = calc_fit_t('width', l) + special_left_trans
 
     const k_w = $('body').width() / w * 0.95
     const k_h = ($('body').height() - hh) / h * 0.95

@@ -40,19 +40,6 @@
             this.name = 'ApathError';
         }
     }
-    function gather_issues(root, issue_kind) {
-        let messages = [];
-        trav(root, (expr) => {
-            const loc = expr.loc;
-            let s = '';
-            const issues = issue_kind === 'errors' ? expr.data?.errors : expr.data?.warnings;
-            if (issues) {
-                s += ` ${issues} (at location ${loc?.start.line}:${loc?.start.column})`;
-                messages.push(s);
-            }
-        });
-        return messages;
-    }
 
     /**
      * Utilities
@@ -94,6 +81,30 @@
     function escape_regex(x) {
         const regexc = '(\\.|\\+|\\*|\\?|\\^|\\$|\\(|\\)|\\[|\\]|\\{|\\}|\\||\\\\)';
         return x.replaceAll(new RegExp(regexc, 'g'), '\\$1');
+    }
+    function shortenString(s, maxLength) {
+        if (s.length <= maxLength) {
+            return s;
+        }
+        const halfLength = (maxLength - 3) / 2;
+        return s.slice(0, halfLength) + '...' + s.slice(-halfLength);
+    }
+    function get_abs_position(text, lico) {
+        let line = 1;
+        let column = 1;
+        let cnt = 1;
+        for (const c of text) {
+            if (lico.line === line && lico.column === column) {
+                break;
+            }
+            if (c === '\n') {
+                line++;
+                column = 0;
+            }
+            column++;
+            cnt++;
+        }
+        return cnt;
     }
     function replace_marker_in_file(file, begin_marker, end_marker, replacement) {
         let s = fs.readFileSync(file, { encoding: 'utf-8' });
@@ -180,6 +191,7 @@
         encode_object: encode_object,
         escape_quote: escape_quote,
         escape_regex: escape_regex,
+        get_abs_position: get_abs_position,
         ind_: ind_,
         is_object: is_object,
         is_primitive: is_primitive,
@@ -189,6 +201,7 @@
         replace_marker: replace_marker,
         replace_marker_in_file: replace_marker_in_file,
         replace_mult_in_file: replace_mult_in_file,
+        shortenString: shortenString,
         trunc: trunc,
         valid_url: valid_url,
         walk_files: walk_files,
@@ -278,6 +291,41 @@
         const o = op_map_strict[s];
         return o ? o : s;
     }
+    const unknown_lico = { line: 0, column: 0 };
+    const unknown_loc = { start: unknown_lico, end: unknown_lico };
+    function determ_func_no(ast, text, lico) {
+        const abs = get_abs_position(text, lico);
+        let found_func_no = -1;
+        trav(ast, expr => {
+        }, expr => {
+            if (expr.loc) {
+                const abs_start = get_abs_position(text, expr.loc.start);
+                const abs_end = get_abs_position(text, expr.loc.end);
+                if (found_func_no === -1 && expr.data && expr.data.func_no && expr.data.breakable
+                    && abs >= abs_start && abs <= abs_end) {
+                    found_func_no = expr.data.func_no;
+                }
+            }
+        });
+        return found_func_no;
+    }
+    function propagate_locs(root) {
+        trav(root, (expr, expr_stack) => {
+            if (!expr.loc) {
+                const last = expr_stack.get(expr_stack.size() - 1);
+                if (last?.loc) {
+                    expr.loc = last.loc;
+                }
+            }
+        }, expr => {
+        });
+    }
+    function prune_locs(root) {
+        trav(root, _ => { }, expr => {
+            expr.loc = undefined;
+        });
+        return root;
+    }
     function trav(expr, pre_op, post_op, expr_stack = new Stack()) {
         pre_op?.(expr, expr_stack);
         expr_stack.push(expr);
@@ -323,6 +371,47 @@
                 right: expr
             };
     }
+    function right_assoc(x, l, offs, loc) {
+        if (l.length === 0) {
+            return {
+                type: Adt.Path,
+                left: { type: Adt.EmptyLeft },
+                right: x,
+                loc: x.loc
+            };
+        }
+        else {
+            let loc_ = structuredClone(loc);
+            if (loc_ && x.loc)
+                loc_.start = x.loc.start;
+            return {
+                type: Adt.Path,
+                left: x,
+                right: right_assoc(l[0][offs], l.slice(1), offs, loc),
+                loc: loc_
+            };
+        }
+    }
+
+    var Adt_ = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        get Adt () { return Adt; },
+        get BinaryOpBool () { return BinaryOpBool; },
+        get OpArith () { return OpArith; },
+        get OpCmp () { return OpCmp; },
+        get UnaryOp () { return UnaryOp; },
+        determ_func_no: determ_func_no,
+        empty: empty,
+        op_map: op_map,
+        propagate_locs: propagate_locs,
+        prune_locs: prune_locs,
+        right_assoc: right_assoc,
+        tlist_to_array: tlist_to_array,
+        trav: trav,
+        unknown_lico: unknown_lico,
+        unknown_loc: unknown_loc,
+        with_empty_left: with_empty_left
+    });
 
     // @generated by Peggy 4.0.2.
     //
@@ -694,16 +783,22 @@
             return e;
         };
         var peg$f2 = function (head, tail) {
-            const seq = with_empty_left(buildGenBinaryExpression(head, tail, Adt.SequencedExpressions, 3, loc(w_loc, location()), false), Adt.SequencedExpressions, options.no_empty_left);
-            // if (tail.length > 0) 
+            // const seq = with_empty_left(
+            //     buildGenBinaryExpression(head, tail, Adt.SequencedExpressions, 3, loc(w_loc, location()), false), 
+            //     Adt.SequencedExpressions,
+            //     options.no_empty_left)
+            // // if (tail.length > 0) 
+            // if (w_data) seq.data = { ...seq.data, is_scope: true }
+            // return seq
+            const l = buildList(head, tail, 3);
+            const s = {
+                type: Adt.SequencedExpressions,
+                exprs: l,
+                loc: loc(w_loc, location())
+            };
             if (w_data)
-                seq.data = { ...seq.data, is_scope: true };
-            return seq;
-            // return decl ?
-            //   { 
-            //     type: Adt.SequencedExpressions, left: decl[0], right: seq 
-            //   }
-            //   : seq
+                s.data = { ...s.data, is_scope: true };
+            return s;
         };
         var peg$f3 = function (id, args, e) {
             const f = {
@@ -791,8 +886,7 @@
             return 'not';
         };
         var peg$f18 = function (head, tail) {
-            const p = with_empty_left(buildGenBinaryExpression(head, tail, Adt.Path, 3, loc(w_loc, location()), false), Adt.Path, options.no_empty_left);
-            // if (tail.length > 0) 
+            const p = right_assoc(head, tail, 3, loc(w_loc, location()));
             if (w_data)
                 p.data = { ...p.data, is_scope: true };
             return p;
@@ -5977,8 +6071,10 @@
          */
         parse(source) {
             try {
-                const ast = peg$parse(source, this._setting);
-                return ast === null ? empty : ast;
+                let ast = peg$parse(source, this._setting);
+                ast = ast === null ? empty : ast;
+                propagate_locs(ast);
+                return ast;
             }
             catch (e) {
                 const error = e;
@@ -6012,6 +6108,10 @@
      * rt environment
      */
     class Env {
+        // func_no_to_expr[0] is the complete ast
+        func_no_to_expr = [];
+        root;
+        glob_vars = [];
         incarnation = 0;
         vars = [];
         constructor() {
@@ -6021,9 +6121,11 @@
             if (this.incarnation > 100)
                 throw new ExecutionError(func_no, `execution stack exceeds (incarnation: ${this.incarnation})`);
         }
-        copy(e) {
+        fresh(e) {
             const e_ = new Env();
+            e_.func_no_to_expr = this.func_no_to_expr;
             e_.incarnation = this.incarnation;
+            e_.glob_vars = this.glob_vars;
             e_.vars = [];
             // return Object.assign(new Env(), this)
             return e_;
@@ -6220,21 +6322,6 @@
             }
         }
     }
-    // redundant with 'bind' - extra for perf
-    function bind_single(func_no, vno, scope_func, x, env, glob_vars) {
-        const vars = scope_func === '$global' ? glob_vars : env.vars;
-        return vars[vno] = x;
-    }
-    function bind(func_no, vno, scope_func, x, env, glob_vars) {
-        const vars = scope_func === '$global' ? glob_vars : env.vars;
-        return vars[vno] = single(x) ? x : new MemorizingIter(x);
-    }
-    function get_binding_1(func_no, vno, scope_func, env, glob_vars) {
-        const v = scope_func === '$global' ? glob_vars[vno] : env.vars[vno];
-        if (v === undefined)
-            throw new ExecutionError(func_no, `fatal: variable (order no '${vno}') not in stack frame`);
-        return single(v) ? v : v.copy();
-    }
     function is_apath_iterable(x) {
         if (x === null || x === undefined)
             return false;
@@ -6249,13 +6336,6 @@
     function isApathIterable(x) {
         return is_apath_iterable(x);
     }
-    // deferred
-    // export function is_iterable(x: any) {
-    //     return x !== null && x !== undefined && typeof x[Symbol.iterator] === 'function'
-    // }
-    // export function is_nilit(x: any) {
-    //     return x === nilit || (is_iterable(x) && x.next().done)
-    // }
     /** is no iter */
     function single(x) {
         const b = !is_apath_iterable(x);
@@ -6265,36 +6345,6 @@
         //
         return b;
         // ???check in future: && !(Array.isArray(x))
-    }
-    /**
-     * evaluation of current context sequence corresponding to *S* in Wadler's xpath semantics.
-     * if S or f is a single value bypassing is performed to be performant.
-     */
-    function eval_it(env, S, f) {
-        if (typeof f === 'function') {
-            // return single(S) ? f.call(undefined, env, S) : eval_it_star(env, S, f)
-            return single(S) ? f.call(undefined, env, S) : eval_it_star(env, S, f);
-        }
-        else {
-            return single(S) ? f : eval_it_star_value(S, f);
-        }
-    }
-    /**
-     * TODO not in async context !!!
-     * actual evaluation for non-single x and a function
-     */
-    function eval_it_star(env, it, f) {
-        return new Nest1Iter(env, it, f);
-    }
-    /**
-     * actual evaluation for non-single x and a value
-     */
-    function eval_it_star_value(it, v) {
-        return new class extends CoreIter {
-            next() {
-                return it.next().done ? done : { value: v, done: false };
-            }
-        };
     }
     function arrays_as_seq(x) {
         return Array.isArray(x) ? CoreIter.from_array(x) : x;
@@ -6324,8 +6374,10 @@
     var std_funcs = {
         match: 'std_match'
     };
+    class RtIssues {
+    }
     /**
-     * dynamic, parametrizable run time
+     * dynamic, parametrizable run time functions
      */
     class DynApart {
         _setting = {
@@ -6337,31 +6389,75 @@
                 this._setting = { ...this._setting, ...s };
             return this;
         }
+        debug_callback;
+        set_debug_callback(f) {
+            this.debug_callback = f;
+        }
+        /**
+         * evaluation of current context sequence corresponding to *S* in Wadler's xpath semantics.
+         * if S or f is a single value bypassing is performed to be performant.
+         */
+        eval_it(env, S, f) {
+            if (typeof f === 'function') {
+                return single(S) ? f.call(undefined, env, S) : this.eval_it_star(env, S, f);
+            }
+            else {
+                return single(S) ? f : this.eval_it_star_value(S, f);
+            }
+        }
+        // extra mat func for performance - better as a switch in previous one
+        eval_it_mat(env, S, f) {
+            if (typeof f === 'function') {
+                return single(S) ?
+                    f.call(undefined, env, S) :
+                    new MemorizingIter(this.eval_it_star(env, S, f));
+            }
+            else {
+                return single(S) ? f : new MemorizingIter(this.eval_it_star_value(S, f));
+            }
+        }
+        /**
+         * TODO not in async context !!!
+         * actual evaluation for non-single x and a function
+         */
+        eval_it_star(env, it, f) {
+            return new Nest1Iter(env, it, f);
+        }
+        /**
+         * actual evaluation for non-single x and a value
+         */
+        eval_it_star_value(it, v) {
+            return new class extends CoreIter {
+                next() {
+                    return it.next().done ? done : { value: v, done: false };
+                }
+            };
+        }
         /** conversion of subscripts */
-        apply_subscript(func_no, x, i) {
+        apply_subscript(env, func_no, x, i) {
             const y = x[i];
             return y === undefined ?
-                this.fail(func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
+                this.fail(env, func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
                 : y;
         }
-        idx_check(func_no, x) {
+        idx_check(env, func_no, x) {
             if (typeof x === 'number' && Number.isInteger(x))
                 return x;
             else
-                return this.fail(func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
+                return this.fail(env, func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
         }
-        idx_convert(func_no, x) {
-            const y = this.force_single_or_nilit(func_no, x, true);
+        idx_convert(env, func_no, x) {
+            const y = this.force_single_or_nilit(env, func_no, x, true);
             return y === nilit ? // sufficiency (no is_nilit check) ensured by above line
-                y : this.idx_check(func_no, y);
+                y : this.idx_check(env, func_no, y);
         }
-        subscript_check(func_no, x) {
+        subscript_check(env, func_no, x) {
             if (!Array.isArray(x))
-                return this.fail(func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
+                return this.fail(env, func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
             return true;
         }
         /** forcing single value or empty iter */
-        force_single_or_nilit(func_no, x, fail_on_non_single = false) {
+        force_single_or_nilit(env, func_no, x, fail_on_non_single = false) {
             if (!single(x)) {
                 const y = x.next();
                 if (y.done) {
@@ -6371,7 +6467,7 @@
                     const z = x.next();
                     // const z = peek_next(x)
                     if (!z.done) {
-                        return this.fail(func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
+                        return this.fail(env, func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
                     }
                 }
                 return y.value;
@@ -6381,14 +6477,14 @@
             }
         }
         /** checking assignment key */
-        ass_key_check(func_no, x) {
+        ass_key_check(env, func_no, x) {
             if (is_string(x))
                 return true;
             if (x === nilit) // sufficiency (no is_nilit check) ensured earlier force_single_or_nilit
                 return false;
-            return this.fail(func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
+            return this.fail(env, func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
         }
-        array_ing(func_no, x) {
+        array_ing(env, func_no, x) {
             if (this._setting.arrays_as_seq) {
                 if (!single(x)) {
                     const a = [];
@@ -6402,21 +6498,21 @@
                 }
             }
             else {
-                return this.force_single_or_nilit(func_no, x, true);
+                return this.force_single_or_nilit(env, func_no, x, true);
             }
         }
         /** forcing primitive value or empty iter */
-        force_primitive(func_no, x) {
-            const y = this.force_single_or_nilit(func_no, x, true);
+        force_primitive(env, func_no, x) {
+            const y = this.force_single_or_nilit(env, func_no, x, true);
             if (y === nilit // sufficiency (no is_nilit check) ensured by above line
                 || is_primitive(y)) {
                 return y;
             }
             else {
-                return this.fail(func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
+                return this.fail(env, func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
             }
         }
-        opt_it_apply(func_no, x, f) {
+        opt_it_apply(env, func_no, x, f) {
             if (!single(x)) {
                 for (const y of x)
                     f(y);
@@ -6425,44 +6521,87 @@
                 f(x);
             }
         }
-        populate_array(func_no, a, x) {
-            this.opt_it_apply(func_no, x, (y) => {
+        populate_array(env, func_no, a, x) {
+            this.opt_it_apply(env, func_no, x, (y) => {
                 a.push(y);
             });
         }
-        embed_objects(func_no, o, x) {
-            this.opt_it_apply(func_no, x, (y) => {
+        embed_objects(env, func_no, o, x) {
+            this.opt_it_apply(env, func_no, x, (y) => {
                 if (is_object(y)) {
                     for (const key in y)
                         if (Object.prototype.hasOwnProperty.call(y, key))
                             o[key] = y[key];
                 }
                 else {
-                    this.fail(func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
+                    this.fail(env, func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
                 }
             });
         }
-        fail(func_no, mess, ret = nilit, force = false) {
-            if (force || this._setting.strict_failure)
-                throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; future versions will show source location`);
+        // i do it here and not in adt cause prep for non-js trans
+        static loc_str(env, func_no) {
+            const expr = func_no !== -1 ? env.func_no_to_expr[func_no] : undefined;
+            if (expr && expr.loc) {
+                return `(${expr.loc.start.line}:${expr.loc.start.column}-${expr.loc.end.line}:${expr.loc.end.column})`;
+            }
+            else {
+                return 'unknown';
+            }
+        }
+        fail(env, func_no, mess, ret = nilit, force = false) {
+            if (force || this._setting.strict_failure) {
+                const loc_str = DynApart.loc_str(env, func_no);
+                // throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; future versions will show source location`)
+                throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; location ${loc_str}`);
+            }
             else
                 return ret;
         }
         trunc(x) {
             return trunc(`'${JSON.stringify(x)}`, 80) + '\'';
         }
+        // redundant with 'bind' - extra for perf
+        bind_single(env, func_no, vno, scope_func, x) {
+            const vars = scope_func === '$global' ? env.glob_vars : env.vars;
+            return vars[vno] = x;
+        }
+        bind(env, func_no, vno, scope_func, x) {
+            const vars = scope_func === '$global' ? env.glob_vars : env.vars;
+            return vars[vno] = single(x) ? x : new MemorizingIter(x);
+        }
+        get_binding_1(env, func_no, vno, scope_func) {
+            const v = scope_func === '$global' ? env.glob_vars[vno] : env.vars[vno];
+            if (v === undefined)
+                throw new ExecutionError(func_no, `fatal: variable (order no '${vno}') not in stack frame`);
+            return single(v) ? v : v.copy();
+        }
+        // ----------------- debug -------------------------
+        async debug(debug_data) {
+            if (!this.debug_callback)
+                return;
+            let loc = undefined;
+            let expr = undefined;
+            if (debug_data.func_no !== -1) {
+                expr = debug_data.env.func_no_to_expr[debug_data.func_no];
+                loc = expr.loc;
+            }
+            await this.debug_callback({ ...debug_data, expr, loc });
+            // func_no can be -1 at decls, ignore it
+            // console.log(func_no);
+            // console.log(JSON.stringify(env.func_no_to_expr[func_no].loc));
+        }
         // ----------------- generic eval -------------------------
         gx_property(env, func_no, x, name) {
             // const prop = escape_quote(name)
             // const mess = `object property \\'${escape_quote(name)}\\' not found`
             const y = x[name];
-            return y === undefined ? this.fail(func_no, `object property '${escape_quote(name)}' not found`, nilit) : y;
+            return y === undefined ? this.fail(env, func_no, `object property '${escape_quote(name)}' not found`, nilit) : y;
         }
         *gx_property_regex(env, func_no, ctx_node, regex) {
             if (!is_string(regex))
-                return this.fail(func_no, "string value expected (context: property regex)", undefined, true);
+                return this.fail(env, func_no, "string value expected (context: property regex)", undefined, true);
             if (!is_object(ctx_node))
-                return this.fail(func_no, "object expected (context: property regex)", undefined, true);
+                return this.fail(env, func_no, "object expected (context: property regex)", undefined, true);
             for (const key in ctx_node) {
                 if (key.match('^' + regex + '$'))
                     yield ctx_node[key];
@@ -6470,24 +6609,24 @@
             }
         }
         gx_property_dynamic(env, func_no, ctx_node, p) {
-            const y = this.force_single_or_nilit(func_no, p, true);
+            const y = this.force_single_or_nilit(env, func_no, p, true);
             if (is_string(y))
                 return this.gx_property(env, func_no, ctx_node, y);
             if (y === nilit) // sufficiency (no is_nilit check) ensured by force_single_or_nilit
                 return nilit;
-            return this.fail(func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
+            return this.fail(env, func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
         }
         // ----------------- standard step funcs -------------------------
-        check_args_num(func_no, n, expected_n, func_name) {
+        check_args_num(env, func_no, n, expected_n, func_name) {
             if (n !== expected_n)
-                return this.fail(func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
+                return this.fail(env, func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
         }
         std_match(env, func_no, ctx_node, regex) {
-            this.check_args_num(func_no, arguments.length, 4, 'match');
+            this.check_args_num(env, func_no, arguments.length, 4, 'match');
             if (!is_primitive(ctx_node))
                 return nilit;
             if (!is_string(regex))
-                return this.fail(func_no, "string value expected (context: 'match(...)')", undefined, true);
+                return this.fail(env, func_no, "string value expected (context: 'match(...)')", undefined, true);
             if (regex === '')
                 regex = '^$';
             const it = ctx_node.toString().match(new RegExp(regex, ''));
@@ -6515,14 +6654,11 @@
         FinalizingSingletonIter: FinalizingSingletonIter,
         MemorizingIter: MemorizingIter,
         Nest1Iter: Nest1Iter,
+        RtIssues: RtIssues,
         SingletonIter: SingletonIter,
         arrays_as_seq: arrays_as_seq,
-        bind: bind,
-        bind_single: bind_single,
         done: done,
         dummy: dummy,
-        eval_it: eval_it,
-        get_binding_1: get_binding_1,
         isApathIterable: isApathIterable,
         is_apath_iterable: is_apath_iterable,
         nilit: nilit,
@@ -6615,7 +6751,8 @@
     /**
      * transpilation module.
      *
-     * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
+     * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability.
+     * the code is highly compact with some side effects to avoid verbosity - so sometimes it takes longer to read but less time to maintain.
      */
     var in_mem_1 = {
         form: 'func',
@@ -6632,12 +6769,16 @@
         out_console;
         log_exprs;
         _nocheck;
+        ast = empty;
+        func_no_to_expr = [];
+        func_cnt = 0;
         /** transpilation result */
         result;
+        transpilat;
         // '_'-pref cause w/ extra setters
+        _dynart_setting = {};
         _sf_manager = new StepFuncManager();
         _mode = in_mem_2;
-        _arrays_as_seq = false;
         has_async = false;
         /**
          * @param init.out_console result to console
@@ -6649,6 +6790,10 @@
             this._nocheck = _nocheck;
             this.result = '';
         }
+        dynart_setting(setting = {}) {
+            this._dynart_setting = setting;
+            return this;
+        }
         /**
          *
          * @param mode transpilation mode
@@ -6659,29 +6804,22 @@
             return this;
         }
         /**
-         *
-         * @param b arrays will be converted to sequences
-         * @returns this
-         */
-        arrays_as_seq(b) {
-            this._arrays_as_seq = b;
-            return this;
-        }
-        /**
          * set_step_func_manager
         */
         sf_manager(v) {
             this._sf_manager = v;
             return this;
         }
-        func_cnt = 0;
-        new_func_fame(e, is_root) {
-            return 'f_' + (is_root ? 'root' : e.type + '_' + this.func_cnt++);
+        new_func_fame(expr, is_root) {
+            this.func_cnt++;
+            this.func_no_to_expr[this.func_cnt] = expr;
+            expr.data = { ...expr.data, func_no: this.func_cnt };
+            return 'f_' + (is_root ? 'root' : expr.type + '_' + this.func_cnt + '_');
         }
-        punch_func(expr, func_name, s) {
+        punch_func(expr, func_name, body) {
             if (this.out_console)
-                console.log(s);
-            this.punch(this.new_func(expr, func_name, s));
+                console.log(body);
+            this.punch(this.new_func(expr, func_name, body));
         }
         punch(s) {
             if (this.out_console)
@@ -6701,23 +6839,38 @@
             this.trans_root(expr);
             return this.result;
         }
-        async_await() {
-            return this.has_async ? { async: 'async ', await: 'await ' } : { async: '', await: '' };
+        transpile_1(expr) {
+            this.func_no_to_expr[0] = expr;
+            this.has_async = this.contains_async();
+            this.result = '';
+            this.trans_root(expr);
+            this.result += `
+                return ${Transpiler.async_await(this.has_async).async} function(env, x) {
+                    return ${Transpiler.async_await(this.has_async).await} f_root(env, x);
+                }
+                `;
+            return this.result;
+        }
+        static async_await(b) {
+            return b ? { async: 'async ', await: 'await ' } : { async: '', await: '' };
         }
         transpile_to_func(expr) {
-            this.transpile(expr);
+            this.transpile_1(expr);
             // console.log(this.result);
-            return new Function('ctx', 'apart', 'dynart', `
-                ${this.result}
-                return ${this.async_await().async} function(env, x) {
-                    return ${this.async_await().await} f_root(env, x);
-                }`);
+            this.ast = expr;
+            const body = this.result;
+            return this.transpilat = Transpiler.get_func(body);
             // ...
+        }
+        static get_func(body) {
+            return new Function('ctx', 'apart', 'dynart', `
+                ${body}
+                `);
         }
         punch_vars(root) {
             this.punch(`
-            var root;
-            var glob_vars = [];
+            // var root;
+            // var glob_vars = [];
         `);
         }
         trans_root(expr, scope) {
@@ -6728,16 +6881,24 @@
             // return ${this.call(tr, 'root')};
             this.punch_func(expr, root_func_name, `
                     ${this.has_async ? '// TODO optimize async/await bubbling' : ''};
-                    root = ${x};
-                    return ${this.call(tr, 'root')};
+                    env.root = ${x};
+                    // const y = ${this.call(tr, 'env.root')};
+                    // dynart.debug('finish', env, x, -1, y)
+                    return ${this.call(tr, 'env.root')};
         `);
         }
         trans_rec(expr, scope) {
             let new_func_name = this.new_func_fame(expr, false);
-            const func_no = this.func_cnt - 1;
             switch (expr.type) {
                 case Adt.SequencedExpressions: {
-                    const l = tlist_to_array(expr, Adt.SequencedExpressions);
+                    // const l = tlist_to_array(expr, Adt.SequencedExpressions)
+                    // if (l.length === 1) 
+                    //     return this.trans_rec(l[0])
+                    // this.punch_func(expr, new_func_name, `
+                    //     ${ this.call_seq_items(l) };
+                    // `)
+                    // return { snippet: new_func_name, is_scope: expr.data?.is_scope }
+                    const l = expr.exprs;
                     if (l.length === 1)
                         return this.trans_rec(l[0]);
                     this.punch_func(expr, new_func_name, `
@@ -6747,7 +6908,7 @@
                 }
                 case Adt.DeclarationExpression: {
                     const tr = this.trans_rec(expr.e);
-                    this.trans_DeclarationExpression(expr, new_func_name, tr, func_no);
+                    this.trans_DeclarationExpression(expr, new_func_name, tr, this.func_cnt);
                     return { snippet: new_func_name };
                 }
                 case Adt.Path: {
@@ -6771,14 +6932,14 @@
                 case Adt.Subscript: {
                     const new_func_name_idx = this.new_func_fame(expr, false) + '_idx';
                     const tr_idx = this.trans_rec(expr.idx);
-                    this.trans_Subscript(expr, new_func_name_idx, tr_idx, func_no);
+                    this.trans_Subscript(expr, new_func_name_idx, tr_idx, this.func_cnt);
                     this.new_spool_func(expr.e, this.trans_rec(expr.e), { snippet: new_func_name_idx }, new_func_name);
                     return { snippet: new_func_name };
                 }
                 case Adt.VariableBindingNode: {
                     const new_func_name_bind = this.new_func_fame(expr, false) + '_bind';
                     this.punch_func(expr, new_func_name_bind, `
-                    return apart.bind_single(${func_no}, ${expr.data.var_stamp.vno}, '${expr.data.var_stamp.scope_func}', x, env, glob_vars);
+                    return dynart.bind_single(env, ${this.func_cnt}, ${expr.data.var_stamp.vno}, '${expr.data.var_stamp.scope_func}', x);
                 `);
                     this.new_spool_func(expr.e, this.trans_rec(expr.e), { snippet: new_func_name_bind }, new_func_name);
                     return { snippet: new_func_name };
@@ -6787,18 +6948,19 @@
                     const tr = this.trans_rec(expr.e);
                     this.punch_func(expr, new_func_name, `
                     const y = ${this.call(tr, 'x')};
-                    return apart.bind(${func_no}, ${expr.data.var_stamp.vno}, '${expr.data.var_stamp.scope_func}', y, env, glob_vars);
+                    return dynart.bind(env, ${this.func_cnt}, ${expr.data.var_stamp.vno}, '${expr.data.var_stamp.scope_func}', y);
                 `);
                     return { snippet: new_func_name };
                 }
                 case Adt.VariableApplication: {
                     const is_root = expr.var_name === 'root';
                     if (is_root) {
-                        return { inline: true, snippet: `root` };
+                        // return { inline: true, snippet: `root` }
+                        return { inline: true, snippet: `env.root` };
                     }
                     else {
                         this.punch_func(expr, new_func_name, `
-                        return apart.get_binding_1(${func_no}, ${expr.data.var_stamp.vref.data.var_stamp.vno}, '${expr.data.var_stamp.vref.data.var_stamp.scope_func}', env, glob_vars);
+                        return dynart.get_binding_1(env, ${this.func_cnt}, ${expr.data.var_stamp.vref.data.var_stamp.vno}, '${expr.data.var_stamp.vref.data.var_stamp.scope_func}');
                     `);
                         return { snippet: new_func_name };
                     }
@@ -6811,39 +6973,40 @@
                     return { snippet: new_func_name };
                 }
                 case Adt.Property: {
-                    const prop = escape_quote(expr.name);
-                    const mess = `object property \\'${prop}\\' not found`;
-                    return {
-                        inline: true, func: true,
-                        snippet: `(function(env, x){const y = x['${prop}']; return y === undefined ? dynart.fail(-1, '${mess}', apart.nilit) : y})`
-                        // snippet: `(function(env, x){return dynart.gx_property(env, ${func_no}, x, '${expr.name}')})`
-                    };
+                    return this.trans_Property(expr, new_func_name);
+                    // return { snippet: new_func_name }
                 }
                 case Adt.PropertyRegex: {
-                    const regex = escape_quote(expr.regex);
-                    return {
-                        inline: true, func: true,
-                        snippet: `(function(env, x){return dynart.gx_property_regex(env, ${func_no}, x, '${regex}')})`
-                    };
+                    // TODO
+                    // const regex = escape_quote(expr.regex)
+                    // return { 
+                    //     inline: true, func: true,
+                    //     snippet: `(function(env, x){return dynart.gx_property_regex(env, ${this.func_cnt}, x, '${regex}')})` 
+                    // }
+                    this.trans_PropertyRegex(expr, new_func_name);
+                    return { snippet: new_func_name };
                 }
                 case Adt.PropertyExpression: {
                     const tr = this.trans_rec(expr.e);
                     return {
                         inline: true, func: true,
-                        snippet: `(function(env, x){return dynart.gx_property_dynamic(env, ${func_no}, x, ${this.call(tr, 'x')})})`
+                        snippet: `(function(env, x){return dynart.gx_property_dynamic(env, ${this.func_cnt}, x, ${this.call(tr, 'x')})})`
                     };
                 }
                 case Adt.Children: {
-                    return {
-                        inline: true, func: true,
-                        snippet: `function(env, x){return typeof x === 'object' ? apart.CoreIter.from_array(Object.values(x)) : apart.nilit}`
-                    };
+                    // TODO
+                    // return {
+                    //     inline: true, func: true,
+                    //     snippet: `function(env, x){return typeof x === 'object' ? apart.CoreIter.from_array(Object.values(x)) : apart.nilit}`
+                    // }
+                    this.trans_PropertyChildren(expr, new_func_name);
+                    return { snippet: new_func_name };
                 }
                 case Adt.ComparisonExpression:
                 case Adt.BinaryArithmeticExpression: {
                     const tr_left = this.trans_rec(expr.left);
                     const tr_right = this.trans_rec(expr.right);
-                    this.trans_BinaryExpression(expr, new_func_name, func_no, tr_left, tr_right);
+                    this.trans_BinaryExpression(expr, new_func_name, this.func_cnt, tr_left, tr_right);
                     return { snippet: new_func_name };
                 }
                 case Adt.BinaryLogicalExpression: {
@@ -6859,7 +7022,7 @@
                 }
                 case Adt.UnaryArithmeticExpression: {
                     const tr = this.trans_rec(expr.e);
-                    this.trans_UnaryArithmeticExpression(expr, new_func_name, func_no, tr);
+                    this.trans_UnaryArithmeticExpression(expr, new_func_name, this.func_cnt, tr);
                     return { snippet: new_func_name };
                 }
                 case Adt.FuncCall: {
@@ -6869,7 +7032,7 @@
                     const std_func_name = std_funcs[fname];
                     if (std_func_name) {
                         this.punch_func(expr, new_func_name, `
-                        return ${this.std_func_call(func_no, expr, std_func_name)};
+                        return ${this.std_func_call(this.func_cnt, expr, std_func_name)};
                     `);
                     }
                     else {
@@ -6879,7 +7042,7 @@
                                 this.trans_JSFuncCall(expr, new_func_name);
                             }
                             else if (descr.kind === 'apath') {
-                                this.trans_ApathFuncCall(expr, new_func_name, descr.expr.formalParameters, func_no);
+                                this.trans_ApathFuncCall(expr, new_func_name, descr.expr.formalParameters, this.func_cnt);
                             }
                         }
                         else {
@@ -6899,15 +7062,18 @@
                 }
                 case Adt.AasStep: {
                     const tr = this.trans_rec(expr.e);
-                    if (!this._arrays_as_seq)
+                    if (!this._dynart_setting.arrays_as_seq)
                         return tr;
-                    return { inline: true, func: true, snippet: `function (env, x) {return apart.arrays_as_seq(${this.call(tr, 'x')})}` };
+                    else
+                        return { inline: true, func: true, snippet: `function (env, x) {return apart.arrays_as_seq(${this.call(tr, 'x')})}` };
                 }
                 case Adt.Literal: {
                     return { inline: true, literal: true, snippet: `(${JSON.stringify(expr.value)})` };
                 }
                 case Adt.Self: {
-                    return { inline: true, func: true, snippet: `/*neccessary due to changing 'x':*/ function (env, x) {return x}` };
+                    // return { inline: true, func: true, snippet: `/*neccessary due to changing 'x':*/ function (env, x) {return x}` }
+                    this.trans_Self(expr, new_func_name);
+                    return { snippet: new_func_name };
                 }
                 case Adt.Empty: {
                     return { inline: true, snippet: `apart.nilit` };
@@ -6924,6 +7090,41 @@
                 default:
                     throw new TranspilationError('transpilation of following expression not implemented:\n' + JSON.stringify(expr, null, 3));
             }
+        }
+        trans_Property(expr, new_func_name) {
+            const prop = escape_quote(expr.name);
+            const mess = `object property \\'${prop}\\' not found`;
+            if (this._dynart_setting.debug) {
+                this.punch_func(expr, new_func_name, `
+                    const y = x['${prop}'];
+                    return y === undefined ? dynart.fail(env, ${this.func_cnt}, '${mess}', apart.nilit) : y
+                `);
+                return { snippet: new_func_name };
+            }
+            else {
+                this.new_func_fame(expr, false);
+                return {
+                    inline: true, func: true,
+                    snippet: `(function(env, x){const y = x['${prop}']; return y === undefined ? dynart.fail(env, ${this.func_cnt}, '${mess}', apart.nilit) : y})`
+                    // snippet: `(function(env, x){return dynart.gx_property(env, ${this.func_cnt}, x, '${expr.name}')})`
+                };
+            }
+        }
+        trans_PropertyRegex(expr, new_func_name) {
+            const regex = escape_quote(expr.regex);
+            this.punch_func(expr, new_func_name, `
+                    return dynart.gx_property_regex(env, ${this.func_cnt}, x, '${regex}')
+                `);
+        }
+        trans_PropertyChildren(expr, new_func_name) {
+            this.punch_func(expr, new_func_name, `
+                    return typeof x === 'object' ? apart.CoreIter.from_array(Object.values(x)) : apart.nilit
+                `);
+        }
+        trans_Self(expr, new_func_name) {
+            this.punch_func(expr, new_func_name, `
+                    return x
+                `);
         }
         // extra trans methods to ease overwriting for other target langs (unfortunately, js has no overloading, therefore type is in method name)
         trans_DeclarationExpression(expr, new_func_name, tr, func_no) {
@@ -6949,10 +7150,10 @@
         trans_Subscript(expr, new_func_name_idx, tr_idx, func_no) {
             this.punch_func(expr.idx, new_func_name_idx, `
                     const y = ${this.call(tr_idx, 'x')};
-                    if (!dynart.subscript_check(${func_no}, x)) return apart.nilit;
-                    const idx = dynart.idx_convert(${func_no}, y);
+                    if (!dynart.subscript_check(env, ${func_no}, x)) return apart.nilit;
+                    const idx = dynart.idx_convert(env, ${func_no}, y);
                     if (idx === -1) return apart.nilit;
-                    const z = dynart.apply_subscript(${func_no}, x, idx);
+                    const z = dynart.apply_subscript(env, ${func_no}, x, idx);
                     return z === undefined ? apart.nilit : z;
                 `);
         }
@@ -6966,8 +7167,8 @@
         trans_BinaryExpression(expr, new_func_name, func_no, tr_left, tr_right) {
             this.punch_func(expr, new_func_name, `
                     // TODO if v1 or v2 are literals we could inline it
-                    const v1 = dynart.force_primitive(${func_no}, ${this.call(tr_left, 'x')});
-                    const v2 = dynart.force_primitive(${func_no}, ${this.call(tr_right, 'x')});
+                    const v1 = dynart.force_primitive(env, ${func_no}, ${this.call(tr_left, 'x')});
+                    const v2 = dynart.force_primitive(env, ${func_no}, ${this.call(tr_right, 'x')});
                     if (v1 === apart.nilit || v2 === apart.nilit) return apart.nilit;
                     return (v1 ${op_map(expr.operator)} v2);
                 `);
@@ -6986,7 +7187,7 @@
         }
         trans_UnaryArithmeticExpression(expr, new_func_name, func_no, tr) {
             this.punch_func(expr, new_func_name, `
-                    const v1 = dynart.force_primitive(${func_no}, ${this.call(tr, 'x')});
+                    const v1 = dynart.force_primitive(env, ${func_no}, ${this.call(tr, 'x')});
                     return (${op_map(expr.operator)} v1);
                 `);
         }
@@ -7005,11 +7206,11 @@
                 const vno = formalParameters[i].data.var_stamp.vno;
                 const scope_func = formalParameters[i].data.var_stamp.scope_func;
                 return `
-                    apart.bind(${func_no}, ${vno}, '${scope_func}', ${this.call(trs[i], 'x')}, env_, glob_vars)
+                    dynart.bind(env_, ${func_no}, ${vno}, '${scope_func}', ${this.call(trs[i], 'x')})
                 `;
             });
             this.punch_func(expr, new_func_name, `
-                    const env_ = env.copy();
+                    const env_ = env.fresh();
                     ${formal_par_binding}
                     env_.incr_incarnation(${func_no});
                     return f_apath_def_${expr.name}(env_, x);
@@ -7055,12 +7256,11 @@
         }
         trans_rec_construction(expr, scope) {
             let new_func_name = this.new_func_fame(expr, false);
-            const func_no = this.func_cnt - 1;
             switch (expr.type) {
                 case Adt.ObjectExpression: {
                     this.punch_func(expr, new_func_name, `
                     let o = {};
-                    ${this.build_property_ass(func_no, expr)}
+                    ${this.build_property_ass(this.func_cnt, expr)}
                     return o;
                 `);
                     return { snippet: new_func_name };
@@ -7068,7 +7268,7 @@
                 case Adt.ArrayExpression: {
                     this.punch_func(expr, new_func_name, `
                     let a = [];
-                    ${this.build_arr_elm_list(func_no, expr)}
+                    ${this.build_arr_elm_list(this.func_cnt, expr)}
                     return a;
                 `);
                     return { snippet: new_func_name };
@@ -7104,14 +7304,14 @@
             const value_call = this.call(tr_val, 'x');
             if (!key.simple) {
                 ret += `
-                    const key${i} = dynart.force_single_or_nilit(${func_no}, ${key.s}, true);
-                    const b1_${i} = dynart.ass_key_check(${func_no}, key${i});`;
+                    const key${i} = dynart.force_single_or_nilit(env, ${func_no}, ${key.s}, true);
+                    const b1_${i} = dynart.ass_key_check(env, ${func_no}, key${i});`;
             }
             if (!tr_val.literal) {
                 ret += `
                     const value${i} = ${value_call};
-                    const y_${i} = dynart.array_ing(${func_no}, value${i});
-                    // const y_${i} = dynart.force_single_or_nilit(${func_no}, value${i}, true);
+                    const y_${i} = dynart.array_ing(env, ${func_no}, value${i});
+                    // const y_${i} = dynart.force_single_or_nilit(env, ${func_no}, value${i}, true);
                     const b2_${i} = y_${i} !== apart.nilit;`;
             }
             const no_inline = !key.simple || !tr_val.literal;
@@ -7136,7 +7336,7 @@
             ret += `
                     const value${i} = ${value};`;
             ret += `
-                    dynart.embed_objects(${func_no}, o, value${i});`;
+                    dynart.embed_objects(env, ${func_no}, o, value${i});`;
             ret += `
                     //------`;
             return ret;
@@ -7162,7 +7362,7 @@
                     const value${i} = ${value};`;
                 }
                 ret += `
-                    ${tr_elm.literal ? `a.push(${value})` : `dynart.populate_array(${func_no}, a, value${i})`}` + ';';
+                    ${tr_elm.literal ? `a.push(${value})` : `dynart.populate_array(env, ${func_no}, a, value${i})`}` + ';';
                 ret += `
                     //------`;
                 i++;
@@ -7174,12 +7374,12 @@
             let args = this.build_args(expr, 'x');
             // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! only w/o eval generator func due to async
             // return `apart.CoreIter.optional_wrap(${this.async_await().await}${ctx}.${expr.name}(${args}))`
-            return `${this.async_await().await}${ctx}.${expr.name}(${args});`;
+            return `${Transpiler.async_await(this.has_async).await}${ctx}.${expr.name}(${args});`;
         }
         // public for testing
         std_func_call(func_no, expr, fname) {
             let args = this.build_args(expr, 'x');
-            return `${this.async_await().await}dynart.${fname}(env, ${func_no}, ${args});`;
+            return `${Transpiler.async_await(this.has_async).await}dynart.${fname}(env, ${func_no}, ${args});`;
         }
         build_args(expr, ctx_var) {
             const arg_list = expr.arguments !== null ? tlist_to_array(expr.arguments, Adt.ArgumentList) : [];
@@ -7194,35 +7394,59 @@
             return this._sf_manager.contains_async;
         }
         new_func(expr, new_func_name, body) {
-            return `
+            const regular_func = `
                 /* ${this.comment(expr)} */
-                ${this.has_async
-            // || this.contains_async() 
-            ? 'async' : ''} function ${new_func_name}(env, x) {
+                ${this.has_async ? 'async' : ''} function ${new_func_name}(env, x) {
                     ${this._mode.expr_func_inject ? this._mode.expr_func_inject(new_func_name, 'x') : ''}
                     ${body}
                 }
                 `;
+            if (this._dynart_setting.debug && new_func_name !== 'f_root') {
+                this.new_debug_func(expr, new_func_name);
+            }
+            return regular_func;
         }
-        call(tr, var_name, iter = false, args_ = []) {
+        new_debug_func(expr, func_name) {
+            const no = this.extr_no(func_name);
+            const target_expr = this.func_no_to_expr[no];
+            if (target_expr)
+                target_expr.data = { ...target_expr.data, breakable: true };
+            const debug_func = `
+                ${this.has_async ? 'async' : ''} function DEBUG_${func_name}(env, x) {
+                    dynart.debug({ kind: 'pre', env, ctx_node: x, func_no: ${no} })
+                    const y = ${this.call({ snippet: func_name }, 'x', false, undefined, true)}
+                    dynart.debug({ kind: 'post', env, ctx_node: x, func_no: ${no}, result: y })
+                    return y
+                }
+                `;
+            this.punch(debug_func);
+        }
+        extr_no(func_name) {
+            const no = func_name.match(/.*_(\d+)_.*/);
+            return no ? parseInt(no[1]) : -1;
+        }
+        call(tr, var_name, iter = false, args_ = [], nodebug_prefix = false) {
             // args
             const wargs = args_.length > 0;
             let args = wargs ? (iter ? ', [' + args_.join(',') + ']' : ',' + args_.join(',')) : '';
             const par = `env, ${var_name}`;
             let ret;
+            const deb = this._dynart_setting.debug && !nodebug_prefix && !tr.inline ? 'DEBUG_' : '';
             if (iter) {
-                ret = `apart.eval_it(${par}, ${tr.snippet}${args})`;
+                const mat = this._dynart_setting.debug ? '_mat' : '';
+                ret = `dynart.eval_it${mat}(${par}, ${deb}${tr.snippet}${args})`;
                 return ret;
             }
             else {
                 ret = tr.inline ?
                     `(${tr.snippet}${tr.func ? `(${par}${args})` : ''})`
-                    : `${this.async_await().await}${tr.snippet}(${par}${args})`;
+                    : `${Transpiler.async_await(this.has_async).await}${deb}${tr.snippet}(${par}${args})`;
                 return ret;
             }
         }
         comment(expr) {
             return this.log_exprs ? '\n' + JSON.stringify(expr, null, 3) + '\n' : '';
+            // return expr.type + ', ' + JSON.stringify(expr.loc)
         }
     }
 
@@ -7231,6 +7455,68 @@
         Transpiler: Transpiler,
         in_mem_1: in_mem_1,
         in_mem_2: in_mem_2
+    });
+
+    // produced by GPT !!!
+    // ts version
+    class BoundedChannel {
+        capacity;
+        queue;
+        producersWaiting;
+        consumersWaiting;
+        constructor(capacity) {
+            this.capacity = capacity;
+            this.queue = [];
+            this.producersWaiting = []; // Liste von Promises, die warten, wenn die Queue voll ist
+            this.consumersWaiting = []; // Liste von Promises, die warten, wenn die Queue leer ist
+        }
+        // Sendet einen Wert an die Queue
+        async send(value) {
+            if (this.queue.length < this.capacity) {
+                this.queue.push(value); // Fügt den Wert in die Queue ein, wenn Platz verfügbar ist
+                if (this.consumersWaiting.length > 0) {
+                    const consumerResolve = this.consumersWaiting.shift(); // Holt das nächste wartende Consumer-Promise
+                    consumerResolve(value); // Löst das Consumer-Promise auf, um den Wert zu konsumieren
+                }
+            }
+            else {
+                // Wenn die Queue voll ist, wartet der Producer
+                await new Promise(resolve => {
+                    this.producersWaiting.push(resolve); // Fügt das Promise zur Liste der wartenden Producer hinzu
+                });
+                return this.send(value); // Versuche es erneut, wenn Platz verfügbar ist
+            }
+        }
+        // Empfängt einen Wert aus der Queue
+        async receive(stop_on_empty_queue = false /**/) {
+            if (this.queue.length > 0) {
+                const value = this.queue.shift(); // Nimmt den Wert aus der Queue
+                if (this.producersWaiting.length > 0) {
+                    const producerResolve = this.producersWaiting.shift(); // Holt das nächste wartende Producer-Promise
+                    producerResolve(); // Löst das Producer-Promise auf, um ihm zu signalisieren, dass er weitermachen kann
+                }
+                return value;
+            }
+            else {
+                // Wenn die Queue leer ist, wartet der Consumer
+                if (stop_on_empty_queue && this.producersWaiting.length === 0)
+                    return null;
+                return new Promise(resolve => {
+                    this.consumersWaiting.push(resolve); // Fügt das Promise zur Liste der wartenden Consumer hinzu
+                });
+            }
+        }
+        // Schließt den Channel (beendet das Empfangen)
+        close() {
+            // Löst alle wartenden Promises mit null als Signal für das Ende
+            this.producersWaiting.forEach(resolve => resolve(null));
+            this.consumersWaiting.forEach(resolve => resolve(null));
+        }
+    }
+
+    var Channel_ = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        BoundedChannel: BoundedChannel
     });
 
     /////////////////////////////////////////////////
@@ -7356,6 +7642,7 @@
     class AstChecker {
         sfman;
         result = { errors: false, warnings: false };
+        issues = [];
         constructor(sfman) {
             this.sfman = sfman;
         }
@@ -7383,20 +7670,26 @@
                     const res = this.sfman.add_apath_func(expr);
                     if (!res.success) {
                         ok = false;
-                        this.issue('errors', expr, res.mess);
+                        this.add_issue('errors', expr, res.mess);
                     }
                     if (stk.size() > 1) ;
                     let params = [];
                     for (const p of expr.formalParameters) {
                         if (params.includes(p.var_name)) {
                             ok = false;
-                            this.issue('errors', expr, `duplicate parameter '${p.var_name}'`);
+                            this.add_issue('errors', expr, `duplicate parameter '${p.var_name}'`);
                         }
                         else {
                             params.push(p.var_name);
                         }
                     }
                 }
+                // here we gather issues from the parser (no extra trav for performance)
+                const w = expr.data?.['warnings'];
+                if (w)
+                    for (const m of w) {
+                        this.add_issue('warnings', expr, m);
+                    }
             });
             // check existence
             trav(root, expr => {
@@ -7404,7 +7697,7 @@
                     const descr = this.sfman.checked_ret_descr(expr.name);
                     if (!descr) {
                         ok = false;
-                        this.issue('errors', expr, `step function '${expr.name}' not defined`);
+                        this.add_issue('errors', expr, `step function '${expr.name}' not defined`);
                     }
                     else {
                         // check arg nums
@@ -7413,7 +7706,7 @@
                             const l = tlist_to_array(expr.arguments, Adt.ArgumentList);
                             if (l.length !== descr.expr?.formalParameters.length) {
                                 ok = false;
-                                this.issue('errors', expr, `step function call '${expr.name}' has wrong number of parameters`);
+                                this.add_issue('errors', expr, `step function call '${expr.name}' has wrong number of parameters`);
                             }
                         }
                         // if (descr.)
@@ -7474,7 +7767,7 @@
                     }
                     else {
                         ok = false;
-                        this.issue('errors', expr, `variable '${vname}' not bound in scope`);
+                        this.add_issue('errors', expr, `variable '${vname}' not bound in scope`);
                     }
                 }
             }, expr => {
@@ -7486,14 +7779,23 @@
             });
             return ok;
         }
-        issue(kind, expr, mess) {
+        add_issue(kind, expr, mess) {
             this.result[kind] = true;
-            if (!expr.data)
-                expr.data = {};
-            if (expr.data[kind])
-                expr.data[kind].push(mess);
-            else
-                expr.data[kind] = [mess];
+            this.issues.push({
+                kind,
+                mess,
+                loc: expr.loc ? expr.loc : unknown_loc
+            });
+        }
+        gather_issues(kind) {
+            let messages = [];
+            for (const issue of this.issues) {
+                if (issue.kind === kind) {
+                    const s = issue.loc === unknown_loc ? 'unknown' : `(${issue.loc.start.line}:${issue.loc.start.column}-${issue.loc.end.line}:${issue.loc.end.column})`;
+                    messages.push(`${issue.mess} (location ${s})`);
+                }
+            }
+            return messages;
         }
     }
 
@@ -7517,6 +7819,8 @@
         ast = empty;
         /** side effect at parsing: current warnings. not thread-save wrt. member */
         warnings = [];
+        /** side effect at parsing: current func-no to expr. not thread-save wrt. member */
+        func_no_to_expr = [];
         /**
          * @param mode default: in-mem mode
          */
@@ -7536,22 +7840,6 @@
             this.sfman.add_js_func(f);
             return this;
         }
-        // /**
-        //  * Register an apath step function
-        //  * @param f step function as a textual apath expression 'func f(...) = ...'
-        //  * @returns this
-        //  */
-        // public add_apath_func(f: string): this {
-        //     const ast = new Parser().setting({ startRule: 'ExtraStepFunc' }).parse(f)
-        //     // TODO review overriding param
-        //     this.check_ast(this.sfman, ast)
-        //     return this
-        // }
-        // public add_import(evaluator: Evaluator) {
-        //     if (Object.keys(this.sfman.sf_descriptors).length > 0) throw new ApathError('please use this as first action, base properties are not fresh')
-        //     const sfman_import = evaluator.sfman
-        //     this.sfman.sf_descriptors = sfman_import.sf_descriptors
-        // }
         /**
          * transpilation of an apath textual expression
          * @param s apath textual expression
@@ -7561,27 +7849,42 @@
          */
         transpile(s, dynart_setting) {
             try {
-                this.ast = new Parser().parse(s);
+                const ast = new Parser().parse(s);
                 const fresh_sfman = this.sfman.copy();
-                // this.sfman.clear_apath_funcs()
-                // const warnings = this.check_ast()
-                const astChecker = new AstChecker(fresh_sfman);
-                if (!astChecker.process(this.ast)) {
-                    if (astChecker.result.errors)
-                        throw new AnalyseError(gather_issues(this.ast, 'errors').toString());
-                }
-                this.warnings = gather_issues(this.ast, 'warnings');
+                const warnings = this.check_ast(ast, fresh_sfman);
+                // side effect for testing and utils
+                this.ast = ast;
+                this.warnings = warnings;
                 this.empty_ast = this.ast === empty;
-                const trp = new Transpiler()
+                //
+                const transpiler = new Transpiler();
+                const trp = transpiler
                     .mode(this.mode)
                     .sf_manager(fresh_sfman)
-                    .arrays_as_seq(dynart_setting?.arrays_as_seq ? dynart_setting?.arrays_as_seq : false)
-                    .transpile_to_func(this.ast);
-                return new Evaluator(fresh_sfman, trp, dynart_setting);
+                    .dynart_setting(dynart_setting)
+                    .transpile_1(this.ast);
+                // side effect for testing and utils
+                this.func_no_to_expr = transpiler.func_no_to_expr;
+                //
+                return new Evaluator(fresh_sfman, trp, this.func_no_to_expr, dynart_setting);
             }
             catch (error) {
                 throw new ApathError('error during transpilation', error);
             }
+        }
+        /**
+         * checks the ast
+         * @param ast the ast
+         * @param sfman step func manager
+         * @returns message strings
+         */
+        check_ast(ast, sfman) {
+            const astChecker = new AstChecker(sfman);
+            if (!astChecker.process(ast)) {
+                if (astChecker.result.errors)
+                    throw new AnalyseError(astChecker.gather_issues('errors').toString());
+            }
+            return astChecker.gather_issues('warnings');
         }
     }
     function error_eval(error) {
@@ -7592,16 +7895,22 @@
      * !!! Only one instance per thread.
      */
     class Evaluator {
-        sfman;
-        transpilat;
+        func_no_to_expr;
         resolved_transpilat;
-        // for testing
-        env = new Env();
+        transpilat;
+        dynart;
         // only used inderectly by class Apath
-        constructor(sfman, transpilat, dynart_setting) {
-            this.sfman = sfman;
-            this.transpilat = transpilat;
-            this.resolved_transpilat = this.transpilat(this.sfman.ctx, Apart_, new DynApart().setting(dynart_setting));
+        constructor(sfman, trp, func_no_to_expr, dynart_setting) {
+            this.func_no_to_expr = func_no_to_expr;
+            if (trp.trim() === '')
+                throw new ApathError('fatal: transpilat missing');
+            this.transpilat = Transpiler.get_func(trp);
+            this.dynart = new DynApart().setting(dynart_setting);
+            this.resolved_transpilat = this.transpilat(sfman.ctx, Apart_, this.dynart);
+        }
+        set_debug_callback(f) {
+            this.dynart.set_debug_callback(f);
+            return this;
         }
         transpilat_text() {
             return this.transpilat.toString();
@@ -7613,29 +7922,7 @@
          */
         evaluate(input) {
             try {
-                return CoreIter.optional_wrap(this.resolved_transpilat(this.root_env(input), input));
-            }
-            catch (error) {
-                throw error_eval(error);
-            }
-        }
-        /** Async version of {@link evaluate} */
-        async evaluate_async(input) {
-            try {
-                return CoreIter.optional_wrap(await this.resolved_transpilat(this.root_env(input), input));
-            }
-            catch (error) {
-                throw error_eval(error);
-            }
-        }
-        /**
-         * Evaluation over an input javascript object
-         * @param input input javascript object
-         * @returns the first element in the result iterator (see {@link evaluate})
-         */
-        evaluate_first(input) {
-            try {
-                return CoreIter.first(this.resolved_transpilat(this.root_env(input), input));
+                return CoreIter.optional_wrap(this.invoke_transpilat(input));
             }
             catch (error) {
                 throw error_eval(error);
@@ -7649,15 +7936,39 @@
         evaluate_json(json) {
             return this.evaluate(JSON.parse(stripJsonComments(json)));
         }
+        /** Async version of {@link evaluate} */
+        async evaluate_async(input) {
+            try {
+                return CoreIter.optional_wrap(await this.invoke_transpilat(input));
+            }
+            catch (error) {
+                throw error_eval(error);
+            }
+        }
+        /**
+         * Evaluation over an input javascript object
+         * @param input input javascript object
+         * @returns the first element in the result iterator (see {@link evaluate})
+         */
+        evaluate_first(input) {
+            try {
+                return CoreIter.first(this.invoke_transpilat(input));
+            }
+            catch (error) {
+                throw error_eval(error);
+            }
+        }
         /** Async version of {@link evaluate_json} */
         async evaluate_json_async(json) {
             return await this.evaluate_async(JSON.parse(json));
         }
-        root_env(input) {
+        invoke_transpilat(input) {
+            return this.resolved_transpilat(this.create_root_env(input), input);
+        }
+        create_root_env(input) {
             const env = new Env();
-            // only for testing
-            // this.env = env
-            //
+            env.func_no_to_expr = this.func_no_to_expr;
+            env.root = input;
             return env;
         }
     }
@@ -7692,7 +8003,7 @@
      * @param arrays_as_seq arrays as sequence
      * @returns \{ result: string, trp: string, empty_ast: boolean, warnings: string[] } where 'result': formatted result string, 'trp': the transpiled code, 'empty_ast': no ast produced (caused by empty 'apath', 'warnings': warnings at transpilation phase)
      */
-    function evaluate(input, apath_txt, sfuncs, strict_failure = false, arrays_as_seq = false) {
+    function evaluate(input, apath_txt, sfuncs, strict_failure = false, arrays_as_seq = false, debug_func) {
         const apath = new Apath();
         if (sfuncs) {
             // neccessary for 'eval':
@@ -7703,7 +8014,9 @@
                 apath.add_js_func(func);
             }
         }
-        const evaluator = apath.transpile(apath_txt, { strict_failure, arrays_as_seq });
+        const evaluator = apath.transpile(apath_txt, { strict_failure, arrays_as_seq, debug: debug_func !== undefined });
+        if (debug_func)
+            evaluator.set_debug_callback(debug_func);
         const res = evaluator.evaluate_json(input);
         return { result: format_results(res), trp: evaluator.transpilat_text(), empty_ast: apath.empty_ast, warnings: apath.warnings };
     }
@@ -7713,10 +8026,12 @@
         evaluate: evaluate
     });
 
+    window.Adt_ = Adt_;
     window.Parser__ = Parser_;
     window.Transpiler__ = Transpiler_;
     window.Apart_ = Apart_;
     window.Utils_ = Utils_;
+    window.Channel_ = Channel_;
     window.apath_ = apath_;
     window.apath_func_utils_ = apath_func_utils_;
 

@@ -1,0 +1,45 @@
+{
+   "data": {
+      "input": "1",
+      "apath": "// values conforming to a regex\nmatch('1|2')",
+      "sfuncs": ""
+   },
+   "geom": {
+      "widget_input": {
+         "pos": {
+            "top": 111.15625,
+            "left": 256.21875
+         },
+         "height": 573.688,
+         "width": 526.969,
+         "zindex": "103"
+      },
+      "widget_apath": {
+         "pos": {
+            "top": 111.140625,
+            "left": 800.328125
+         },
+         "height": 375.875,
+         "width": 543.125,
+         "zindex": "104"
+      },
+      "widget_result": {
+         "pos": {
+            "top": 508.890625,
+            "left": 800.640625
+         },
+         "height": 287.953,
+         "width": 543.125,
+         "zindex": "102"
+      },
+      "widget_sfuncs": {
+         "pos": {
+            "top": 706.734375,
+            "left": 256.21875
+         },
+         "height": 90.0938,
+         "width": 526.969,
+         "zindex": "101"
+      }
+   }
+}

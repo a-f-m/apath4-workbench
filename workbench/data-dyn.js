@@ -380,8 +380,8 @@ var examples = {
     'construction (object)': {
         data: {
             keyword: '**{** ... **}**',
-            input: inputs.simple2,
-            apath: `cat.{ id: 2, '#call': p }`,
+            input: inputs.simple1,
+            apath: `cat.{ id: 2, '#call': name }`,
             grammar: '#main-rule-ObjectConstruction',
             remark: 'property name: identifier or string'
         },
@@ -583,6 +583,23 @@ cat.age.plus(10)`
         "geom": geom.default,
     },
 
+    '... construction': {
+        data: {
+            keyword: '**func** <id>**(**...**)** = ...',
+            input: inputs.simple1,
+            grammar: '#main-rule-StepFunctionDefinition',
+            remark: `constructions over the context node; 'name' relative to it`,
+            apath: 
+//----------------------------
+`func callName(x) = { id: $x, '#call': name },
+cat.callName(2)`
+//----------------------------
+        },
+        "geom": geom.default,
+    },
+
+
+
     'recursion': {
         data: {
             keyword: '**func** <id>**(**...**)** = ...',
@@ -595,7 +612,7 @@ cat.age.plus(10)`
 func recIncr(x) = (
     y = $x + 1,
     if ($y == $to) $y recIncr($y)), 
-recIncr(0)`
+cat.recIncr(age)`
 //----------------------------
         },
         "geom": geom.default,

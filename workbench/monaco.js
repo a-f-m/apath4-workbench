@@ -39,6 +39,10 @@ require(['vs/editor/editor.main'], function () {
             // fontSize: 14,
             automaticLayout: true,
             // "bracketPairColorization.enabled": false
+            keybindings: {
+                'Ctrl+D': {
+                }
+            }
         })
     }
     monaco_editors['input'] = create_editor(document.getElementById('monaco_input'), 'input')
@@ -51,9 +55,11 @@ require(['vs/editor/editor.main'], function () {
     monaco_editors.apath.onDidChangeModelContent(function (e) {
         on_editor_change()
     })
+    monaco_editors.apath.onDidChangeCursorPosition(function (e) {
+        onApathDidChangeCursorPosition(e)
+    })
     monaco_editors.sfuncs.onDidChangeModelContent(function (e) {
         on_editor_change()
-        1
     })
 
     setup()

@@ -343,9 +343,9 @@ body {
 <td><span id="e-construction (object)">construction (object)</span></td>
 <td><span>property name: identifier or string</span></td>
 <td><strong>{</strong> ... <strong>}</strong></td>
-<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk13">id</span><span class="mtk1">: 2, </span><span class="mtk5">'#call'</span><span class="mtk1">: </span><span class="mtk13">p</span><span class="mtk1"> }</span></span></td>
-<td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;p&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;name&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
-<td>{ &quot;id&quot;: 2, &quot;#call&quot;: &quot;name&quot; }</td>
+<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk13">id</span><span class="mtk1">: 2, </span><span class="mtk5">'#call'</span><span class="mtk1">: </span><span class="mtk13">name</span><span class="mtk1"> }</span></span></td>
+<td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;name&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;jo&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
+<td>{ &quot;id&quot;: 2, &quot;#call&quot;: &quot;jo&quot; }</td>
 <td><a href="language/grammar.html#main-rule-ObjectConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=construction (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
@@ -353,7 +353,7 @@ body {
 <td><span>expression value used as the property name</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">p</span><span class="mtk1">): </span><span class="mtk5">'jo'</span><span class="mtk1"> }</span></span></td>
-<td></td>
+<td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;p&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;name&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
 <td>{ &quot;name&quot;: &quot;jo&quot; }</td>
 <td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
@@ -520,10 +520,19 @@ body {
 <td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=reusable expressions"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
+<td><span id="e-... construction">... construction</span></td>
+<td><span>constructions over the context node; 'name' relative to it</span></td>
+<td></td>
+<td><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">callName</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = { </span><span class="mtk13">id</span><span class="mtk1">: </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1">, </span><span class="mtk5">'#call'</span><span class="mtk1">: </span><span class="mtk13">name</span><span class="mtk1"> },</span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">callName</span><span class="mtk1">(2)</span></span></td>
+<td></td>
+<td>{ &quot;id&quot;: 2, &quot;#call&quot;: &quot;jo&quot; }</td>
+<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... construction"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+</tr>
+<tr>
 <td><span id="e-recursion">recursion</span></td>
 <td><span>with global and local variables</span></td>
 <td></td>
-<td><span><span class="mtk4">to </span><span class="mtk1">= 5,</span></span><br/><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = (</span></span><br/><span><span class="mtk1">    </span><span class="mtk4">y </span><span class="mtk1">= </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1"> + 1,</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">if</span><span class="mtk1"> (</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> == </span><span class="mtk7">$</span><span class="mtk4">to</span><span class="mtk1">) </span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">)), </span></span><br/><span><span class="mtk4">recIncr</span><span class="mtk1">(0)</span></span></td>
+<td><span><span class="mtk4">to </span><span class="mtk1">= 5,</span></span><br/><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = (</span></span><br/><span><span class="mtk1">    </span><span class="mtk4">y </span><span class="mtk1">= </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1"> + 1,</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">if</span><span class="mtk1"> (</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> == </span><span class="mtk7">$</span><span class="mtk4">to</span><span class="mtk1">) </span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">)), </span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1">)</span></span></td>
 <td></td>
 <td>5</td>
 <td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=recursion"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>

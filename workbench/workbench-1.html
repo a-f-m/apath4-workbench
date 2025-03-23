@@ -4,9 +4,10 @@
 <head>
     <title>apath4 workbench</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <script src='./jquery/jquery-3.6.0.js'></script>
     <script src='./jquery/jquery-ui.js'></script>
-    <link rel="stylesheet" href="./jquery/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="./jquery/jquery-ui.css"> -->
     <!-- <script src='js-cookie-3.0.5//js.cookie.min.js'></script> -->
     <link rel='stylesheet' href='workbench-1.css' />
     <script src='./monaco/vs/loader.js'></script>
@@ -19,7 +20,7 @@
                 width="100" height="20" /></a><sup>beta</sup>
     </div>
     <div class='header'>
-        <fieldset>
+        <fieldset id="fset_examples">
             <legend>examples</legend>
             <div id='grp_layout'>
                 <select title="topics (Ctrl+F5)" id="select_topics">
@@ -36,7 +37,7 @@
             </div>
             <!-- <label for="select_examples">: examples</label> -->
         </fieldset>
-        <fieldset>
+        <fieldset id="fset_widgets">
             <legend>widgets</legend>
             <div id='grp_layout'>
                 <input type="file" id="file-input" hidden/>
@@ -57,7 +58,7 @@
                             type='checkbox' />live fit</label></span>
             </div>
         </fieldset>
-        <fieldset>
+        <fieldset id="fset_control">
             <legend>control</legend>
             <div>
                 <span class='button'>
@@ -67,7 +68,9 @@
                         eval</label></span>
                 <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
                         failure</label></span>
-                <!-- <br>
+                <span class='button'>
+                <span title='more control'><label><input id='bnt_ctrl_more' type='button' value="more..." /></label></span>
+                                <!-- <br>
                 <span title='arrays as sequence'><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence
                         </label></span> -->
                 <!-- <div class='txt_file_url'>
@@ -93,15 +96,6 @@
                 <span class='button' hidden>
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
-                <span class='button' hidden>
-                    <input id='bnt_save_as_dyn' type='button' title='internal' value='save as dyn**' 
-                        />
-                    </span>
-                    <!-- onclick='as_dyn=true; document.getElementById("bnt_store").click()' -->
-                <span class='button' hidden>
-                    <input id='bnt_load_dyn' type='button' title='internal' value='load dyn**' 
-                    />
-                </span>
                 <span class='button'>
                     <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it) - related to the current example (Ctrl+., Ctrl+G)'
                         value='grammar' />
@@ -109,12 +103,52 @@
                 <span class='button'>
                     <input id='bnt_cheat_sheet' type='button' title='cheat sheet part - related to the current example (Ctrl+., Ctrl+C)' value='cheat-sheet' />
                 </span>
-                <span class='button' hidden>
-                    <input id='bnt_exa_step_funcs' type='button' title='example step functions'
-                        value='example step functions' />
-                </span>
             </div>
         </fieldset>
+    </div>
+    <div id='dialog_ctrl_more' class='dia-widget' title='Control'>
+    
+        <hr />
+        <!-- deferred
+        <img id="tooltip-element" class="info" src="icons/info.svg" alt="Icon"> -->
+        <div>
+            <div>
+                <button id="bnt_start" class="debug-general-button" title="Start Debugging (Ctrl+S)">start</button>
+                <span class="debug-frame">
+                    <button id="bnt_run" class="debug-button" title="Run/Continue (F8)">
+                        <img src="icons/debug-run.svg" alt="Icon">
+                    </button>
+                    <button id="bnt_step" class="debug-button" title="Step Into (F5)">
+                        <img src="icons/debug-step.svg" alt="Icon">
+                    </button>
+                    <button id="bnt_restart" class="debug-button" title="Rerun (Ctrl+F3)">
+                        <img src="icons/debug-restart.svg" alt="Icon">
+                    </button>
+                    <button id="bnt_stop" class="debug-button" title="Stop (Ctrl+F2)">
+                        <img src="icons/debug-stop.svg" alt="Icon">
+                    </button>
+                </span>
+            </div>
+            <div>
+                <span>break on</span>
+                <span title=''><label><input id='toggle_halt_on_pre' type='checkbox' />enter</label></span>
+                <span title=''><label><input id='toggle_halt_on_post' type='checkbox' checked />leaving</label></span>
+                <span>expression</span>
+            </div>
+            <div>
+                <fieldset>
+                    <legend>breakpoints</legend>
+                    <div>
+                        <button id="bnt_set_break" class="debug-general-button" title="Ctrl+Shift+B">set/unset</button>
+                        <span>(at cursor)</span>
+                    </div>
+                    <div>
+                        <!-- <button id="bnt_remove_break" class="debug-general-button">remove</button> -->
+                        <button id="bnt_remove_all_break" class="debug-general-button" title="Alt+Shift+B">remove all</button>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
     </div>
     <div class='main'>
         <!-- <img style="height: 1.3em;" src="info_24dp_FILL0_wght400_GRAD0_opsz24.svg"/> -->
@@ -128,7 +162,7 @@
             <div id='monaco_apath' class='monaco contentPane'></div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
-            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes)</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes) / debug log</span></div>
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
@@ -137,6 +171,16 @@
         </div>
     </div>
 
+    <!-- ######################################### tooltips ############################################### -->
+
+    <!-- <div id="tooltip" class="tooltip"> -->
+
+
+        
+    </div>
+
+    <!-- ######################################### scripts ############################################### -->
+
     <script src='./widgets.js'></script>
     <!-- deprecated <script src='./bundle.js'></script> -->
     <script>
@@ -144,12 +188,15 @@
         var fs, path;
     </script>
     <script src='./bundle-rollup.js'></script>
+    <script src='./tooltips.js'></script>
     <script src='./util.js'></script>
     <script src='./data-dyn.js'></script>
     <script src='./data.js'></script>
     <!-- <script>
         const params = new URLSearchParams(window.location....)
     </script> -->
+    <script src='./control.js'></script>
+    <script src='./keymap.js'></script>
     <script src='./main_w.js'></script>
 
     <script src='./monarch.js'></script>
