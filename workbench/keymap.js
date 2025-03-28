@@ -169,6 +169,9 @@ function define_monaco_keys() {
     monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyB, function () {
         if (dialog_ctrl_more_open) $('#bnt_remove_all_break').trigger('click')
     })
+    monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyM, function () {
+        if (dialog_ctrl_more_open) $('#bnt_moveup_break').trigger('click')
+    })
     monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyS, function () {
         if (dialog_ctrl_more_open) $('#bnt_start').trigger('focus')
     })

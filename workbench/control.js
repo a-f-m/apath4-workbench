@@ -147,14 +147,16 @@ async function proceed(only_one_step) {
             stop_it = true
             break
         }
+
+        if (breakpoints.includes(debug_data.func_no)) 
+            break
+
         let d
         ({ d, debug_data } = await ignore_same_locs(debug_data))
         if (debug_data === null) continue // ensures the above stop_it
         last = d
 
         if (only_one_step) break
-
-        if (breakpoints.includes(debug_data.func_no)) break
 
         if (debug_data.kind === 'pre' && $('#toggle_halt_on_pre').prop('checked')) break
         if (debug_data.kind === 'post' && $('#toggle_halt_on_post').prop('checked')) break
@@ -189,13 +191,19 @@ function step_log(debug_data) {
 
     const kind = debug_data.kind === 'pre' ? 'enter' : 'leaving'
     const ctx = window.Utils_.shortenString(JSON.stringify(debug_data.ctx_node), 80)
-    const result = debug_data.result ? `\nresult:\n` + window.Utils_.shortenString(JSON.stringify(debug_data.result), 80) : ''
-
-return `${kind} expression
+    const result = debug_data.kind === 'post' ? 
+        `\nresult:\n` + window.Utils_.shortenString(prep_result(debug_data.result), 80) 
+        : ''
+// no-indent needed
+    return `${kind} expression
 context node:
 ${ctx}${result}
 ------
 `
+}
+
+function prep_result(r) {
+    return window.Apart_.is_apath_iterable(r) ? '<node iterator>' : JSON.stringify(r)
 }
 
 async function ignore_same_locs(debug_data) {
@@ -227,12 +235,21 @@ function deco_breakpoints() {
     breakpoint_decorations = monaco_editors['apath'].createDecorationsCollection(decos)
 }
 
+function determ_func_no(p) {
+    return window.Adt_.determ_func_no(curr_ast, monaco_editors.apath.getValue(), { line: p.lineNumber, column: p.column })
+}
+
 function remove_breakpoints() {
     breakpoints = []
     deco_breakpoints()    
 }
 
-function toggle_breakpoint(fno) {
+function toggle_breakpoint(p) {
+
+    const fno = determ_func_no(p)
+    if (fno === -1) return
+
+    console.log(fno + ', ' + func_no_to_expr[fno].type)
 
     if (!breakpoints.find(x => x === fno)) {
         breakpoints.push(fno)
@@ -242,18 +259,38 @@ function toggle_breakpoint(fno) {
     deco_breakpoints()
 }
 
+function moveup_breakpoint(p) {
+
+    const fno = determ_func_no(p)
+    if (fno === -1) return
+    if (!breakpoints.find(x => x === fno)) {
+        return
+    } else {
+        const ret = []
+        window.Adt_.parent_expr(curr_ast, fno, ret, true)
+        if (ErrorEvent.length === 0) return
+        breakpoints = breakpoints.filter(x => x !== fno)
+        const new_break = ret[0].data.func_no
+        if (!breakpoints.find(x => x === new_break)) breakpoints.push(new_break)
+        deco_breakpoints()
+    }
+}
+
 
 $('#bnt_set_break').on('click', async function () {
 
     let p = monaco_editors['apath'].getPosition()
-    const func_no = window.Adt_.determ_func_no(curr_ast, monaco_editors.apath.getValue(), { line: p.lineNumber, column: p.column })
-    if (func_no === -1) return
-    toggle_breakpoint(func_no)
-    console.log(func_no + ', ' + func_no_to_expr[func_no].type)
+    toggle_breakpoint(p)
 })
 
 $('#bnt_remove_all_break').on('click', async function () {
     remove_breakpoints()
+    console.log(breakpoints)
+})
+
+$('#bnt_moveup_break').on('click', async function () {
+    let p = monaco_editors['apath'].getPosition()
+    moveup_breakpoint(p)
     console.log(breakpoints)
 })
 

@@ -309,6 +309,30 @@
         });
         return found_func_no;
     }
+    function parent_expr(ast, func_no, ret = [], debug = false) {
+        let start = false;
+        let found = false;
+        trav(ast, expr => {
+        }, (expr, stk) => {
+            if (start && !found) {
+                if (!debug || expr.data?.breakable) {
+                    ret.push(expr);
+                    found = true;
+                }
+            }
+            if (!start && expr.data?.func_no === func_no) {
+                if (stk.size() > 1)
+                    for (let i = stk.size() - 2; i >= 0; i--) {
+                        const curr = stk.get(i);
+                        if (!found && (!debug || curr.data?.breakable)) {
+                            ret.push(curr);
+                            found = true;
+                        }
+                    }
+                start = true;
+            }
+        });
+    }
     function propagate_locs(root) {
         trav(root, (expr, expr_stack) => {
             if (!expr.loc) {
@@ -403,6 +427,7 @@
         determ_func_no: determ_func_no,
         empty: empty,
         op_map: op_map,
+        parent_expr: parent_expr,
         propagate_locs: propagate_locs,
         prune_locs: prune_locs,
         right_assoc: right_assoc,

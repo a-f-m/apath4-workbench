@@ -67,6 +67,7 @@
 
 .inlineDecorationBreakpoint {
     color: rgb(255, 78, 78) !important;
+	font-weight: bold;
 }
 
 .widget {
