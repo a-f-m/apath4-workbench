@@ -182,12 +182,19 @@
             return this.raw_stack[i];
         }
     }
+    function serialize(o) {
+        return JSON.stringify(o);
+    }
+    function deserialize(s, C) {
+        return Object.assign(new C(), JSON.parse(s));
+    }
 
     var Utils_ = /*#__PURE__*/Object.freeze({
         __proto__: null,
         Stack: Stack,
         async_func: async_func,
         decode_to_object: decode_to_object,
+        deserialize: deserialize,
         encode_object: encode_object,
         escape_quote: escape_quote,
         escape_regex: escape_regex,
@@ -201,6 +208,7 @@
         replace_marker: replace_marker,
         replace_marker_in_file: replace_marker_in_file,
         replace_mult_in_file: replace_mult_in_file,
+        serialize: serialize,
         shortenString: shortenString,
         trunc: trunc,
         valid_url: valid_url,
@@ -250,7 +258,7 @@
         Adt["VariableBinding"] = "VariableBinding";
         Adt["Conditional"] = "Conditional";
         Adt["ComparisonExpression"] = "ComparisonExpression";
-        Adt["BinaryArithmeticExpression"] = "BinaryArithmeticExpression";
+        Adt["BinaryOpExpression"] = "BinaryOpExpression";
         Adt["UnaryArithmeticExpression"] = "UnaryArithmeticExpression";
         Adt["BinaryLogicalExpression"] = "BinaryLogicalExpression";
         Adt["UnaryLogicalExpression"] = "UnaryLogicalExpression";
@@ -291,45 +299,62 @@
         const o = op_map_strict[s];
         return o ? o : s;
     }
-    const unknown_lico = { line: 0, column: 0 };
+    const unknown_lico = { line: 0, column: 0, offset: 0 };
     const unknown_loc = { start: unknown_lico, end: unknown_lico };
-    function determ_func_no(ast, text, lico) {
-        const abs = get_abs_position(text, lico);
-        let found_func_no = -1;
-        trav(ast, expr => {
-        }, expr => {
-            if (expr.loc) {
-                const abs_start = get_abs_position(text, expr.loc.start);
-                const abs_end = get_abs_position(text, expr.loc.end);
-                if (found_func_no === -1 && expr.data && expr.data.func_no && expr.data.breakable
-                    && abs >= abs_start && abs <= abs_end) {
-                    found_func_no = expr.data.func_no;
-                }
+    function loc2string(loc) {
+        return `${loc.start.line}:${loc.start.column}-${loc.end.line}:${loc.end.column}`;
+    }
+    function offs_start(expr) {
+        return expr.loc?.start.offset ?? 0; // 0 cannot happen
+    }
+    function offs_end(expr) {
+        return expr.loc?.end.offset ?? 0; // 0 cannot happen
+    }
+    function range(x) {
+        return offs_end(x) - offs_start(x);
+    }
+    function equal_lico(lico, lico_) {
+        return lico_.line === lico.line && lico_.column === lico.column;
+    }
+    function equal_loc(loc, loc_) {
+        // return loc_.start.line === loc.start.line && loc_.start.column === loc.start.column
+        //         && loc_.end.line === loc.end.line && loc_.end.column === loc.end.column
+        return equal_lico(loc.start, loc_.start)
+            && equal_lico(loc.end, loc_.end);
+    }
+    function sort_by_smallest_range(l) {
+        l.sort((x, y) => {
+            if (x.loc && y.loc) {
+                return range(x) - range(y);
+            }
+            else {
+                return -1;
             }
         });
-        return found_func_no;
+        return l;
     }
-    function parent_expr(ast, func_no, ret = [], debug = false) {
-        let start = false;
-        let found = false;
-        trav(ast, expr => {
-        }, (expr, stk) => {
-            if (start && !found) {
-                if (!debug || expr.data?.breakable) {
-                    ret.push(expr);
-                    found = true;
+    function determ_func_expr(func_no_to_expr, text, lico) {
+        const a_ = sort_by_smallest_range(func_no_to_expr.slice());
+        const pos = get_abs_position(text, lico);
+        for (const expr of a_) {
+            if (expr.loc) {
+                // const abs_start = offs_start(expr) + 1
+                // const abs_end = offs_end(expr) + 1
+                const abs_start = get_abs_position(text, expr.loc.start);
+                const abs_end = get_abs_position(text, expr.loc.end);
+                if (expr.data && expr.data.func_no && expr.data.breakable
+                    && pos >= abs_start && pos <= abs_end) {
+                    return expr;
                 }
             }
-            if (!start && expr.data?.func_no === func_no) {
-                if (stk.size() > 1)
-                    for (let i = stk.size() - 2; i >= 0; i--) {
-                        const curr = stk.get(i);
-                        if (!found && (!debug || curr.data?.breakable)) {
-                            ret.push(curr);
-                            found = true;
-                        }
-                    }
-                start = true;
+        }
+        return undefined;
+    }
+    function func_exists(func_no_to_expr, loc) {
+        return func_no_to_expr.find(expr => {
+            if (expr.data && expr.data.func_no && expr.data.breakable && expr.loc) {
+                const loc_ = expr.loc;
+                return equal_loc(loc, loc_);
             }
         });
     }
@@ -416,6 +441,28 @@
             };
         }
     }
+    function typed_right_assoc(x, l, type, offs, loc) {
+        if (l.length === 0) {
+            return x;
+        }
+        else {
+            let loc_ = structuredClone(loc);
+            let loc__ = structuredClone(loc);
+            if (loc) {
+                if (x.loc) {
+                    loc_.start = x.loc.start;
+                }
+                loc__.start = l[0][offs - 1].start;
+            }
+            return {
+                type: type,
+                operator: l[0][1],
+                left: x,
+                right: typed_right_assoc(l[0][offs], l.slice(1), type, offs, loc__),
+                loc: loc_
+            };
+        }
+    }
 
     var Adt_ = /*#__PURE__*/Object.freeze({
         __proto__: null,
@@ -424,15 +471,22 @@
         get OpArith () { return OpArith; },
         get OpCmp () { return OpCmp; },
         get UnaryOp () { return UnaryOp; },
-        determ_func_no: determ_func_no,
+        determ_func_expr: determ_func_expr,
         empty: empty,
+        equal_lico: equal_lico,
+        equal_loc: equal_loc,
+        func_exists: func_exists,
+        loc2string: loc2string,
+        offs_end: offs_end,
+        offs_start: offs_start,
         op_map: op_map,
-        parent_expr: parent_expr,
         propagate_locs: propagate_locs,
         prune_locs: prune_locs,
+        range: range,
         right_assoc: right_assoc,
         tlist_to_array: tlist_to_array,
         trav: trav,
+        typed_right_assoc: typed_right_assoc,
         unknown_lico: unknown_lico,
         unknown_loc: unknown_loc,
         with_empty_left: with_empty_left
@@ -446,7 +500,7 @@
     // delete {...} : regex '^    \{(\n|.)+?.+\n    \}\n' ,   '\w+:'
     // repl ' =\n    (.+)' -> ' = $1', '\n\n' -> '\n'
     // attention: also def in monarch
-    const keywords = ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'nil', 'none', 'prop', 'match', 'func'];
+    const keywords = ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'nil', 'none', 'prop', 'match', 'func', 'root'];
     function loc(w_loc, location) { return w_loc ? location : undefined; }
     function buildGenBinaryExpression(head, tail, type, pos, loc, is_scope = false) {
         return tail.reduce(function (result, element) {
@@ -459,41 +513,6 @@
             if (is_scope)
                 ret.data = { ...ret.data, is_scope: true };
             return ret;
-        }, head);
-    }
-    function buildGenBinaryOpExpression(head, tail, type, pos, loc) {
-        return tail.reduce(function (result, element) {
-            return {
-                type: type,
-                operator: element[1],
-                left: result,
-                right: element[pos],
-                loc: loc
-            };
-        }, head);
-    }
-    // adopted from js peggy
-    function buildBinaryExpression(head, tail, loc) {
-        return tail.reduce(function (result, element) {
-            return {
-                type: Adt.ComparisonExpression,
-                operator: element[1],
-                left: result,
-                right: element[3],
-                loc: loc
-            };
-        }, head);
-    }
-    // adopted from js peggy
-    function buildLogicalExpression(head, tail, loc) {
-        return tail.reduce(function (result, element) {
-            return {
-                type: Adt.BinaryLogicalExpression,
-                operator: element[1],
-                left: result,
-                right: element[4],
-                loc: loc
-            };
         }, head);
     }
     function extractList(list, index) {
@@ -808,13 +827,6 @@
             return e;
         };
         var peg$f2 = function (head, tail) {
-            // const seq = with_empty_left(
-            //     buildGenBinaryExpression(head, tail, Adt.SequencedExpressions, 3, loc(w_loc, location()), false), 
-            //     Adt.SequencedExpressions,
-            //     options.no_empty_left)
-            // // if (tail.length > 0) 
-            // if (w_data) seq.data = { ...seq.data, is_scope: true }
-            // return seq
             const l = buildList(head, tail, 3);
             const s = {
                 type: Adt.SequencedExpressions,
@@ -875,25 +887,25 @@
             };
         };
         var peg$f9 = function (head, tail) {
-            return buildLogicalExpression(head, tail, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.BinaryLogicalExpression, 4, loc(w_loc, location()));
         };
         var peg$f10 = function (head, tail) {
-            return buildLogicalExpression(head, tail, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.BinaryLogicalExpression, 4, loc(w_loc, location()));
         };
         var peg$f11 = function (head, tail) {
-            return buildBinaryExpression(head, tail, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.ComparisonExpression, 3, loc(w_loc, location()));
         };
         var peg$f12 = function (head, tail) {
-            return buildBinaryExpression(head, tail, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.ComparisonExpression, 3, loc(w_loc, location()));
         };
         var peg$f13 = function (head, tail) {
-            return buildGenBinaryOpExpression(head, tail, Adt.BinaryArithmeticExpression, 3, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.BinaryOpExpression, 3, loc(w_loc, location()));
         };
         var peg$f14 = function (head, tail) {
-            return buildGenBinaryOpExpression(head, tail, Adt.BinaryArithmeticExpression, 3, loc(w_loc, location()));
+            return typed_right_assoc(head, tail, Adt.BinaryOpExpression, 3, loc(w_loc, location()));
         };
         var peg$f15 = function (head, tail) {
-            return buildBinaryExpression(head, tail);
+            return typed_right_assoc(head, tail, Adt.BinaryOpExpression, 3, loc(w_loc, location()));
         };
         var peg$f16 = function (operator, argument) {
             var type = (operator === '+' || operator === '-')
@@ -1154,7 +1166,7 @@
             // }
             return { type: "Literal", value: pattern };
         };
-        var peg$f76 = function () { return null; };
+        var peg$f76 = function () { return loc(w_loc, location()); };
         var peg$currPos = options.peg$currPos | 0;
         var peg$savedPos = peg$currPos;
         var peg$posDetailsCache = [{ line: 1, column: 1 }];
@@ -6155,6 +6167,10 @@
             // return Object.assign(new Env(), this)
             return e_;
         }
+        set_root(root) {
+            this.root = root;
+            return this;
+        }
         dummy() {
             return new Env();
         }
@@ -6347,29 +6363,19 @@
             }
         }
     }
-    function is_apath_iterable(x) {
-        if (x === null || x === undefined)
-            return false;
-        else
-            return typeof x[Symbol.iterator] === 'function'
-                // cause string is iterable
-                && !is_string(x)
-                // cause arrays are first class citizens
-                && !Array.isArray(x);
-    }
     // cause usable by user defined js step functions, a classical name is exported also
     function isApathIterable(x) {
-        return is_apath_iterable(x);
+        return !single(x);
     }
     /** is no iter */
     function single(x) {
-        const b = !is_apath_iterable(x);
-        // test!!!
-        // if (b)
-        //     console.log();
-        //
-        return b;
-        // ???check in future: && !(Array.isArray(x))
+        if (x === null || x === undefined)
+            return true;
+        return typeof x[Symbol.iterator] !== 'function'
+            // cause string is iterable
+            || is_string(x)
+            // cause arrays are first class citizens
+            || Array.isArray(x);
     }
     function arrays_as_seq(x) {
         return Array.isArray(x) ? CoreIter.from_array(x) : x;
@@ -6685,7 +6691,6 @@
         done: done,
         dummy: dummy,
         isApathIterable: isApathIterable,
-        is_apath_iterable: is_apath_iterable,
         nilit: nilit,
         single: single,
         std_funcs: std_funcs,
@@ -7028,7 +7033,7 @@
                     return { snippet: new_func_name };
                 }
                 case Adt.ComparisonExpression:
-                case Adt.BinaryArithmeticExpression: {
+                case Adt.BinaryOpExpression: {
                     const tr_left = this.trans_rec(expr.left);
                     const tr_right = this.trans_rec(expr.right);
                     this.trans_BinaryExpression(expr, new_func_name, this.func_cnt, tr_left, tr_right);
@@ -7513,7 +7518,7 @@
             }
         }
         // Empfängt einen Wert aus der Queue
-        async receive(stop_on_empty_queue = false /**/) {
+        async receive(stopOnEmptyQueue = false /**/) {
             if (this.queue.length > 0) {
                 const value = this.queue.shift(); // Nimmt den Wert aus der Queue
                 if (this.producersWaiting.length > 0) {
@@ -7524,7 +7529,7 @@
             }
             else {
                 // Wenn die Queue leer ist, wartet der Consumer
-                if (stop_on_empty_queue && this.producersWaiting.length === 0)
+                if (stopOnEmptyQueue && this.producersWaiting.length === 0)
                     return null;
                 return new Promise(resolve => {
                     this.consumersWaiting.push(resolve); // Fügt das Promise zur Liste der wartenden Consumer hinzu
@@ -7538,10 +7543,35 @@
             this.consumersWaiting.forEach(resolve => resolve(null));
         }
     }
+    class SyncFlag {
+        isDone = false;
+        dieCount = 0;
+        release() {
+            this.isDone = true;
+            // console.log('release')
+        }
+        async wait() {
+            return new Promise((resolve) => {
+                const intervalId = setInterval(() => {
+                    if (this.isDone) {
+                        // console.log('done');
+                        clearInterval(intervalId); // Stoppe den setInterval
+                        resolve();
+                    }
+                    else {
+                        if (this.dieCount++ > 200)
+                            this.isDone = true;
+                        // console.log('check');
+                    }
+                }, 100);
+            });
+        }
+    }
 
     var Channel_ = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        BoundedChannel: BoundedChannel
+        BoundedChannel: BoundedChannel,
+        SyncFlag: SyncFlag
     });
 
     /////////////////////////////////////////////////
@@ -7758,6 +7788,10 @@
                 }
                 if (expr.type === Adt.VariableBindingNode || expr.type === Adt.VariableBinding) {
                     const vname = expr.var_name;
+                    if (keywords.includes(vname)) {
+                        ok = false;
+                        this.add_issue('errors', expr, `keyword not allowed as variable name`);
+                    }
                     const vdecl = stk_contains(var_stamp_stk, vname);
                     if (!vdecl) {
                         expr.data = {
@@ -7920,12 +7954,14 @@
      * !!! Only one instance per thread.
      */
     class Evaluator {
+        trp;
         func_no_to_expr;
         resolved_transpilat;
         transpilat;
         dynart;
         // only used inderectly by class Apath
         constructor(sfman, trp, func_no_to_expr, dynart_setting) {
+            this.trp = trp;
             this.func_no_to_expr = func_no_to_expr;
             if (trp.trim() === '')
                 throw new ApathError('fatal: transpilat missing');
@@ -7983,6 +8019,19 @@
                 throw error_eval(error);
             }
         }
+        /**
+         * Evaluation over an input javascript object
+         * @param input input javascript object
+         * @returns the first raw result, either a single object or an iterator (cmp. {@link evaluate})
+         */
+        evaluate_raw_first(input) {
+            try {
+                return this.resolved_transpilat(this.create_root_env(input), input);
+            }
+            catch (error) {
+                throw error_eval(error);
+            }
+        }
         /** Async version of {@link evaluate_json} */
         async evaluate_json_async(json) {
             return await this.evaluate_async(JSON.parse(json));
@@ -7993,7 +8042,7 @@
         create_root_env(input) {
             const env = new Env();
             env.func_no_to_expr = this.func_no_to_expr;
-            env.root = input;
+            // env.root = input
             return env;
         }
     }
@@ -8026,7 +8075,11 @@
      * @param sfuncs array of step functions as a js string (will be called by 'eval')
      * @param strict_failure strict failure
      * @param arrays_as_seq arrays as sequence
-     * @returns \{ result: string, trp: string, empty_ast: boolean, warnings: string[] } where 'result': formatted result string, 'trp': the transpiled code, 'empty_ast': no ast produced (caused by empty 'apath', 'warnings': warnings at transpilation phase)
+     * @returns \{
+     *          input: string, result: string, trp: string, empty_ast: boolean, warnings: string[], func_no_to_expr: Expr[] }
+     *          where input: =parameter, result: formatted result string, trp: the transpiled code,
+     *              empty_ast: no ast produced (caused by empty 'apath'), warnings: warnings at transpilation phase,
+     *              func_no_to_expr: func number to expression
      */
     function evaluate(input, apath_txt, sfuncs, strict_failure = false, arrays_as_seq = false, debug_func) {
         const apath = new Apath();
@@ -8043,7 +8096,8 @@
         if (debug_func)
             evaluator.set_debug_callback(debug_func);
         const res = evaluator.evaluate_json(input);
-        return { result: format_results(res), trp: evaluator.transpilat_text(), empty_ast: apath.empty_ast, warnings: apath.warnings };
+        return { input, result: format_results(res), trp: evaluator.transpilat_text(), empty_ast: apath.empty_ast,
+            warnings: apath.warnings, func_no_to_expr: apath.func_no_to_expr };
     }
 
     var apath_func_utils_ = /*#__PURE__*/Object.freeze({

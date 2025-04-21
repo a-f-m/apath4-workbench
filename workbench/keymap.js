@@ -102,6 +102,10 @@ $(function () {
                         save_highlighting()
                         event.preventDefault()
                         break
+                    case 'BracketLeft':
+                        test()
+                        event.preventDefault()
+                        break
 
                     default:
                         break
@@ -110,11 +114,6 @@ $(function () {
                 switch (event.code) {
                     case 'KeyM':
                         $('#bnt_ctrl_more').trigger('click')
-                        event.preventDefault()
-                        period_pressed = false
-                        break
-                    case 'KeyA':
-                        $('#bnt_ast').trigger('click')
                         event.preventDefault()
                         period_pressed = false
                         break
@@ -128,6 +127,21 @@ $(function () {
                         event.preventDefault()
                         period_pressed = false
                         break
+                    case 'KeyS':
+                        $('#bnt_set_break_step').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
+                    case 'KeyA':
+                        $('#').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
+                    case 'KeyD':
+                        if (dialog_ctrl_more_open) $('#bnt_activ_all_break').trigger('click')
+                        event.preventDefault()
+                        period_pressed = false
+                        break
                     default:
                         break
                 }
@@ -137,11 +151,11 @@ $(function () {
             if (!period_pressed) period_pressed = event.code === 'Period'
             // console.log('leave: ' + period_pressed)
         } else {
-            if (event.code === 'Escape') {
-                $('#select_examples').trigger('focus')
-                event.preventDefault()
-            }
-            return true
+            // if (event.code === 'Escape') {
+            //     $('#select_examples').trigger('focus')
+            //     event.preventDefault()
+            // }
+            // return true
         }
     })
 })
@@ -169,12 +183,18 @@ function define_monaco_keys() {
     monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyB, function () {
         if (dialog_ctrl_more_open) $('#bnt_remove_all_break').trigger('click')
     })
-    monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyM, function () {
-        if (dialog_ctrl_more_open) $('#bnt_moveup_break').trigger('click')
-    })
     monaco_editors.apath.addCommand(monaco.KeyMod.Alt | monaco.KeyMod.Shift | monaco.KeyCode.KeyS, function () {
         if (dialog_ctrl_more_open) $('#bnt_start').trigger('focus')
     })
+    monaco_editors.apath.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyD, function () {
+        if (period_pressed) {
+            if (dialog_ctrl_more_open) $('#bnt_activ_all_break').trigger('click')
+            period_pressed = false
+        }
+    })
+    // monaco_editors.apath.addCommand(monaco.KeyCode.Escape , function () {
+    //     $('#bnt_store').trigger('focus')
+    // })
 
 
 }

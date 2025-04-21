@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg3972"
+   sodipodi:docname="bi--input-cursor.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3976" />
+  <sodipodi:namedview
+     id="namedview3974"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.25"
+     inkscape:cx="3.6146789"
+     inkscape:cy="7.4311927"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3972" />
+  <g
+     fill="currentColor"
+     id="g3970"
+     transform="matrix(0.89908257,0,0,0.81651376,0.80733945,1.4678899)">
+    <path
+       d="m 10,5 h 4 a 1,1 0 0 1 1,1 v 4 a 1,1 0 0 1 -1,1 h -4 v 1 h 4 a 2,2 0 0 0 2,-2 V 6 A 2,2 0 0 0 14,4 H 10 Z M 6,5 V 4 H 2 A 2,2 0 0 0 0,6 v 4 a 2,2 0 0 0 2,2 H 6 V 11 H 2 A 1,1 0 0 1 1,10 V 6 A 1,1 0 0 1 2,5 Z"
+       id="path3966" />
+    <path
+       fill-rule="evenodd"
+       d="m 8,1 a 0.5,0.5 0 0 1 0.5,0.5 v 13 a 0.5,0.5 0 0 1 -1,0 V 1.5 A 0.5,0.5 0 0 1 8,1"
+       id="path3968" />
+  </g>
+</svg>

@@ -694,6 +694,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Benchmarks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -766,6 +781,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Benchmarks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -793,33 +823,29 @@
 <li><strong>not materializing</strong> sequences (as arrays), instead only use of iterators  </li>
 <li><strong>inlining expressions</strong> to a great extent </li>
 </ul>
-<h2 id="benchmarks">Benchmarks</h2>
-<p>... forthcoming ...</p>
-<!-- to have proper page view: -->
+<!-- For instance, first tests with simple paths like `#!javascript a.b.c` yield a performance overhead of ~2.5 compared with pure javascript (first 'inlining' experiments even yield factor 2.1).  -->
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h2 id="benchmarks">Benchmarks</h2>
+<h3 id="basic">Basic</h3>
+<p>The following benchmark was performed with library <code>benchmark</code> (<em>nodejs</em>). The input object was <code class="language-javascript highlight"><span class="p">{</span><span class="w"> </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">i</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="o">:</span><span class="w"> </span><span class="mf">99</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span></code> and the expression <code>a.b.c</code>. Note that top wrapping<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> was deactivated for <em>apath</em>, i.e. only the pure evaluation of the compiled expression was performed.</p>
+<figure>
+<img alt="basic" src="basic-1.png" title="basic" />
+</figure>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>apath: 83,452,522 ops/sec (72 runs sampled)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>raw: 96,531,790 ops/sec (78 runs sampled)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>------
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>min Ratio: 1.244
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>max Ratio: 1.186
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Ratio: 1.214
+</span></code></pre></div>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>For instance, first tests with simple paths like <code class="language-javascript highlight"><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">.</span><span class="nx">c</span></code> yield a performance overhead of ~2.5 compared with pure javascript (first 'inlining' experiments even yield factor 2.1). This correlates with the typical range of 1.5 to 5 comparing functional and imperative languages like Haskell resp. C++.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>This correlates with the typical range of 1.5 to 5 comparing functional and imperative languages like Haskell resp. C++. <a href="#basic">Basic operations</a> can even achieve a ratio of ~1.2 .&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Deactivated top wrapping means that the first solution is taken regardless of whether it is an iterator or a simple object.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -858,7 +884,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 a-f-m
+      Copyright &copy; 2025 a-f-m
     </div>
   
   

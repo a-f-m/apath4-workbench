@@ -1969,7 +1969,10 @@ text.repeat-text {
 </code></pre></div>
 </li>
 </ol>
-<p>TODO remark for '(...)' body</p>
+<details class="note">
+<summary>Note / Body</summary>
+<p>For simple functions, the expression can be specified directly in the function body. For more complex ones, we recommend using parentheses (<code>ScopeExpression</code> in <a href="#main-rule-BasicStep">basic step</a>).</p>
+</details>
 <h3 id="variables">Variables</h3>
 <p><svg class="railroad-diagram" width="483.5" height="94" viewBox="0 0 483.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -3389,8 +3392,6 @@ text.repeat-text {
 
 <!-- ### Node Variables
 
-TODO diff resp. ctx, bind '@' to jsonata
-
  <a id='main-rule-VariableNodeAssignment'></a> 
 
 
@@ -3398,13 +3399,8 @@ Node variables can be used to memorize nodes during evaluation for later use. Ev
 
 The scope of the variable bound in a [step](#paths-steps) are all expressions right to the declaration, also outside the path. Analogously, the scope of the variable bound in an ordinary expression of a [scope expression](#composite-expressions) are all expressions right-sided, again also outside the scope expression. 
 
-TODO Outside the path or scope expression the variable is not visible.
-
-TODO note on var "consumption"
 TODO only right-side-scope-widening make transformations possible
 TODO(x) is jsonata widening block also here? YES!!!
-TODO check '.. as .. as ..' chains ?
-TODO 'ScopedExpressions' instead of Seq...
 
 ??? Note "Note / dollar"
     For the purpose of better readability and avoidance of overabundance of the `$`-symbol, variable names are not marked with it at the declaration, following the approach of some script languages. `$` is only used for [referencing](#variable-reference) to distinguish them better from property names. -->
@@ -7238,7 +7234,7 @@ For complex parts, parsing unambiguousness, and better readability you can use p
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright © 2024 a-f-m
+      Copyright © 2025 a-f-m
     </div>
   
   

@@ -1,3 +1,22 @@
+/* .box-line:hover, .box-line *:hover { */
+.box-line {
+    /* background-color: red; */
+    /* display: inline-block; */
+    /* cursor: pointer; */
+}
+.box-item {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 90%;
+    vertical-align: bottom;
+    /* background-color: ghostwhite; */
+    /* cursor: pointer;
+    display: contents; */
+}
+.box-item img:hover {
+    /* background-color: burlywood; */
+    cursor: pointer;
+}
+
 #dialog_ctrl_more div {
     margin-top: 6px;
     margin-bottom: 6px;
@@ -40,6 +59,20 @@
     border: none;
     background-color: transparent;
 }
+.debug-button-1 {
+    /* border: none;
+    background-color: transparent; */
+    border: 1px solid darkgray;
+    /* padding-top: 4px; */
+    padding: 3px 3px 0px 3px;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.debug-button-1:hover {
+    background-color: beige;
+}
+
 
 .inlineDecorationPre {
     background-color: rgba(255, 0, 0, 0.25);
@@ -67,7 +100,14 @@
 
 .inlineDecorationBreakpoint {
     color: rgb(255, 78, 78) !important;
-	font-weight: bold;
+}
+.inlineDecorationBreakpointGrey {
+    color: gray !important;
+}
+.inlineDecorationBreakpointShadow {
+    /* it's only a memory! */
+    /* display: none; */
+    color: rgb(165, 68, 68) !important;
 }
 
 .widget {
@@ -80,18 +120,29 @@
     overflow: hidden;
 }
 
-hr::before {
-    content: "debugging";
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: ghostwhite;
-    padding: 0 10px;
+.line-with-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    /* justify-content: left; */
 }
-hr {
-    margin-bottom: 12px;
+
+.line-with-text::before,
+.line-with-text::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid gray; /* Hier kannst du die Farbe und Dicke der Linie ändern */
 }
+
+.line-with-text span {
+    padding: 0px 5px;
+    /* font-weight: bold; */
+}
+
 .info {
     text-align: right;
     float: right;

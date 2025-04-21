@@ -1,45 +1,113 @@
 {
    "data": {
       "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 28,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 1\n        }\n      ]\n    }\n  ]\n}",
-      "apath": "         inventory.formatCurrency('de-DE', 'EUR')\n",
-      "sfuncs": "[\n  function formatCurrency(ctx_node, locales, currency) {\n    if (ctx_node === undefined) return undefined\n    return new Intl.NumberFormat(\n      locales, { style: 'currency', currency })\n        .format(ctx_node)\n  }\n]"
+      "apath": "inventory.*.\n  (\n    d = date,\n    // '_' is the context node passed by 'inventory.*'\n    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).\n      items.*.\n        (quantity + ' ' + name + ': '\n         + (price * quanti ty) + '€ '\n         + '(' + $d + ')'\n        )\n  )\n",
+      "sfuncs": ""
    },
    "geom": {
       "widget_input": {
          "pos": {
-            "top": 102.83332824707031,
-            "left": 45.26666259765625
+            "top": 101.515625,
+            "left": 47.578125
          },
-         "height": 371.433,
-         "width": 591.883,
-         "zindex": "102"
+         "height": 478.516,
+         "width": 622.016,
+         "zindex": "103"
       },
       "widget_apath": {
          "pos": {
-            "top": 102.80000305175781,
-            "left": 656.36669921875
+            "top": 101.5,
+            "left": 689.953125
          },
-         "height": 322,
-         "width": 610.033,
+         "height": 313.516,
+         "width": 641.125,
          "zindex": "104"
       },
       "widget_result": {
          "pos": {
-            "top": 443.51666259765625,
-            "left": 656.7000122070312
+            "top": 433.296875,
+            "left": 690.296875
          },
-         "height": 246.667,
-         "width": 610.033,
-         "zindex": "101"
+         "height": 240.188,
+         "width": 641.125,
+         "zindex": "102"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 493,
-            "left": 45.26666259765625
+            "top": 598.34375,
+            "left": 47.578125
          },
-         "height": 197.167,
-         "width": 591.883,
-         "zindex": "103"
+         "height": 75.125,
+         "width": 622.016,
+         "zindex": "101"
       }
-   }
+   },
+   "ebreakpoints": [
+      {
+         "loc": {
+            "start": {
+               "line": 7,
+               "column": 10
+            },
+            "end": {
+               "line": 7,
+               "column": 18
+            }
+         },
+         "expr": {
+            "type": "Property",
+            "name": "quantity",
+            "loc": {
+               "start": {
+                  "offset": 151,
+                  "line": 7,
+                  "column": 10
+               },
+               "end": {
+                  "offset": 159,
+                  "line": 7,
+                  "column": 18
+               }
+            },
+            "data": {
+               "func_no": 21,
+               "breakable": true
+            }
+         },
+         "deact": false
+      },
+      {
+         "loc": {
+            "start": {
+               "line": 8,
+               "column": 21
+            },
+            "end": {
+               "line": 8,
+               "column": 29
+            }
+         },
+         "expr": {
+            "type": "Property",
+            "name": "quantity",
+            "loc": {
+               "start": {
+                  "offset": 200,
+                  "line": 8,
+                  "column": 21
+               },
+               "end": {
+                  "offset": 208,
+                  "line": 8,
+                  "column": 29
+               }
+            },
+            "data": {
+               "func_no": 40,
+               "breakable": true
+            }
+         },
+         "deact": false
+      }
+   ]
 }

@@ -791,16 +791,30 @@
 <th>kind</th>
 <th>remark</th>
 <th>id</th>
-<th>grammar / workbench / section</th>
+<th>cheat-sheet / grammar / workbench / section</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>debugger</td>
+<td>new</td>
+<td>debugging expressions and breakpoints in the workbench</td>
+<td>R8</td>
+<td>see <a href="../workbench/workbench.html#debugging">Debugging</a> (animated png's)</td>
+</tr>
+<tr>
+<td>apath step functions</td>
+<td>new</td>
+<td>reusable, parametrizable expressions via functions</td>
+<td>R8</td>
+<td><a href="../cheat-sheet.html#e-Step Functions"><img title="cheat sheet" src="../pics/clarity--clipboard-solid-badged.svg" width="18px"></a> <a href="grammar.html#main-rule-StepFunctionDefinition"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=reusable expressions"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+</tr>
 <tr>
 <td>dynamic property as a step</td>
 <td>new</td>
 <td>expression value used as the property name</td>
 <td>R7</td>
-<td><a href="grammar.html#main-rule-Property"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=dynamic property"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="../cheat-sheet.html#e-... dynamic property"><img title="cheat sheet" src="../pics/clarity--clipboard-solid-badged.svg" width="18px"></a> <a href="grammar.html#main-rule-Property"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=dynamic property"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td>guide</td>
@@ -828,14 +842,14 @@
 <td>new</td>
 <td>variable declaration in scope expressions</td>
 <td>R5</td>
-<td><a href="grammar.html#main-rule-VariableAssignment"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=variable assignment"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="grammar.html#main-rule-VariableAssignment"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=variable assignment"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td>match values</td>
 <td>new</td>
 <td>step function regex match for values</td>
 <td>R4</td>
-<td><a href="grammar.html#main-rule-StepFunctionCall"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=value regex"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="grammar.html#main-rule-StepFunctionCall"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=value regex"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td>workbench store/restore</td>
@@ -849,22 +863,23 @@
 <td>changed</td>
 <td>resolved ambiguity for string literals in paths and expressions (<code>`...`</code>)</td>
 <td>R2</td>
-<td><a href="grammar.html#properties"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=property literal"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="grammar.html#properties"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=property literal"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
 <td>arithmetic</td>
 <td>new</td>
 <td>+ - * / % - operators</td>
 <td>R1</td>
-<td><a href="grammar.html#ordinary-expressions"><img src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=arithmetic"><img src="../pics/mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="grammar.html#ordinary-expressions"><img title="grammar" src="../pics/fluent--flow-24-filled.svg" width="18px"></a> <a href="../../../workbench-1.html?exa=arithmetic"><img title="workbench" src="../pics/mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="roadmap">Roadmap</h2>
 <p>The following constructs/functionality are planned (not ordered by priority).</p>
-<p>TODO describe: func's, fix (root-var, restore), debugger/agif, inline not in debug</p>
+<!-- TODO describe: func's, fix (root-var, restore), debugger/animgif, jsoniqu-concurr, next:pattern matching, supp for X-buffers -->
+
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> workbench-integrated debugger</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> workbench-integrated debugger</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> variables</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> (recursive) apath step functions</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <em>rhs</em> paths in assignments</li>
@@ -880,31 +895,11 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> some, every, union, implies</li>
 </ul>
 </li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> pattern matching</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>pattern matching</strong></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> logical constraints</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> arrays as sequences</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ...</li>
 </ul>
-<!-- to have proper page view: -->
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 
 
 
@@ -940,7 +935,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 a-f-m
+      Copyright &copy; 2025 a-f-m
     </div>
   
   

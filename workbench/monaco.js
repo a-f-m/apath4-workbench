@@ -53,8 +53,25 @@ require(['vs/editor/editor.main'], function () {
         on_editor_change()
     })
     monaco_editors.apath.onDidChangeModelContent(function (e) {
-        on_editor_change()
+        // editor_sync = new window.Channel_.SyncFlag()
+        remap_sync = new window.Channel_.SyncFlag()
+        on_editor_change(true);
+        // e.changes.forEach(change => {
+        //     if (change.text.length > 0) {
+        //         // console.log('Sichtbares Zeichen eingegeben:', change.text)
+        //     }
+        // })
+        (async () => {
+            await remap_sync.wait()
+            ebreakpoints.remap()
+        })();
     })
+    monaco_editors.apath.onKeyDown((e) => {
+        // console.log('Key down event:', e)
+    })
+    // monaco_editors.apath.onDidChangeCursorPosition (function (e) {
+    //     console.log('hu')
+    // })
     monaco_editors.apath.onDidChangeCursorPosition(function (e) {
         onApathDidChangeCursorPosition(e)
     })

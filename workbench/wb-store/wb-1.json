@@ -1,45 +1,2456 @@
 {
    "data": {
-      "input": "[{\"age\": 1}, {\"age\": 9}, {\"agex\": 11}]",
-      "apath": "// values conforming to a regex\n*?(*.match('^(1|2)'))",
+      "input": "{\n  \"flatOwner\": {\n    \"name\": \"Miller\",\n    \"age\": 28,\n    \"location\": \"Berlin, Germany\",\n    \"#post-code\": 12205,\n    \"mobility\": {\n      \"driverLic\": true,\n      \"car\": \"transporter\"\n    },\n    \"favorites\": [ \"Coen\", \"Dylan\", \"Nietzsche\" ]\n  },\n  \"inventory\": [\n    {\n      \"date\": \"2023-10-05\",\n      \"items\": [\n        {\n          \"category\": \"furniture\",\n          \"name\": \"chair\",\n          \"price\": 50.00,\n          \"quantity\": 3\n        }\n      ]\n    },\n    {\n      \"date\": \"2024-10-01\",\n      \"items\": [\n        {\n          \"category\": \"electronic\",\n          \"name\": \"pc\",\n          \"price\": 1800.78,\n          \"quantity\": 1\n        },\n        {\n          \"category\": \"furniture\",\n          \"name\": \"table\",\n          \"price\": 100.10,\n          \"quantity\": 1\n        }\n      ]\n    }\n  ]\n}",
+      "apath": "inventory.*.\n  (\n    d = date,\n    // '_' is the context node passed by 'inventory.*'\n    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).\n      items.*.\n        (quantity + ' ' + name + ': '\n         + (price * quantity) + '€ '\n         + '(' + $d + ')'\n        )\n  )\n",
       "sfuncs": ""
    },
    "geom": {
       "widget_input": {
          "pos": {
-            "top": 101.88333129882812,
-            "left": 45.21665954589844
+            "top": 101.515625,
+            "left": 47.5625
          },
-         "height": 482.133,
-         "width": 591.433,
+         "height": 478.531,
+         "width": 622.094,
          "zindex": "103"
       },
       "widget_apath": {
          "pos": {
-            "top": 101.86666870117188,
-            "left": 655.8499755859375
+            "top": 101.5,
+            "left": 689.90625
          },
-         "height": 315.9,
-         "width": 609.567,
+         "height": 313.516,
+         "width": 641.141,
          "zindex": "104"
       },
       "widget_result": {
          "pos": {
-            "top": 436.1333312988281,
-            "left": 656.2000122070312
+            "top": 433.296875,
+            "left": 690.265625
          },
-         "height": 242,
-         "width": 609.567,
+         "height": 240.188,
+         "width": 641.141,
          "zindex": "102"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 602.38330078125,
-            "left": 45.21665954589844
+            "top": 598.3125,
+            "left": 47.5625
          },
-         "height": 75.7333,
-         "width": 591.433,
+         "height": 75.1406,
+         "width": 622.094,
          "zindex": "101"
       }
-   }
+   },
+   "ebreakpoints": [
+      {
+         "loc": {
+            "start": {
+               "line": 1,
+               "column": 11
+            },
+            "end": {
+               "line": 1,
+               "column": 12
+            }
+         },
+         "expr": {
+            "type": "Children",
+            "loc": {
+               "start": {
+                  "offset": 10,
+                  "line": 1,
+                  "column": 11
+               },
+               "end": {
+                  "offset": 11,
+                  "line": 1,
+                  "column": 12
+               }
+            },
+            "data": {
+               "func_no": 67,
+               "breakable": true
+            }
+         },
+         "deact": false
+      },
+      {
+         "loc": {
+            "start": {
+               "line": 1,
+               "column": 11
+            },
+            "end": {
+               "line": 12,
+               "column": 1
+            }
+         },
+         "expr": {
+            "type": "Path",
+            "left": {
+               "type": "AasStep",
+               "e": {
+                  "type": "Children",
+                  "loc": {
+                     "start": {
+                        "offset": 10,
+                        "line": 1,
+                        "column": 11
+                     },
+                     "end": {
+                        "offset": 11,
+                        "line": 1,
+                        "column": 12
+                     }
+                  },
+                  "data": {
+                     "func_no": 67,
+                     "breakable": true
+                  }
+               },
+               "loc": {
+                  "start": {
+                     "offset": 10,
+                     "line": 1,
+                     "column": 11
+                  },
+                  "end": {
+                     "offset": 11,
+                     "line": 1,
+                     "column": 12
+                  }
+               },
+               "data": {
+                  "func_no": 66
+               }
+            },
+            "right": {
+               "type": "Path",
+               "left": {
+                  "type": "EmptyLeft",
+                  "loc": {
+                     "start": {
+                        "offset": 15,
+                        "line": 2,
+                        "column": 3
+                     },
+                     "end": {
+                        "offset": 256,
+                        "line": 11,
+                        "column": 4
+                     }
+                  }
+               },
+               "right": {
+                  "type": "AasStep",
+                  "e": {
+                     "type": "SequencedExpressions",
+                     "exprs": [
+                        {
+                           "type": "VariableBinding",
+                           "var_name": "d",
+                           "e": {
+                              "type": "Path",
+                              "left": {
+                                 "type": "EmptyLeft",
+                                 "loc": {
+                                    "start": {
+                                       "offset": 25,
+                                       "line": 3,
+                                       "column": 9
+                                    },
+                                    "end": {
+                                       "offset": 29,
+                                       "line": 3,
+                                       "column": 13
+                                    }
+                                 }
+                              },
+                              "right": {
+                                 "type": "AasStep",
+                                 "e": {
+                                    "type": "Property",
+                                    "name": "date",
+                                    "loc": {
+                                       "start": {
+                                          "offset": 25,
+                                          "line": 3,
+                                          "column": 9
+                                       },
+                                       "end": {
+                                          "offset": 29,
+                                          "line": 3,
+                                          "column": 13
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 11,
+                                       "breakable": true
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 25,
+                                       "line": 3,
+                                       "column": 9
+                                    },
+                                    "end": {
+                                       "offset": 29,
+                                       "line": 3,
+                                       "column": 13
+                                    }
+                                 },
+                                 "data": {
+                                    "func_no": 10
+                                 }
+                              },
+                              "loc": {
+                                 "start": {
+                                    "offset": 25,
+                                    "line": 3,
+                                    "column": 9
+                                 },
+                                 "end": {
+                                    "offset": 29,
+                                    "line": 3,
+                                    "column": 13
+                                 }
+                              },
+                              "data": {
+                                 "is_scope": true,
+                                 "func_no": 9
+                              }
+                           },
+                           "loc": {
+                              "start": {
+                                 "offset": 21,
+                                 "line": 3,
+                                 "column": 5
+                              },
+                              "end": {
+                                 "offset": 29,
+                                 "line": 3,
+                                 "column": 13
+                              }
+                           },
+                           "data": {
+                              "var_stamp": {
+                                 "vorigin": true,
+                                 "vno": 0,
+                                 "scope_func": "$global"
+                              },
+                              "func_no": 8,
+                              "breakable": true
+                           }
+                        },
+                        {
+                           "type": "Path",
+                           "left": {
+                              "type": "Filter",
+                              "e": {
+                                 "type": "AasStep",
+                                 "e": {
+                                    "type": "Self",
+                                    "loc": {
+                                       "start": {
+                                          "offset": 90,
+                                          "line": 5,
+                                          "column": 5
+                                       },
+                                       "end": {
+                                          "offset": 91,
+                                          "line": 5,
+                                          "column": 6
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 65,
+                                       "breakable": true
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 90,
+                                       "line": 5,
+                                       "column": 5
+                                    },
+                                    "end": {
+                                       "offset": 91,
+                                       "line": 5,
+                                       "column": 6
+                                    }
+                                 },
+                                 "data": {
+                                    "func_no": 64
+                                 }
+                              },
+                              "filter": {
+                                 "type": "SequencedExpressions",
+                                 "exprs": [
+                                    {
+                                       "type": "Path",
+                                       "left": {
+                                          "type": "AasStep",
+                                          "e": {
+                                             "type": "Property",
+                                             "name": "date",
+                                             "loc": {
+                                                "start": {
+                                                   "offset": 94,
+                                                   "line": 5,
+                                                   "column": 9
+                                                },
+                                                "end": {
+                                                   "offset": 98,
+                                                   "line": 5,
+                                                   "column": 13
+                                                }
+                                             },
+                                             "data": {
+                                                "func_no": 63,
+                                                "breakable": true
+                                             }
+                                          },
+                                          "loc": {
+                                             "start": {
+                                                "offset": 94,
+                                                "line": 5,
+                                                "column": 9
+                                             },
+                                             "end": {
+                                                "offset": 98,
+                                                "line": 5,
+                                                "column": 13
+                                             }
+                                          },
+                                          "data": {
+                                             "func_no": 62
+                                          }
+                                       },
+                                       "right": {
+                                          "type": "Path",
+                                          "left": {
+                                             "type": "EmptyLeft",
+                                             "loc": {
+                                                "start": {
+                                                   "offset": 99,
+                                                   "line": 5,
+                                                   "column": 14
+                                                },
+                                                "end": {
+                                                   "offset": 124,
+                                                   "line": 5,
+                                                   "column": 39
+                                                }
+                                             }
+                                          },
+                                          "right": {
+                                             "type": "AasStep",
+                                             "e": {
+                                                "type": "FuncCall",
+                                                "name": "match",
+                                                "arguments": {
+                                                   "type": "Literal",
+                                                   "value": "\\d{4}-10-\\d{2}",
+                                                   "loc": {
+                                                      "start": {
+                                                         "offset": 99,
+                                                         "line": 5,
+                                                         "column": 14
+                                                      },
+                                                      "end": {
+                                                         "offset": 124,
+                                                         "line": 5,
+                                                         "column": 39
+                                                      }
+                                                   },
+                                                   "data": {
+                                                      "func_no": 61
+                                                   }
+                                                },
+                                                "loc": {
+                                                   "start": {
+                                                      "offset": 99,
+                                                      "line": 5,
+                                                      "column": 14
+                                                   },
+                                                   "end": {
+                                                      "offset": 124,
+                                                      "line": 5,
+                                                      "column": 39
+                                                   }
+                                                },
+                                                "data": {
+                                                   "func_no": 60,
+                                                   "breakable": true
+                                                }
+                                             },
+                                             "loc": {
+                                                "start": {
+                                                   "offset": 99,
+                                                   "line": 5,
+                                                   "column": 14
+                                                },
+                                                "end": {
+                                                   "offset": 124,
+                                                   "line": 5,
+                                                   "column": 39
+                                                }
+                                             },
+                                             "data": {
+                                                "func_no": 59
+                                             }
+                                          },
+                                          "loc": {
+                                             "start": {
+                                                "offset": 99,
+                                                "line": 5,
+                                                "column": 14
+                                             },
+                                             "end": {
+                                                "offset": 124,
+                                                "line": 5,
+                                                "column": 39
+                                             }
+                                          },
+                                          "data": {
+                                             "func_no": 58
+                                          }
+                                       },
+                                       "loc": {
+                                          "start": {
+                                             "offset": 94,
+                                             "line": 5,
+                                             "column": 9
+                                          },
+                                          "end": {
+                                             "offset": 124,
+                                             "line": 5,
+                                             "column": 39
+                                          }
+                                       },
+                                       "data": {
+                                          "is_scope": true,
+                                          "func_no": 57,
+                                          "breakable": true
+                                       }
+                                    }
+                                 ],
+                                 "loc": {
+                                    "start": {
+                                       "offset": 94,
+                                       "line": 5,
+                                       "column": 9
+                                    },
+                                    "end": {
+                                       "offset": 124,
+                                       "line": 5,
+                                       "column": 39
+                                    }
+                                 },
+                                 "data": {
+                                    "is_scope": true,
+                                    "func_no": 56,
+                                    "breakable": true
+                                 }
+                              },
+                              "loc": {
+                                 "start": {
+                                    "offset": 90,
+                                    "line": 5,
+                                    "column": 5
+                                 },
+                                 "end": {
+                                    "offset": 125,
+                                    "line": 5,
+                                    "column": 40
+                                 }
+                              },
+                              "data": {
+                                 "func_no": 54,
+                                 "breakable": true
+                              }
+                           },
+                           "right": {
+                              "type": "Path",
+                              "left": {
+                                 "type": "AasStep",
+                                 "e": {
+                                    "type": "Property",
+                                    "name": "items",
+                                    "loc": {
+                                       "start": {
+                                          "offset": 133,
+                                          "line": 6,
+                                          "column": 7
+                                       },
+                                       "end": {
+                                          "offset": 138,
+                                          "line": 6,
+                                          "column": 12
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 53,
+                                       "breakable": true
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 133,
+                                       "line": 6,
+                                       "column": 7
+                                    },
+                                    "end": {
+                                       "offset": 138,
+                                       "line": 6,
+                                       "column": 12
+                                    }
+                                 },
+                                 "data": {
+                                    "func_no": 52
+                                 }
+                              },
+                              "right": {
+                                 "type": "Path",
+                                 "left": {
+                                    "type": "AasStep",
+                                    "e": {
+                                       "type": "Children",
+                                       "loc": {
+                                          "start": {
+                                             "offset": 139,
+                                             "line": 6,
+                                             "column": 13
+                                          },
+                                          "end": {
+                                             "offset": 140,
+                                             "line": 6,
+                                             "column": 14
+                                          }
+                                       },
+                                       "data": {
+                                          "func_no": 51,
+                                          "breakable": true
+                                       }
+                                    },
+                                    "loc": {
+                                       "start": {
+                                          "offset": 139,
+                                          "line": 6,
+                                          "column": 13
+                                       },
+                                       "end": {
+                                          "offset": 140,
+                                          "line": 6,
+                                          "column": 14
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 50
+                                    }
+                                 },
+                                 "right": {
+                                    "type": "Path",
+                                    "left": {
+                                       "type": "EmptyLeft",
+                                       "loc": {
+                                          "start": {
+                                             "offset": 150,
+                                             "line": 7,
+                                             "column": 9
+                                          },
+                                          "end": {
+                                             "offset": 252,
+                                             "line": 10,
+                                             "column": 10
+                                          }
+                                       }
+                                    },
+                                    "right": {
+                                       "type": "AasStep",
+                                       "e": {
+                                          "type": "SequencedExpressions",
+                                          "exprs": [
+                                             {
+                                                "type": "BinaryOpExpression",
+                                                "operator": "+",
+                                                "left": {
+                                                   "type": "Path",
+                                                   "left": {
+                                                      "type": "EmptyLeft",
+                                                      "loc": {
+                                                         "start": {
+                                                            "offset": 151,
+                                                            "line": 7,
+                                                            "column": 10
+                                                         },
+                                                         "end": {
+                                                            "offset": 159,
+                                                            "line": 7,
+                                                            "column": 18
+                                                         }
+                                                      }
+                                                   },
+                                                   "right": {
+                                                      "type": "AasStep",
+                                                      "e": {
+                                                         "type": "Property",
+                                                         "name": "quantity",
+                                                         "loc": {
+                                                            "start": {
+                                                               "offset": 151,
+                                                               "line": 7,
+                                                               "column": 10
+                                                            },
+                                                            "end": {
+                                                               "offset": 159,
+                                                               "line": 7,
+                                                               "column": 18
+                                                            }
+                                                         },
+                                                         "data": {
+                                                            "func_no": 21,
+                                                            "breakable": true
+                                                         }
+                                                      },
+                                                      "loc": {
+                                                         "start": {
+                                                            "offset": 151,
+                                                            "line": 7,
+                                                            "column": 10
+                                                         },
+                                                         "end": {
+                                                            "offset": 159,
+                                                            "line": 7,
+                                                            "column": 18
+                                                         }
+                                                      },
+                                                      "data": {
+                                                         "func_no": 20
+                                                      }
+                                                   },
+                                                   "loc": {
+                                                      "start": {
+                                                         "offset": 151,
+                                                         "line": 7,
+                                                         "column": 10
+                                                      },
+                                                      "end": {
+                                                         "offset": 159,
+                                                         "line": 7,
+                                                         "column": 18
+                                                      }
+                                                   },
+                                                   "data": {
+                                                      "is_scope": true,
+                                                      "func_no": 19
+                                                   }
+                                                },
+                                                "right": {
+                                                   "type": "BinaryOpExpression",
+                                                   "operator": "+",
+                                                   "left": {
+                                                      "type": "Literal",
+                                                      "value": " ",
+                                                      "loc": {
+                                                         "start": {
+                                                            "offset": 161,
+                                                            "line": 7,
+                                                            "column": 20
+                                                         },
+                                                         "end": {
+                                                            "offset": 242,
+                                                            "line": 9,
+                                                            "column": 26
+                                                         }
+                                                      },
+                                                      "data": {
+                                                         "func_no": 23
+                                                      }
+                                                   },
+                                                   "right": {
+                                                      "type": "BinaryOpExpression",
+                                                      "operator": "+",
+                                                      "left": {
+                                                         "type": "Path",
+                                                         "left": {
+                                                            "type": "EmptyLeft",
+                                                            "loc": {
+                                                               "start": {
+                                                                  "offset": 168,
+                                                                  "line": 7,
+                                                                  "column": 27
+                                                               },
+                                                               "end": {
+                                                                  "offset": 172,
+                                                                  "line": 7,
+                                                                  "column": 31
+                                                               }
+                                                            }
+                                                         },
+                                                         "right": {
+                                                            "type": "AasStep",
+                                                            "e": {
+                                                               "type": "Property",
+                                                               "name": "name",
+                                                               "loc": {
+                                                                  "start": {
+                                                                     "offset": 168,
+                                                                     "line": 7,
+                                                                     "column": 27
+                                                                  },
+                                                                  "end": {
+                                                                     "offset": 172,
+                                                                     "line": 7,
+                                                                     "column": 31
+                                                                  }
+                                                               },
+                                                               "data": {
+                                                                  "func_no": 27,
+                                                                  "breakable": true
+                                                               }
+                                                            },
+                                                            "loc": {
+                                                               "start": {
+                                                                  "offset": 168,
+                                                                  "line": 7,
+                                                                  "column": 27
+                                                               },
+                                                               "end": {
+                                                                  "offset": 172,
+                                                                  "line": 7,
+                                                                  "column": 31
+                                                               }
+                                                            },
+                                                            "data": {
+                                                               "func_no": 26
+                                                            }
+                                                         },
+                                                         "loc": {
+                                                            "start": {
+                                                               "offset": 168,
+                                                               "line": 7,
+                                                               "column": 27
+                                                            },
+                                                            "end": {
+                                                               "offset": 172,
+                                                               "line": 7,
+                                                               "column": 31
+                                                            }
+                                                         },
+                                                         "data": {
+                                                            "is_scope": true,
+                                                            "func_no": 25
+                                                         }
+                                                      },
+                                                      "right": {
+                                                         "type": "BinaryOpExpression",
+                                                         "operator": "+",
+                                                         "left": {
+                                                            "type": "Literal",
+                                                            "value": ": ",
+                                                            "loc": {
+                                                               "start": {
+                                                                  "offset": 174,
+                                                                  "line": 7,
+                                                                  "column": 33
+                                                               },
+                                                               "end": {
+                                                                  "offset": 242,
+                                                                  "line": 9,
+                                                                  "column": 26
+                                                               }
+                                                            },
+                                                            "data": {
+                                                               "func_no": 29
+                                                            }
+                                                         },
+                                                         "right": {
+                                                            "type": "BinaryOpExpression",
+                                                            "operator": "+",
+                                                            "left": {
+                                                               "type": "Path",
+                                                               "left": {
+                                                                  "type": "EmptyLeft",
+                                                                  "loc": {
+                                                                     "start": {
+                                                                        "offset": 191,
+                                                                        "line": 8,
+                                                                        "column": 12
+                                                                     },
+                                                                     "end": {
+                                                                        "offset": 209,
+                                                                        "line": 8,
+                                                                        "column": 30
+                                                                     }
+                                                                  }
+                                                               },
+                                                               "right": {
+                                                                  "type": "AasStep",
+                                                                  "e": {
+                                                                     "type": "SequencedExpressions",
+                                                                     "exprs": [
+                                                                        {
+                                                                           "type": "BinaryOpExpression",
+                                                                           "operator": "*",
+                                                                           "left": {
+                                                                              "type": "Path",
+                                                                              "left": {
+                                                                                 "type": "EmptyLeft",
+                                                                                 "loc": {
+                                                                                    "start": {
+                                                                                       "offset": 192,
+                                                                                       "line": 8,
+                                                                                       "column": 13
+                                                                                    },
+                                                                                    "end": {
+                                                                                       "offset": 197,
+                                                                                       "line": 8,
+                                                                                       "column": 18
+                                                                                    }
+                                                                                 }
+                                                                              },
+                                                                              "right": {
+                                                                                 "type": "AasStep",
+                                                                                 "e": {
+                                                                                    "type": "Property",
+                                                                                    "name": "price",
+                                                                                    "loc": {
+                                                                                       "start": {
+                                                                                          "offset": 192,
+                                                                                          "line": 8,
+                                                                                          "column": 13
+                                                                                       },
+                                                                                       "end": {
+                                                                                          "offset": 197,
+                                                                                          "line": 8,
+                                                                                          "column": 18
+                                                                                       }
+                                                                                    },
+                                                                                    "data": {
+                                                                                       "func_no": 37,
+                                                                                       "breakable": true
+                                                                                    }
+                                                                                 },
+                                                                                 "loc": {
+                                                                                    "start": {
+                                                                                       "offset": 192,
+                                                                                       "line": 8,
+                                                                                       "column": 13
+                                                                                    },
+                                                                                    "end": {
+                                                                                       "offset": 197,
+                                                                                       "line": 8,
+                                                                                       "column": 18
+                                                                                    }
+                                                                                 },
+                                                                                 "data": {
+                                                                                    "func_no": 36
+                                                                                 }
+                                                                              },
+                                                                              "loc": {
+                                                                                 "start": {
+                                                                                    "offset": 192,
+                                                                                    "line": 8,
+                                                                                    "column": 13
+                                                                                 },
+                                                                                 "end": {
+                                                                                    "offset": 197,
+                                                                                    "line": 8,
+                                                                                    "column": 18
+                                                                                 }
+                                                                              },
+                                                                              "data": {
+                                                                                 "is_scope": true,
+                                                                                 "func_no": 35
+                                                                              }
+                                                                           },
+                                                                           "right": {
+                                                                              "type": "Path",
+                                                                              "left": {
+                                                                                 "type": "EmptyLeft",
+                                                                                 "loc": {
+                                                                                    "start": {
+                                                                                       "offset": 200,
+                                                                                       "line": 8,
+                                                                                       "column": 21
+                                                                                    },
+                                                                                    "end": {
+                                                                                       "offset": 208,
+                                                                                       "line": 8,
+                                                                                       "column": 29
+                                                                                    }
+                                                                                 }
+                                                                              },
+                                                                              "right": {
+                                                                                 "type": "AasStep",
+                                                                                 "e": {
+                                                                                    "type": "Property",
+                                                                                    "name": "quantity",
+                                                                                    "loc": {
+                                                                                       "start": {
+                                                                                          "offset": 200,
+                                                                                          "line": 8,
+                                                                                          "column": 21
+                                                                                       },
+                                                                                       "end": {
+                                                                                          "offset": 208,
+                                                                                          "line": 8,
+                                                                                          "column": 29
+                                                                                       }
+                                                                                    },
+                                                                                    "data": {
+                                                                                       "func_no": 40,
+                                                                                       "breakable": true
+                                                                                    }
+                                                                                 },
+                                                                                 "loc": {
+                                                                                    "start": {
+                                                                                       "offset": 200,
+                                                                                       "line": 8,
+                                                                                       "column": 21
+                                                                                    },
+                                                                                    "end": {
+                                                                                       "offset": 208,
+                                                                                       "line": 8,
+                                                                                       "column": 29
+                                                                                    }
+                                                                                 },
+                                                                                 "data": {
+                                                                                    "func_no": 39
+                                                                                 }
+                                                                              },
+                                                                              "loc": {
+                                                                                 "start": {
+                                                                                    "offset": 200,
+                                                                                    "line": 8,
+                                                                                    "column": 21
+                                                                                 },
+                                                                                 "end": {
+                                                                                    "offset": 208,
+                                                                                    "line": 8,
+                                                                                    "column": 29
+                                                                                 }
+                                                                              },
+                                                                              "data": {
+                                                                                 "is_scope": true,
+                                                                                 "func_no": 38
+                                                                              }
+                                                                           },
+                                                                           "loc": {
+                                                                              "start": {
+                                                                                 "offset": 192,
+                                                                                 "line": 8,
+                                                                                 "column": 13
+                                                                              },
+                                                                              "end": {
+                                                                                 "offset": 208,
+                                                                                 "line": 8,
+                                                                                 "column": 29
+                                                                              }
+                                                                           },
+                                                                           "data": {
+                                                                              "func_no": 34,
+                                                                              "breakable": true
+                                                                           }
+                                                                        }
+                                                                     ],
+                                                                     "loc": {
+                                                                        "start": {
+                                                                           "offset": 192,
+                                                                           "line": 8,
+                                                                           "column": 13
+                                                                        },
+                                                                        "end": {
+                                                                           "offset": 208,
+                                                                           "line": 8,
+                                                                           "column": 29
+                                                                        }
+                                                                     },
+                                                                     "data": {
+                                                                        "is_scope": true,
+                                                                        "func_no": 33
+                                                                     }
+                                                                  },
+                                                                  "loc": {
+                                                                     "start": {
+                                                                        "offset": 191,
+                                                                        "line": 8,
+                                                                        "column": 12
+                                                                     },
+                                                                     "end": {
+                                                                        "offset": 209,
+                                                                        "line": 8,
+                                                                        "column": 30
+                                                                     }
+                                                                  },
+                                                                  "data": {
+                                                                     "func_no": 32
+                                                                  }
+                                                               },
+                                                               "loc": {
+                                                                  "start": {
+                                                                     "offset": 191,
+                                                                     "line": 8,
+                                                                     "column": 12
+                                                                  },
+                                                                  "end": {
+                                                                     "offset": 209,
+                                                                     "line": 8,
+                                                                     "column": 30
+                                                                  }
+                                                               },
+                                                               "data": {
+                                                                  "is_scope": true,
+                                                                  "func_no": 31
+                                                               }
+                                                            },
+                                                            "right": {
+                                                               "type": "BinaryOpExpression",
+                                                               "operator": "+",
+                                                               "left": {
+                                                                  "type": "Literal",
+                                                                  "value": "€ ",
+                                                                  "loc": {
+                                                                     "start": {
+                                                                        "offset": 211,
+                                                                        "line": 8,
+                                                                        "column": 32
+                                                                     },
+                                                                     "end": {
+                                                                        "offset": 242,
+                                                                        "line": 9,
+                                                                        "column": 26
+                                                                     }
+                                                                  },
+                                                                  "data": {
+                                                                     "func_no": 42
+                                                                  }
+                                                               },
+                                                               "right": {
+                                                                  "type": "BinaryOpExpression",
+                                                                  "operator": "+",
+                                                                  "left": {
+                                                                     "type": "Literal",
+                                                                     "value": "(",
+                                                                     "loc": {
+                                                                        "start": {
+                                                                           "offset": 227,
+                                                                           "line": 9,
+                                                                           "column": 11
+                                                                        },
+                                                                        "end": {
+                                                                           "offset": 242,
+                                                                           "line": 9,
+                                                                           "column": 26
+                                                                        }
+                                                                     },
+                                                                     "data": {
+                                                                        "func_no": 44
+                                                                     }
+                                                                  },
+                                                                  "right": {
+                                                                     "type": "BinaryOpExpression",
+                                                                     "operator": "+",
+                                                                     "left": {
+                                                                        "type": "Path",
+                                                                        "left": {
+                                                                           "type": "EmptyLeft",
+                                                                           "loc": {
+                                                                              "start": {
+                                                                                 "offset": 234,
+                                                                                 "line": 9,
+                                                                                 "column": 18
+                                                                              },
+                                                                              "end": {
+                                                                                 "offset": 236,
+                                                                                 "line": 9,
+                                                                                 "column": 20
+                                                                              }
+                                                                           }
+                                                                        },
+                                                                        "right": {
+                                                                           "type": "AasStep",
+                                                                           "e": {
+                                                                              "type": "VariableApplication",
+                                                                              "var_name": "d",
+                                                                              "loc": {
+                                                                                 "start": {
+                                                                                    "offset": 234,
+                                                                                    "line": 9,
+                                                                                    "column": 18
+                                                                                 },
+                                                                                 "end": {
+                                                                                    "offset": 236,
+                                                                                    "line": 9,
+                                                                                    "column": 20
+                                                                                 }
+                                                                              },
+                                                                              "data": {
+                                                                                 "var_stamp": {
+                                                                                    "vref": {
+                                                                                       "type": "VariableBinding",
+                                                                                       "var_name": "d",
+                                                                                       "e": {
+                                                                                          "type": "Path",
+                                                                                          "left": {
+                                                                                             "type": "EmptyLeft",
+                                                                                             "loc": {
+                                                                                                "start": {
+                                                                                                   "offset": 25,
+                                                                                                   "line": 3,
+                                                                                                   "column": 9
+                                                                                                },
+                                                                                                "end": {
+                                                                                                   "offset": 29,
+                                                                                                   "line": 3,
+                                                                                                   "column": 13
+                                                                                                }
+                                                                                             }
+                                                                                          },
+                                                                                          "right": {
+                                                                                             "type": "AasStep",
+                                                                                             "e": {
+                                                                                                "type": "Property",
+                                                                                                "name": "date",
+                                                                                                "loc": {
+                                                                                                   "start": {
+                                                                                                      "offset": 25,
+                                                                                                      "line": 3,
+                                                                                                      "column": 9
+                                                                                                   },
+                                                                                                   "end": {
+                                                                                                      "offset": 29,
+                                                                                                      "line": 3,
+                                                                                                      "column": 13
+                                                                                                   }
+                                                                                                },
+                                                                                                "data": {
+                                                                                                   "func_no": 11,
+                                                                                                   "breakable": true
+                                                                                                }
+                                                                                             },
+                                                                                             "loc": {
+                                                                                                "start": {
+                                                                                                   "offset": 25,
+                                                                                                   "line": 3,
+                                                                                                   "column": 9
+                                                                                                },
+                                                                                                "end": {
+                                                                                                   "offset": 29,
+                                                                                                   "line": 3,
+                                                                                                   "column": 13
+                                                                                                }
+                                                                                             },
+                                                                                             "data": {
+                                                                                                "func_no": 10
+                                                                                             }
+                                                                                          },
+                                                                                          "loc": {
+                                                                                             "start": {
+                                                                                                "offset": 25,
+                                                                                                "line": 3,
+                                                                                                "column": 9
+                                                                                             },
+                                                                                             "end": {
+                                                                                                "offset": 29,
+                                                                                                "line": 3,
+                                                                                                "column": 13
+                                                                                             }
+                                                                                          },
+                                                                                          "data": {
+                                                                                             "is_scope": true,
+                                                                                             "func_no": 9
+                                                                                          }
+                                                                                       },
+                                                                                       "loc": {
+                                                                                          "start": {
+                                                                                             "offset": 21,
+                                                                                             "line": 3,
+                                                                                             "column": 5
+                                                                                          },
+                                                                                          "end": {
+                                                                                             "offset": 29,
+                                                                                             "line": 3,
+                                                                                             "column": 13
+                                                                                          }
+                                                                                       },
+                                                                                       "data": {
+                                                                                          "var_stamp": {
+                                                                                             "vorigin": true,
+                                                                                             "vno": 0,
+                                                                                             "scope_func": "$global"
+                                                                                          },
+                                                                                          "func_no": 8,
+                                                                                          "breakable": true
+                                                                                       }
+                                                                                    }
+                                                                                 },
+                                                                                 "func_no": 48,
+                                                                                 "breakable": true
+                                                                              }
+                                                                           },
+                                                                           "loc": {
+                                                                              "start": {
+                                                                                 "offset": 234,
+                                                                                 "line": 9,
+                                                                                 "column": 18
+                                                                              },
+                                                                              "end": {
+                                                                                 "offset": 236,
+                                                                                 "line": 9,
+                                                                                 "column": 20
+                                                                              }
+                                                                           },
+                                                                           "data": {
+                                                                              "func_no": 47
+                                                                           }
+                                                                        },
+                                                                        "loc": {
+                                                                           "start": {
+                                                                              "offset": 234,
+                                                                              "line": 9,
+                                                                              "column": 18
+                                                                           },
+                                                                           "end": {
+                                                                              "offset": 236,
+                                                                              "line": 9,
+                                                                              "column": 20
+                                                                           }
+                                                                        },
+                                                                        "data": {
+                                                                           "is_scope": true,
+                                                                           "func_no": 46
+                                                                        }
+                                                                     },
+                                                                     "right": {
+                                                                        "type": "Literal",
+                                                                        "value": ")",
+                                                                        "loc": {
+                                                                           "start": {
+                                                                              "offset": 234,
+                                                                              "line": 9,
+                                                                              "column": 18
+                                                                           },
+                                                                           "end": {
+                                                                              "offset": 242,
+                                                                              "line": 9,
+                                                                              "column": 26
+                                                                           }
+                                                                        },
+                                                                        "data": {
+                                                                           "func_no": 49
+                                                                        }
+                                                                     },
+                                                                     "loc": {
+                                                                        "start": {
+                                                                           "offset": 234,
+                                                                           "line": 9,
+                                                                           "column": 18
+                                                                        },
+                                                                        "end": {
+                                                                           "offset": 242,
+                                                                           "line": 9,
+                                                                           "column": 26
+                                                                        }
+                                                                     },
+                                                                     "data": {
+                                                                        "func_no": 45,
+                                                                        "breakable": true
+                                                                     }
+                                                                  },
+                                                                  "loc": {
+                                                                     "start": {
+                                                                        "offset": 227,
+                                                                        "line": 9,
+                                                                        "column": 11
+                                                                     },
+                                                                     "end": {
+                                                                        "offset": 242,
+                                                                        "line": 9,
+                                                                        "column": 26
+                                                                     }
+                                                                  },
+                                                                  "data": {
+                                                                     "func_no": 43,
+                                                                     "breakable": true
+                                                                  }
+                                                               },
+                                                               "loc": {
+                                                                  "start": {
+                                                                     "offset": 211,
+                                                                     "line": 8,
+                                                                     "column": 32
+                                                                  },
+                                                                  "end": {
+                                                                     "offset": 242,
+                                                                     "line": 9,
+                                                                     "column": 26
+                                                                  }
+                                                               },
+                                                               "data": {
+                                                                  "func_no": 41,
+                                                                  "breakable": true
+                                                               }
+                                                            },
+                                                            "loc": {
+                                                               "start": {
+                                                                  "offset": 191,
+                                                                  "line": 8,
+                                                                  "column": 12
+                                                               },
+                                                               "end": {
+                                                                  "offset": 242,
+                                                                  "line": 9,
+                                                                  "column": 26
+                                                               }
+                                                            },
+                                                            "data": {
+                                                               "func_no": 30,
+                                                               "breakable": true
+                                                            }
+                                                         },
+                                                         "loc": {
+                                                            "start": {
+                                                               "offset": 174,
+                                                               "line": 7,
+                                                               "column": 33
+                                                            },
+                                                            "end": {
+                                                               "offset": 242,
+                                                               "line": 9,
+                                                               "column": 26
+                                                            }
+                                                         },
+                                                         "data": {
+                                                            "func_no": 28,
+                                                            "breakable": true
+                                                         }
+                                                      },
+                                                      "loc": {
+                                                         "start": {
+                                                            "offset": 168,
+                                                            "line": 7,
+                                                            "column": 27
+                                                         },
+                                                         "end": {
+                                                            "offset": 242,
+                                                            "line": 9,
+                                                            "column": 26
+                                                         }
+                                                      },
+                                                      "data": {
+                                                         "func_no": 24,
+                                                         "breakable": true
+                                                      }
+                                                   },
+                                                   "loc": {
+                                                      "start": {
+                                                         "offset": 161,
+                                                         "line": 7,
+                                                         "column": 20
+                                                      },
+                                                      "end": {
+                                                         "offset": 242,
+                                                         "line": 9,
+                                                         "column": 26
+                                                      }
+                                                   },
+                                                   "data": {
+                                                      "func_no": 22,
+                                                      "breakable": true
+                                                   }
+                                                },
+                                                "loc": {
+                                                   "start": {
+                                                      "offset": 151,
+                                                      "line": 7,
+                                                      "column": 10
+                                                   },
+                                                   "end": {
+                                                      "offset": 242,
+                                                      "line": 9,
+                                                      "column": 26
+                                                   }
+                                                },
+                                                "data": {
+                                                   "func_no": 18,
+                                                   "breakable": true
+                                                }
+                                             }
+                                          ],
+                                          "loc": {
+                                             "start": {
+                                                "offset": 151,
+                                                "line": 7,
+                                                "column": 10
+                                             },
+                                             "end": {
+                                                "offset": 242,
+                                                "line": 9,
+                                                "column": 26
+                                             }
+                                          },
+                                          "data": {
+                                             "is_scope": true,
+                                             "func_no": 17
+                                          }
+                                       },
+                                       "loc": {
+                                          "start": {
+                                             "offset": 150,
+                                             "line": 7,
+                                             "column": 9
+                                          },
+                                          "end": {
+                                             "offset": 252,
+                                             "line": 10,
+                                             "column": 10
+                                          }
+                                       },
+                                       "data": {
+                                          "func_no": 16
+                                       }
+                                    },
+                                    "loc": {
+                                       "start": {
+                                          "offset": 150,
+                                          "line": 7,
+                                          "column": 9
+                                       },
+                                       "end": {
+                                          "offset": 252,
+                                          "line": 10,
+                                          "column": 10
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 15
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 139,
+                                       "line": 6,
+                                       "column": 13
+                                    },
+                                    "end": {
+                                       "offset": 255,
+                                       "line": 11,
+                                       "column": 3
+                                    }
+                                 },
+                                 "data": {
+                                    "func_no": 14,
+                                    "breakable": true
+                                 }
+                              },
+                              "loc": {
+                                 "start": {
+                                    "offset": 133,
+                                    "line": 6,
+                                    "column": 7
+                                 },
+                                 "end": {
+                                    "offset": 255,
+                                    "line": 11,
+                                    "column": 3
+                                 }
+                              },
+                              "data": {
+                                 "func_no": 13,
+                                 "breakable": true
+                              }
+                           },
+                           "loc": {
+                              "start": {
+                                 "offset": 90,
+                                 "line": 5,
+                                 "column": 5
+                              },
+                              "end": {
+                                 "offset": 255,
+                                 "line": 11,
+                                 "column": 3
+                              }
+                           },
+                           "data": {
+                              "is_scope": true,
+                              "func_no": 12,
+                              "breakable": true
+                           }
+                        }
+                     ],
+                     "loc": {
+                        "start": {
+                           "offset": 21,
+                           "line": 3,
+                           "column": 5
+                        },
+                        "end": {
+                           "offset": 255,
+                           "line": 11,
+                           "column": 3
+                        }
+                     },
+                     "data": {
+                        "is_scope": true,
+                        "func_no": 7,
+                        "breakable": true
+                     }
+                  },
+                  "loc": {
+                     "start": {
+                        "offset": 15,
+                        "line": 2,
+                        "column": 3
+                     },
+                     "end": {
+                        "offset": 256,
+                        "line": 11,
+                        "column": 4
+                     }
+                  },
+                  "data": {
+                     "func_no": 6
+                  }
+               },
+               "loc": {
+                  "start": {
+                     "offset": 15,
+                     "line": 2,
+                     "column": 3
+                  },
+                  "end": {
+                     "offset": 256,
+                     "line": 11,
+                     "column": 4
+                  }
+               },
+               "data": {
+                  "func_no": 5
+               }
+            },
+            "loc": {
+               "start": {
+                  "offset": 10,
+                  "line": 1,
+                  "column": 11
+               },
+               "end": {
+                  "offset": 257,
+                  "line": 12,
+                  "column": 1
+               }
+            },
+            "data": {
+               "func_no": 4,
+               "breakable": true
+            }
+         },
+         "deact": false
+      },
+      {
+         "loc": {
+            "start": {
+               "line": 7,
+               "column": 33
+            },
+            "end": {
+               "line": 9,
+               "column": 26
+            }
+         },
+         "expr": {
+            "type": "BinaryOpExpression",
+            "operator": "+",
+            "left": {
+               "type": "Literal",
+               "value": ": ",
+               "loc": {
+                  "start": {
+                     "offset": 174,
+                     "line": 7,
+                     "column": 33
+                  },
+                  "end": {
+                     "offset": 242,
+                     "line": 9,
+                     "column": 26
+                  }
+               },
+               "data": {
+                  "func_no": 29
+               }
+            },
+            "right": {
+               "type": "BinaryOpExpression",
+               "operator": "+",
+               "left": {
+                  "type": "Path",
+                  "left": {
+                     "type": "EmptyLeft",
+                     "loc": {
+                        "start": {
+                           "offset": 191,
+                           "line": 8,
+                           "column": 12
+                        },
+                        "end": {
+                           "offset": 209,
+                           "line": 8,
+                           "column": 30
+                        }
+                     }
+                  },
+                  "right": {
+                     "type": "AasStep",
+                     "e": {
+                        "type": "SequencedExpressions",
+                        "exprs": [
+                           {
+                              "type": "BinaryOpExpression",
+                              "operator": "*",
+                              "left": {
+                                 "type": "Path",
+                                 "left": {
+                                    "type": "EmptyLeft",
+                                    "loc": {
+                                       "start": {
+                                          "offset": 192,
+                                          "line": 8,
+                                          "column": 13
+                                       },
+                                       "end": {
+                                          "offset": 197,
+                                          "line": 8,
+                                          "column": 18
+                                       }
+                                    }
+                                 },
+                                 "right": {
+                                    "type": "AasStep",
+                                    "e": {
+                                       "type": "Property",
+                                       "name": "price",
+                                       "loc": {
+                                          "start": {
+                                             "offset": 192,
+                                             "line": 8,
+                                             "column": 13
+                                          },
+                                          "end": {
+                                             "offset": 197,
+                                             "line": 8,
+                                             "column": 18
+                                          }
+                                       },
+                                       "data": {
+                                          "func_no": 37,
+                                          "breakable": true
+                                       }
+                                    },
+                                    "loc": {
+                                       "start": {
+                                          "offset": 192,
+                                          "line": 8,
+                                          "column": 13
+                                       },
+                                       "end": {
+                                          "offset": 197,
+                                          "line": 8,
+                                          "column": 18
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 36
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 192,
+                                       "line": 8,
+                                       "column": 13
+                                    },
+                                    "end": {
+                                       "offset": 197,
+                                       "line": 8,
+                                       "column": 18
+                                    }
+                                 },
+                                 "data": {
+                                    "is_scope": true,
+                                    "func_no": 35
+                                 }
+                              },
+                              "right": {
+                                 "type": "Path",
+                                 "left": {
+                                    "type": "EmptyLeft",
+                                    "loc": {
+                                       "start": {
+                                          "offset": 200,
+                                          "line": 8,
+                                          "column": 21
+                                       },
+                                       "end": {
+                                          "offset": 208,
+                                          "line": 8,
+                                          "column": 29
+                                       }
+                                    }
+                                 },
+                                 "right": {
+                                    "type": "AasStep",
+                                    "e": {
+                                       "type": "Property",
+                                       "name": "quantity",
+                                       "loc": {
+                                          "start": {
+                                             "offset": 200,
+                                             "line": 8,
+                                             "column": 21
+                                          },
+                                          "end": {
+                                             "offset": 208,
+                                             "line": 8,
+                                             "column": 29
+                                          }
+                                       },
+                                       "data": {
+                                          "func_no": 40,
+                                          "breakable": true
+                                       }
+                                    },
+                                    "loc": {
+                                       "start": {
+                                          "offset": 200,
+                                          "line": 8,
+                                          "column": 21
+                                       },
+                                       "end": {
+                                          "offset": 208,
+                                          "line": 8,
+                                          "column": 29
+                                       }
+                                    },
+                                    "data": {
+                                       "func_no": 39
+                                    }
+                                 },
+                                 "loc": {
+                                    "start": {
+                                       "offset": 200,
+                                       "line": 8,
+                                       "column": 21
+                                    },
+                                    "end": {
+                                       "offset": 208,
+                                       "line": 8,
+                                       "column": 29
+                                    }
+                                 },
+                                 "data": {
+                                    "is_scope": true,
+                                    "func_no": 38
+                                 }
+                              },
+                              "loc": {
+                                 "start": {
+                                    "offset": 192,
+                                    "line": 8,
+                                    "column": 13
+                                 },
+                                 "end": {
+                                    "offset": 208,
+                                    "line": 8,
+                                    "column": 29
+                                 }
+                              },
+                              "data": {
+                                 "func_no": 34,
+                                 "breakable": true
+                              }
+                           }
+                        ],
+                        "loc": {
+                           "start": {
+                              "offset": 192,
+                              "line": 8,
+                              "column": 13
+                           },
+                           "end": {
+                              "offset": 208,
+                              "line": 8,
+                              "column": 29
+                           }
+                        },
+                        "data": {
+                           "is_scope": true,
+                           "func_no": 33
+                        }
+                     },
+                     "loc": {
+                        "start": {
+                           "offset": 191,
+                           "line": 8,
+                           "column": 12
+                        },
+                        "end": {
+                           "offset": 209,
+                           "line": 8,
+                           "column": 30
+                        }
+                     },
+                     "data": {
+                        "func_no": 32
+                     }
+                  },
+                  "loc": {
+                     "start": {
+                        "offset": 191,
+                        "line": 8,
+                        "column": 12
+                     },
+                     "end": {
+                        "offset": 209,
+                        "line": 8,
+                        "column": 30
+                     }
+                  },
+                  "data": {
+                     "is_scope": true,
+                     "func_no": 31
+                  }
+               },
+               "right": {
+                  "type": "BinaryOpExpression",
+                  "operator": "+",
+                  "left": {
+                     "type": "Literal",
+                     "value": "€ ",
+                     "loc": {
+                        "start": {
+                           "offset": 211,
+                           "line": 8,
+                           "column": 32
+                        },
+                        "end": {
+                           "offset": 242,
+                           "line": 9,
+                           "column": 26
+                        }
+                     },
+                     "data": {
+                        "func_no": 42
+                     }
+                  },
+                  "right": {
+                     "type": "BinaryOpExpression",
+                     "operator": "+",
+                     "left": {
+                        "type": "Literal",
+                        "value": "(",
+                        "loc": {
+                           "start": {
+                              "offset": 227,
+                              "line": 9,
+                              "column": 11
+                           },
+                           "end": {
+                              "offset": 242,
+                              "line": 9,
+                              "column": 26
+                           }
+                        },
+                        "data": {
+                           "func_no": 44
+                        }
+                     },
+                     "right": {
+                        "type": "BinaryOpExpression",
+                        "operator": "+",
+                        "left": {
+                           "type": "Path",
+                           "left": {
+                              "type": "EmptyLeft",
+                              "loc": {
+                                 "start": {
+                                    "offset": 234,
+                                    "line": 9,
+                                    "column": 18
+                                 },
+                                 "end": {
+                                    "offset": 236,
+                                    "line": 9,
+                                    "column": 20
+                                 }
+                              }
+                           },
+                           "right": {
+                              "type": "AasStep",
+                              "e": {
+                                 "type": "VariableApplication",
+                                 "var_name": "d",
+                                 "loc": {
+                                    "start": {
+                                       "offset": 234,
+                                       "line": 9,
+                                       "column": 18
+                                    },
+                                    "end": {
+                                       "offset": 236,
+                                       "line": 9,
+                                       "column": 20
+                                    }
+                                 },
+                                 "data": {
+                                    "var_stamp": {
+                                       "vref": {
+                                          "type": "VariableBinding",
+                                          "var_name": "d",
+                                          "e": {
+                                             "type": "Path",
+                                             "left": {
+                                                "type": "EmptyLeft",
+                                                "loc": {
+                                                   "start": {
+                                                      "offset": 25,
+                                                      "line": 3,
+                                                      "column": 9
+                                                   },
+                                                   "end": {
+                                                      "offset": 29,
+                                                      "line": 3,
+                                                      "column": 13
+                                                   }
+                                                }
+                                             },
+                                             "right": {
+                                                "type": "AasStep",
+                                                "e": {
+                                                   "type": "Property",
+                                                   "name": "date",
+                                                   "loc": {
+                                                      "start": {
+                                                         "offset": 25,
+                                                         "line": 3,
+                                                         "column": 9
+                                                      },
+                                                      "end": {
+                                                         "offset": 29,
+                                                         "line": 3,
+                                                         "column": 13
+                                                      }
+                                                   },
+                                                   "data": {
+                                                      "func_no": 11,
+                                                      "breakable": true
+                                                   }
+                                                },
+                                                "loc": {
+                                                   "start": {
+                                                      "offset": 25,
+                                                      "line": 3,
+                                                      "column": 9
+                                                   },
+                                                   "end": {
+                                                      "offset": 29,
+                                                      "line": 3,
+                                                      "column": 13
+                                                   }
+                                                },
+                                                "data": {
+                                                   "func_no": 10
+                                                }
+                                             },
+                                             "loc": {
+                                                "start": {
+                                                   "offset": 25,
+                                                   "line": 3,
+                                                   "column": 9
+                                                },
+                                                "end": {
+                                                   "offset": 29,
+                                                   "line": 3,
+                                                   "column": 13
+                                                }
+                                             },
+                                             "data": {
+                                                "is_scope": true,
+                                                "func_no": 9
+                                             }
+                                          },
+                                          "loc": {
+                                             "start": {
+                                                "offset": 21,
+                                                "line": 3,
+                                                "column": 5
+                                             },
+                                             "end": {
+                                                "offset": 29,
+                                                "line": 3,
+                                                "column": 13
+                                             }
+                                          },
+                                          "data": {
+                                             "var_stamp": {
+                                                "vorigin": true,
+                                                "vno": 0,
+                                                "scope_func": "$global"
+                                             },
+                                             "func_no": 8,
+                                             "breakable": true
+                                          }
+                                       }
+                                    },
+                                    "func_no": 48,
+                                    "breakable": true
+                                 }
+                              },
+                              "loc": {
+                                 "start": {
+                                    "offset": 234,
+                                    "line": 9,
+                                    "column": 18
+                                 },
+                                 "end": {
+                                    "offset": 236,
+                                    "line": 9,
+                                    "column": 20
+                                 }
+                              },
+                              "data": {
+                                 "func_no": 47
+                              }
+                           },
+                           "loc": {
+                              "start": {
+                                 "offset": 234,
+                                 "line": 9,
+                                 "column": 18
+                              },
+                              "end": {
+                                 "offset": 236,
+                                 "line": 9,
+                                 "column": 20
+                              }
+                           },
+                           "data": {
+                              "is_scope": true,
+                              "func_no": 46
+                           }
+                        },
+                        "right": {
+                           "type": "Literal",
+                           "value": ")",
+                           "loc": {
+                              "start": {
+                                 "offset": 234,
+                                 "line": 9,
+                                 "column": 18
+                              },
+                              "end": {
+                                 "offset": 242,
+                                 "line": 9,
+                                 "column": 26
+                              }
+                           },
+                           "data": {
+                              "func_no": 49
+                           }
+                        },
+                        "loc": {
+                           "start": {
+                              "offset": 234,
+                              "line": 9,
+                              "column": 18
+                           },
+                           "end": {
+                              "offset": 242,
+                              "line": 9,
+                              "column": 26
+                           }
+                        },
+                        "data": {
+                           "func_no": 45,
+                           "breakable": true
+                        }
+                     },
+                     "loc": {
+                        "start": {
+                           "offset": 227,
+                           "line": 9,
+                           "column": 11
+                        },
+                        "end": {
+                           "offset": 242,
+                           "line": 9,
+                           "column": 26
+                        }
+                     },
+                     "data": {
+                        "func_no": 43,
+                        "breakable": true
+                     }
+                  },
+                  "loc": {
+                     "start": {
+                        "offset": 211,
+                        "line": 8,
+                        "column": 32
+                     },
+                     "end": {
+                        "offset": 242,
+                        "line": 9,
+                        "column": 26
+                     }
+                  },
+                  "data": {
+                     "func_no": 41,
+                     "breakable": true
+                  }
+               },
+               "loc": {
+                  "start": {
+                     "offset": 191,
+                     "line": 8,
+                     "column": 12
+                  },
+                  "end": {
+                     "offset": 242,
+                     "line": 9,
+                     "column": 26
+                  }
+               },
+               "data": {
+                  "func_no": 30,
+                  "breakable": true
+               }
+            },
+            "loc": {
+               "start": {
+                  "offset": 174,
+                  "line": 7,
+                  "column": 33
+               },
+               "end": {
+                  "offset": 242,
+                  "line": 9,
+                  "column": 26
+               }
+            },
+            "data": {
+               "func_no": 28,
+               "breakable": true
+            }
+         },
+         "deact": false
+      },
+      {
+         "loc": {
+            "start": {
+               "offset": 211,
+               "line": 8,
+               "column": 32
+            },
+            "end": {
+               "offset": 242,
+               "line": 9,
+               "column": 26
+            }
+         },
+         "expr": {
+            "type": "BinaryOpExpression",
+            "operator": "+",
+            "left": {
+               "type": "Literal",
+               "value": "€ ",
+               "loc": {
+                  "start": {
+                     "offset": 211,
+                     "line": 8,
+                     "column": 32
+                  },
+                  "end": {
+                     "offset": 242,
+                     "line": 9,
+                     "column": 26
+                  }
+               },
+               "data": {
+                  "func_no": 42
+               }
+            },
+            "right": {
+               "type": "BinaryOpExpression",
+               "operator": "+",
+               "left": {
+                  "type": "Literal",
+                  "value": "(",
+                  "loc": {
+                     "start": {
+                        "offset": 227,
+                        "line": 9,
+                        "column": 11
+                     },
+                     "end": {
+                        "offset": 242,
+                        "line": 9,
+                        "column": 26
+                     }
+                  },
+                  "data": {
+                     "func_no": 44
+                  }
+               },
+               "right": {
+                  "type": "BinaryOpExpression",
+                  "operator": "+",
+                  "left": {
+                     "type": "Path",
+                     "left": {
+                        "type": "EmptyLeft",
+                        "loc": {
+                           "start": {
+                              "offset": 234,
+                              "line": 9,
+                              "column": 18
+                           },
+                           "end": {
+                              "offset": 236,
+                              "line": 9,
+                              "column": 20
+                           }
+                        }
+                     },
+                     "right": {
+                        "type": "AasStep",
+                        "e": {
+                           "type": "VariableApplication",
+                           "var_name": "d",
+                           "loc": {
+                              "start": {
+                                 "offset": 234,
+                                 "line": 9,
+                                 "column": 18
+                              },
+                              "end": {
+                                 "offset": 236,
+                                 "line": 9,
+                                 "column": 20
+                              }
+                           },
+                           "data": {
+                              "var_stamp": {
+                                 "vref": {
+                                    "type": "VariableBinding",
+                                    "var_name": "d",
+                                    "e": {
+                                       "type": "Path",
+                                       "left": {
+                                          "type": "EmptyLeft",
+                                          "loc": {
+                                             "start": {
+                                                "offset": 25,
+                                                "line": 3,
+                                                "column": 9
+                                             },
+                                             "end": {
+                                                "offset": 29,
+                                                "line": 3,
+                                                "column": 13
+                                             }
+                                          }
+                                       },
+                                       "right": {
+                                          "type": "AasStep",
+                                          "e": {
+                                             "type": "Property",
+                                             "name": "date",
+                                             "loc": {
+                                                "start": {
+                                                   "offset": 25,
+                                                   "line": 3,
+                                                   "column": 9
+                                                },
+                                                "end": {
+                                                   "offset": 29,
+                                                   "line": 3,
+                                                   "column": 13
+                                                }
+                                             },
+                                             "data": {
+                                                "func_no": 11,
+                                                "breakable": true
+                                             }
+                                          },
+                                          "loc": {
+                                             "start": {
+                                                "offset": 25,
+                                                "line": 3,
+                                                "column": 9
+                                             },
+                                             "end": {
+                                                "offset": 29,
+                                                "line": 3,
+                                                "column": 13
+                                             }
+                                          },
+                                          "data": {
+                                             "func_no": 10
+                                          }
+                                       },
+                                       "loc": {
+                                          "start": {
+                                             "offset": 25,
+                                             "line": 3,
+                                             "column": 9
+                                          },
+                                          "end": {
+                                             "offset": 29,
+                                             "line": 3,
+                                             "column": 13
+                                          }
+                                       },
+                                       "data": {
+                                          "is_scope": true,
+                                          "func_no": 9
+                                       }
+                                    },
+                                    "loc": {
+                                       "start": {
+                                          "offset": 21,
+                                          "line": 3,
+                                          "column": 5
+                                       },
+                                       "end": {
+                                          "offset": 29,
+                                          "line": 3,
+                                          "column": 13
+                                       }
+                                    },
+                                    "data": {
+                                       "var_stamp": {
+                                          "vorigin": true,
+                                          "vno": 0,
+                                          "scope_func": "$global"
+                                       },
+                                       "func_no": 8,
+                                       "breakable": true
+                                    }
+                                 }
+                              },
+                              "func_no": 48,
+                              "breakable": true
+                           }
+                        },
+                        "loc": {
+                           "start": {
+                              "offset": 234,
+                              "line": 9,
+                              "column": 18
+                           },
+                           "end": {
+                              "offset": 236,
+                              "line": 9,
+                              "column": 20
+                           }
+                        },
+                        "data": {
+                           "func_no": 47
+                        }
+                     },
+                     "loc": {
+                        "start": {
+                           "offset": 234,
+                           "line": 9,
+                           "column": 18
+                        },
+                        "end": {
+                           "offset": 236,
+                           "line": 9,
+                           "column": 20
+                        }
+                     },
+                     "data": {
+                        "is_scope": true,
+                        "func_no": 46
+                     }
+                  },
+                  "right": {
+                     "type": "Literal",
+                     "value": ")",
+                     "loc": {
+                        "start": {
+                           "offset": 234,
+                           "line": 9,
+                           "column": 18
+                        },
+                        "end": {
+                           "offset": 242,
+                           "line": 9,
+                           "column": 26
+                        }
+                     },
+                     "data": {
+                        "func_no": 49
+                     }
+                  },
+                  "loc": {
+                     "start": {
+                        "offset": 234,
+                        "line": 9,
+                        "column": 18
+                     },
+                     "end": {
+                        "offset": 242,
+                        "line": 9,
+                        "column": 26
+                     }
+                  },
+                  "data": {
+                     "func_no": 45,
+                     "breakable": true
+                  }
+               },
+               "loc": {
+                  "start": {
+                     "offset": 227,
+                     "line": 9,
+                     "column": 11
+                  },
+                  "end": {
+                     "offset": 242,
+                     "line": 9,
+                     "column": 26
+                  }
+               },
+               "data": {
+                  "func_no": 43,
+                  "breakable": true
+               }
+            },
+            "loc": {
+               "start": {
+                  "offset": 211,
+                  "line": 8,
+                  "column": 32
+               },
+               "end": {
+                  "offset": 242,
+                  "line": 9,
+                  "column": 26
+               }
+            },
+            "data": {
+               "func_no": 41,
+               "breakable": true
+            }
+         },
+         "deact": false
+      }
+   ]
 }

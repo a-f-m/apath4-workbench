@@ -40,18 +40,20 @@
         <fieldset id="fset_widgets">
             <legend>widgets</legend>
             <div id='grp_layout'>
-                <input type="file" id="file-input" hidden/>
+                <input type="file" id="file-input" hidden />
 
+                <span>custom</span>
                 <span class='button'>
-                    <input id='bnt_store' type='button'
-                    title='stores widgets to a file (Ctrl+S)'
-                    value='store' />
+                    <input style="width: 45px;" id='bnt_restore' type='button'
+                        title='restores widgets from file (no key due to security)' value='open' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_restore' type='button' title='restores widgets from file (no key due to security)' value='restore' />
+                    <input style="width: 45px;" id='bnt_store' type='button' title='stores widgets to a file (Ctrl+S)'
+                        value='save' />
                 </span>
+                <!-- <span>...custom |</span> -->
                 <span title='dark editors (Ctrl+B)'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
-                <span class='button' hidden>
+                <span class='button' >
                     <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
                 </span>
                 <span title='fitting widgets on window resize' hidden><label><input id='toggle_fit'
@@ -62,18 +64,21 @@
             <legend>control</legend>
             <div>
                 <span class='button'>
-                    <input id='bnt_eval_apth' type='button' title='evaluation of apath expression (Ctrl+E)' value='eval' />
+                    <input id='bnt_eval_apth' type='button' title='evaluation of apath expression (Ctrl+E)'
+                        value='eval' />
                 </span>
-                <span title='evaluation on change (Ctrl+Numpad0)'><label><input id='toggle_live_eval' type='checkbox' />live
+                <span title='evaluation on change (Ctrl+Numpad0)'><label>
+                        <input id='toggle_live_eval' type='checkbox' />life
                         eval</label></span>
                 <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
                         failure</label></span>
                 <span class='button'>
-                <span title='more control'><label><input id='bnt_ctrl_more' type='button' value="more..." /></label></span>
-                                <!-- <br>
+                    <span title='more control'><label><input id='bnt_ctrl_more' type='button'
+                                value="debug..." /></label></span>
+                    <!-- <br>
                 <span title='arrays as sequence'><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence
                         </label></span> -->
-                <!-- <div class='txt_file_url'>
+                    <!-- <div class='txt_file_url'>
                     <span>
                         default step function file url (must be absolute!): <input type="text" id="txt_default_step_funcs"
                             size="40" />
@@ -90,25 +95,27 @@
                     <input id='bnt_doc' type='button' title='documentation' value='doc' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_ast' type='button' title='abstract syntax tree of the apath expression (Ctrl+., Ctrl+A)'
-                        value='AST' />
+                    <input id='bnt_ast' type='button'
+                        title='abstract syntax tree of the apath expression' value='AST' />
                 </span>
                 <span class='button' hidden>
                     <input id='bnt_trp' type='button' title='transpilat of the apath expression' value='trp**' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_grammar' type='button' title='grammar diagram (superordinate diagram or part of it) - related to the current example (Ctrl+., Ctrl+G)'
+                    <input id='bnt_grammar' type='button'
+                        title='grammar diagram (superordinate diagram or part of it) - related to the current example (Ctrl+., Ctrl+G)'
                         value='grammar' />
                 </span>
                 <span class='button'>
-                    <input id='bnt_cheat_sheet' type='button' title='cheat sheet part - related to the current example (Ctrl+., Ctrl+C)' value='cheat-sheet' />
+                    <input id='bnt_cheat_sheet' type='button'
+                        title='cheat sheet part - related to the current example (Ctrl+., Ctrl+C)'
+                        value='cheat-sheet' />
                 </span>
             </div>
         </fieldset>
     </div>
-    <div id='dialog_ctrl_more' class='dia-widget' title='Control'>
-    
-        <hr />
+    <div id='dialog_ctrl_more' class='dia-widget' title='Debug'>
+
         <!-- deferred
         <img id="tooltip-element" class="info" src="icons/info.svg" alt="Icon"> -->
         <div>
@@ -118,8 +125,8 @@
                     <button id="bnt_run" class="debug-button" title="Run/Continue (F8)">
                         <img src="icons/debug-run.svg" alt="Icon">
                     </button>
-                    <button id="bnt_step" class="debug-button" title="Step Into (F5)">
-                        <img src="icons/debug-step.svg" alt="Icon">
+                    <button id="bnt_step" class="debug-button" title="Step (F5)">
+                        <img src="icons/debug-step-1.svg" alt="Icon">
                     </button>
                     <button id="bnt_restart" class="debug-button" title="Rerun (Ctrl+F3)">
                         <img src="icons/debug-restart.svg" alt="Icon">
@@ -135,41 +142,92 @@
                 <span title=''><label><input id='toggle_halt_on_post' type='checkbox' checked />leaving</label></span>
                 <span>expression</span>
             </div>
-            <div>
-                <fieldset>
-                    <legend>breakpoints</legend>
-                    <div>
-                        <button id="bnt_set_break" class="debug-general-button" title="Ctrl+Shift+B">set/unset</button>
-                        <span>(at cursor)</span> 
-                    <!-- </div>
-                    <div> -->
-                        <!-- <button id="bnt_moveup_break" class="debug-general-button" title="Alt+Shift+M">move up</button>
-                        -->
-                    </div>
-                    <div>
-                        <button id="bnt_remove_all_break" class="debug-general-button" title="Alt+Shift+B">remove all</button>
-                    </div>
-                </fieldset>
+            <div class="line-with-text">
+                <span>breakpoints</span>
             </div>
+            <div>
+                <table>
+                    <!-- <tr>
+                                <td>toggle set</td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>toggle activate</td>
+                                <td></td>
+                            </tr> -->
+                    <tr>
+                        <td>
+                            <span class="debug-frame-br">
+                                <button id="bnt_set_break" class="debug-button-1" title="set/unset at cursor (Ctrl+Shift+B)">
+                                    <img src="icons/bi--input-cursor.svg" alt="Icon">
+                                </button>
+                                <button id="bnt_set_break_step" class="debug-button-1" title="set/unset at current step (Ctrl+., Ctrl+S)">
+                                    <img src="icons/at-step-1.svg" alt="Icon">
+                                </button>
+                            </span>
+                        </td>
+                        <td>
+                            <!-- &nbsp;&nbsp;&nbsp; -->
+                            <!-- &nbsp; -->
+                        </td>
+                        <!-- <td>
+                                    <span class="debug-frame-br">
+                                        <button id="bnt_togg_deactivate_at_cursor" class="debug-button-1" title="">
+                                            <img src="icons/fluent--cursor-hover-16-regular.svg" alt="Icon">
+                                        </button>
+                                        <button id="bnt_togg_deactivate_at_step" class="debug-button-1" title="">
+                                            <img src="icons/at-step-1.svg" alt="Icon">
+                                        </button>
+                                    </span>        
+                                </td> -->
+                        <td>
+                            <span class="debug-frame-br">
+                                <button id="bnt_activ_all_break" class="debug-button-1" title="toggle (de-)activate all (Ctrl+., Ctrl+D)">
+                                    <img src="icons/toggle-br-activ.svg" alt="Icon">
+                                </button>
+                                <button id="bnt_remove_all_break" class="debug-button-1" title="remove all (Alt+Shift+B)">
+                                    <img src="icons/clarity--remove-line.svg" alt="Icon">
+                                </button>
+                                <!-- <button id="bnt_remove_selected" class="debug-general-button" title="">selected</button> -->
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="list_breakpoints">
+            </div>
+            <!-- <div>
+                style="width:100%; outline: none; background-color: ghostwhite; border-color: lightgray;"
+                size="5"
+                <select style="width:100%; outline: none; height: 2cm;" id="select_breakpoints" multiple>
+                    <div>
+
+                    </div>
+                </select>
+            </div> -->
         </div>
     </div>
     <div class='main'>
         <!-- <img style="height: 1.3em;" src="info_24dp_FILL0_wght400_GRAD0_opsz24.svg"/> -->
         <div id='widget_input' class='widget' style='z-index: 101;'>
-            <div class='widget-header'><span title="Ctrl+Numpad1">json input (press F1 for editor commands)</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad1">json input (press F1 for editor commands)</span>
+            </div>
             <div id='monaco_input' class='monaco contentPane'></div>
             <!-- <div class='widget-footer'>lalala</div> -->
         </div>
         <div id='widget_apath' class='widget' style='z-index: 102;'>
-            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression (press F1 for editor commands)</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression (press F1 for editor
+                    commands)</span></div>
             <div id='monaco_apath' class='monaco contentPane'></div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
-            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes) / debug log</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes) /
+                    debug log</span></div>
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
-            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions (press F1 for editor commands)</span></div>
+            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions (press F1 for editor
+                    commands)</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
     </div>
@@ -179,7 +237,7 @@
     <!-- <div id="tooltip" class="tooltip"> -->
 
 
-        
+
     </div>
 
     <!-- ######################################### scripts ############################################### -->

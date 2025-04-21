@@ -116,7 +116,46 @@ function () {
               "width": 597.383,
               "zindex": "104"
             }
-          }
+          },
+          simple_1 : {
+            "widget_input": {
+               "pos": {
+                  "top": 101.515625,
+                  "left": 47.5625
+               },
+               "height": 478.531,
+               "width": 622.109,
+               "zindex": "102"
+            },
+            "widget_apath": {
+               "pos": {
+                  "top": 101.5,
+                  "left": 689.875
+               },
+               "height": 338.516,
+               "width": 641.172,
+               "zindex": "104"
+            },
+            "widget_result": {
+               "pos": {
+                  "top": 448.3125,
+                  "left": 690.234375
+               },
+               "height": 225.172,
+               "width": 641.172,
+               "zindex": "103"
+            },
+            "widget_sfuncs": {
+               "pos": {
+                  "top": 598.328125,
+                  "left": 47.5625
+               },
+               "height": 75.125,
+               "width": 622.109,
+               "zindex": "101"
+            }
+         }
+
     }
     
 var inputs = {
@@ -428,6 +467,64 @@ items = inventory.*.items.*,
             grammar: '#main-rule-VariableAssignment',
         },
         geom: geom.default
+    },
+
+    'step functions': {
+        group: true
+    },
+
+    'simple function': {
+        data: {
+            input: inputs.running,
+            apath:
+//-----------------------
+`func selectByDate(date, dateRegex) = _ ?( $date.match( $dateRegex ) ),
+
+inventory.*.
+  (
+    d = date,
+    selectByDate(date, '\\\\d{4}-10-\\\\d{2}').
+      items.*.
+        {
+          date: $d,
+          // only non-id properties must be quoted
+          'total price': price*quantity
+        }
+  )
+`
+//-----------------------
+            ,
+            with_comments: true,
+            grammar: '#main-rule-StepFunctionCall',
+        },
+        geom: geom.default
+    },
+
+    '... construction': {
+        data: {
+            input: inputs.running,
+            apath:
+//-----------------------
+`func selectByDate(date, dateRegex) = _ ?( $date.match( $dateRegex ) ),
+
+func itemTotal(d, total) = 
+(
+    {
+        date: $d,
+        'total price': $total
+    }
+),
+
+inventory.*.
+    selectByDate(date, '\\\\d{4}-10-\\\\d{2}').
+        items.*.itemTotal(date, price*quantity)
+`
+//-----------------------
+            ,
+            with_comments: true,
+            grammar: '#main-rule-StepFunctionCall',
+        },
+        geom: geom.simple_1
     },
 
     'js step functions': {

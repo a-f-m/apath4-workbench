@@ -18,6 +18,9 @@ function restore(e) {
         if (d) {
             set_data(d)
             set_geom(d.geom)
+            ebreakpoints = d.ebreakpoints ? 
+                new Breakpoints(d.ebreakpoints)
+                : new Breakpoints()
         }
     })
 }
@@ -30,7 +33,8 @@ function store() {
             apath: monaco_editors.apath.getValue(),
             sfuncs: monaco_editors.sfuncs.getValue()
         },
-        geom: get_geom()
+        geom: get_geom(),
+        ebreakpoints: ebreakpoints.items
     }
     downloadToFile(JSON.stringify(d, null, 3), '', ' text/plain')
 }
@@ -46,7 +50,8 @@ async function eval_(input, apath, sfuncs) {
     const sf = $('#toggle_strict_failure').prop('checked')
     const aas = $('#toggle_arrays_as_seq').prop('checked')
     if (!use_server) {
-        return window.apath_func_utils_.evaluate(input, apath, sfuncs, sf, aas, debug_callback)
+        last_eval_result = window.apath_func_utils_.evaluate(input, apath, sfuncs, sf, aas, debug_callback)
+        return last_eval_result
     } else {
         const args = window.Utils_.encode_object([input, apath, sfuncs, sf, aas])
         let ret
@@ -57,7 +62,7 @@ async function eval_(input, apath, sfuncs) {
             dataType: 'text',
             success: function (result) {
                 ret = window.Utils_.decode_to_object(result)
-                console.log(ret)
+                // console.log(ret)
             }
         })
         if (ret.error) {
@@ -70,6 +75,8 @@ async function eval_(input, apath, sfuncs) {
 $('#bnt_eval_apth').on('click', async function () {
 
     await complete_eval()
+    editor_sync.release()
+    remap_sync.release()
 
 })
 
@@ -88,6 +95,9 @@ async function complete_eval() {
 
             trace = []
             const e = await eval_(input, apath, `${sfuncs}`)
+            eval_error = false
+            handle_eval_success(true)
+            func_no_to_expr = e.func_no_to_expr
             const results = e.result
             if (results === null) {
             } else {
@@ -98,16 +108,27 @@ async function complete_eval() {
             }
 
         } catch (error) {
+            eval_error = true
+            handle_eval_success(false)
             result_editor.setValue(error.toString())
         }
     }
 }
 
-function on_editor_change() {
+var editor_sync = new window.Channel_.SyncFlag()
+function on_editor_change(apath_source) {
 
     if ($('#toggle_live_eval').prop('checked')) {
-        setTimeout(function () { $('#bnt_eval_apth').trigger('click') }, 10)
+        $('#bnt_eval_apth').trigger('click')
     }
+}
+
+var restore_mode = false
+
+function hide_selection(b) {
+    
+    $('#select_topics, #select_examples').prop('disabled', restore_mode = b)
+    $('#bnt_restore').val(b ? 'close' : 'open')
 }
 
 $('#bnt_store').on('click', function () {
@@ -115,20 +136,36 @@ $('#bnt_store').on('click', function () {
 })
 
 $('#bnt_restore').on('click', function (e) {
+    if (restore_mode) {
+        // release
+        hide_selection(false)
+        $('#select_examples').trigger('change')
+        return
+    }
     // restore(e)
     $('#file-input').trigger('click')
+})
+
+$('#file-input').on('change', async function (e) {
+    hide_selection(true)
+
+    editor_sync = new window.Channel_.SyncFlag()
+    remove_breakpoints()
+    restore(e);
+    (async () => {
+        await editor_sync.wait()
+        ebreakpoints.update_view()
+    })();
+
+    document.getElementById("file-input").value = "";
+    setTimeout(() => {  fit(undefined, true) }, 200)
 })
 
 $('#toggle_dark').on('change', function () {
     monaco.editor.setTheme(this.checked ? 'apath' : 'vs')
 })
 
-$('#file-input').on('change', function (e) {
-    restore(e)
-    document.getElementById("file-input").value = "";
-    remove_breakpoints()
-})
-    
+
 $('#toggle_live_eval').on('change', function () {
     $('#bnt_eval_apth').trigger('click')
 })
@@ -176,7 +213,6 @@ $('#select_topics').on('change', function (e) {
     ree_topic = $(this).find(':selected').attr('id')
     localStorage.setItem('ree_topic', ree_topic)
     get_exa_file(this.value)
-    remove_breakpoints()
 })
 
 $('#toggle_fit').on('change', function (e) {
@@ -193,6 +229,7 @@ $('#bnt_ast').on('click', function () {
     const ast = new window.Parser__.Parser()
         // .setting({ w_loc: false, no_empty_left: true, w_data: false })
         .setting({ w_loc: false })
+        // .setting({ w_loc: true })
         .parse(monaco_editors.apath.getValue())
     open_blob(JSON.stringify(ast, null, 3), 'text/plain')
 })
@@ -247,7 +284,11 @@ $('#bnt_ctrl_more').on('click', function () {
     for (let i = 0; i < 5; i++) fit(undefined, true)
 
     $('#dialog_ctrl_more').dialog('open')
-    set_editor_ro(true)
+    // set_editor_ro(true)
+    visibility_wb(false)
+    // remap_breakpoints()
+    // deco_breakpoints_1()
+    visibility_break_step(false)
 })
 
 
@@ -256,10 +297,11 @@ function dia_close() {
     special_left_trans = 0
     for (let i = 0; i < 5; i++) fit(undefined, true)
     set_debug_state('init')
-    remove_breakpoints()
-    set_editor_ro(false)
+    // set_editor_ro(false)
+    visibility_wb(true)
     dialog_ctrl_more_open = false
     $('#bnt_eval_apth').trigger('click')
+    // deco_breakpoints_1(true)
 }
 
 // ################### exa select field
@@ -306,7 +348,7 @@ $('#toggle_strict_failure').prop('checked', false)
 $('#toggle_arrays_as_seq').prop('checked', false)
 $(function () {
     console.log('ready!')
-    window.onresize = fit
+    // window.onresize = fit
     fit(undefined, true)
 })
 

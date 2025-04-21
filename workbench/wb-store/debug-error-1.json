@@ -1,45 +1,46 @@
 {
    "data": {
-      "input": "1",
-      "apath": "// values conforming to a regex\nmatch('1|2')",
+      "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
+      "apath": "cat.age",
       "sfuncs": ""
    },
    "geom": {
       "widget_input": {
          "pos": {
-            "top": 111.15625,
-            "left": 256.21875
+            "top": 104.35000610351562,
+            "left": 252.11666870117188
          },
-         "height": 573.688,
-         "width": 526.969,
+         "height": 506.467,
+         "width": 449.083,
          "zindex": "103"
       },
       "widget_apath": {
          "pos": {
-            "top": 111.140625,
-            "left": 800.328125
+            "top": 104.33332824707031,
+            "left": 715.7666625976562
          },
-         "height": 375.875,
-         "width": 543.125,
-         "zindex": "104"
+         "height": 331.833,
+         "width": 462.883,
+         "zindex": "102"
       },
       "widget_result": {
          "pos": {
-            "top": 508.890625,
-            "left": 800.640625
+            "top": 455.4666748046875,
+            "left": 716.0166625976562
          },
-         "height": 287.953,
-         "width": 543.125,
-         "zindex": "102"
+         "height": 254.2,
+         "width": 462.883,
+         "zindex": "101"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 706.734375,
-            "left": 256.21875
+            "top": 630.11669921875,
+            "left": 252.11666870117188
          },
-         "height": 90.0938,
-         "width": 526.969,
-         "zindex": "101"
+         "height": 79.55,
+         "width": 449.083,
+         "zindex": "104"
       }
-   }
+   },
+   "breakpoints": []
 }
