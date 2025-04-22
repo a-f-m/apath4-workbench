@@ -7688,9 +7688,9 @@ class Evaluator {
     /**
      * Evaluation over an input javascript object
      * @param input input javascript object
-     * @returns the first raw result, either a single object or an iterator (cmp. {@link evaluate})
+     * @returns the raw result, either a single object or an iterator (cmp. {@link evaluate})
      */
-    evaluate_raw_first(input) {
+    evaluate_raw(input) {
         try {
             return this.resolved_transpilat(this.create_root_env(input), input);
         }

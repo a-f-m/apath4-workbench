@@ -42,7 +42,7 @@
             <div id='grp_layout'>
                 <input type="file" id="file-input" hidden />
 
-                <span>custom</span>
+                <!-- <span>custom</span> -->
                 <span class='button'>
                     <input style="width: 45px;" id='bnt_restore' type='button'
                         title='restores widgets from file (no key due to security)' value='open' />
@@ -53,11 +53,11 @@
                 </span>
                 <!-- <span>...custom |</span> -->
                 <span title='dark editors (Ctrl+B)'><label><input id='toggle_dark' type='checkbox' />dark</label></span>
-                <span class='button' >
+                <span class='button' hidden>
                     <input id='bnt_fit' type='button' title='fitting widgets' value='fit' />
                 </span>
-                <span title='fitting widgets on window resize' hidden><label><input id='toggle_fit'
-                            type='checkbox' />live fit</label></span>
+                <span title='fitting widgets on window resize'><label><input id='toggle_fit'
+                            type='checkbox' />auto-fit</label></span>
             </div>
         </fieldset>
         <fieldset id="fset_control">
@@ -68,8 +68,7 @@
                         value='eval' />
                 </span>
                 <span title='evaluation on change (Ctrl+Numpad0)'><label>
-                        <input id='toggle_live_eval' type='checkbox' />life
-                        eval</label></span>
+                        <input id='toggle_live_eval' type='checkbox' />auto-eval</label></span>
                 <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
                         failure</label></span>
                 <span class='button'>

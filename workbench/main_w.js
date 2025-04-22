@@ -216,7 +216,7 @@ $('#select_topics').on('change', function (e) {
 })
 
 $('#toggle_fit').on('change', function (e) {
-    fit(undefined, true)
+    if ($('#toggle_fit').prop('checked')) fit(undefined, true)
 })
 
 $('#bnt_grammar').on('click', function () {
@@ -348,7 +348,7 @@ $('#toggle_strict_failure').prop('checked', false)
 $('#toggle_arrays_as_seq').prop('checked', false)
 $(function () {
     console.log('ready!')
-    // window.onresize = fit
+    window.onresize = fit
     fit(undefined, true)
 })
 
