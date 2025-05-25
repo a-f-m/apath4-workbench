@@ -35,8 +35,10 @@
      * general errors
      */
     class ApathError extends Error {
+        cause;
         constructor(message, cause) {
             super(cause_mess(message, cause));
+            this.cause = cause;
             this.name = 'ApathError';
         }
     }
@@ -71,6 +73,9 @@
     }
     function is_object(x) {
         return x !== undefined && x.constructor.name === "Object";
+    }
+    function get_keys(x) {
+        return is_object(x) ? Object.keys(x) : [];
     }
     function is_primitive(x) {
         return !(typeof x == 'object' || typeof x == 'function');
@@ -199,6 +204,7 @@
         escape_quote: escape_quote,
         escape_regex: escape_regex,
         get_abs_position: get_abs_position,
+        get_keys: get_keys,
         ind_: ind_,
         is_object: is_object,
         is_primitive: is_primitive,
@@ -6151,6 +6157,8 @@
         glob_vars = [];
         incarnation = 0;
         vars = [];
+        // will be initiaized. on demand for performance reasons
+        fail_points;
         constructor() {
         }
         incr_incarnation(func_no) {
@@ -6180,9 +6188,13 @@
      */
     class ExecutionError extends Error {
         func_no;
-        constructor(func_no, message) {
+        ctx_node;
+        fail_code;
+        constructor(func_no, message, ctx_node, fail_code) {
             super(message);
             this.func_no = func_no;
+            this.ctx_node = ctx_node;
+            this.fail_code = fail_code;
             this.name = 'ExecutionError';
         }
     }
@@ -6401,12 +6413,13 @@
             // (typeof x == "string" ? x.length > 0 : true)
             true;
     }
-    // ----------------------- dynamic apath runtime
+    // ----------------------- dynamic apath runtime ------------------------------------------
     var std_funcs = {
         match: 'std_match'
     };
     class RtIssues {
     }
+    // ----------------------------------------------------------------------------------------
     /**
      * dynamic, parametrizable run time functions
      */
@@ -6468,14 +6481,14 @@
         apply_subscript(env, func_no, x, i) {
             const y = x[i];
             return y === undefined ?
-                this.fail(env, func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
+                this.fail(x, env, func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
                 : y;
         }
         idx_check(env, func_no, x) {
             if (typeof x === 'number' && Number.isInteger(x))
                 return x;
             else
-                return this.fail(env, func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
+                return this.fail(x, env, func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
         }
         idx_convert(env, func_no, x) {
             const y = this.force_single_or_nilit(env, func_no, x, true);
@@ -6484,7 +6497,7 @@
         }
         subscript_check(env, func_no, x) {
             if (!Array.isArray(x))
-                return this.fail(env, func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
+                return this.fail(x, env, func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
             return true;
         }
         /** forcing single value or empty iter */
@@ -6498,7 +6511,7 @@
                     const z = x.next();
                     // const z = peek_next(x)
                     if (!z.done) {
-                        return this.fail(env, func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
+                        return this.fail(x, env, func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
                     }
                 }
                 return y.value;
@@ -6513,7 +6526,7 @@
                 return true;
             if (x === nilit) // sufficiency (no is_nilit check) ensured earlier force_single_or_nilit
                 return false;
-            return this.fail(env, func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
+            return this.fail(x, env, func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
         }
         array_ing(env, func_no, x) {
             if (this._setting.arrays_as_seq) {
@@ -6540,7 +6553,7 @@
                 return y;
             }
             else {
-                return this.fail(env, func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
+                return this.fail(x, env, func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
             }
         }
         opt_it_apply(env, func_no, x, f) {
@@ -6565,7 +6578,7 @@
                             o[key] = y[key];
                 }
                 else {
-                    this.fail(env, func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
+                    this.fail(x, env, func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
                 }
             });
         }
@@ -6579,11 +6592,11 @@
                 return 'unknown';
             }
         }
-        fail(env, func_no, mess, ret = nilit, force = false) {
+        fail(ctx_node, env, func_no, mess, ret = nilit, force = false, fail_code) {
             if (force || this._setting.strict_failure) {
                 const loc_str = DynApart.loc_str(env, func_no);
                 // throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; future versions will show source location`)
-                throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; location ${loc_str}`);
+                throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; location ${loc_str}`, ctx_node, fail_code);
             }
             else
                 return ret;
@@ -6617,22 +6630,19 @@
                 loc = expr.loc;
             }
             await this.debug_callback({ ...debug_data, expr, loc });
-            // func_no can be -1 at decls, ignore it
-            // console.log(func_no);
-            // console.log(JSON.stringify(env.func_no_to_expr[func_no].loc));
         }
         // ----------------- generic eval -------------------------
         gx_property(env, func_no, x, name) {
             // const prop = escape_quote(name)
             // const mess = `object property \\'${escape_quote(name)}\\' not found`
             const y = x[name];
-            return y === undefined ? this.fail(env, func_no, `object property '${escape_quote(name)}' not found`, nilit) : y;
+            return y === undefined ? this.fail(x, env, func_no, `object property '${escape_quote(name)}' not found`, nilit, false, 'prop_error') : y;
         }
         *gx_property_regex(env, func_no, ctx_node, regex) {
             if (!is_string(regex))
-                return this.fail(env, func_no, "string value expected (context: property regex)", undefined, true);
+                return this.fail(ctx_node, env, func_no, "string value expected (context: property regex)", undefined, true);
             if (!is_object(ctx_node))
-                return this.fail(env, func_no, "object expected (context: property regex)", undefined, true);
+                return this.fail(ctx_node, env, func_no, "object expected (context: property regex)", undefined, true);
             for (const key in ctx_node) {
                 if (key.match('^' + regex + '$'))
                     yield ctx_node[key];
@@ -6645,19 +6655,19 @@
                 return this.gx_property(env, func_no, ctx_node, y);
             if (y === nilit) // sufficiency (no is_nilit check) ensured by force_single_or_nilit
                 return nilit;
-            return this.fail(env, func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
+            return this.fail(ctx_node, env, func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
         }
         // ----------------- standard step funcs -------------------------
         check_args_num(env, func_no, n, expected_n, func_name) {
             if (n !== expected_n)
-                return this.fail(env, func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
+                return this.fail(undefined, env, func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
         }
         std_match(env, func_no, ctx_node, regex) {
             this.check_args_num(env, func_no, arguments.length, 4, 'match');
             if (!is_primitive(ctx_node))
                 return nilit;
             if (!is_string(regex))
-                return this.fail(env, func_no, "string value expected (context: 'match(...)')", undefined, true);
+                return this.fail(ctx_node, env, func_no, "string value expected (context: 'match(...)')", undefined, true);
             if (regex === '')
                 regex = '^$';
             const it = ctx_node.toString().match(new RegExp(regex, ''));
@@ -7127,7 +7137,7 @@
             if (this._dynart_setting.debug) {
                 this.punch_func(expr, new_func_name, `
                     const y = x['${prop}'];
-                    return y === undefined ? dynart.fail(env, ${this.func_cnt}, '${mess}', apart.nilit) : y
+                    return y === undefined ? dynart.fail(x, env, ${this.func_cnt}, '${mess}', apart.nilit, false, 'prop_error') : y
                 `);
                 return { snippet: new_func_name };
             }
@@ -7135,7 +7145,7 @@
                 this.new_func_fame(expr, false);
                 return {
                     inline: true, func: true,
-                    snippet: `(function(env, x){const y = x['${prop}']; return y === undefined ? dynart.fail(env, ${this.func_cnt}, '${mess}', apart.nilit) : y})`
+                    snippet: `(function(env, x){const y = x['${prop}']; return y === undefined ? dynart.fail(x, env, ${this.func_cnt}, '${mess}', apart.nilit, false, 'prop_error') : y})`
                     // snippet: `(function(env, x){return dynart.gx_property(env, ${this.func_cnt}, x, '${expr.name}')})`
                 };
             }
@@ -8026,7 +8036,7 @@
          */
         evaluate_raw(input) {
             try {
-                return this.resolved_transpilat(this.create_root_env(input), input);
+                return this.invoke_transpilat(input);
             }
             catch (error) {
                 throw error_eval(error);

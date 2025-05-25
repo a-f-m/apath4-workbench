@@ -50,8 +50,7 @@ async function eval_(input, apath, sfuncs) {
     const sf = $('#toggle_strict_failure').prop('checked')
     const aas = $('#toggle_arrays_as_seq').prop('checked')
     if (!use_server) {
-        last_eval_result = window.apath_func_utils_.evaluate(input, apath, sfuncs, sf, aas, debug_callback)
-        return last_eval_result
+        return last_eval_result = window.apath_func_utils_.evaluate(input, apath, sfuncs, sf, aas, debug_callback)
     } else {
         const args = window.Utils_.encode_object([input, apath, sfuncs, sf, aas])
         let ret
@@ -68,7 +67,7 @@ async function eval_(input, apath, sfuncs) {
         if (ret.error) {
             throw new Error(ret.error)
         }
-        return ret.return_value
+        return last_eval_result = ret.return_value
     }
 }
 
@@ -236,10 +235,7 @@ $('#bnt_ast').on('click', function () {
 
 $('#bnt_trp').on('click', async function () {
 
-    const input = monaco_editors.input.getValue()
-    const apath = monaco_editors.apath.getValue()
-    const sfuncs = monaco_editors.sfuncs.getValue().trim()
-    const trp = (await eval_(input, apath, `${sfuncs}`)).trp
+    const trp = (await eval_(monaco_editors.input.getValue(), monaco_editors.apath.getValue(), `${monaco_editors.sfuncs.getValue().trim()}`)).trp
 
     open_blob(trp, 'text/plain')
 })
@@ -255,6 +251,8 @@ $('#bnt_cheat_sheet').on('click', async function () {
     let exa = $('#select_examples').find(':selected').val()
     open_link(`generated-doc/site/cheat-sheet.html#e-${exa}`)
 })
+
+// ########################################### debug dialog ########################
 
 
 var dialog_ctrl_more_open = false
@@ -376,7 +374,7 @@ function setup() {
     let exa = ree_exa ? ree_exa : params.get('exa')
     if (exa === null) exa = examples.first_example.value
 
-    use_server = params.get('use-server')
+    use_server = params.get('use-server') === 'true'
     console.log(use_server)
 
     set_exa_select(exa)

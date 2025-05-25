@@ -19,6 +19,9 @@ require(['vs/editor/editor.main'], function () {
     // Define the language configuration (brackets, comments, etc.)
     monaco.languages.setLanguageConfiguration('apath', langConfig)
 
+    // completion
+    monaco.languages.registerCompletionItemProvider('apath', completion)
+
     monaco.editor.defineTheme('apath', theme)
     monaco.editor.setTheme('apath')
 
@@ -42,7 +45,11 @@ require(['vs/editor/editor.main'], function () {
             keybindings: {
                 'Ctrl+D': {
                 }
-            }
+            },
+            // quickSuggestions: false,
+            quickSuggestions: true,
+            wordBasedSuggestions: 'off'
+            // quickSuggestionsDelay: 500
         })
     }
     monaco_editors['input'] = create_editor(document.getElementById('monaco_input'), 'input')

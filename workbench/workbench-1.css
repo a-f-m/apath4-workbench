@@ -117,7 +117,8 @@
     border-radius: 4px;
     margin: 10px;
     /* resize: both; */
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* overflow: visible; */
 }
 
 .line-with-text {
@@ -164,6 +165,10 @@
     padding: 0px;
 }
 
+.hr-text-root { display: flex; align-items: center; text-align: center; }
+.hr-text-1 { flex-grow: 1; border-top: 1px solid gray; margin-right: 10px; }
+.hr-text-2 { flex-grow: 1; border-top: 1px solid gray; margin-left: 10px; }
+
 
 .monaco {
     /* border: 1px solid grey; */
@@ -172,7 +177,8 @@
     /* width: 10cm;
     height: 10cm; */
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: calc(100% - 25px);
     /* resize: both;
     overflow: hidden; */
 }
@@ -237,6 +243,7 @@
 .widget-header {
     padding: 4px;
     cursor: grabbing;
+    height: 18px;
 }
 
 body {

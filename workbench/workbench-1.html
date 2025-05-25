@@ -113,6 +113,8 @@
             </div>
         </fieldset>
     </div>
+    <!-- ########################################### debug dialog ############################################# -->
+
     <div id='dialog_ctrl_more' class='dia-widget' title='Debug'>
 
         <!-- deferred
@@ -214,10 +216,17 @@
             <div id='monaco_input' class='monaco contentPane'></div>
             <!-- <div class='widget-footer'>lalala</div> -->
         </div>
-        <div id='widget_apath' class='widget' style='z-index: 102;'>
-            <div class='widget-header'><span title="Ctrl+Numpad2">apath expression (press F1 for editor
-                    commands)</span></div>
-            <div id='monaco_apath' class='monaco contentPane'></div>
+        <div>
+            <div id='widget_apath' class='widget' style='z-index: 102;'>
+                <!--  -->
+                <div class='widget-header'>
+                    <span title="Ctrl+Numpad2">apath expression (press F1 for editor commands)&nbsp;&nbsp;</span>
+                    <!-- <span style="position: absolute; right: 0;"><label><input id='toggle_dark' type='checkbox' />dark</label></span> -->
+                    <span style="position: absolute; right: 0;" title='editor setting'><label><input id='bnt_dialog_apath_ed' type='button'
+                        value="setting..." /></label></span>
+                </div>
+                <div id='monaco_apath' class='monaco contentPane'></div>
+            </div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
             <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes) /
@@ -229,6 +238,14 @@
                     commands)</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
+    </div>
+
+    <!-- ########################################### apath ed setting dialog ######################################### -->
+
+    <div id='dialog_apath_ed' class='dia-widget' title='Debug'>
+        <div class="hr-text-root"><span class="hr-text-1"></span><span>suggestions</span><span class="hr-text-2"></span></div>
+        <div><span><label><input id='toggle_sugg' type='checkbox' checked />on</label></span></div>
+        <div><span><label><input id='toggle_quick_sugg' type='checkbox' checked />quick suggestions</label></span></div>
     </div>
 
     <!-- ######################################### tooltips ############################################### -->
@@ -260,6 +277,7 @@
     <script src='./main_w.js'></script>
 
     <script src='./monarch.js'></script>
+    <script src='./apath-ed.js'></script>
     <script src='./monaco.js'></script>
     <script>
     </script>

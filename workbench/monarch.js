@@ -8,8 +8,6 @@ const tokenProvider = {
     tokenizer: {
         root: [
 
-            // dot
-            [/\./, 'dot'],
 
             // Operators
             [/@operators/, 'operator'],
@@ -17,26 +15,28 @@ const tokenProvider = {
             // function call
             [/(?!(self|_|and|or|not|if|def|func))\w+(?=\()/, 'call'],
             
-            // as-self deferred
-            [/(as)(\$)/, ['keyword', 'varRef']],
-
             [/\w+\s*(?=\=[^\=])/, 'variable'],
 
             [/\@/, { token: 'bind', next: '@afterNodeVar' }],
-            [/as/, { token: 'bind', next: '@afterNodeVar' }],
             [/\bconst\b/, { token: 'keyword', next: '@afterNodeVar' }],
             [/\bfunc\b/, { token: 'keyword', next: '@afterDecl' }],
 
             // Numbers
             [/\b\d+\b/, 'number'],
 
+            // dot
+            [/\./, 'dot'],
+
             // Identifiers and keywords
+            // [/(\s*\.)?\w+(\s*\.)?/, {
+            // [/\w+/, {
             [/\b\w+\b/, {
                 cases: {
                     '@keywords': 'keyword',
                     '@default': 'identifier-ap'
                 }
             }],
+            // [/[a-zA-Z_][a-zA-Z0-9_]*(\s*\.)?/
 
             // Whitespace
             { include: '@whitespace' },
@@ -72,6 +72,8 @@ const tokenProvider = {
 }
 
 const langConfig = {
+    // wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\{\}\[\]\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
+    // wordPattern: /(\s*\.)?[a-zA-Z_][a-zA-Z0-9_]*(\s*\.)?/g,
     comments: {
         lineComment: '//',
         blockComment: ['/*', '*/']

@@ -229,6 +229,10 @@ function remove_single(sloc) {
 
 function handle_eval_success(b) {
     
+    $("#dialog_ctrl_more").dialog({
+        title: b ? "Debug" : "Debug (disabled due to eval errors)"
+    })
+
     $('#list_breakpoints, .debug-frame-br button, #bnt_start').prop('disabled', !b)
     $('#list_breakpoints, .debug-frame-br, .debug-frame-br img').css('opacity', b ? '1' : '0.5')
 }

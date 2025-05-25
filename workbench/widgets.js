@@ -38,6 +38,9 @@ $(function () {
         .on('mousedown', function () {
             to_top($(this))
         })
+        .on( "dragstop", function( event, ui ) {
+            fit(undefined, false)
+        })
     $('.widget').resizable({grid: [ 5, 5 ]})
 
 })
