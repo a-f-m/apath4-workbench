@@ -250,6 +250,7 @@ var examples = {
         group: true
     },
     'property': {
+        order: 0,
         data: {
             keyword: '<id>',
             input: inputs.simple,
@@ -262,6 +263,7 @@ var examples = {
         geom: geom.default
     },
     'property literal': {
+        order: 1,
         data: {
             keyword: '**`` ` ``** ... **`` ` ``**',
             input: inputs.simple_litprop1,
@@ -272,6 +274,7 @@ var examples = {
         geom: geom.default
     },
     'property regex': {
+        order: 2,
         data: {
             keyword: '**/** ... **/**',
             input: inputs.simple_litprop1,
@@ -282,6 +285,7 @@ var examples = {
         geom: geom.default
     },
     'dynamic property': {
+        order: 3,
         data: {
             keyword: '**prop(** ... **)**',
             input: inputs.simple_dynprop1,
@@ -292,6 +296,7 @@ var examples = {
         geom: geom.default
     },
     'children (array)': {
+        order: 4,
         data: {
             keyword: '**\\***',
             input: inputs.array,
@@ -302,6 +307,7 @@ var examples = {
         geom: geom.default
     },
     'children (object)': {
+        order: 5,
         data: {
             keyword: '**\\***',
             input: inputs.simple1,
@@ -312,6 +318,7 @@ var examples = {
         geom: geom.default
     },
     'self': {
+        order: 6,
         data: {
             keyword: '**_** \\| **self**',
             input: inputs.simple1,
@@ -326,6 +333,7 @@ var examples = {
         group: true
     },
     'filter (predicate)': {
+        order: 7,
         data: {
             keyword: '... **?(** ... **)**',
             input: inputs.array1,
@@ -335,6 +343,7 @@ var examples = {
         geom: geom.default
     },
     'subscript': {
+        order: 8,
         data: {
             keyword: '... **[** ... **]**',
             input: inputs.array,
@@ -345,6 +354,7 @@ var examples = {
         geom: geom.default
     },
     'value regex': {
+        order: 9,
         data: {
             keyword: '**match(** ... **)**',
             input: inputs.array3,
@@ -355,6 +365,7 @@ var examples = {
         geom: geom.default
     },
     'regex groups': {
+        order: 10,
         data: {
             keyword: '**match(** ... **)**',
             input: inputs.array,
@@ -365,6 +376,7 @@ var examples = {
         geom: geom.default
     },
     'regex named groups': {
+        order: 11,
         data: {
             keyword: '**match(** ... **)**',
             input: inputs.array,
@@ -378,6 +390,7 @@ var examples = {
         group: true
     },
     'construction (object)': {
+        order: 12,
         data: {
             keyword: '**{** ... **}**',
             input: inputs.simple1,
@@ -388,6 +401,7 @@ var examples = {
         geom: geom.default
     },
     '... dynamic property': {
+        order: 13,
         data: {
             keyword: '**{** ... **}**',
             input: inputs.simple2,
@@ -398,6 +412,7 @@ var examples = {
         geom: geom.default
     },
     '... embedding': {
+        order: 14,
         data: {
             keyword: '**{** ... **}**',
             input: inputs.simple4,
@@ -408,6 +423,7 @@ var examples = {
         geom: geom.default
     },
     'construction (array)': {
+        order: 15,
         data: {
             keyword: '**[** ... **]**',
             input: inputs.simple2,
@@ -417,6 +433,7 @@ var examples = {
         geom: geom.default
     },
     '... sequences': {
+        order: 16,
         data: {
             keyword: '**[** ... **]**',
             input: inputs.simple3,
@@ -431,6 +448,7 @@ var examples = {
         group: true
     },
     'equality': {
+        order: 17,
         data: {
             keyword: '**==, !=**',
             input: inputs.simple1,
@@ -440,6 +458,7 @@ var examples = {
         geom: geom.default
     },
     'relational': {
+        order: 18,
         data: {
             keyword: '**<**, **>**, **<=**, **>=**',
             input: inputs.simple1,
@@ -449,6 +468,7 @@ var examples = {
         geom: geom.default
     },
     'logical': {
+        order: 19,
         data: {
             keyword: '**and, or, not**',
             input: inputs.simple1,
@@ -458,6 +478,7 @@ var examples = {
         geom: geom.default
     },
     'arithmetic': {
+        order: 20,
         data: {
             keyword: '**+**, **-**, **&ast;**, **/**, **%**',
             input: inputs.simple1,
@@ -471,6 +492,7 @@ var examples = {
         group: true
     },
     'scope expression': {
+        order: 21,
         data: {
             keyword: '... **,** ... ',
             input: inputs.simple1,
@@ -482,12 +504,21 @@ var examples = {
         geom: geom.sfuncs
     },
     'conditional': {
+        order: 22,
         data: {
             keyword: '**if** **(** ... **)** ... ',
             input: inputs.simple1,
             apath: `cat.(if (age < 10) age 'old')`,
             grammar: '#main-rule-OrdinaryExpression',
-            remark: 'expression value depending on a condition'
+            remark: 'expression value depending on a condition',
+            sugg: {
+                insertText:
+`\\(if (|||true|||\${1:_condition_})
+    (|||true|||\${2:_then_part_})
+    (|||true|||\${3:_else_part_})
+\\)`,
+                
+            }
         },
         geom: geom.default
     },
@@ -495,6 +526,7 @@ var examples = {
         group: true
     },
     'variable reference': {
+        order: 23,
         data: {
             keyword: '**$** ...',
             input: inputs.simple,
@@ -505,6 +537,7 @@ var examples = {
         geom: geom.default
     },
     'variable assignment': {
+        order: 24,
         data: {
             keyword: '... **=** ...',
             input: inputs.simple,
@@ -519,6 +552,7 @@ $toLive`
         "geom": geom.default,
     },
     '... memoizing nodes': {
+        order: 25,
         data: {
             keyword: '... **=** ...',
             input: inputs.var1,
@@ -539,6 +573,7 @@ $toLive`
         "geom": geom.default,
     },
     '... joins': {
+        order: 26,
         data: {
             keyword: '... **=** ...',
             input: inputs.var2,
@@ -569,6 +604,7 @@ $cats.(cat=_,
     },
 
     'reusable expressions': {
+        order: 27,
         data: {
             keyword: '**func** <id>**(**...**)** = ...',
             input: inputs.simple1,
@@ -583,7 +619,8 @@ cat.age.plus(10)`
         "geom": geom.default,
     },
 
-    '... construction': {
+    'constructive function': {
+        order: 28,
         data: {
             keyword: '**func** <id>**(**...**)** = ...',
             input: inputs.simple1,
@@ -600,7 +637,8 @@ cat.callName(2)`
 
 
 
-    'recursion': {
+    'recursive function': {
+        order: 29,
         data: {
             keyword: '**func** <id>**(**...**)** = ...',
             input: inputs.simple1,
@@ -643,6 +681,7 @@ cat.recIncr(age)`
         group: true
     },
     'simple step function': {
+        order: 30,
         data: {
             keyword: '<id>**(** ... **)**',
             input: inputs.simple,
@@ -654,6 +693,7 @@ cat.recIncr(age)`
         geom: geom.sfuncs1
     },
     'with sequences as parameters': {
+        order: 31,
         data: {
             keyword: '<id>**(** ... **)**',
             input: inputs.array2,
@@ -666,6 +706,7 @@ sum(keys.*)`,
         geom: geom.sfuncs
     },
     'returning sequences': {
+        order: 32,
         data: {
             keyword: '<id>**(** ... **)**',
             input: inputs.simple,

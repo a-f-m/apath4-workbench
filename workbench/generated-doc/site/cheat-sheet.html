@@ -178,6 +178,10 @@ body {
 .mtk7 { color: #717171 } 
 /* vars */
 .mtk4 { font-weight: bold } 
+
+td {
+    vertical-align: top;
+}
 </style>
 <h2 id="cheat-sheet-generated">Cheat sheet (<em>generated</em>)</h2>
 <!-- begin cheat-sheet -->
@@ -214,7 +218,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-property">property</span></td>
+<td><nav id="n-property"><a href="#e-property"></a></nav> <span id="e-property">property</span></td>
 <td><span></span></td>
 <td>&lt;id&gt;</td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span></span></td>
@@ -223,7 +227,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-property literal">property literal</span></td>
+<td><nav id="n-property-literal"><a href="#e-property literal"></a></nav> <span id="e-property literal">property literal</span></td>
 <td><span>non-identifier properties names</span></td>
 <td><strong><code>`</code></strong> ... <strong><code>`</code></strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk5">`#id`</span></span></td>
@@ -232,7 +236,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=property literal"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-property regex">property regex</span></td>
+<td><nav id="n-property-regex"><a href="#e-property regex"></a></nav> <span id="e-property regex">property regex</span></td>
 <td><span>all properties with names conforming to a regex</span></td>
 <td><strong>/</strong> ... <strong>/</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk5">/#.*/</span></span></td>
@@ -241,7 +245,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=property regex"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-dynamic property">dynamic property</span></td>
+<td><nav id="n-dynamic-property"><a href="#e-dynamic property"></a></nav> <span id="e-dynamic property">dynamic property</span></td>
 <td><span>expression value used as the property name</span></td>
 <td><strong>prop(</strong> ... <strong>)</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">p</span><span class="mtk1">)</span></span></td>
@@ -250,7 +254,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Property"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-children (array)">children (array)</span></td>
+<td><nav id="n-children-(array)"><a href="#e-children (array)"></a></nav> <span id="e-children (array)">children (array)</span></td>
 <td><span>all array items</span></td>
 <td><strong>*</strong></td>
 <td><span><span class="mtk13">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*</span></span></td>
@@ -259,7 +263,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=children (array)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-children (object)">children (object)</span></td>
+<td><nav id="n-children-(object)"><a href="#e-children (object)"></a></nav> <span id="e-children (object)">children (object)</span></td>
 <td><span>all property values</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">*</span></span></td>
@@ -268,7 +272,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Children"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=children (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-self">self</span></td>
+<td><nav id="n-self"><a href="#e-self"></a></nav> <span id="e-self">self</span></td>
 <td><span>current context node ('_' or 'self')</span></td>
 <td><strong>_</strong> | <strong>self</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk10 mtkb">_</span></span></td>
@@ -286,7 +290,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-filter (predicate)">filter (predicate)</span></td>
+<td><nav id="n-filter-(predicate)"><a href="#e-filter (predicate)"></a></nav> <span id="e-filter (predicate)">filter (predicate)</span></td>
 <td><span></span></td>
 <td>... <strong>?(</strong> ... <strong>)</strong></td>
 <td><span><span class="mtk1">*</span><span class="mtk10 mtkb">?</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1">==1)</span></span></td>
@@ -295,7 +299,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Filter"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=filter (predicate)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-subscript">subscript</span></td>
+<td><nav id="n-subscript"><a href="#e-subscript"></a></nav> <span id="e-subscript">subscript</span></td>
 <td><span></span></td>
 <td>... <strong>[</strong> ... <strong>]</strong></td>
 <td><span><span class="mtk13">names</span><span class="mtk1">[1]</span></span></td>
@@ -304,7 +308,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Subscript"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=subscript"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-value regex">value regex</span></td>
+<td><nav id="n-value-regex"><a href="#e-value regex"></a></nav> <span id="e-value regex">value regex</span></td>
 <td><span>values conforming to a regex</span></td>
 <td><strong>match(</strong> ... <strong>)</strong></td>
 <td><span><span class="mtk1">*</span><span class="mtk10 mtkb">?</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'1|2'</span><span class="mtk1">))</span></span></td>
@@ -313,7 +317,7 @@ body {
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=value regex"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-regex groups">regex groups</span></td>
+<td><nav id="n-regex-groups"><a href="#e-regex groups"></a></nav> <span id="e-regex groups">regex groups</span></td>
 <td><span>yields a match object with groups</span></td>
 <td></td>
 <td><span><span class="mtk13">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'j(o)'</span><span class="mtk1">)</span></span></td>
@@ -322,7 +326,7 @@ body {
 <td><a href="language/grammar.html#main-rule-StepFunctionCall"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=regex groups"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-regex named groups">regex named groups</span></td>
+<td><nav id="n-regex-named-groups"><a href="#e-regex named groups"></a></nav> <span id="e-regex named groups">regex named groups</span></td>
 <td><span>match object contains named groups</span></td>
 <td></td>
 <td><span><span class="mtk13">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*</span><span class="mtk1 mtkb">.</span><span class="mtk4">match</span><span class="mtk1">(</span><span class="mtk5">'(?&lt;x&gt;.)u'</span><span class="mtk1">)</span></span></td>
@@ -340,7 +344,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-construction (object)">construction (object)</span></td>
+<td><nav id="n-construction-(object)"><a href="#e-construction (object)"></a></nav> <span id="e-construction (object)">construction (object)</span></td>
 <td><span>property name: identifier or string</span></td>
 <td><strong>{</strong> ... <strong>}</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk13">id</span><span class="mtk1">: 2, </span><span class="mtk5">'#call'</span><span class="mtk1">: </span><span class="mtk13">name</span><span class="mtk1"> }</span></span></td>
@@ -349,7 +353,7 @@ body {
 <td><a href="language/grammar.html#main-rule-ObjectConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=construction (object)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... dynamic property">... dynamic property</span></td>
+<td><nav id="n-----dynamic-property"><a href="#e-... dynamic property"></a></nav> <span id="e-... dynamic property">... dynamic property</span></td>
 <td><span>expression value used as the property name</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk4">prop</span><span class="mtk1">(</span><span class="mtk13">p</span><span class="mtk1">): </span><span class="mtk5">'jo'</span><span class="mtk1"> }</span></span></td>
@@ -358,7 +362,7 @@ body {
 <td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... dynamic property"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... embedding">... embedding</span></td>
+<td><nav id="n-----embedding"><a href="#e-... embedding"></a></nav> <span id="e-... embedding">... embedding</span></td>
 <td><span>value is embedded, here 'self' ('_'), age is newly assigned, and id is removed</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">{ </span><span class="mtk10 mtkb">_</span><span class="mtk1">, </span><span class="mtk13">age</span><span class="mtk1">: 3, </span><span class="mtk13">id</span><span class="mtk1">: </span><span class="mtk10">none</span><span class="mtk1"> }</span></span></td>
@@ -367,7 +371,7 @@ body {
 <td><a href="language/grammar.html#main-rule-PropertyAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... embedding"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-construction (array)">construction (array)</span></td>
+<td><nav id="n-construction-(array)"><a href="#e-construction (array)"></a></nav> <span id="e-construction (array)">construction (array)</span></td>
 <td><span></span></td>
 <td><strong>[</strong> ... <strong>]</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">[ 3, </span><span class="mtk13">age</span><span class="mtk1"> ]</span></span></td>
@@ -376,7 +380,7 @@ body {
 <td><a href="language/grammar.html#main-rule-ArrayConstruction"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=construction (array)"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... sequences">... sequences</span></td>
+<td><nav id="n-----sequences"><a href="#e-... sequences"></a></nav> <span id="e-... sequences">... sequences</span></td>
 <td><span>sequences are embedded flat. use [names.*] otherwise</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">[ </span><span class="mtk13">names</span><span class="mtk1 mtkb">.</span><span class="mtk1">*, </span><span class="mtk5">'lu'</span><span class="mtk1"> ]</span></span></td>
@@ -394,7 +398,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-equality">equality</span></td>
+<td><nav id="n-equality"><a href="#e-equality"></a></nav> <span id="e-equality">equality</span></td>
 <td><span></span></td>
 <td><strong>==, !=</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1"> == 1)</span></span></td>
@@ -403,7 +407,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=equality"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-relational">relational</span></td>
+<td><nav id="n-relational"><a href="#e-relational"></a></nav> <span id="e-relational">relational</span></td>
 <td><span></span></td>
 <td><strong>&lt;</strong>, <strong>&gt;</strong>, <strong>&lt;=</strong>, <strong>&gt;=</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1"> &lt; 2)</span></span></td>
@@ -412,7 +416,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=relational"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-logical">logical</span></td>
+<td><nav id="n-logical"><a href="#e-logical"></a></nav> <span id="e-logical">logical</span></td>
 <td><span></span></td>
 <td><strong>and, or, not</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1">==1 </span><span class="mtk10">or</span><span class="mtk1"> </span><span class="mtk10">not</span><span class="mtk1"> </span><span class="mtk13">age</span><span class="mtk1">&lt;9)</span></span></td>
@@ -421,7 +425,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=logical"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-arithmetic">arithmetic</span></td>
+<td><nav id="n-arithmetic"><a href="#e-arithmetic"></a></nav> <span id="e-arithmetic">arithmetic</span></td>
 <td><span></span></td>
 <td><strong>+</strong>, <strong>-</strong>, <strong>*</strong>, <strong>/</strong>, <strong>%</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1"> + 3 * -1)</span></span></td>
@@ -439,7 +443,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-scope expression">scope expression</span></td>
+<td><nav id="n-scope-expression"><a href="#e-scope expression"></a></nav> <span id="e-scope expression">scope expression</span></td>
 <td><span>evaluates sequentially and returns value of last expression</span></td>
 <td>... <strong>,</strong> ...</td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">logg</span><span class="mtk1">(), </span><span class="mtk13">age</span><span class="mtk1">)</span></span></td>
@@ -448,7 +452,7 @@ body {
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=scope expression"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-conditional">conditional</span></td>
+<td><nav id="n-conditional"><a href="#e-conditional"></a></nav> <span id="e-conditional">conditional</span></td>
 <td><span>expression value depending on a condition</span></td>
 <td><strong>if</strong> <strong>(</strong> ... <strong>)</strong> ...</td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk10">if</span><span class="mtk1"> (</span><span class="mtk13">age</span><span class="mtk1"> &lt; 10) </span><span class="mtk13">age</span><span class="mtk1"> </span><span class="mtk5">'old'</span><span class="mtk1">)</span></span></td>
@@ -466,7 +470,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-variable reference">variable reference</span></td>
+<td><nav id="n-variable-reference"><a href="#e-variable reference"></a></nav> <span id="e-variable reference">variable reference</span></td>
 <td><span>e.g. predefined variable 'root' for the input</span></td>
 <td><strong>$</strong> ...</td>
 <td><span><span class="mtk7">$</span><span class="mtk4">root</span><span class="mtk1 mtkb">.</span><span class="mtk13">cat</span></span></td>
@@ -475,7 +479,7 @@ body {
 <td><a href="language/grammar.html#main-rule-VariableReference"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=variable reference"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-variable assignment">variable assignment</span></td>
+<td><nav id="n-variable-assignment"><a href="#e-variable assignment"></a></nav> <span id="e-variable assignment">variable assignment</span></td>
 <td><span>usual assignment of values</span></td>
 <td>... <strong>=</strong> ...</td>
 <td><span><span class="mtk4">toLive </span><span class="mtk1">= 15 - </span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1">,</span></span><br/><span><span class="mtk7">$</span><span class="mtk4">toLive</span></span></td>
@@ -484,7 +488,7 @@ body {
 <td><a href="language/grammar.html#main-rule-VariableAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=variable assignment"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... memoizing nodes">... memoizing nodes</span></td>
+<td><nav id="n-----memoizing-nodes"><a href="#e-... memoizing nodes"></a></nav> <span id="e-... memoizing nodes">... memoizing nodes</span></td>
 <td><span>a node is bound to a variable, referenced in subsequent paths</span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk4">child</span><span class="mtk1">=</span><span class="mtk10 mtkb">_</span><span class="mtk1">,</span></span><br/><span><span class="mtk1">     </span><span class="mtk13">mom</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk5">'gave birth at age '</span></span><br/><span><span class="mtk1">          + (</span><span class="mtk13">age</span><span class="mtk1"> - </span><span class="mtk7">$</span><span class="mtk4">child</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1">)))</span></span></td>
@@ -493,7 +497,7 @@ body {
 <td><a href="language/grammar.html#main-rule-VariableAssignment"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... memoizing nodes"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... joins">... joins</span></td>
+<td><nav id="n-----joins"><a href="#e-... joins"></a></nav> <span id="e-... joins">... joins</span></td>
 <td><span>&quot;joins&quot; with variables storing sequences</span></td>
 <td></td>
 <td><span><span class="mtk4">cats </span><span class="mtk1">= </span><span class="mtk13">cats</span><span class="mtk1 mtkb">.</span><span class="mtk1">*, </span><span class="mtk4">dogs </span><span class="mtk1">= </span><span class="mtk13">dogs</span><span class="mtk1 mtkb">.</span><span class="mtk1">*,</span></span><br/><span><span class="mtk7">$</span><span class="mtk4">cats</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk4">cat</span><span class="mtk1">=</span><span class="mtk10 mtkb">_</span><span class="mtk1">,       </span></span><br/><span><span class="mtk1">       </span><span class="mtk7">$</span><span class="mtk4">dogs</span><span class="mtk1"> </span><span class="mtk10 mtkb">?</span><span class="mtk1">(</span><span class="mtk10 mtkb">_</span><span class="mtk1"> != </span><span class="mtk7">$</span><span class="mtk4">cat</span><span class="mtk1">)</span><span class="mtk1 mtkb">.</span></span><br/><span><span class="mtk1">        (</span><span class="mtk7">$</span><span class="mtk4">cat</span><span class="mtk1"> + </span><span class="mtk5">' loves '</span><span class="mtk1"> + </span><span class="mtk10 mtkb">_</span><span class="mtk1">))</span></span></td>
@@ -511,7 +515,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-reusable expressions">reusable expressions</span></td>
+<td><nav id="n-reusable-expressions"><a href="#e-reusable expressions"></a></nav> <span id="e-reusable expressions">reusable expressions</span></td>
 <td><span>simple expressions over the context node</span></td>
 <td><strong>func</strong> &lt;id&gt;<strong>(</strong>...<strong>)</strong> = ...</td>
 <td><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">plus</span><span class="mtk1">(</span><span class="mtk13">k</span><span class="mtk1">) = </span><span class="mtk10 mtkb">_</span><span class="mtk1"> + </span><span class="mtk7">$</span><span class="mtk4">k</span><span class="mtk1">,</span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">plus</span><span class="mtk1">(10)</span></span></td>
@@ -520,22 +524,22 @@ body {
 <td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=reusable expressions"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-... construction">... construction</span></td>
+<td><nav id="n-constructive-function"><a href="#e-constructive function"></a></nav> <span id="e-constructive function">constructive function</span></td>
 <td><span>constructions over the context node; 'name' relative to it</span></td>
 <td></td>
 <td><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">callName</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = { </span><span class="mtk13">id</span><span class="mtk1">: </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1">, </span><span class="mtk5">'#call'</span><span class="mtk1">: </span><span class="mtk13">name</span><span class="mtk1"> },</span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">callName</span><span class="mtk1">(2)</span></span></td>
 <td></td>
 <td>{ &quot;id&quot;: 2, &quot;#call&quot;: &quot;jo&quot; }</td>
-<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=... construction"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=constructive function"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
-<td><span id="e-recursion">recursion</span></td>
+<td><nav id="n-recursive-function"><a href="#e-recursive function"></a></nav> <span id="e-recursive function">recursive function</span></td>
 <td><span>with global and local variables</span></td>
 <td></td>
 <td><span><span class="mtk4">to </span><span class="mtk1">= 5,</span></span><br/><span><span class="mtk10">func</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">x</span><span class="mtk1">) = (</span></span><br/><span><span class="mtk1">    </span><span class="mtk4">y </span><span class="mtk1">= </span><span class="mtk7">$</span><span class="mtk4">x</span><span class="mtk1"> + 1,</span></span><br/><span><span class="mtk1">    </span><span class="mtk10">if</span><span class="mtk1"> (</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> == </span><span class="mtk7">$</span><span class="mtk4">to</span><span class="mtk1">) </span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1"> </span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk7">$</span><span class="mtk4">y</span><span class="mtk1">)), </span></span><br/><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk4">recIncr</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1">)</span></span></td>
 <td></td>
 <td>5</td>
-<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=recursion"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
+<td><a href="language/grammar.html#main-rule-StepFunctionDefinition"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=recursive function"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 </tbody>
 </table>
@@ -575,7 +579,7 @@ body {
 <td></td>
 </tr>
 <tr>
-<td><span id="e-simple step function">simple step function</span></td>
+<td><nav id="n-simple-step-function"><a href="#e-simple step function"></a></nav> <span id="e-simple step function">simple step function</span></td>
 <td><span></span></td>
 <td>&lt;id&gt;<strong>(</strong> ... <strong>)</strong></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">add</span><span class="mtk1">(1)</span></span></td>
@@ -585,7 +589,7 @@ body {
 <td>[<br>    // 'ctx_node' (context node) is the object passed <br>    // from the previous step - followed by parameters<br>    function add(ctx_node, k) {<br>        return typeof ctx_node === 'number' &amp;&amp; typeof k === 'number' ?<br>                ctx_node + k : undefined<br>                // 'undefined' stops evaluation with no solution<br>    }<br>]</td>
 </tr>
 <tr>
-<td><span id="e-with sequences as parameters">with sequences as parameters</span></td>
+<td><nav id="n-with-sequences-as-parameters"><a href="#e-with sequences as parameters"></a></nav> <span id="e-with sequences as parameters">with sequences as parameters</span></td>
 <td><span></span></td>
 <td></td>
 <td><span><span class="mtk4">sum</span><span class="mtk1">(</span><span class="mtk13">keys</span><span class="mtk1 mtkb">.</span><span class="mtk1">*)</span></span></td>
@@ -595,7 +599,7 @@ body {
 <td>[<br>    function sum(ctx_node, seq) {<br>        let sum = 0<br>        if (!apart.isApathIterable(seq)) return seq<br>        for (const x of seq) sum += x<br>        return sum<br>    }<br>]</td>
 </tr>
 <tr>
-<td><span id="e-returning sequences">returning sequences</span></td>
+<td><nav id="n-returning-sequences"><a href="#e-returning sequences"></a></nav> <span id="e-returning sequences">returning sequences</span></td>
 <td><span></span></td>
 <td></td>
 <td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">to</span><span class="mtk1">(3)</span></span></td>

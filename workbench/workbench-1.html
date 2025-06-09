@@ -72,7 +72,7 @@
                 <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
                         failure</label></span>
                 <span class='button'>
-                    <span title='more control'><label><input id='bnt_ctrl_more' type='button'
+                    <span title='more control (Ctrl+., Ctrl+M)'><label><input id='bnt_ctrl_more' type='button'
                                 value="debug..." /></label></span>
                     <!-- <br>
                 <span title='arrays as sequence'><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence
@@ -211,7 +211,7 @@
     <div class='main'>
         <!-- <img style="height: 1.3em;" src="info_24dp_FILL0_wght400_GRAD0_opsz24.svg"/> -->
         <div id='widget_input' class='widget' style='z-index: 101;'>
-            <div class='widget-header'><span title="Ctrl+Numpad1">json input (press F1 for editor commands)</span>
+            <div class='widget-header'><span title="Focus: Ctrl+Numpad1">json input (press F1 for editor commands)</span>
             </div>
             <div id='monaco_input' class='monaco contentPane'></div>
             <!-- <div class='widget-footer'>lalala</div> -->
@@ -220,7 +220,7 @@
             <div id='widget_apath' class='widget' style='z-index: 102;'>
                 <!--  -->
                 <div class='widget-header'>
-                    <span title="Ctrl+Numpad2">apath expression (press F1 for editor commands)&nbsp;&nbsp;</span>
+                    <span title="Focus: Ctrl+Numpad2">apath expression (press F1 for editor commands)&nbsp;&nbsp;</span>
                     <!-- <span style="position: absolute; right: 0;"><label><input id='toggle_dark' type='checkbox' />dark</label></span> -->
                     <span style="position: absolute; right: 0;" title='editor setting'><label><input id='bnt_dialog_apath_ed' type='button'
                         value="setting..." /></label></span>
@@ -229,12 +229,12 @@
             </div>
         </div>
         <div id='widget_result' class='widget' style='z-index: 103;'>
-            <div class='widget-header'><span title="Ctrl+Numpad4">result (multiple solutions delimited by dashes) /
+            <div class='widget-header'><span title="Focus: Ctrl+Numpad4">result (multiple solutions delimited by dashes) /
                     debug log</span></div>
             <div id='monaco_result' class='monaco contentPane'></div>
         </div>
         <div id='widget_sfuncs' class='widget' style='z-index: 104;'>
-            <div class='widget-header'><span title="Ctrl+Numpad3">ARRAY of js step functions (press F1 for editor
+            <div class='widget-header'><span title="Focus: Ctrl+Numpad3">ARRAY of js step functions (press F1 for editor
                     commands)</span></div>
             <div id='monaco_sfuncs' class='monaco contentPane'></div>
         </div>
@@ -242,10 +242,15 @@
 
     <!-- ########################################### apath ed setting dialog ######################################### -->
 
-    <div id='dialog_apath_ed' class='dia-widget' title='Debug'>
+    <div id="dialog_apath_ed" class='dia-widget'>
         <div class="hr-text-root"><span class="hr-text-1"></span><span>suggestions</span><span class="hr-text-2"></span></div>
-        <div><span><label><input id='toggle_sugg' type='checkbox' checked />on</label></span></div>
-        <div><span><label><input id='toggle_quick_sugg' type='checkbox' checked />quick suggestions</label></span></div>
+        <br>
+        <!-- <div><span><label><input id='toggle_quick_sugg' type='checkbox' checked />quick suggestions</label></span> <img id="info_img_quick_sugg" src="icons/info.svg" alt="Icon"></div>
+        <div id="info_quick_sugg" class="tooltip">the suggestion is shown during typing non-symbol characters</div> -->
+        <div><span><label><input id='toggle_correct_templ' type='checkbox' checked />correct insertion</label></span> <img id="info_img_correct_templ" src="icons/info.svg" alt="Icon"></div>
+        <div id="info_correct_templ" class="tooltip">only syntactically correct embeddable snippets are suggested</div>
+        <div><span><label><input id='toggle_templ_skip_nl' type='checkbox' />one-line insertion</label></span> <img id="info_img_templ_skip_nl" src="icons/info.svg" alt="Icon"></div>
+        <div id="info_templ_skip_nl" class="tooltip">the suggested snippet is inserted as one line</div>
     </div>
 
     <!-- ######################################### tooltips ############################################### -->
@@ -258,7 +263,7 @@
 
     <!-- ######################################### scripts ############################################### -->
 
-    <script src='./widgets.js'></script>
+    <script src='./js/widgets.js'></script>
     <!-- deprecated <script src='./bundle.js'></script> -->
     <script>
         // TODO for now necessary for rollup
@@ -266,19 +271,20 @@
     </script>
     <script src='./bundle-rollup.js'></script>
     <script src='./tooltips.js'></script>
-    <script src='./util.js'></script>
+    <script src='./js/util.js'></script>
     <script src='./data-dyn.js'></script>
+    <script src='./data-dyn-guide.js'></script>
     <script src='./data.js'></script>
     <!-- <script>
         const params = new URLSearchParams(window.location....)
     </script> -->
-    <script src='./control.js'></script>
-    <script src='./keymap.js'></script>
-    <script src='./main_w.js'></script>
+    <script src='./js/control.js'></script>
+    <script src='./js/keymap.js'></script>
+    <script src='./js/main_w.js'></script>
 
-    <script src='./monarch.js'></script>
-    <script src='./apath-ed.js'></script>
-    <script src='./monaco.js'></script>
+    <script src='./js/monarch.js'></script>
+    <script src='./js/apath-ed.js'></script>
+    <script src='./js/monaco.js'></script>
     <script>
     </script>
 

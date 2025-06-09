@@ -1,4 +1,4 @@
-var data_dyn =
+var data_dyn_guide =
 function () {
     
     var geom = {
@@ -342,6 +342,7 @@ var examples = {
     },
 
     'object sequence construction': {
+
         data: {
             input: inputs.running,
             apath:
@@ -349,7 +350,7 @@ var examples = {
 `inventory.*.
   (
     d = date,
-    _ ?(date.match('\\\\d{4}-10-\\\\d{2}')).
+    _ ?($d.match('\\\\d{4}-10-\\\\d{2}')).
       items.*.
         {
           date: $d,
@@ -483,7 +484,7 @@ items = inventory.*.items.*,
 inventory.*.
   (
     d = date,
-    selectByDate(date, '\\\\d{4}-10-\\\\d{2}').
+    selectByDate($d, '\\\\d{4}-10-\\\\d{2}').
       items.*.
         {
           date: $d,
@@ -500,24 +501,25 @@ inventory.*.
         geom: geom.default
     },
 
-    '... construction': {
+    'constructive function': {
         data: {
             input: inputs.running,
             apath:
 //-----------------------
 `func selectByDate(date, dateRegex) = _ ?( $date.match( $dateRegex ) ),
 
-func itemTotal(d, total) = 
-(
+func itemTotal(d, total) = (
     {
         date: $d,
         'total price': $total
     }
 ),
 
-inventory.*.
-    selectByDate(date, '\\\\d{4}-10-\\\\d{2}').
-        items.*.itemTotal(date, price*quantity)
+inventory.*.(
+    d = date,
+    selectByDate($d, '\\\\d{4}-10-\\\\d{2}').
+        items.*.itemTotal($d, price*quantity)
+)
 `
 //-----------------------
             ,

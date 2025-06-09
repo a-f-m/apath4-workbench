@@ -76,18 +76,22 @@ $(function () {
                         break
                     case 'Numpad1':
                         monaco_editors['input'].focus()
+                        to_top($('#widget_input'))
                         event.preventDefault()
                         break
                     case 'Numpad2':
                         monaco_editors['apath'].focus()
+                        to_top($('#widget_apath'))
                         event.preventDefault()
                         break
                     case 'Numpad3':
                         monaco_editors['sfuncs'].focus()
+                        to_top($('#widget_sfuncs'))
                         event.preventDefault()
                         break
                     case 'Numpad4':
                         monaco_editors['result'].focus()
+                        to_top($('#widget_result'))
                         event.preventDefault()
                         break
                     case 'F5':

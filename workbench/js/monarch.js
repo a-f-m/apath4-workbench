@@ -1,6 +1,7 @@
 const tokenProvider = {
 
-    operators: /[_?]+/,
+    // operators: /[_?]+/,
+    operators: /[?]+/,
 
     keywords: ['self', '_', 'and', 'or', 'not', 'if', 'def', 'as', 'nil', 'none', 'prop', 'match', 'func'],
 
@@ -11,6 +12,7 @@ const tokenProvider = {
 
             // Operators
             [/@operators/, 'operator'],
+            [/_\b/, 'operator'],
 
             // function call
             [/(?!(self|_|and|or|not|if|def|func))\w+(?=\()/, 'call'],
@@ -89,7 +91,8 @@ const langConfig = {
         { open: '(', close: ')' },
         { open: '"', close: '"' },
         { open: "'", close: "'" },
-        { open: "`", close: "`" }
+        { open: "`", close: "`" },
+        { open: "/", close: "/" }
     ],
     surroundingPairs: [
         { open: '{', close: '}' },
@@ -97,7 +100,8 @@ const langConfig = {
         { open: '(', close: ')' },
         { open: '"', close: '"' },
         { open: "'", close: "'" },
-        { open: "`", close: "`" }
+        { open: "`", close: "`" },
+        // { open: "/", close: "/" }
     ]
 }
 

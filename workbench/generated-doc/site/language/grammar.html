@@ -1506,6 +1506,10 @@ text.repeat-text {
 </code></pre></div>
 </li>
 </ol>
+<details class="note">
+<summary>Note / Grammar</summary>
+<p>The usual enclosing parenthesis for a <code>ScopeExpression</code> are introduced at the appropriate points of use within the grammar.</p>
+</details>
 <h3 id="step-functions">Step Functions</h3>
 <p><svg class="railroad-diagram" width="927" height="103" viewBox="0 0 927 103" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g transform="translate(.5 .5)">
@@ -1945,7 +1949,7 @@ text.repeat-text {
 </code></pre></div>
 </li>
 <li>
-<p>... construction <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-... construction"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=... construction"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p>constructive function <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-constructive function"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=constructive function"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
 <p><strong>input</strong>:</p>
 <div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
 </code></pre></div>
@@ -1957,7 +1961,7 @@ text.repeat-text {
 </code></pre></div>
 </li>
 <li>
-<p>recursion <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-recursion"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=recursion"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
+<p>recursive function <span class="right-align"><a title="cheat sheet" href="../cheat-sheet.html#e-recursive function"><img class="ref-icon-sheet" src="../pics/clarity--clipboard-solid-badged.svg"></a> <a title="workbench" href="../../../workbench-1.html?topic=topic-basic&amp;exa=recursive function"><img src="../pics/mdi--application-cog.svg" width="18px"></a></span></p>
 <p><strong>input</strong>:</p>
 <div class="language-text highlight"><pre><span></span><code><span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"cat"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk11">{</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"age"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;1</span><span class="mtk11">,</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk5">"name"</span><span class="mtk11">:</span><span class="mtk1">&nbsp;</span><span class="mtk5">"jo"</span></span><br><span><span class="mtk1">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="mtk11">}</span></span><br><span><span class="mtk11">}</span></span>
 </code></pre></div>
@@ -1971,7 +1975,7 @@ text.repeat-text {
 </ol>
 <details class="note">
 <summary>Note / Body</summary>
-<p>For simple functions, the expression can be specified directly in the function body. For more complex ones, we recommend using parentheses (<code>ScopeExpression</code> in <a href="#main-rule-BasicStep">basic step</a>).</p>
+<p>For simple functions, the expression can be specified directly in the function body. For more complex ones, we recommend using parenthesis (<code>ScopeExpression</code> in <a href="#main-rule-BasicStep">basic step</a>).</p>
 </details>
 <h3 id="variables">Variables</h3>
 <p><svg class="railroad-diagram" width="483.5" height="94" viewBox="0 0 483.5 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -2181,7 +2185,7 @@ text.repeat-text {
 </li>
 </ol>
 <details class="note">
-<summary>Note / Design</summary>
+<summary>Note / Grammar</summary>
 <p>The dollar symbol <code>$</code> is only used for referencing variables. Within the assignment expression or in the parameters of a function declaration, it is omitted for reasons of better readability, thus following the design of some scripting languages (e.g., shell scripting). This is because it is clearly decidable in the places of the assignment statement, whereas in referencing it could collide with a property name, for instance.</p>
 </details>
 <h3 id="ordinary-expressions">Ordinary Expressions</h3>
@@ -7067,7 +7071,7 @@ text.repeat-text {
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nx">ControlExpression</span><span class="w"> </span><span class="o">=</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="nx">ConditionalExpression</span>
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="nx">ConditionalExpression</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="s1">'if'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">OrdinaryExpression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span><span class="nx">OrdinaryExpression</span><span class="w"> </span><span class="nx">OrdinaryExpression</span><span class="o">?</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="s1">'if'</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="nx">Expression</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span><span class="nx">OrdinaryExpression</span><span class="w"> </span><span class="nx">OrdinaryExpression</span><span class="o">?</span>
 </span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="nx">VariableReference</span><span class="w"> </span><span class="o">=</span>
 </span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="s2">"$"</span><span class="nx">Identifier</span>
 </span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="nx">LogicalORExpression</span><span class="w"> </span><span class="o">=</span>

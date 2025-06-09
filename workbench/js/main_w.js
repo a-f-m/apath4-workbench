@@ -43,9 +43,9 @@ function store() {
 
 // ########################################### control ###################################################
 
-var use_server = true
+var use_server = false
 
-async function eval_(input, apath, sfuncs) {
+async function eval_(input, apath, sfuncs, debug_callback) {
 
     const sf = $('#toggle_strict_failure').prop('checked')
     const aas = $('#toggle_arrays_as_seq').prop('checked')
@@ -93,7 +93,7 @@ async function complete_eval() {
             const input = monaco_editors.input.getValue()
 
             trace = []
-            const e = await eval_(input, apath, `${sfuncs}`)
+            const e = await eval_(input, apath, `${sfuncs}`, debug_callback)
             eval_error = false
             handle_eval_success(true)
             func_no_to_expr = e.func_no_to_expr
@@ -185,16 +185,16 @@ $('#select_examples').on('change', function (e) {
 })
 
 function get_exa_file(f) {
-    
-    process_file(f, function (text) {
-        // console.log('xml error well-known for firefox - ignore it')
-        eval(text)
-        //
-        console.log(examples = data_dyn())
-        ree_exa = examples.first_example.value
-        set_exa_select(ree_exa)
-        localStorage.setItem('ree_exa', ree_exa)
-    })
+ 
+    if (f === 'data-dyn.js') {
+        // it is ensure that this is initially loaded
+        basic_examples = examples = data_dyn()
+    } else if (f === 'data-dyn-guide.js') {
+        examples = data_dyn_guide()
+    }
+    ree_exa = examples.first_example.value
+    set_exa_select(ree_exa)
+    localStorage.setItem('ree_exa', ree_exa)
 }
 
 function get_wb_file(f) {
@@ -235,7 +235,7 @@ $('#bnt_ast').on('click', function () {
 
 $('#bnt_trp').on('click', async function () {
 
-    const trp = (await eval_(monaco_editors.input.getValue(), monaco_editors.apath.getValue(), `${monaco_editors.sfuncs.getValue().trim()}`)).trp
+    const trp = (await eval_(monaco_editors.input.getValue(), monaco_editors.apath.getValue(), `${monaco_editors.sfuncs.getValue().trim()}`, undefined)).trp
 
     open_blob(trp, 'text/plain')
 })
@@ -387,6 +387,9 @@ function setup() {
     set_debug_state('init')
 
     define_monaco_keys()
+
+    monaco_editors['apath'].focus()
+    to_top($('#widget_apath'))
 
     //!!!test
     // $('#bnt_ctrl_more').trigger('click')

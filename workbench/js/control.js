@@ -447,7 +447,7 @@ function step_log(debug_data) {
         `\nresult:\n` + window.Utils_.shortenString(prep_result(debug_data.result), 80) 
         : ''
 // no-indent needed
-    return `${kind} ${debug_data.expr?.type}
+    return `${kind} ${debug_data.expr?.type}-${debug_data.func_no}
 context node:
 ${ctx}${result}
 ------
