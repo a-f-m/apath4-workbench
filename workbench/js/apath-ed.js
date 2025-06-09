@@ -254,17 +254,18 @@ function build_doc(sugg, exa_id, exa, doc) {
 //------
 `${sugg.remark ? sugg.remark : data.remark}
 
-related example (from [cheat sheet](${wloc.protocol + '//' + wloc.host}/workbench/generated-doc/site/cheat-sheet.html#n-${exa_id.replaceAll(' ','-').replaceAll('.','-')})):
+related example (see cheat-sheet):
 
 \`\`\`apath
 ${data.apath}
 \`\`\`
 
-See [grammar](${wloc.protocol + '//' + wloc.host}/workbench/generated-doc/site/language/grammar.html${exa.data.grammar}) also.
-
 ${doc ? doc.value : ''}
 
 `
+// deferred/buggy: related example (from [cheat sheet](${wloc.protocol + '//' + wloc.host}/workbench/generated-doc/site/cheat-sheet.html#n-${exa_id.replaceAll(' ','-').replaceAll('.','-')})):
+// See [grammar](${wloc.protocol + '//' + wloc.host}/workbench/generated-doc/site/language/grammar.html${exa.data.grammar}) also.
+
 // !!!only testing:
 // ${sugg.snippet.sortText}
 
