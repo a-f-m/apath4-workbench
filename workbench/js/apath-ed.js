@@ -398,11 +398,11 @@ $(function() {
     
     define_popup($('#bnt_dialog_apath_ed'), $('#dialog_apath_ed'), 0, 0)
 
-    // define_popup($('#info_img_quick_sugg'), $('#info_quick_sugg'), 0, 500)
-    // define_popup($('#info_img_correct_templ'), $('#info_correct_templ'), 0, 500)
-    // define_popup($('#info_img_templ_skip_nl'), $('#info_templ_skip_nl'), 0, 500)
-    // define_popup($('#info_img_word_based_sugg'), $('#info_word_based_sugg'), 0, 500)
-    // define_popup($('#info_img_squigglies'), $('#info_squigglies'), 0, 500)
+    define_popup($('#info_img_quick_sugg'), $('#info_quick_sugg'), 0, 500)
+    define_popup($('#info_img_correct_templ'), $('#info_correct_templ'), 0, 500)
+    define_popup($('#info_img_templ_skip_nl'), $('#info_templ_skip_nl'), 0, 500)
+    define_popup($('#info_img_word_based_sugg'), $('#info_word_based_sugg'), 0, 500)
+    define_popup($('#info_img_squigglies'), $('#info_squigglies'), 0, 500)
 })
 
 function build_doc(remark, exa_id, doc) {
