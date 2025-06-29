@@ -105,20 +105,9 @@ class Breakpoints {
         })
         let starts = []
         for (const item of items) {
-            // console.log(item.loc.start.line);
             
-            let equal = true
-            if (curr_debug_data) {
-                // equal = window.Adt_.equal_loc(curr_debug_data.loc, item.loc)
-            }
-            const cl = item.deact ? 'inlineDecorationBreakpointGrey' : (equal ? 'inlineDecorationBreakpoint' : 'inlineDecorationBreakpointShadow')
+            const cl = item.deact ? 'inlineDecorationBreakpointGrey' : 'inlineDecorationBreakpoint'
             let mark = '\u25C9'
-            // if (starts.find(x => window.Adt_.equal_lico(x, item.loc.start))) {
-            //     mark = ''
-            // } else {
-            //     mark = '\u25C9'
-            //     starts.push(item.loc.start)
-            // }
             decos.push({
                 range: this.loc2range(item.loc),
                 lala: true,

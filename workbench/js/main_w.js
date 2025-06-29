@@ -76,12 +76,15 @@ $('#bnt_eval_apth').on('click', async function () {
     await complete_eval()
     editor_sync.release()
     remap_sync.release()
-
 })
 
 async function complete_eval() {
+
     const apath = monaco_editors.apath.getValue()
     const result_editor = monaco_editors.result
+
+    reset_squigglies()
+
     if (apath.trim() === '') {
         result_editor.setValue('')
 
@@ -110,6 +113,7 @@ async function complete_eval() {
             eval_error = true
             handle_eval_success(false)
             result_editor.setValue(error.toString())
+            if ($('#toggle_squigglies').prop('checked')) build_squigglies(error)
         }
     }
 }
@@ -150,13 +154,13 @@ $('#file-input').on('change', async function (e) {
 
     editor_sync = new window.Channel_.SyncFlag()
     remove_breakpoints()
-    restore(e);
+    restore(e)
     (async () => {
         await editor_sync.wait()
         ebreakpoints.update_view()
-    })();
+    })()
 
-    document.getElementById("file-input").value = "";
+    document.getElementById("file-input").value = ""
     setTimeout(() => {  fit(undefined, true) }, 200)
 })
 
@@ -188,13 +192,11 @@ function get_exa_file(f) {
  
     if (f === 'data-dyn.js') {
         // it is ensure that this is initially loaded
-        basic_examples = examples = data_dyn()
+        examples = data_dyn()
     } else if (f === 'data-dyn-guide.js') {
         examples = data_dyn_guide()
     }
-    ree_exa = examples.first_example.value
-    set_exa_select(ree_exa)
-    localStorage.setItem('ree_exa', ree_exa)
+    set_exa_select(examples.first_example.value)
 }
 
 function get_wb_file(f) {

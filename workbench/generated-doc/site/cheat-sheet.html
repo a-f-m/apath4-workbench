@@ -446,9 +446,9 @@ td {
 <td><nav id="n-scope-expression"><a href="#e-scope expression"></a></nav> <span id="e-scope expression">scope expression</span></td>
 <td><span>evaluates sequentially and returns value of last expression</span></td>
 <td>... <strong>,</strong> ...</td>
-<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk13">age</span><span class="mtk1 mtkb">.</span><span class="mtk4">logg</span><span class="mtk1">(), </span><span class="mtk13">age</span><span class="mtk1">)</span></span></td>
+<td><span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk1">(</span><span class="mtk4">a </span><span class="mtk1">= </span><span class="mtk13">age</span><span class="mtk1">, </span><span class="mtk13">name</span><span class="mtk1"> + </span><span class="mtk7">$</span><span class="mtk4">a</span><span class="mtk1">)</span></span></td>
 <td><span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;cat&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk11">{</span><span class="mtk1"> </span><span class="mtk5">&quot;age&quot;</span><span class="mtk11">:</span><span class="mtk1"> 1</span><span class="mtk11">,</span><span class="mtk1"> </span><span class="mtk5">&quot;name&quot;</span><span class="mtk11">:</span><span class="mtk1"> </span><span class="mtk5">&quot;jo&quot;</span><span class="mtk1"> </span><span class="mtk11">}</span><span class="mtk1"> </span><span class="mtk11">}</span></span></td>
-<td>1</td>
+<td>&quot;jo1&quot;</td>
 <td><a href="language/grammar.html#main-rule-Expression"><img src="pics\fluent--flow-24-filled.svg" width="18px"></a> <a href="../../workbench-1.html?topic=topic-basic&exa=scope expression"><img src="pics\mdi--application-cog.svg" width="18px"></a></td>
 </tr>
 <tr>
@@ -481,7 +481,7 @@ td {
 <tr>
 <td><nav id="n-variable-assignment"><a href="#e-variable assignment"></a></nav> <span id="e-variable assignment">variable assignment</span></td>
 <td><span>usual assignment of values</span></td>
-<td>... <strong>=</strong> ...</td>
+<td>&lt;id&gt; <strong>=</strong> ...</td>
 <td><span><span class="mtk4">toLive </span><span class="mtk1">= 15 - </span><span class="mtk13">cat</span><span class="mtk1 mtkb">.</span><span class="mtk13">age</span><span class="mtk1">,</span></span><br/><span><span class="mtk7">$</span><span class="mtk4">toLive</span></span></td>
 <td></td>
 <td>14</td>

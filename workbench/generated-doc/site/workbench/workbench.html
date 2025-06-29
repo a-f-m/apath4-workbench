@@ -677,6 +677,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#code-completion-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Completion &amp; Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#debugging" class="md-nav__link">
     <span class="md-ellipsis">
       Debugging
@@ -802,6 +811,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#code-completion-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Completion &amp; Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#debugging" class="md-nav__link">
     <span class="md-ellipsis">
       Debugging
@@ -880,8 +898,8 @@
 </ul>
 </li>
 <li><code>widgets</code><ul>
-<li><code>open/close</code>: stores content of the widgets locally (control panel is not stored)</li>
-<li><code>save</code>: restores the widgets</li>
+<li><code>open/close</code>: restores the widgets, close and go back to example</li>
+<li><code>save</code>: stores content of the widgets locally (control panel is not stored)</li>
 <li><code>dark</code> mode for the widgets</li>
 <li><code>auto-fit</code> fitting widgets into the main window</li>
 </ul>
@@ -895,27 +913,28 @@
 </li>
 <li><code>info</code>: opens the documentation (<code>doc</code>), the abstract syntax tree (<code>AST</code>) of the <em>apath</em> expression, the description by <code>grammar</code>, or the <code>cheat-sheet</code> in a separate browser window. The grammar and cheat-sheet parts correspond to the selected <code>basic</code> example</li>
 </ul>
+<h2 id="code-completion-analysis">Code Completion &amp; Analysis</h2>
+<p>Code completions are suggested for possible property selections, variable references, step function calls, and general language expressions. As usual, <code>Ctrl+Space</code> shows the suggestion. A second <code>Ctrl+Space</code> expands further information. In general, placeholders are marked with <code>❰ ❱</code>, e.g. <code>❰then_part❱</code>.</p>
+<p><strong>Properties</strong>.&nbsp; Property suggestions are <strong>calculated dynamically</strong> according to the json input and the current position within the apath editor, i.e. only possible properties are suggested.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
+<p><strong>Variable References</strong>.&nbsp; Variable suggestions are calculated dynamically according to the current position, i.e. those that are bound in the scope are suggested.</p>
+<p><strong>Step Function Calls</strong>.&nbsp; Calls to defined step functions are suggested. When completing, the names of the formal parameters are adopted as placeholders.</p>
+<p><strong>Analysis</strong>.&nbsp; The code analysis includes syntactic errors and errors such as calling undefined functions or referencing unbound variables, which are marked with squigglies.</p>
+<p>The following settings can be made for code completion and analysis:</p>
+<figure>
+  <img alt="editor setting" src="image-2.png" />
+  <figcaption>editor setting</figcaption>
+</figure>
 <h2 id="debugging">Debugging</h2>
 <p>The workbench debugger makes it possible to follow the evaluation of an expression step by step. In contrast to conventional debuggers (e.g. for imperative languages), current steps are not defined by a line/column, but by the range of an entire expression.</p>
 <h3 id="start-step-animated-png">Start &amp; Step (animated png)</h3>
-<table>
-<thead>
-<tr>
-<th>button</th>
-<th>action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><img alt="alt text" src="image.png" /></td>
-<td>lala</td>
-</tr>
-<tr>
-<td><img alt="alt text" src="../../../../workbench/icons/at-step-1.svg" /></td>
-<td>lala</td>
-</tr>
-</tbody>
-</table>
+<!-- 
+deferred
+| button | action
+| - | -
+| ![alt text](image.png) | lala
+| ![alt text](../../../../workbench/icons/at-step-1.svg) | lala
+ -->
+
 <figure style="width: 600px">
 <a href="bb-1.apng" target="_blank" title="Start &amp; Step"><img alt="Start &amp; Step" src="p1.png" /></a>
 </figure>
@@ -928,6 +947,9 @@
 <ol>
 <li id="fn:1">
 <p>When the evaluation of a path has no solution, the reason for that could be an erroneous path definition. For instance, for the input <code class="language-javascript highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">}</span></code> the property selection <code class="language-javascript highlight"><span class="nx">aa</span></code> yields no solution. If <code>strict failure</code> is enabled an error message is returned. This is only useful in the testing phase.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Note that this may depend on the evaluation results, e.g. if a conditional branch is not evaluated based on the condition, no properties will be suggested.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

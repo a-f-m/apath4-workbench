@@ -6,6 +6,7 @@
 var monaco_editors = {}
 
 require.config({ paths: { vs: 'monaco/vs' } })
+// require.config({ paths: { vs: 'https://unpkg.com/monaco-editor@latest/min/vs' } })
 
 require(['vs/editor/editor.main'], function () {
 
@@ -18,10 +19,10 @@ require(['vs/editor/editor.main'], function () {
 
     // Define the language configuration (brackets, comments, etc.)
     monaco.languages.setLanguageConfiguration('apath', langConfig)
-
+    
     // completion
     monaco.languages.registerCompletionItemProvider('apath', completion)
-
+    
     monaco.editor.defineTheme('apath', theme)
     monaco.editor.setTheme('apath')
 

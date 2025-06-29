@@ -496,12 +496,13 @@ var examples = {
         data: {
             keyword: '... **,** ... ',
             input: inputs.simple1,
-            apath: `cat.(age.logg(), age)`,
-            sfuncs: sfuncs.log,
+            apath: `cat.(a = age, name + $a)`,
+            // sfuncs: sfuncs.log,
             grammar: '#main-rule-Expression',
             remark: 'evaluates sequentially and returns value of last expression',
         },
-        geom: geom.sfuncs
+        // geom: geom.sfuncs
+        geom: geom.default
     },
     'conditional': {
         order: 22,
@@ -539,7 +540,7 @@ var examples = {
     'variable assignment': {
         order: 24,
         data: {
-            keyword: '... **=** ...',
+            keyword: '<id> **=** ...',
             input: inputs.simple,
             grammar: '#main-rule-VariableAssignment',
             remark: 'usual assignment of values',
@@ -554,7 +555,7 @@ $toLive`
     '... memoizing nodes': {
         order: 25,
         data: {
-            keyword: '... **=** ...',
+            keyword: '<id> **=** ...',
             input: inputs.var1,
             input_nl: true,
             grammar: '#main-rule-VariableAssignment',
@@ -575,7 +576,7 @@ $toLive`
     '... joins': {
         order: 26,
         data: {
-            keyword: '... **=** ...',
+            keyword: '<id> **=** ...',
             input: inputs.var2,
             input_nl: true,
             grammar: '#main-rule-VariableAssignment',

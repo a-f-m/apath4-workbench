@@ -5,10 +5,10 @@
 
 // ----------------------  examples ------------------------
 
+var basic_examples
 
-var examples = data_dyn()
+var examples = basic_examples = data_dyn()
 
-var basic_examples // will be set at loading of 'data-dyn.js'
 
 // only for gen doc:
 //!start export

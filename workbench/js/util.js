@@ -92,7 +92,7 @@ function fetch_example_set(exa_set) {
     document.documentElement.firstChild.appendChild(script)
 }
 
-// ############################### from gemini ;) ##########################################
+// ############################### from gemini ;) ############################################################################################
 function define_popup($button, $popup, fadeout, fadeIn) {
 
     const fadeout_ = fadeout !== undefined ? fadeout : 200
@@ -154,7 +154,6 @@ function define_popup($button, $popup, fadeout, fadeIn) {
 }
 
 
-// ############################### from gemini ;) ##########################################
 /**
  * Fügt einen String an einer bestimmten Zeilen- und Spaltenposition in einem mehrzeiligen String ein.
  *
@@ -192,6 +191,79 @@ function insert_string_at_pos(originalString, stringToInsert, line, column) {
     return lines.join('\n')
   }
 
+/**
+ * Ersetzt einen bestimmten Bereich in einem mehrzeiligen String durch einen neuen String.
+ * Die Ersetzung beginnt an der Startposition des zu löschenden Bereichs.
+ *
+ * @param {string} originalString Der ursprüngliche String.
+ * @param {string} stringToInsert Der String, der eingefügt werden soll (ersetzt den gelöschten Bereich).
+ * @param {number} startLine Die Startzeilennummer (1-indiziert) des zu ersetzenden Bereichs.
+ * @param {number} startColumn Die Startspaltennummer (1-indiziert) des zu ersetzenden Bereichs.
+ * @param {number} endLine Die Endzeilennummer (1-indiziert) des zu ersetzenden Bereichs.
+ * @param {number} endColumn Die Endspaltennummer (1-indiziert) des zu ersetzenden Bereichs.
+ * @returns {string} Der String mit dem ersetzten Inhalt.
+ */
+function replace_range_in_string(
+  originalString,
+  stringToInsert,
+  startLine, startColumn, endLine, endColumn
+) {
+  let lines = originalString.split('\n');
+  let resultLines = [];
+  let insertHandled = false; // Flag, um sicherzustellen, dass das Einfügen nur einmal passiert
+
+  for (let i = 0; i < lines.length; i++) {
+      const currentLineIndex = i; // 0-indiziert
+      const currentLine = lines[currentLineIndex];
+
+      // Wenn die aktuelle Zeile außerhalb des zu ersetzenden Bereichs liegt, unverändert übernehmen
+      if (currentLineIndex + 1 < startLine || currentLineIndex + 1 > endLine) {
+          resultLines.push(currentLine);
+          continue;
+      }
+
+      // --- Logik für die Zeilen im Ersatzbereich ---
+
+      // Wenn die aktuelle Zeile die Startzeile ist
+      if (currentLineIndex + 1 === startLine) {
+          let partBeforeStart = currentLine.substring(0, startColumn - 1);
+
+          // Wenn die Start- und Endzeile identisch sind (Ersatz in einer Zeile)
+          if (currentLineIndex + 1 === endLine) {
+              let partAfterEnd = currentLine.substring(endColumn - 1);
+              resultLines.push(partBeforeStart + stringToInsert + partAfterEnd);
+              insertHandled = true; // Einfügen ist in dieser Zeile erfolgt
+          } else {
+              // Startzeile eines Mehrzeilenersatzes: Teil vor dem Start + Einfüge-String
+              resultLines.push(partBeforeStart + stringToInsert);
+              insertHandled = true; // Einfügen ist in dieser Zeile erfolgt
+          }
+          continue; // Diese Zeile ist verarbeitet, weiter zur nächsten
+      }
+
+      // Wenn die aktuelle Zeile die Endzeile ist (und nicht die Startzeile war)
+      if (currentLineIndex + 1 === endLine) {
+          let partAfterEnd = currentLine.substring(endColumn - 1);
+          resultLines.push(partAfterEnd);
+          continue; // Diese Zeile ist verarbeitet, weiter zur nächsten
+      }
+
+      // Wenn die Zeile komplett innerhalb des zu ersetzenden Bereichs liegt (wird vollständig gelöscht)
+      // Hier passiert nichts, die Zeile wird einfach nicht zur resultLines hinzugefügt
+  }
+
+  // Edge Case: Wenn der Löschbereich am Ende des Dokuments war und der String leer wurde, aber eingefügt werden sollte
+  // Das tritt auf, wenn z.B. nur eine Zeile gelöscht wurde und dann nichts eingefügt wird.
+  // Oder wenn der StringToInsert mehr Zeilen hat als der gelöschte Bereich und die restlichen Zeilen
+  // an das Ende des Dokuments angehängt werden müssen.
+  // Die obige Logik deckt das "Einfügen an Startposition" bereits ab,
+  // aber wenn der gelöschte Bereich über das Ende des originalen Strings hinausging
+  // (was bei validen Start/End-Parametern unwahrscheinlich ist, aber zur Robustheit),
+  // müsste man hier noch Logik hinzufügen. Für den gängigen Fall ist es OK so.
+
+  return resultLines.join('\n');
+}
+
   function string_to_pos(s, line, column, skip_nl) {
 
     const lines = s.split('\n')
@@ -202,73 +274,23 @@ function insert_string_at_pos(originalString, stringToInsert, line, column) {
     return skip_nl ? l_.replaceAll(/\r|\n/gm, '') : l_
   }
 
-  function string_from_pos(originalString, line, column) {
+  function string_from_pos(s, line, column) {
 
-    const lines = originalString.split('\n')
+    const lines = s.split('\n')
     const targetLineIndex = line - 1 //  0-indiziertes Array
     let targetLine = lines[targetLineIndex]
     return targetLine.substring(column - 1)
   }
 
-//   console.log(char_at_pos('abcde', 1, 3))
-  
-  // Beispielanwendung:
-  
-//   let myString = `Dies ist Zeile 1.
-//   Dies ist Zeile 2.
-//   Dies ist Zeile 3.`
-  
-//   console.log("Original String:")
-//   console.log(myString)
-  
-//   // Beispiel 1: Einfügen in Zeile 2, Spalte 6
-//   let newString1 = insertStringAtLineColumn(myString, "NEU-", 2, 6)
-//   console.log("\nNach Einfügen (Zeile 2, Spalte 6):")
-//   console.log(newString1)
-//   // Erwartet:
-//   // Dies ist Zeile 1.
-//   // Dies NEU-ist Zeile 2.
-//   // Dies ist Zeile 3.
-  
-//   // Beispiel 2: Einfügen am Anfang von Zeile 1
-//   let newString2 = insertStringAtLineColumn(myString, "START-", 1, 1)
-//   console.log("\nNach Einfügen (Zeile 1, Spalte 1):")
-//   console.log(newString2)
-//   // Erwartet:
-//   // START-Dies ist Zeile 1.
-//   // Dies ist Zeile 2.
-//   // Dies ist Zeile 3.
-  
-//   // Beispiel 3: Einfügen am Ende von Zeile 3
-//   let newString3 = insertStringAtLineColumn(myString, "-ENDE", 3, myString.split('\n')[2].length + 1)
-//   console.log("\nNach Einfügen (Zeile 3, am Ende):")
-//   console.log(newString3)
-//   // Erwartet:
-//   // Dies ist Zeile 1.
-//   // Dies ist Zeile 2.
-//   // Dies ist Zeile 3.-ENDE
-  
-//   // Beispiel 4: Ungültige Zeilennummer (außerhalb der Grenzen)
-//   let newString4 = insertStringAtLineColumn(myString, "ZUSATZ", 5, 1)
-//   console.log("\nNach Einfügen (ungültige Zeile 5):")
-//   console.log(newString4)
-//   // Erwartet: (Warnung in der Konsole)
-//   // Dies ist Zeile 1.
-//   // Dies ist Zeile 2.
-//   // Dies ist Zeile 3.
-//   // ZUSATZ
-  
-//   // Beispiel 5: Ungültige Spaltennummer (innerhalb der Grenzen einer Zeile, aber zu groß)
-//   let newString5 = insertStringAtLineColumn(myString, "WEIT", 2, 50)
-//   console.log("\nNach Einfügen (ungültige Spalte 50 in Zeile 2):")
-//   console.log(newString5)
-//   // Erwartet: (Warnung in der Konsole)
-//   // Dies ist Zeile 1.
-//   // Dies ist Zeile 2.WEIT
-//   // Dies ist Zeile 3.
+  function path_wo_last(fullPath) {
+    
+    let pathParts = fullPath.split("/")
+    pathParts.pop()
+    return pathParts.join("/")
+  }
 
-// ############################### from gemini ;) ##########################################
 function containsCorrectlyBalancedQuotes(str) {
+
     let inDoubleQuotes = false;
     let inSingleQuotes = false;
     let inBacktickQuotes = false;
@@ -308,14 +330,3 @@ function containsCorrectlyBalancedQuotes(str) {
     return !inDoubleQuotes && !inSingleQuotes && !inBacktickQuotes;
   }
   
-//   console.log(containsCorrectlyBalancedQuotes('"Hello World!"')) //  true
-//   console.log(containsCorrectlyBalancedQuotes("'Hello World!'")) //  true
-//   console.log(containsCorrectlyBalancedQuotes('"He said, \\"Hello!\\""')) //  true (escaped double quote)
-//   console.log(containsCorrectlyBalancedQuotes("'It\\'s true!'")) //  true (escaped single quote)
-//   console.log(containsCorrectlyBalancedQuotes('"Nested \'quotes\'"')) //  true (verschiedene Typen erlaubt)
-//   console.log(containsCorrectlyBalancedQuotes('"Hello World!')) //  false (nicht geschlossen)
-//   console.log(containsCorrectlyBalancedQuotes('Hello World!"')) //  false (nicht geöffnet)
-//   console.log(containsCorrectlyBalancedQuotes('"He said, "Hello!""')) //  false (inneres, nicht escaped Anführungszeichen)
-//   console.log(containsCorrectlyBalancedQuotes('""')) //  true
-//   console.log(containsCorrectlyBalancedQuotes("''")) //  true
-//   console.log(containsCorrectlyBalancedQuotes('Hello World')) //  true (keine Anführungszeichen, also "balanciert")
