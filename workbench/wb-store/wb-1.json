@@ -1,122 +1,46 @@
 {
    "data": {
-      "input": "{\n    \"cat\": {\n        \"age\": 1\n    }\n}",
-      "apath": "cat?(\r\n    99,\r\n    88\r\n)",
+      "input": "{\"names\": [\"jo\", \"lu\"]}",
+      "apath": "// all array items\n{\"names\": [\"jo\", \"lu\"]}.names",
       "sfuncs": ""
    },
    "geom": {
       "widget_input": {
          "pos": {
-            "top": 101.58332824707031,
-            "left": 41.53334045410156
+            "top": 119.91667175292969,
+            "left": 43.5
          },
-         "height": 479.3,
-         "width": 543.15,
+         "height": 462.817,
+         "width": 568.883,
          "zindex": "103"
       },
       "widget_apath": {
          "pos": {
-            "top": 101.58332824707031,
-            "left": 602.3333129882812
+            "top": 119.91667175292969,
+            "left": 630.8499755859375
          },
-         "height": 314.017,
-         "width": 559.833,
+         "height": 303.217,
+         "width": 586.317,
          "zindex": "104"
       },
       "widget_result": {
          "pos": {
-            "top": 433.8500061035156,
-            "left": 602.63330078125
+            "top": 440.79998779296875,
+            "left": 631.183349609375
          },
-         "height": 240.567,
-         "width": 559.833,
+         "height": 232.3,
+         "width": 586.317,
          "zindex": "102"
       },
       "widget_sfuncs": {
          "pos": {
-            "top": 599.13330078125,
-            "left": 41.53334045410156
+            "top": 600.38330078125,
+            "left": 43.5
          },
-         "height": 75.3,
-         "width": 543.15,
+         "height": 72.7,
+         "width": 568.883,
          "zindex": "101"
       }
    },
-   "ebreakpoints": [
-      {
-         "loc": {
-            "start": {
-               "offset": 11,
-               "line": 2,
-               "column": 5
-            },
-            "end": {
-               "offset": 22,
-               "line": 3,
-               "column": 7
-            }
-         },
-         "expr": {
-            "type": "SequencedExpressions",
-            "exprs": [
-               {
-                  "type": "Literal",
-                  "value": 99,
-                  "loc": {
-                     "start": {
-                        "offset": 11,
-                        "line": 2,
-                        "column": 5
-                     },
-                     "end": {
-                        "offset": 22,
-                        "line": 3,
-                        "column": 7
-                     }
-                  },
-                  "data": {
-                     "func_no": 7
-                  }
-               },
-               {
-                  "type": "Literal",
-                  "value": 88,
-                  "loc": {
-                     "start": {
-                        "offset": 11,
-                        "line": 2,
-                        "column": 5
-                     },
-                     "end": {
-                        "offset": 22,
-                        "line": 3,
-                        "column": 7
-                     }
-                  },
-                  "data": {
-                     "func_no": 8
-                  }
-               }
-            ],
-            "loc": {
-               "start": {
-                  "offset": 11,
-                  "line": 2,
-                  "column": 5
-               },
-               "end": {
-                  "offset": 22,
-                  "line": 3,
-                  "column": 7
-               }
-            },
-            "data": {
-               "is_scope": true,
-               "func_no": 6,
-               "breakable": true
-            }
-         },
-         "deact": false
-      }
-   ]
+   "ebreakpoints": []
 }

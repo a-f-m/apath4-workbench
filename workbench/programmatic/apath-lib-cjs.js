@@ -4,6 +4,576 @@ require('fs');
 require('path');
 
 /**
+ * run time module for transpiled js code
+ *
+ * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
+ *
+ * @author a-f-m
+ */
+// neccessary for work with rollup for now TODO
+var dummy = 0;
+//
+// ------------------ basics -------------------------
+/**
+ * errors during execution
+ */
+class ExecutionError extends Error {
+    func_no;
+    issues;
+    ctx_node;
+    fail;
+    constructor(func_no, message, issues, ctx_node, fail) {
+        super(message);
+        this.func_no = func_no;
+        this.issues = issues;
+        this.ctx_node = ctx_node;
+        this.fail = fail;
+        this.name = 'ExecutionError';
+    }
+}
+/**
+ * rt environment
+ */
+class Env {
+    // func_no_to_expr[0] is the complete ast
+    func_no_to_expr = [];
+    root;
+    glob_vars = [];
+    incarnation = 0;
+    vars = [];
+    // will be initiaized. on demand for performance reasons
+    fail_points;
+    constructor() {
+    }
+    incr_incarnation(func_no) {
+        this.incarnation++;
+        if (this.incarnation > 100)
+            throw new ExecutionError(func_no, `execution stack exceeds (incarnation: ${this.incarnation})`);
+    }
+    fresh(e) {
+        const e_ = new Env();
+        e_.func_no_to_expr = this.func_no_to_expr;
+        e_.incarnation = this.incarnation;
+        e_.glob_vars = this.glob_vars;
+        e_.vars = [];
+        // return Object.assign(new Env(), this)
+        return e_;
+    }
+    set_root(root) {
+        this.root = root;
+        return this;
+    }
+    dummy() {
+        return new Env();
+    }
+}
+// ----------------- iter's & eval utilities -------------------------
+/** iter done */
+const done = { value: undefined, done: true };
+/**
+ * non-done
+ */
+function val(x) {
+    return { done: false, value: x };
+}
+/**
+ * core iterator corresponding to *S* in Wadler's xpath semantics
+ */
+class CoreIter {
+    [Symbol.iterator]() { return this; }
+    next() { return done; }
+    first() {
+        const y = this.next();
+        return y.done ? undefined : y.value;
+    }
+    /**
+     * convert to core iterator
+     * @param it classical iterator
+     * @returns core iterator
+     */
+    static from_it(it) {
+        return new class extends CoreIter {
+            next() {
+                return it.next();
+            }
+        };
+    }
+    /**
+     * convert to core iterator from array
+     * @param x array
+     * @returns core iterator
+     */
+    static from_array(x) {
+        const l = x.length;
+        let cnt = -1;
+        return new class extends CoreIter {
+            next() {
+                if (++cnt >= l)
+                    return done;
+                return val(x[cnt]);
+            }
+        };
+    }
+    /**
+     * wrap any value to an iter if neccessary
+     * @param x
+     * @returns core iterator
+     */
+    static optional_wrap(x) { return !single(x) ? x : new SingletonIter(x); }
+    /**
+     * first value
+     */
+    static first(x) {
+        if (!single(x)) {
+            const y = x.next();
+            return y.done ? undefined : y.value;
+        }
+        else {
+            return x;
+        }
+    }
+}
+/**
+ * memorizing core iterator
+ */
+class MemorizingIter extends CoreIter {
+    i = -1;
+    mem = [];
+    size = 0;
+    constructor(it) {
+        super();
+        if (it) {
+            this.mem = [];
+            let x;
+            while (!(x = it.next()).done)
+                this.mem.push(x);
+            this.size = this.mem.length;
+        }
+    }
+    next() {
+        return ++this.i >= this.size ? done : this.mem[this.i];
+    }
+    copy() {
+        let m = new MemorizingIter();
+        m.mem = this.mem;
+        m.size = this.mem.length;
+        return m;
+    }
+}
+/** nil iter, used when emtpy func eval is intended */
+const nilit = new CoreIter();
+/**
+ * singleton iterator
+ */
+class SingletonIter extends CoreIter {
+    x;
+    is_singleton = true;
+    consumed = false;
+    constructor(x) {
+        super();
+        this.x = x;
+    }
+    peek_next() {
+        return this.consumed ? done : { value: this.x, done: false };
+    }
+    next() {
+        if (this.consumed) {
+            return done;
+        }
+        else {
+            this.consumed = true;
+            return { value: this.x, done: false };
+        }
+    }
+}
+class FinalizingIter extends CoreIter {
+    it;
+    finalize;
+    constructor(it, finalize) {
+        super();
+        this.it = it;
+        this.finalize = finalize;
+    }
+    next() {
+        const next = this.it.next();
+        if (next.done)
+            this.finalize();
+        return next;
+    }
+}
+class FinalizingSingletonIter extends SingletonIter {
+    finalize;
+    constructor(x, finalize) {
+        super(x);
+        this.finalize = finalize;
+    }
+    next() {
+        const next = super.next();
+        if (next.done)
+            this.finalize();
+        return next;
+    }
+}
+class Nest1Iter extends CoreIter {
+    env;
+    it;
+    f;
+    nest_it;
+    constructor(env, it, f) {
+        super();
+        this.env = env;
+        this.it = it;
+        this.f = f;
+    }
+    next() {
+        let y = !this.nest_it ? this.it.next() : this.nest_it.next();
+        if (y.done) {
+            if (!this.nest_it)
+                return done;
+            this.nest_it = undefined;
+            return this.next();
+        }
+        else {
+            if (this.nest_it)
+                return y;
+            const z = this.f.call(undefined, this.env, y.value);
+            if (single(z))
+                return { value: z, done: false };
+            this.nest_it = z;
+            return this.next();
+        }
+    }
+}
+// cause usable by user defined js step functions, a classical name is exported also
+function isApathIterable(x) {
+    return !single(x);
+}
+/** is no iter */
+function single(x) {
+    if (x === null || x === undefined)
+        return true;
+    return typeof x[Symbol.iterator] !== 'function'
+        // cause string is iterable
+        || is_string(x)
+        // cause arrays are first class citizens
+        || Array.isArray(x);
+}
+function arrays_as_seq(x) {
+    return Array.isArray(x) ? CoreIter.from_array(x) : x;
+}
+/**
+ * classical test according to Wadler
+ */
+function test_(x) {
+    if (!single(x)) {
+        const first = x.next();
+        return first.done ?
+            false
+            : !x.next().done ? // more than one
+                true
+                : test_single(first.value);
+    }
+    else {
+        return test_single(x);
+    }
+}
+function test_single(x) {
+    return typeof x == "boolean" ? x :
+        // (typeof x == "string" ? x.length > 0 : true)
+        true;
+}
+// ----------------------- dynamic apath runtime ------------------------------------------
+var std_funcs = {
+    match: 'std_match'
+};
+class RtIssues {
+}
+// ----------------------------------------------------------------------------------------
+/**
+ * dynamic, parametrizable run time functions
+ */
+class DynApart {
+    _setting = {
+        // if true then an exception is thrown else no solution is yielded (nilit returned)
+        strict_failure: false
+    };
+    setting(s) {
+        if (s)
+            this._setting = { ...this._setting, ...s };
+        return this;
+    }
+    debug_callback;
+    set_debug_callback(f) {
+        this.debug_callback = f;
+    }
+    /**
+     * evaluation of current context sequence corresponding to *S* in Wadler's xpath semantics.
+     * if S or f is a single value bypassing is performed to be performant.
+     */
+    eval_it(env, S, f) {
+        if (typeof f === 'function') {
+            return single(S) ? f.call(undefined, env, S) : this.eval_it_star(env, S, f);
+        }
+        else {
+            return single(S) ? f : this.eval_it_star_value(S, f);
+        }
+    }
+    // extra mat func for performance - better as a switch in previous one
+    eval_it_mat(env, S, f) {
+        if (typeof f === 'function') {
+            return single(S) ?
+                f.call(undefined, env, S) :
+                new MemorizingIter(this.eval_it_star(env, S, f));
+        }
+        else {
+            return single(S) ? f : new MemorizingIter(this.eval_it_star_value(S, f));
+        }
+    }
+    /**
+     * TODO not in async context !!!
+     * actual evaluation for non-single x and a function
+     */
+    eval_it_star(env, it, f) {
+        return new Nest1Iter(env, it, f);
+    }
+    /**
+     * actual evaluation for non-single x and a value
+     */
+    eval_it_star_value(it, v) {
+        return new class extends CoreIter {
+            next() {
+                return it.next().done ? done : { value: v, done: false };
+            }
+        };
+    }
+    /** conversion of subscripts */
+    apply_subscript(env, func_no, x, i) {
+        const y = x[i];
+        return y === undefined ?
+            this.fail(x, env, func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
+            : y;
+    }
+    idx_check(env, func_no, x) {
+        if (typeof x === 'number' && Number.isInteger(x))
+            return x;
+        else
+            return this.fail(x, env, func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
+    }
+    idx_convert(env, func_no, x) {
+        const y = this.force_single_or_nilit(env, func_no, x, true);
+        return y === nilit ? // sufficiency (no is_nilit check) ensured by above line
+            y : this.idx_check(env, func_no, y);
+    }
+    subscript_check(env, func_no, x) {
+        if (!Array.isArray(x))
+            return this.fail(x, env, func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
+        return true;
+    }
+    /** forcing single value or empty iter */
+    force_single_or_nilit(env, func_no, x, fail_on_non_single = false) {
+        if (!single(x)) {
+            const y = x.next();
+            if (y.done) {
+                return nilit;
+            }
+            else {
+                const z = x.next();
+                // const z = peek_next(x)
+                if (!z.done) {
+                    return this.fail(x, env, func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
+                }
+            }
+            return y.value;
+        }
+        else {
+            return x;
+        }
+    }
+    /** checking assignment key */
+    ass_key_check(env, func_no, x) {
+        if (is_string(x))
+            return true;
+        if (x === nilit) // sufficiency (no is_nilit check) ensured earlier force_single_or_nilit
+            return false;
+        return this.fail(x, env, func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
+    }
+    array_ing(env, func_no, x) {
+        // if (this._setting.arrays_as_seq) {
+        //     if (!single(x)) {
+        //         const a = []
+        //         let y; while (!(y = x.next()).done) a.push(y.value)
+        //         return a.length == 0 ? nilit : a
+        //     } else {
+        //         return x
+        //     }
+        // } else {
+        return this.force_single_or_nilit(env, func_no, x, true);
+        // }
+    }
+    /** forcing primitive value or empty iter */
+    force_primitive(env, func_no, x) {
+        const y = this.force_single_or_nilit(env, func_no, x, true);
+        if (y === nilit // sufficiency (no is_nilit check) ensured by above line
+            || is_primitive(y)) {
+            return y;
+        }
+        else {
+            return this.fail(x, env, func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
+        }
+    }
+    opt_it_apply(env, func_no, x, f) {
+        if (!single(x)) {
+            for (const y of x)
+                f(y);
+        }
+        else {
+            f(x);
+        }
+    }
+    populate_array(env, func_no, a, x) {
+        this.opt_it_apply(env, func_no, x, (y) => {
+            a.push(y);
+        });
+    }
+    embed_objects(env, func_no, o, x) {
+        this.opt_it_apply(env, func_no, x, (y) => {
+            if (is_object(y)) {
+                for (const key in y)
+                    if (Object.prototype.hasOwnProperty.call(y, key))
+                        o[key] = y[key];
+            }
+            else {
+                this.fail(x, env, func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
+            }
+        });
+    }
+    // i do it here and not in adt cause prep for non-js trans
+    static loc_(env, func_no) {
+        const expr = func_no !== -1 ? env.func_no_to_expr[func_no] : undefined;
+        return expr && expr.loc ? expr.loc : undefined;
+    }
+    static loc_str(env, func_no) {
+        const loc = this.loc_(env, func_no);
+        return loc ? `(${loc.start.line}:${loc.start.column}-${loc.end.line}:${loc.end.column})` : 'unknown';
+    }
+    fail(ctx_node, env, func_no, mess, ret = nilit, force = false, fail) {
+        if (force || this._setting.strict_failure) {
+            const loc_str = DynApart.loc_str(env, func_no);
+            const mess_ = `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}`;
+            // throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; future versions will show source location`)
+            // throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; location ${loc_str}`, ctx_node, fail)
+            throw new ExecutionError(func_no, mess_ + `; location ${loc_str}`, [{ kind: "errors", message: mess_, location: DynApart.loc_(env, func_no) }], ctx_node, fail);
+        }
+        else
+            return ret;
+    }
+    trunc(x) {
+        return trunc(`'${JSON.stringify(x)}`, 80) + '\'';
+    }
+    // redundant with 'bind' - extra for perf
+    bind_single(env, func_no, vno, scope_func, x) {
+        const vars = scope_func === '$global' ? env.glob_vars : env.vars;
+        return vars[vno] = x;
+    }
+    bind(env, func_no, vno, scope_func, x) {
+        const vars = scope_func === '$global' ? env.glob_vars : env.vars;
+        return vars[vno] = single(x) ? x : new MemorizingIter(x);
+    }
+    get_binding_1(env, func_no, vno, scope_func) {
+        const v = scope_func === '$global' ? env.glob_vars[vno] : env.vars[vno];
+        if (v === undefined)
+            throw new ExecutionError(func_no, `fatal: variable (order no '${vno}') not in stack frame`);
+        return single(v) ? v : v.copy();
+    }
+    // ----------------- debug -------------------------
+    async debug(debug_data) {
+        if (!this.debug_callback)
+            return;
+        let loc = undefined;
+        let expr = undefined;
+        if (debug_data.func_no !== -1) {
+            expr = debug_data.env.func_no_to_expr[debug_data.func_no];
+            loc = expr.loc;
+        }
+        await this.debug_callback({ ...debug_data, expr, loc });
+    }
+    // ----------------- generic eval -------------------------
+    gx_property(env, func_no, x, name) {
+        // const prop = escape_quote(name)
+        // const mess = `object property \\'${escape_quote(name)}\\' not found`
+        const y = x[name];
+        return y === undefined ? this.fail(x, env, func_no, `object property '${escape_quote(name)}' not found`, nilit, false, { kind: 'prop_error', token: name }) : y;
+    }
+    *gx_property_regex(env, func_no, ctx_node, regex) {
+        if (!is_string(regex))
+            return this.fail(ctx_node, env, func_no, "string value expected (context: property regex)", undefined, true);
+        if (!is_object(ctx_node))
+            return this.fail(ctx_node, env, func_no, "object expected (context: property regex)", undefined, true);
+        for (const key in ctx_node) {
+            if (key.match('^' + regex + '$'))
+                yield ctx_node[key];
+            // if (key.match(new RegExp(regex))) yield ctx_node[key]
+        }
+    }
+    gx_property_dynamic(env, func_no, ctx_node, p) {
+        const y = this.force_single_or_nilit(env, func_no, p, true);
+        if (is_string(y))
+            return this.gx_property(env, func_no, ctx_node, y);
+        if (y === nilit) // sufficiency (no is_nilit check) ensured by force_single_or_nilit
+            return nilit;
+        return this.fail(ctx_node, env, func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
+    }
+    // ----------------- standard step funcs -------------------------
+    check_args_num(env, func_no, n, expected_n, func_name) {
+        if (n !== expected_n)
+            return this.fail(undefined, env, func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
+    }
+    std_match(env, func_no, ctx_node, regex) {
+        this.check_args_num(env, func_no, arguments.length, 4, 'match');
+        if (!is_primitive(ctx_node))
+            return nilit;
+        if (!is_string(regex))
+            return this.fail(ctx_node, env, func_no, "string value expected (context: 'match(...)')", undefined, true);
+        if (regex === '')
+            regex = '^$';
+        const it = ctx_node.toString().match(new RegExp(regex, ''));
+        if (it === null)
+            return nilit;
+        const ret = { groups: it, ...it.groups };
+        delete it.groups;
+        delete it.index;
+        delete it.input;
+        return ret;
+    }
+    std_text(env, func_no, ctx_node) {
+    }
+}
+// console.log('lal'.match('^lal$'))
+// console.log(new RegExp('a', 'g').test('lal'))
+
+var apart = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    CoreIter: CoreIter,
+    DynApart: DynApart,
+    Env: Env,
+    ExecutionError: ExecutionError,
+    FinalizingIter: FinalizingIter,
+    FinalizingSingletonIter: FinalizingSingletonIter,
+    MemorizingIter: MemorizingIter,
+    Nest1Iter: Nest1Iter,
+    RtIssues: RtIssues,
+    SingletonIter: SingletonIter,
+    arrays_as_seq: arrays_as_seq,
+    done: done,
+    dummy: dummy,
+    isApathIterable: isApathIterable,
+    nilit: nilit,
+    single: single,
+    std_funcs: std_funcs,
+    test_: test_
+});
+
+/**
  * errors during run time
  */
 class ParseError extends Error {
@@ -48,7 +618,10 @@ class ApathError extends Error {
         this.name = 'ApathError';
     }
     get_issues() {
-        return this.cause instanceof ParseError || this.cause instanceof AnalyseError ? (this.cause.issues ?? []) : [];
+        return this.cause instanceof ParseError
+            || this.cause instanceof AnalyseError
+            || this.cause instanceof ExecutionError
+            ? (this.cause.issues ?? []) : [];
     }
 }
 
@@ -5978,577 +6551,6 @@ class Parser {
 }
 
 /**
- * run time module for transpiled js code
- *
- * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
- *
- * @author a-f-m
- */
-// neccessary for work with rollup for now TODO
-var dummy = 0;
-//
-// ------------------ basics -------------------------
-/**
- * rt environment
- */
-class Env {
-    // func_no_to_expr[0] is the complete ast
-    func_no_to_expr = [];
-    root;
-    glob_vars = [];
-    incarnation = 0;
-    vars = [];
-    // will be initiaized. on demand for performance reasons
-    fail_points;
-    constructor() {
-    }
-    incr_incarnation(func_no) {
-        this.incarnation++;
-        if (this.incarnation > 100)
-            throw new ExecutionError(func_no, `execution stack exceeds (incarnation: ${this.incarnation})`);
-    }
-    fresh(e) {
-        const e_ = new Env();
-        e_.func_no_to_expr = this.func_no_to_expr;
-        e_.incarnation = this.incarnation;
-        e_.glob_vars = this.glob_vars;
-        e_.vars = [];
-        // return Object.assign(new Env(), this)
-        return e_;
-    }
-    set_root(root) {
-        this.root = root;
-        return this;
-    }
-    dummy() {
-        return new Env();
-    }
-}
-/**
- * errors during execution
- */
-class ExecutionError extends Error {
-    func_no;
-    ctx_node;
-    fail;
-    constructor(func_no, message, ctx_node, fail) {
-        super(message);
-        this.func_no = func_no;
-        this.ctx_node = ctx_node;
-        this.fail = fail;
-        this.name = 'ExecutionError';
-    }
-}
-// ----------------- iter's & eval utilities -------------------------
-/** iter done */
-const done = { value: undefined, done: true };
-/**
- * non-done
- */
-function val(x) {
-    return { done: false, value: x };
-}
-/**
- * core iterator corresponding to *S* in Wadler's xpath semantics
- */
-class CoreIter {
-    [Symbol.iterator]() { return this; }
-    next() { return done; }
-    first() {
-        const y = this.next();
-        return y.done ? undefined : y.value;
-    }
-    /**
-     * convert to core iterator
-     * @param it classical iterator
-     * @returns core iterator
-     */
-    static from_it(it) {
-        return new class extends CoreIter {
-            next() {
-                return it.next();
-            }
-        };
-    }
-    /**
-     * convert to core iterator from array
-     * @param x array
-     * @returns core iterator
-     */
-    static from_array(x) {
-        const l = x.length;
-        let cnt = -1;
-        return new class extends CoreIter {
-            next() {
-                if (++cnt >= l)
-                    return done;
-                return val(x[cnt]);
-            }
-        };
-    }
-    /**
-     * wrap any value to an iter if neccessary
-     * @param x
-     * @returns core iterator
-     */
-    static optional_wrap(x) { return !single(x) ? x : new SingletonIter(x); }
-    /**
-     * first value
-     */
-    static first(x) {
-        if (!single(x)) {
-            const y = x.next();
-            return y.done ? undefined : y.value;
-        }
-        else {
-            return x;
-        }
-    }
-}
-/**
- * memorizing core iterator
- */
-class MemorizingIter extends CoreIter {
-    i = -1;
-    mem = [];
-    size = 0;
-    constructor(it) {
-        super();
-        if (it) {
-            this.mem = [];
-            let x;
-            while (!(x = it.next()).done)
-                this.mem.push(x);
-            this.size = this.mem.length;
-        }
-    }
-    next() {
-        return ++this.i >= this.size ? done : this.mem[this.i];
-    }
-    copy() {
-        let m = new MemorizingIter();
-        m.mem = this.mem;
-        m.size = this.mem.length;
-        return m;
-    }
-}
-/** nil iter, used when emtpy func eval is intended */
-const nilit = new CoreIter();
-/**
- * singleton iterator
- */
-class SingletonIter extends CoreIter {
-    x;
-    is_singleton = true;
-    consumed = false;
-    constructor(x) {
-        super();
-        this.x = x;
-    }
-    peek_next() {
-        return this.consumed ? done : { value: this.x, done: false };
-    }
-    next() {
-        if (this.consumed) {
-            return done;
-        }
-        else {
-            this.consumed = true;
-            return { value: this.x, done: false };
-        }
-    }
-}
-class FinalizingIter extends CoreIter {
-    it;
-    finalize;
-    constructor(it, finalize) {
-        super();
-        this.it = it;
-        this.finalize = finalize;
-    }
-    next() {
-        const next = this.it.next();
-        if (next.done)
-            this.finalize();
-        return next;
-    }
-}
-class FinalizingSingletonIter extends SingletonIter {
-    finalize;
-    constructor(x, finalize) {
-        super(x);
-        this.finalize = finalize;
-    }
-    next() {
-        const next = super.next();
-        if (next.done)
-            this.finalize();
-        return next;
-    }
-}
-class Nest1Iter extends CoreIter {
-    env;
-    it;
-    f;
-    nest_it;
-    constructor(env, it, f) {
-        super();
-        this.env = env;
-        this.it = it;
-        this.f = f;
-    }
-    next() {
-        let y = !this.nest_it ? this.it.next() : this.nest_it.next();
-        if (y.done) {
-            if (!this.nest_it)
-                return done;
-            this.nest_it = undefined;
-            return this.next();
-        }
-        else {
-            if (this.nest_it)
-                return y;
-            const z = this.f.call(undefined, this.env, y.value);
-            if (single(z))
-                return { value: z, done: false };
-            this.nest_it = z;
-            return this.next();
-        }
-    }
-}
-// cause usable by user defined js step functions, a classical name is exported also
-function isApathIterable(x) {
-    return !single(x);
-}
-/** is no iter */
-function single(x) {
-    if (x === null || x === undefined)
-        return true;
-    return typeof x[Symbol.iterator] !== 'function'
-        // cause string is iterable
-        || is_string(x)
-        // cause arrays are first class citizens
-        || Array.isArray(x);
-}
-function arrays_as_seq(x) {
-    return Array.isArray(x) ? CoreIter.from_array(x) : x;
-}
-/**
- * classical test according to Wadler
- */
-function test_(x) {
-    if (!single(x)) {
-        const first = x.next();
-        return first.done ?
-            false
-            : !x.next().done ? // more than one
-                true
-                : test_single(first.value);
-    }
-    else {
-        return test_single(x);
-    }
-}
-function test_single(x) {
-    return typeof x == "boolean" ? x :
-        // (typeof x == "string" ? x.length > 0 : true)
-        true;
-}
-// ----------------------- dynamic apath runtime ------------------------------------------
-var std_funcs = {
-    match: 'std_match'
-};
-class RtIssues {
-}
-// ----------------------------------------------------------------------------------------
-/**
- * dynamic, parametrizable run time functions
- */
-class DynApart {
-    _setting = {
-        // if true then an exception is thrown else no solution is yielded (nilit returned)
-        strict_failure: false
-    };
-    setting(s) {
-        if (s)
-            this._setting = { ...this._setting, ...s };
-        return this;
-    }
-    debug_callback;
-    set_debug_callback(f) {
-        this.debug_callback = f;
-    }
-    /**
-     * evaluation of current context sequence corresponding to *S* in Wadler's xpath semantics.
-     * if S or f is a single value bypassing is performed to be performant.
-     */
-    eval_it(env, S, f) {
-        if (typeof f === 'function') {
-            return single(S) ? f.call(undefined, env, S) : this.eval_it_star(env, S, f);
-        }
-        else {
-            return single(S) ? f : this.eval_it_star_value(S, f);
-        }
-    }
-    // extra mat func for performance - better as a switch in previous one
-    eval_it_mat(env, S, f) {
-        if (typeof f === 'function') {
-            return single(S) ?
-                f.call(undefined, env, S) :
-                new MemorizingIter(this.eval_it_star(env, S, f));
-        }
-        else {
-            return single(S) ? f : new MemorizingIter(this.eval_it_star_value(S, f));
-        }
-    }
-    /**
-     * TODO not in async context !!!
-     * actual evaluation for non-single x and a function
-     */
-    eval_it_star(env, it, f) {
-        return new Nest1Iter(env, it, f);
-    }
-    /**
-     * actual evaluation for non-single x and a value
-     */
-    eval_it_star_value(it, v) {
-        return new class extends CoreIter {
-            next() {
-                return it.next().done ? done : { value: v, done: false };
-            }
-        };
-    }
-    /** conversion of subscripts */
-    apply_subscript(env, func_no, x, i) {
-        const y = x[i];
-        return y === undefined ?
-            this.fail(x, env, func_no, `index ${i} out of range for ${this.trunc(JSON.stringify(x))}`, nilit)
-            : y;
-    }
-    idx_check(env, func_no, x) {
-        if (typeof x === 'number' && Number.isInteger(x))
-            return x;
-        else
-            return this.fail(x, env, func_no, `evaluation to integer expected (found ${this.trunc(x)}, context: subscription)`, -1, true);
-    }
-    idx_convert(env, func_no, x) {
-        const y = this.force_single_or_nilit(env, func_no, x, true);
-        return y === nilit ? // sufficiency (no is_nilit check) ensured by above line
-            y : this.idx_check(env, func_no, y);
-    }
-    subscript_check(env, func_no, x) {
-        if (!Array.isArray(x))
-            return this.fail(x, env, func_no, `object must be an array (found ${this.trunc(x)}, context: subscription)`, undefined, true);
-        return true;
-    }
-    /** forcing single value or empty iter */
-    force_single_or_nilit(env, func_no, x, fail_on_non_single = false) {
-        if (!single(x)) {
-            const y = x.next();
-            if (y.done) {
-                return nilit;
-            }
-            else {
-                const z = x.next();
-                // const z = peek_next(x)
-                if (!z.done) {
-                    return this.fail(x, env, func_no, `single value expected (found ${this.trunc(`<${`${y.value}, ${z.value}`}, ...>`)}, context: subscription or comparison or arithmetic or assignment value)`, nilit, fail_on_non_single);
-                }
-            }
-            return y.value;
-        }
-        else {
-            return x;
-        }
-    }
-    /** checking assignment key */
-    ass_key_check(env, func_no, x) {
-        if (is_string(x))
-            return true;
-        if (x === nilit) // sufficiency (no is_nilit check) ensured earlier force_single_or_nilit
-            return false;
-        return this.fail(x, env, func_no, `evaluation to string expected (found ${this.trunc(x)}, context: assignment key)`, undefined, true);
-    }
-    array_ing(env, func_no, x) {
-        if (this._setting.arrays_as_seq) {
-            if (!single(x)) {
-                const a = [];
-                let y;
-                while (!(y = x.next()).done)
-                    a.push(y.value);
-                return a.length == 0 ? nilit : a;
-            }
-            else {
-                return x;
-            }
-        }
-        else {
-            return this.force_single_or_nilit(env, func_no, x, true);
-        }
-    }
-    /** forcing primitive value or empty iter */
-    force_primitive(env, func_no, x) {
-        const y = this.force_single_or_nilit(env, func_no, x, true);
-        if (y === nilit // sufficiency (no is_nilit check) ensured by above line
-            || is_primitive(y)) {
-            return y;
-        }
-        else {
-            return this.fail(x, env, func_no, `for now, evaluation to primitive value expected (found ${this.trunc(y)}, context: comparison or arithmetic)`, undefined, true);
-        }
-    }
-    opt_it_apply(env, func_no, x, f) {
-        if (!single(x)) {
-            for (const y of x)
-                f(y);
-        }
-        else {
-            f(x);
-        }
-    }
-    populate_array(env, func_no, a, x) {
-        this.opt_it_apply(env, func_no, x, (y) => {
-            a.push(y);
-        });
-    }
-    embed_objects(env, func_no, o, x) {
-        this.opt_it_apply(env, func_no, x, (y) => {
-            if (is_object(y)) {
-                for (const key in y)
-                    if (Object.prototype.hasOwnProperty.call(y, key))
-                        o[key] = y[key];
-            }
-            else {
-                this.fail(x, env, func_no, `object expected (found plain value or array: '${JSON.stringify(y)}', context: embedding)`, undefined, true);
-            }
-        });
-    }
-    // i do it here and not in adt cause prep for non-js trans
-    static loc_str(env, func_no) {
-        const expr = func_no !== -1 ? env.func_no_to_expr[func_no] : undefined;
-        if (expr && expr.loc) {
-            return `(${expr.loc.start.line}:${expr.loc.start.column}-${expr.loc.end.line}:${expr.loc.end.column})`;
-        }
-        else {
-            return 'unknown';
-        }
-    }
-    fail(ctx_node, env, func_no, mess, ret = nilit, force = false, fail) {
-        if (force || this._setting.strict_failure) {
-            const loc_str = DynApart.loc_str(env, func_no);
-            // throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; future versions will show source location`)
-            throw new ExecutionError(func_no, `${this._setting.strict_failure ? 'strict failure enabled; ' : ''}${mess}; location ${loc_str}`, ctx_node, fail);
-        }
-        else
-            return ret;
-    }
-    trunc(x) {
-        return trunc(`'${JSON.stringify(x)}`, 80) + '\'';
-    }
-    // redundant with 'bind' - extra for perf
-    bind_single(env, func_no, vno, scope_func, x) {
-        const vars = scope_func === '$global' ? env.glob_vars : env.vars;
-        return vars[vno] = x;
-    }
-    bind(env, func_no, vno, scope_func, x) {
-        const vars = scope_func === '$global' ? env.glob_vars : env.vars;
-        return vars[vno] = single(x) ? x : new MemorizingIter(x);
-    }
-    get_binding_1(env, func_no, vno, scope_func) {
-        const v = scope_func === '$global' ? env.glob_vars[vno] : env.vars[vno];
-        if (v === undefined)
-            throw new ExecutionError(func_no, `fatal: variable (order no '${vno}') not in stack frame`);
-        return single(v) ? v : v.copy();
-    }
-    // ----------------- debug -------------------------
-    async debug(debug_data) {
-        if (!this.debug_callback)
-            return;
-        let loc = undefined;
-        let expr = undefined;
-        if (debug_data.func_no !== -1) {
-            expr = debug_data.env.func_no_to_expr[debug_data.func_no];
-            loc = expr.loc;
-        }
-        await this.debug_callback({ ...debug_data, expr, loc });
-    }
-    // ----------------- generic eval -------------------------
-    gx_property(env, func_no, x, name) {
-        // const prop = escape_quote(name)
-        // const mess = `object property \\'${escape_quote(name)}\\' not found`
-        const y = x[name];
-        return y === undefined ? this.fail(x, env, func_no, `object property '${escape_quote(name)}' not found`, nilit, false, { kind: 'prop_error', token: name }) : y;
-    }
-    *gx_property_regex(env, func_no, ctx_node, regex) {
-        if (!is_string(regex))
-            return this.fail(ctx_node, env, func_no, "string value expected (context: property regex)", undefined, true);
-        if (!is_object(ctx_node))
-            return this.fail(ctx_node, env, func_no, "object expected (context: property regex)", undefined, true);
-        for (const key in ctx_node) {
-            if (key.match('^' + regex + '$'))
-                yield ctx_node[key];
-            // if (key.match(new RegExp(regex))) yield ctx_node[key]
-        }
-    }
-    gx_property_dynamic(env, func_no, ctx_node, p) {
-        const y = this.force_single_or_nilit(env, func_no, p, true);
-        if (is_string(y))
-            return this.gx_property(env, func_no, ctx_node, y);
-        if (y === nilit) // sufficiency (no is_nilit check) ensured by force_single_or_nilit
-            return nilit;
-        return this.fail(ctx_node, env, func_no, `evaluation to string expected (found ${this.trunc(y)}, context: dynamic property)`, undefined, true);
-    }
-    // ----------------- standard step funcs -------------------------
-    check_args_num(env, func_no, n, expected_n, func_name) {
-        if (n !== expected_n)
-            return this.fail(undefined, env, func_no, `wrong number of arguments (step func '${func_name}')`, undefined, true);
-    }
-    std_match(env, func_no, ctx_node, regex) {
-        this.check_args_num(env, func_no, arguments.length, 4, 'match');
-        if (!is_primitive(ctx_node))
-            return nilit;
-        if (!is_string(regex))
-            return this.fail(ctx_node, env, func_no, "string value expected (context: 'match(...)')", undefined, true);
-        if (regex === '')
-            regex = '^$';
-        const it = ctx_node.toString().match(new RegExp(regex, ''));
-        if (it === null)
-            return nilit;
-        const ret = { groups: it, ...it.groups };
-        delete it.groups;
-        delete it.index;
-        delete it.input;
-        return ret;
-    }
-    std_text(env, func_no, ctx_node) {
-    }
-}
-// console.log('lal'.match('^lal$'))
-// console.log(new RegExp('a', 'g').test('lal'))
-
-var apart = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    CoreIter: CoreIter,
-    DynApart: DynApart,
-    Env: Env,
-    ExecutionError: ExecutionError,
-    FinalizingIter: FinalizingIter,
-    FinalizingSingletonIter: FinalizingSingletonIter,
-    MemorizingIter: MemorizingIter,
-    Nest1Iter: Nest1Iter,
-    RtIssues: RtIssues,
-    SingletonIter: SingletonIter,
-    arrays_as_seq: arrays_as_seq,
-    done: done,
-    dummy: dummy,
-    isApathIterable: isApathIterable,
-    nilit: nilit,
-    single: single,
-    std_funcs: std_funcs,
-    test_: test_
-});
-
-/**
  * manager for step funcs.
  *
  * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
@@ -6635,6 +6637,9 @@ class StepFuncManager {
  * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability.
  * the code is highly compact with some side effects to avoid verbosity - so sometimes it takes longer to read but less time to maintain.
  */
+function is_pure_literal(tr) {
+    return tr.literal && tr.snippet !== 'undefined';
+}
 var in_mem_2 = {
     form: 'func',
 };
@@ -6670,6 +6675,9 @@ class Transpiler {
     dynart_setting(setting = {}) {
         this._dynart_setting = setting;
         return this;
+    }
+    is_single(tr) {
+        return !this._dynart_setting.arrays_as_seq && (tr.literal || tr.single_result);
     }
     /**
      *
@@ -6747,10 +6755,10 @@ class Transpiler {
         this.punch_func(expr, root_func_name, `
                     ${this.has_async ? '// TODO optimize async/await bubbling' : ''};
                     env.root = ${x};
-                    // const y = ${this.call(tr, 'env.root')};
-                    // dynart.debug('finish', env, x, -1, y)
                     return ${this.call(tr, 'env.root')};
         `);
+        // const y = ${this.call(tr, 'env.root')};
+        // dynart.debug('finish', env, x, -1, y)
     }
     trans_rec(expr, scope) {
         let new_func_name = this.new_func_fame(expr, false);
@@ -6777,15 +6785,16 @@ class Transpiler {
                 return { snippet: new_func_name };
             }
             case Adt.Path: {
-                const tr_r = this.trans_rec(expr.right);
+                const tr_right = this.trans_rec(expr.right);
                 if (expr.left.type === Adt.EmptyLeft) {
-                    return tr_r;
+                    return tr_right;
                 }
                 else {
-                    const tr_l = this.trans_rec(expr.left);
-                    this.trans_Path(expr, new_func_name, tr_l, tr_r);
+                    const tr_left = this.trans_rec(expr.left);
+                    this.trans_Path(expr, new_func_name, tr_left, tr_right);
+                    // return { snippet: new_func_name, is_scope: expr.data?.is_scope, single_result: tr_l.single_result && tr_r.single_result }
+                    return { snippet: new_func_name, is_scope: expr.data?.is_scope, single_result: this.is_single(tr_left) && this.is_single(tr_right) };
                 }
-                return { snippet: new_func_name, is_scope: expr.data?.is_scope };
             }
             case Adt.Filter: {
                 const new_func_name_filter = this.new_func_fame(expr.filter, false);
@@ -6872,24 +6881,24 @@ class Transpiler {
             case Adt.BinaryOpExpression: {
                 const tr_left = this.trans_rec(expr.left);
                 const tr_right = this.trans_rec(expr.right);
-                this.trans_BinaryExpression(expr, new_func_name, this.func_cnt, tr_left, tr_right);
-                return { snippet: new_func_name };
+                const all_lit = is_pure_literal(tr_left) && is_pure_literal(tr_right);
+                return this.trans_BinaryExpression(expr, new_func_name, this.func_cnt, tr_left, tr_right, all_lit);
             }
             case Adt.BinaryLogicalExpression: {
                 const tr_left = this.trans_rec(expr.left);
                 const tr_right = this.trans_rec(expr.right);
                 this.trans_BinaryLogicalExpression(expr, new_func_name, tr_left, tr_right);
-                return { snippet: new_func_name };
+                return { snippet: new_func_name, single_result: true };
             }
             case Adt.UnaryLogicalExpression: {
                 const tr = this.trans_rec(expr.e);
                 this.trans_UnaryLogicalExpression(expr, new_func_name, tr);
-                return { snippet: new_func_name };
+                return { snippet: new_func_name, single_result: true };
             }
             case Adt.UnaryArithmeticExpression: {
                 const tr = this.trans_rec(expr.e);
                 this.trans_UnaryArithmeticExpression(expr, new_func_name, this.func_cnt, tr);
-                return { snippet: new_func_name };
+                return { snippet: new_func_name, single_result: true };
             }
             case Adt.FuncCall: {
                 // must be non-inline because of extra args
@@ -6928,10 +6937,7 @@ class Transpiler {
             }
             case Adt.AasStep: {
                 const tr = this.trans_rec(expr.e);
-                if (!this._dynart_setting.arrays_as_seq)
-                    return tr;
-                else
-                    return { inline: true, func: true, snippet: `function (env, x) {return apart.arrays_as_seq(${this.call(tr, 'x')})}` };
+                return tr;
             }
             case Adt.Literal: {
                 return { inline: true, literal: true, snippet: `(${JSON.stringify(expr.value)})` };
@@ -6965,12 +6971,12 @@ class Transpiler {
                     const y = x['${prop}'];
                     return y === undefined ? dynart.fail(x, env, ${this.func_cnt}, '${mess}', apart.nilit, false, { kind: 'prop_error', token: '${prop}' }) : y
                 `);
-            return { snippet: new_func_name };
+            return { snippet: new_func_name, single_result: true };
         }
         else {
-            this.new_func_fame(expr, false);
+            // let pseudo_func_name = this.new_func_fame(expr, false)
             return {
-                inline: true, func: true,
+                inline: true, func: true, single_result: true,
                 snippet: `(function(env, x){const y = x['${prop}']; return y === undefined ? dynart.fail(x, env, ${this.func_cnt}, '${mess}', apart.nilit, false, { kind: 'prop_error', token: '${prop}' }) : y})`
                 // snippet: `(function(env, x){return dynart.gx_property(env, ${this.func_cnt}, x, '${expr.name}')})`
             };
@@ -6999,12 +7005,15 @@ class Transpiler {
                     return apart.create_finalizing_binding_1(${func_no}, '${expr.var_name}', y, env);
                 `);
     }
-    trans_Path(expr, new_func_name, tr_l, tr_r) {
+    trans_Path(expr, new_func_name, tr_left, tr_right) {
         this.punch_func(expr, new_func_name, `
                     const y = ${expr.left.type === Adt.EmptyLeft ? 'x'
-            : this.call(tr_l, 'x', false)};
-                    return ${this.call(tr_r, 'y', true)};
+            : this.call(tr_left, 'x', false)};
+                    return ${this.call(tr_right, 'y', !this.is_single(tr_left))};
                 `);
+        // return ${this.call(tr_r, 'y', !tr_l.single_result)};
+        // return ${this.call(tr_r, 'y', tr_l.single_result === undefined ? true : !tr_l.single_result)};
+        // return ${this.call(tr_r, 'y', true)};
     }
     trans_Filter(expr, new_func_name_filter, tr_f) {
         this.punch_func(expr.filter, new_func_name_filter, `
@@ -7030,14 +7039,20 @@ class Transpiler {
                     return b ? (${this.call(tr_then, 'x')}) : ${tr_else ? '(' + this.call(tr_else, 'x') + ')' : 'apart.nilit'};
                 `);
     }
-    trans_BinaryExpression(expr, new_func_name, func_no, tr_left, tr_right) {
-        this.punch_func(expr, new_func_name, `
-                    // TODO if v1 or v2 are literals we could inline it
+    trans_BinaryExpression(expr, new_func_name, func_no, tr_left, tr_right, pure_literals) {
+        if (pure_literals && !this._dynart_setting.debug) {
+            // if (false) { // test
+            return { snippet: `(${tr_left.snippet} ${op_map(expr.operator)} ${tr_right.snippet})`, inline: true, literal: true };
+        }
+        else {
+            this.punch_func(expr, new_func_name, `
                     const v1 = dynart.force_primitive(env, ${func_no}, ${this.call(tr_left, 'x')});
                     const v2 = dynart.force_primitive(env, ${func_no}, ${this.call(tr_right, 'x')});
                     if (v1 === apart.nilit || v2 === apart.nilit) return apart.nilit;
                     return (v1 ${op_map(expr.operator)} v2);
                 `);
+            return { snippet: new_func_name, single_result: expr.type === Adt.ComparisonExpression };
+        }
     }
     trans_UnaryLogicalExpression(expr, new_func_name, tr) {
         this.punch_func(expr, new_func_name, `
@@ -7067,7 +7082,7 @@ class Transpiler {
         const args = tlist_to_array(expr.arguments, Adt.ArgumentList);
         const trs = args.map(e => this.trans_rec(e));
         let i = -1;
-        const formal_par_binding = trs.map(tr => {
+        const formal_par_binding = trs.map(_ => {
             i++;
             const vno = formalParameters[i].data.var_stamp.vno;
             const scope_func = formalParameters[i].data.var_stamp.scope_func;
@@ -7091,8 +7106,11 @@ class Transpiler {
     new_spool_func(expr, trans_result_left, trans_result_right, func_name) {
         this.punch_func(expr, func_name, `
                     const y = ${this.call(trans_result_left, 'x', false)};
-                    return ${this.call(trans_result_right, 'y', true)};
+                    return ${this.call(trans_result_right, 'y', !this.is_single(trans_result_left))};
                 `);
+        // return ${this.call(trans_result_right, 'y', !trans_result_left.single_result)};
+        // return ${this.call(trans_result_right, 'y', trans_result_left.single_result === undefined ? true : !trans_result_left.single_result)};
+        // return ${this.call(trans_result_right, 'y', true)};
     }
     call_seq_items(l) {
         let ret = '';
@@ -7280,7 +7298,7 @@ class Transpiler {
         const debug_func = `
                 ${this.has_async ? 'async' : ''} function DEBUG_${func_name}(env, x) {
                     dynart.debug({ kind: 'pre', env, ctx_node: x, func_no: ${no} })
-                    const y = ${this.call({ snippet: func_name }, 'x', false, undefined, true)}
+                    const y = ${this.call({ snippet: func_name }, 'x', false, true)}
                     dynart.debug({ kind: 'post', env, ctx_node: x, func_no: ${no}, result: y })
                     return y
                 }
@@ -7291,24 +7309,23 @@ class Transpiler {
         const no = func_name.match(/.*_(\d+)_.*/);
         return no ? parseInt(no[1]) : -1;
     }
-    call(tr, var_name, iter = false, args_ = [], nodebug_prefix = false) {
+    call(tr, var_name, iter = false, nodebug_prefix = false) {
         // args
-        const wargs = args_.length > 0;
-        let args = wargs ? (iter ? ', [' + args_.join(',') + ']' : ',' + args_.join(',')) : '';
         const par = `env, ${var_name}`;
         let ret;
         const deb = this._dynart_setting.debug && !nodebug_prefix && !tr.inline ? 'DEBUG_' : '';
         if (iter) {
             const mat = this._dynart_setting.debug ? '_mat' : '';
-            ret = `dynart.eval_it${mat}(${par}, ${deb}${tr.snippet}${args})`;
-            return ret;
+            ret = `dynart.eval_it${mat}(${par}, ${deb}${tr.snippet})`;
         }
         else {
             ret = tr.inline ?
-                `(${tr.snippet}${tr.func ? `(${par}${args})` : ''})`
-                : `${Transpiler.async_await(this.has_async).await}${deb}${tr.snippet}(${par}${args})`;
-            return ret;
+                `(${tr.snippet}${tr.func ? `(${par})` : ''})`
+                : `${Transpiler.async_await(this.has_async).await}${deb}${tr.snippet}(${par})`;
         }
+        if (this._dynart_setting.arrays_as_seq)
+            ret = 'apart.arrays_as_seq(' + ret + ')';
+        return ret;
     }
     comment(expr) {
         return this.log_exprs ? '\n' + JSON.stringify(expr, null, 3) + '\n' : '';

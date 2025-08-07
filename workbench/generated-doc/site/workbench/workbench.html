@@ -907,7 +907,6 @@
 <li><code>control</code><ul>
 <li><code>eval</code>: evaluation of the <em>apath</em> expression</li>
 <li><code>auto-eval</code>: evaluation on typing</li>
-<li><code>strict failure</code>: strict failure instead of 'no solutions'<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></li>
 <li><code>debug...</code>: opens the debugger</li>
 </ul>
 </li>
@@ -915,7 +914,7 @@
 </ul>
 <h2 id="code-completion-analysis">Code Completion &amp; Analysis</h2>
 <p>Code completions are suggested for possible property selections, variable references, step function calls, and general language expressions. As usual, <code>Ctrl+Space</code> shows the suggestion. A second <code>Ctrl+Space</code> expands further information. In general, placeholders are marked with <code>❰ ❱</code>, e.g. <code>❰then_part❱</code>.</p>
-<p><strong>Properties</strong>.&nbsp; Property suggestions are <strong>calculated dynamically</strong> according to the json input and the current position within the apath editor, i.e. only possible properties are suggested.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
+<p><strong>Properties</strong>.&nbsp; Property suggestions are <strong>calculated dynamically</strong> according to the json input and the current position within the apath editor, i.e. only possible properties are suggested.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">1</a></sup></p>
 <p><strong>Variable References</strong>.&nbsp; Variable suggestions are calculated dynamically according to the current position, i.e. those that are bound in the scope are suggested.</p>
 <p><strong>Step Function Calls</strong>.&nbsp; Calls to defined step functions are suggested. When completing, the names of the formal parameters are adopted as placeholders.</p>
 <p><strong>Analysis</strong>.&nbsp; The code analysis includes syntactic errors and errors such as calling undefined functions or referencing unbound variables, which are marked with squigglies.</p>
@@ -924,6 +923,7 @@
   <img alt="editor setting" src="image-2.png" />
   <figcaption>editor setting</figcaption>
 </figure>
+<p>The mode <code>strict failure</code> is useful for checking valid property names. When the evaluation of a path has no solution, the reason for that could be an erroneous path definition. For instance, for the input <code class="language-javascript highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">}</span></code> the property selection <code class="language-javascript highlight"><span class="nx">aa</span></code> yields no solution. If <code>strict failure</code> is enabled an error message is returned. This is only useful in the testing phase.</p>
 <h2 id="debugging">Debugging</h2>
 <p>The workbench debugger makes it possible to follow the evaluation of an expression step by step. In contrast to conventional debuggers (e.g. for imperative languages), current steps are not defined by a line/column, but by the range of an entire expression.</p>
 <h3 id="start-step-animated-png">Start &amp; Step (animated png)</h3>
@@ -945,11 +945,8 @@ deferred
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:1">
-<p>When the evaluation of a path has no solution, the reason for that could be an erroneous path definition. For instance, for the input <code class="language-javascript highlight"><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">}</span></code> the property selection <code class="language-javascript highlight"><span class="nx">aa</span></code> yields no solution. If <code>strict failure</code> is enabled an error message is returned. This is only useful in the testing phase.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
 <li id="fn:2">
-<p>Note that this may depend on the evaluation results, e.g. if a conditional branch is not evaluated based on the condition, no properties will be suggested.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Note that this may depend on the evaluation results, e.g. if a conditional branch is not evaluated based on the condition, no properties will be suggested.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

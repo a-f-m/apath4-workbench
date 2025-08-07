@@ -113,7 +113,7 @@ async function complete_eval() {
             eval_error = true
             handle_eval_success(false)
             result_editor.setValue(error.toString())
-            if ($('#toggle_squigglies').prop('checked')) build_squigglies(error)
+            build_squigglies(error)
         }
     }
 }
@@ -154,7 +154,8 @@ $('#file-input').on('change', async function (e) {
 
     editor_sync = new window.Channel_.SyncFlag()
     remove_breakpoints()
-    restore(e)
+    restore(e); //!!! its curious, w/o ';' run time error
+
     (async () => {
         await editor_sync.wait()
         ebreakpoints.update_view()
@@ -172,8 +173,11 @@ $('#toggle_dark').on('change', function () {
 $('#toggle_live_eval').on('change', function () {
     $('#bnt_eval_apth').trigger('click')
 })
-$('#toggle_strict_failure').on('change', function () {
-    $('#bnt_eval_apth').trigger('click')
+$('#toggle_strict_failure').on('change', async function () {
+    // $('#bnt_eval_apth').trigger('click')
+    await complete_eval()
+    editor_sync.release()
+    remap_sync.release()
 })
 $('#toggle_arrays_as_seq').on('change', function () {
     $('#bnt_eval_apth').trigger('click')

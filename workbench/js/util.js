@@ -105,7 +105,9 @@ function define_popup($button, $popup, fadeout, fadeIn) {
         const buttonOffset = $button.offset() //  Position des Buttons im Dokument
         const buttonHeight = $button.outerHeight() //  Höhe des Buttons (inkl. Padding/Border)
 
+        const width = $popup.width() * 1
         $popup.css({
+            width: width,
             top: buttonOffset.top + buttonHeight + 0, // 10px unter dem Button
             left: buttonOffset.left - 150 // Linksbündig mit dem Button
         })

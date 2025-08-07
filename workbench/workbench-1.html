@@ -16,7 +16,6 @@
 </head>
 
 <body>
-    <a href="...">...</a>
     <div class="logo">
         <a href="generated-doc/site/home/intro.html"><img src='generated-doc/site/pics/ph--path-bold-w-text-2.svg'
                 width="100" height="20" /></a><sup>beta</sup>
@@ -71,14 +70,12 @@
                 </span>
                 <span title='evaluation on change (Ctrl+Numpad0)'><label>
                         <input id='toggle_live_eval' type='checkbox' />auto-eval</label></span>
-                <span title='strict failure'><label><input id='toggle_strict_failure' type='checkbox' />strict
-                        failure</label></span>
                 <span class='button'>
                     <span title='more control (Ctrl+., Ctrl+M)'><label><input id='bnt_ctrl_more' type='button'
                                 value="debug..." /></label></span>
-                    <!-- <br>
-                <span title='arrays as sequence'><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence
-                        </label></span> -->
+                    <br>
+                <span title='arrays as sequence' hidden><label><input id='toggle_arrays_as_seq' type='checkbox' />arrays as sequence**
+                        </label></span>
                     <!-- <div class='txt_file_url'>
                     <span>
                         default step function file url (must be absolute!): <input type="text" id="txt_default_step_funcs"
@@ -117,7 +114,7 @@
     </div>
     <!-- ########################################### debug dialog ############################################# -->
 
-    <div id='dialog_ctrl_more' class='dia-widget' title='Debug'>
+    <div id='dialog_ctrl_more' class='dia-widget' title='Debug' hidden>
 
         <!-- deferred
         <img id="tooltip-element" class="info" src="icons/info.svg" alt="Icon"> -->
@@ -146,7 +143,7 @@
                 <span>expression</span>
             </div>
             <div class="line-with-text">
-                <span>breakpoints</span>
+                <span><b>breakpoints</b></span>
             </div>
             <div>
                 <table>
@@ -224,7 +221,7 @@
                 <div class='widget-header'>
                     <span title="Focus: Ctrl+Numpad2">apath expression (press F1 for editor commands)&nbsp;&nbsp;</span>
                     <!-- <span style="position: absolute; right: 0;"><label><input id='toggle_dark' type='checkbox' />dark</label></span> -->
-                    <span style="position: absolute; right: 0;" title='editor setting'><label><input id='bnt_dialog_apath_ed' type='button'
+                    <span style="position: absolute; right: 0;"><label><input id='bnt_dialog_apath_ed' type='button'
                         value="setting..." /></label></span>
                 </div>
                 <div id='monaco_apath' class='monaco contentPane'></div>
@@ -244,23 +241,40 @@
 
     <!-- ########################################### apath ed setting dialog ######################################### -->
 
-    <div id="dialog_apath_ed" class='dia-widget'>
-        <div class="hr-text-root"><span class="hr-text-1"></span><span>suggestions</span><span class="hr-text-2"></span></div>
-        <br>
+    <!-- old way line: <div class="hr-text-root"><span class="hr-text-1"></span><span>errors & warnings</span><span class="hr-text-2"></span></div> -->
+
+    <div id="dialog_apath_ed" class='dia-widget menu'>
+
+        <div class="line-with-text line-with-text--first"><span><b>evaluation</b></span></div>
+
+        <div><span><label><input id='toggle_strict_failure' type='checkbox' />strict failure</label></span> <img
+                id="info_img_strict_failure" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon">
+        </div>
+        <div id="info_strict_failure" class="tooltip">
+            strict failure instead of 'no solutions'
+        </div>
+
+        <div class="line-with-text"><span><b>suggestions</b></span></div>
+
         <!-- <div><span><label><input id='toggle_quick_sugg' type='checkbox' checked />quick suggestions</label></span> <img id="info_img_quick_sugg" src="icons/info.svg" alt="Icon"></div>
         <div id="info_quick_sugg" class="tooltip">the suggestion is shown during typing non-symbol characters</div> -->
-        <div><span><label><input id='toggle_correct_templ' type='checkbox' checked />correctness check</label></span> <img id="info_img_correct_templ" src="icons/info.svg" alt="Icon"></div>
-        <div id="info_correct_templ" class="tooltip">only (syntactically) correct embeddable snippets or pure words (icon "abc"), if enabled below, are suggested</div>
-        <div><span><label><input id='toggle_word_based_sugg' type='checkbox' />word based suggestion</label></span> <img id="info_img_word_based_sugg" src="icons/info.svg" alt="Icon"></div>
-        <div id="info_word_based_sugg" class="tooltip">all words contained in the editor are suggested (icon "abc")</div>
-        <div><span><label><input id='toggle_templ_skip_nl' type='checkbox' />one-line insertion</label></span> <img id="info_img_templ_skip_nl" src="icons/info.svg" alt="Icon"></div>
+        <div><span><label><input id='toggle_correct_templ' type='checkbox' checked />correctness check</label></span> <img id="info_img_correct_templ" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon">
+            <div id="info_correct_templ" class="tooltip">only (syntactically) correct embeddable snippets are suggested</div>
+        </div>
+        <div><span><label><input id='toggle_word_based_sugg' type='checkbox' />word based suggestion</label></span> <img id="info_img_word_based_sugg" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon"></div>
+        <div id="info_word_based_sugg" class="tooltip">
+            all words contained in the editor are suggested<br><img style="width: 30%;" src="icons/words.png" alt="Icon">
+        </div>
+        <div><span><label><input id='toggle_templ_skip_nl' type='checkbox' />one-line insertion</label></span> <img id="info_img_templ_skip_nl" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon"></div>
         <div id="info_templ_skip_nl" class="tooltip">the suggested snippet is inserted as one line</div>
+        <div><span><label><input id='toggle_swap_detail' type='checkbox' />swap descriptor</label></span> <img id="info_img_swap_detail" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon"></div>
+        <div id="info_swap_detail" class="tooltip">
+            the textual and symbolic descriptor<br><img style="width: 80%;" src="icons/swap-deteil.png" alt="Icon"><br> is swapped
+        </div>
 
-        <br>
-        <div class="hr-text-root"><span class="hr-text-1"></span><span>errors & warnings</span><span class="hr-text-2"></span></div>
-        <br>
-        <div><span><label><input id='toggle_squigglies' type='checkbox' checked />squigglies</label></span> <img id="info_img_squigglies" src="icons/info.svg" alt="Icon"></div>
-        <div id="info_squigglies" class="tooltip">marking with squigglies</div>
+        <!-- <div><span><label><input id='toggle_squigglies' type='checkbox' checked />squigglies</label></span> <img id="info_img_squigglies" src="icons/material-symbols-light--question-mark-rounded.svg" alt="Icon"></div>
+        <div id="info_squigglies" class="tooltip">marking with squigglies</div> -->
+
     </div>
 
     <!-- ######################################### tooltips ############################################### -->

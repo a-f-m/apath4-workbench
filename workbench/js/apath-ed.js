@@ -4,10 +4,11 @@
 function reset_squigglies(params) {
     monaco.editor.setModelMarkers(monaco_editors.apath.getModel(), "owner", [])
 }
-function build_squigglies(apath_error) {
+function build_squigglies(error) {
 
+    if (error.name !== 'ApathError') return
     const markers = []
-    for (const issue of apath_error.get_issues()) {
+    for (const issue of error.get_issues()) {
         const loc = issue.location
         markers.push(
             {
@@ -215,6 +216,7 @@ function gather_properties(apath, position, editor_suggs, range, sugg_cnt, full_
         if (error.name === 'ApathError') {
             const cause = error.cause
             if (cause.name === 'ExecutionError'
+                && cause.fail
                 && cause.fail.kind === 'prop_error'
                 && cause.fail.token.includes('___apath_fake_expr___')
                 && cause.ctx_node) {
@@ -375,6 +377,13 @@ function augment_sugg(sugg, sugg_cnt) {
         sugg.snippet.label + ' ' + (ft ? ft : '') 
         + ` ${window.Utils_.extract(sugg.test, /(\w+)/gm).join(' ')} `
 
+    //!!! experi
+    if (!$('#toggle_swap_detail').prop('checked')) {
+        const h = sugg.snippet.label
+        sugg.snippet.label = sugg.snippet.detail
+        sugg.snippet.detail = h
+    }
+    //
     return sugg.snippet
 }
 
@@ -398,11 +407,12 @@ $(function() {
     
     define_popup($('#bnt_dialog_apath_ed'), $('#dialog_apath_ed'), 0, 0)
 
+    define_popup($('#info_img_strict_failure'), $('#info_strict_failure'), 0, 500)
     define_popup($('#info_img_quick_sugg'), $('#info_quick_sugg'), 0, 500)
     define_popup($('#info_img_correct_templ'), $('#info_correct_templ'), 0, 500)
     define_popup($('#info_img_templ_skip_nl'), $('#info_templ_skip_nl'), 0, 500)
     define_popup($('#info_img_word_based_sugg'), $('#info_word_based_sugg'), 0, 500)
-    define_popup($('#info_img_squigglies'), $('#info_squigglies'), 0, 500)
+    define_popup($('#info_img_swap_detail'), $('#info_swap_detail'), 0, 500)
 })
 
 function build_doc(remark, exa_id, doc) {
