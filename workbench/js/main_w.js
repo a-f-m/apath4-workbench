@@ -83,8 +83,6 @@ async function complete_eval() {
     const apath = monaco_editors.apath.getValue()
     const result_editor = monaco_editors.result
 
-    reset_squigglies()
-
     if (apath.trim() === '') {
         result_editor.setValue('')
 
@@ -106,6 +104,7 @@ async function complete_eval() {
                 let base_result = e.empty_ast ? '' : results === '' ? '- no solutions found -' : results
                 if (e.warnings.length !== 0) base_result = `warnings: ${e.warnings.toString()}\n++++++++++++\n\n` + base_result
                 result_editor.setValue(base_result)
+                reset_squigglies()
                 return base_result
             }
 
@@ -113,6 +112,7 @@ async function complete_eval() {
             eval_error = true
             handle_eval_success(false)
             result_editor.setValue(error.toString())
+            reset_squigglies()
             build_squigglies(error)
         }
     }

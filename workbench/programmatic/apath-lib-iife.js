@@ -1,4 +1,4 @@
-(function (fs, path) {
+(function (exports) {
     'use strict';
 
     /**
@@ -549,7 +549,7 @@
     // console.log('lal'.match('^lal$'))
     // console.log(new RegExp('a', 'g').test('lal'))
 
-    var Apart_ = /*#__PURE__*/Object.freeze({
+    var apart = /*#__PURE__*/Object.freeze({
         __proto__: null,
         CoreIter: CoreIter,
         DynApart: DynApart,
@@ -623,28 +623,6 @@
         }
     }
 
-    /**
-     * Utilities
-     * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
-     */
-    /** */
-    function write_file(file_path, content) {
-        const r = path.resolve(file_path);
-        fs.writeFileSync(r, content);
-        return `file://${r}`;
-    }
-    function valid_url(s) {
-        try {
-            const url = new URL(s);
-            return true;
-        }
-        catch (_) {
-            return false;
-        }
-    }
-    function remove_exports(txt) {
-        return txt.replaceAll(new RegExp('\\n\\s*export\\s+', 'g'), '\n');
-    }
     function async_func(f) {
         return f.constructor.name === 'AsyncFunction' || f.constructor.name === 'AsyncGeneratorFunction';
     }
@@ -654,90 +632,14 @@
     function is_object(x) {
         return x !== undefined && x.constructor.name === "Object";
     }
-    function get_keys(x) {
-        return is_object(x) ? Object.keys(x) : [];
-    }
     function is_primitive(x) {
         return !(typeof x == 'object' || typeof x == 'function');
     }
     function escape_quote(x) {
         return x.replace("'", "\\'");
     }
-    function escape_regex(x) {
-        const regexc = '(\\.|\\+|\\*|\\?|\\^|\\$|\\(|\\)|\\[|\\]|\\{|\\}|\\||\\\\)';
-        return x.replaceAll(new RegExp(regexc, 'g'), '\\$1');
-    }
-    function shortenString(s, maxLength) {
-        if (s.length <= maxLength) {
-            return s;
-        }
-        const halfLength = (maxLength - 3) / 2;
-        return s.slice(0, halfLength) + '...' + s.slice(-halfLength);
-    }
-    function get_abs_position(text, lico) {
-        let line = 1;
-        let column = 1;
-        let cnt = 1;
-        for (const c of text) {
-            if (lico.line === line && lico.column === column) {
-                break;
-            }
-            if (c === '\n') {
-                line++;
-                column = 0;
-            }
-            column++;
-            cnt++;
-        }
-        return cnt;
-    }
-    function replace_marker_in_file(file, begin_marker, end_marker, replacement) {
-        let s = fs.readFileSync(file, { encoding: 'utf-8' });
-        s = replace_marker(s, begin_marker, end_marker, replacement);
-        fs.writeFileSync(file, s);
-    }
-    function replace_in_file(file, regex, replacement) {
-        let s = fs.readFileSync(file, { encoding: 'utf-8' });
-        s = s.replace(new RegExp(regex, 'gms'), replacement);
-        fs.writeFileSync(file, s);
-    }
-    function replace_marker(s, begin_marker, end_marker, replacement) {
-        return s.replace(new RegExp(`${begin_marker}.*?${end_marker}`, 'gms'), `${begin_marker}${replacement}${end_marker}`);
-    }
-    function replace_mult_in_file(file, repl_list) {
-        let doc = fs.readFileSync(file, { encoding: 'utf-8' });
-        for (const x of repl_list)
-            doc = doc.replace(new RegExp(x.regex, 'gms'), x.repl);
-        fs.writeFileSync(file, doc);
-    }
-    function walk_files(dir, path_regex, func, recursive = false) {
-        const items = fs.readdirSync(dir, { recursive: recursive });
-        for (const item of items) {
-            //!!!test
-            // if (item.includes('language')) {
-            //     console.log()
-            // }
-            const path = (dir + '/' + item).replaceAll('\\', '/');
-            if (path.match(path_regex))
-                func(path);
-        }
-    }
-    /** de-indent tick strings */
-    function ind_(i, s) {
-        let match = s.match(new RegExp('^\n(\\s*).*', 'm'));
-        if (match)
-            return s.replaceAll('\n' + match[1], '\n' + ' '.repeat(i));
-        else
-            throw new ApathError('bad ind_');
-    }
     function trunc(s, n) {
         return (s.length > n) ? s.slice(0, n - 1) + '...' : s;
-    }
-    function encode_object(x) {
-        return btoa(JSON.stringify(x, null, 3)).replaceAll('+', '_1').replaceAll('/', '_2').replaceAll('=', '_3');
-    }
-    function decode_to_object(s) {
-        return JSON.parse(atob(s.replaceAll('_1', '+').replaceAll('_2', '/').replaceAll('_3', '=')));
     }
     class Stack {
         raw_stack = [];
@@ -767,45 +669,6 @@
             return this.raw_stack[i];
         }
     }
-    function serialize(o) {
-        return JSON.stringify(o);
-    }
-    function deserialize(s, C) {
-        return Object.assign(new C(), JSON.parse(s));
-    }
-    // ##################### regex
-    function extract(s, regex) {
-        return [...s.matchAll(regex)].map(match => match[1]);
-    }
-
-    var Utils_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        Stack: Stack,
-        async_func: async_func,
-        decode_to_object: decode_to_object,
-        deserialize: deserialize,
-        encode_object: encode_object,
-        escape_quote: escape_quote,
-        escape_regex: escape_regex,
-        extract: extract,
-        get_abs_position: get_abs_position,
-        get_keys: get_keys,
-        ind_: ind_,
-        is_object: is_object,
-        is_primitive: is_primitive,
-        is_string: is_string,
-        remove_exports: remove_exports,
-        replace_in_file: replace_in_file,
-        replace_marker: replace_marker,
-        replace_marker_in_file: replace_marker_in_file,
-        replace_mult_in_file: replace_mult_in_file,
-        serialize: serialize,
-        shortenString: shortenString,
-        trunc: trunc,
-        valid_url: valid_url,
-        walk_files: walk_files,
-        write_file: write_file
-    });
 
     /**
      * adt (algebraic data type) for apath
@@ -893,63 +756,6 @@
     }
     const unknown_lico = { line: 0, column: 0, offset: 0 };
     const unknown_loc = { start: unknown_lico, end: unknown_lico };
-    function loc2string(loc) {
-        return `${loc.start.line}:${loc.start.column}-${loc.end.line}:${loc.end.column}`;
-    }
-    function offs_start(expr) {
-        return expr.loc?.start.offset ?? 0; // 0 cannot happen
-    }
-    function offs_end(expr) {
-        return expr.loc?.end.offset ?? 0; // 0 cannot happen
-    }
-    function range(x) {
-        return offs_end(x) - offs_start(x);
-    }
-    function equal_lico(lico, lico_) {
-        return lico_.line === lico.line && lico_.column === lico.column;
-    }
-    function equal_loc(loc, loc_) {
-        // return loc_.start.line === loc.start.line && loc_.start.column === loc.start.column
-        //         && loc_.end.line === loc.end.line && loc_.end.column === loc.end.column
-        return equal_lico(loc.start, loc_.start)
-            && equal_lico(loc.end, loc_.end);
-    }
-    function sort_by_smallest_range(l) {
-        l.sort((x, y) => {
-            if (x.loc && y.loc) {
-                return range(x) - range(y);
-            }
-            else {
-                return -1;
-            }
-        });
-        return l;
-    }
-    function determ_func_expr(func_no_to_expr, text, lico) {
-        const a_ = sort_by_smallest_range(func_no_to_expr.slice());
-        const pos = get_abs_position(text, lico);
-        for (const expr of a_) {
-            if (expr.loc) {
-                // const abs_start = offs_start(expr) + 1
-                // const abs_end = offs_end(expr) + 1
-                const abs_start = get_abs_position(text, expr.loc.start);
-                const abs_end = get_abs_position(text, expr.loc.end);
-                if (expr.data && expr.data.func_no && expr.data.breakable
-                    && pos >= abs_start && pos <= abs_end) {
-                    return expr;
-                }
-            }
-        }
-        return undefined;
-    }
-    function func_exists(func_no_to_expr, loc) {
-        return func_no_to_expr.find(expr => {
-            if (expr.data && expr.data.func_no && expr.data.breakable && expr.loc) {
-                const loc_ = expr.loc;
-                return equal_loc(loc, loc_);
-            }
-        });
-    }
     function propagate_locs(root) {
         trav(root, (expr, expr_stack) => {
             if (!expr.loc) {
@@ -960,12 +766,6 @@
             }
         }, expr => {
         });
-    }
-    function prune_locs(root) {
-        trav(root, _ => { }, expr => {
-            expr.loc = undefined;
-        });
-        return root;
     }
     //################################### traverser & transformers #####################################
     function trav(expr, pre_op, post_op, expr_stack = new Stack()) {
@@ -998,20 +798,6 @@
             }
         }
         return a;
-    }
-    function with_empty_left(expr, parent, ignore = false) {
-        if (ignore)
-            return expr;
-        if (expr.type === parent)
-            return expr;
-        else
-            return {
-                type: parent,
-                left: {
-                    type: Adt.EmptyLeft
-                },
-                right: expr
-            };
     }
     function right_assoc(x, l, offs, loc) {
         if (l.length === 0) {
@@ -1056,34 +842,6 @@
             };
         }
     }
-
-    var Adt_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        get Adt () { return Adt; },
-        get BinaryOpBool () { return BinaryOpBool; },
-        get OpArith () { return OpArith; },
-        get OpCmp () { return OpCmp; },
-        get UnaryOp () { return UnaryOp; },
-        determ_func_expr: determ_func_expr,
-        empty: empty,
-        equal_lico: equal_lico,
-        equal_loc: equal_loc,
-        func_exists: func_exists,
-        loc2string: loc2string,
-        offs_end: offs_end,
-        offs_start: offs_start,
-        op_map: op_map,
-        propagate_locs: propagate_locs,
-        prune_locs: prune_locs,
-        range: range,
-        right_assoc: right_assoc,
-        tlist_to_array: tlist_to_array,
-        trav: trav,
-        typed_right_assoc: typed_right_assoc,
-        unknown_lico: unknown_lico,
-        unknown_loc: unknown_loc,
-        with_empty_left: with_empty_left
-    });
 
     // @generated by Peggy 4.0.2.
     //
@@ -6790,11 +6548,6 @@
         }
     }
 
-    var Parser_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        Parser: Parser
-    });
-
     /**
      * manager for step funcs.
      *
@@ -6881,17 +6634,10 @@
      *
      * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability.
      * the code is highly compact with some side effects to avoid verbosity - so sometimes it takes longer to read but less time to maintain.
-     * Review: we slightly modify the rules: only funcs in snake case.
-     *
-     * TODO;; regex _([a-zA-Z]) -> \U$1
      */
     function is_pure_literal(tr) {
         return tr.literal && tr.snippet !== 'undefined';
     }
-    var in_mem_1 = {
-        form: 'func',
-        expr_func_inject: (func_name, func_arg) => `ctx.debug?.enabled && ctx.debug('${func_name} (%j)', ${func_arg})`
-    };
     var in_mem_2 = {
         form: 'func',
     };
@@ -7585,100 +7331,6 @@
         }
     }
 
-    var Transpiler_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        Transpiler: Transpiler,
-        in_mem_1: in_mem_1,
-        in_mem_2: in_mem_2
-    });
-
-    // produced by GPT !!!
-    // ts version
-    class BoundedChannel {
-        capacity;
-        queue;
-        producersWaiting;
-        consumersWaiting;
-        constructor(capacity) {
-            this.capacity = capacity;
-            this.queue = [];
-            this.producersWaiting = []; // Liste von Promises, die warten, wenn die Queue voll ist
-            this.consumersWaiting = []; // Liste von Promises, die warten, wenn die Queue leer ist
-        }
-        // Sendet einen Wert an die Queue
-        async send(value) {
-            if (this.queue.length < this.capacity) {
-                this.queue.push(value); // Fügt den Wert in die Queue ein, wenn Platz verfügbar ist
-                if (this.consumersWaiting.length > 0) {
-                    const consumerResolve = this.consumersWaiting.shift(); // Holt das nächste wartende Consumer-Promise
-                    consumerResolve(value); // Löst das Consumer-Promise auf, um den Wert zu konsumieren
-                }
-            }
-            else {
-                // Wenn die Queue voll ist, wartet der Producer
-                await new Promise(resolve => {
-                    this.producersWaiting.push(resolve); // Fügt das Promise zur Liste der wartenden Producer hinzu
-                });
-                return this.send(value); // Versuche es erneut, wenn Platz verfügbar ist
-            }
-        }
-        // Empfängt einen Wert aus der Queue
-        async receive(stopOnEmptyQueue = false /**/) {
-            if (this.queue.length > 0) {
-                const value = this.queue.shift(); // Nimmt den Wert aus der Queue
-                if (this.producersWaiting.length > 0) {
-                    const producerResolve = this.producersWaiting.shift(); // Holt das nächste wartende Producer-Promise
-                    producerResolve(); // Löst das Producer-Promise auf, um ihm zu signalisieren, dass er weitermachen kann
-                }
-                return value;
-            }
-            else {
-                // Wenn die Queue leer ist, wartet der Consumer
-                if (stopOnEmptyQueue && this.producersWaiting.length === 0)
-                    return null;
-                return new Promise(resolve => {
-                    this.consumersWaiting.push(resolve); // Fügt das Promise zur Liste der wartenden Consumer hinzu
-                });
-            }
-        }
-        // Schließt den Channel (beendet das Empfangen)
-        close() {
-            // Löst alle wartenden Promises mit null als Signal für das Ende
-            this.producersWaiting.forEach(resolve => resolve(null));
-            this.consumersWaiting.forEach(resolve => resolve(null));
-        }
-    }
-    class SyncFlag {
-        isDone = false;
-        dieCount = 0;
-        release() {
-            this.isDone = true;
-            // console.log('release')
-        }
-        async wait() {
-            return new Promise((resolve) => {
-                const intervalId = setInterval(() => {
-                    if (this.isDone) {
-                        // console.log('done')
-                        clearInterval(intervalId); // Stoppe den setInterval
-                        resolve();
-                    }
-                    else {
-                        if (this.dieCount++ > 200)
-                            this.isDone = true;
-                        // console.log('check')
-                    }
-                }, 100);
-            });
-        }
-    }
-
-    var Channel_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        BoundedChannel: BoundedChannel,
-        SyncFlag: SyncFlag
-    });
-
     /////////////////////////////////////////////////
     // directly copies from 'https://github.com/sindresorhus/strip-json-comments'
     // author: the fabulous developer Sindre Sorhus ('https://sindresorhus.com/apps')
@@ -8088,7 +7740,7 @@
                 throw new ApathError('fatal: transpilat missing');
             this.transpilat = Transpiler.get_func(trp);
             this.dynart = new DynApart().setting(dynart_setting);
-            this.resolved_transpilat = this.transpilat(sfman.ctx, Apart_, this.dynart);
+            this.resolved_transpilat = this.transpilat(sfman.ctx, apart, this.dynart);
         }
         set_debug_callback(f) {
             this.dynart.set_debug_callback(f);
@@ -8168,268 +7820,14 @@
         }
     }
 
-    var apath_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        Apath: Apath,
-        Evaluator: Evaluator
-    });
-
-    /**
-     * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability
-     */
-    function format_results(results) {
-        let s = '';
-        for (const result of results) {
-            s += JSON.stringify(result, function (key, value) {
-                if (Number.isNaN(value)) {
-                    return 'NaN';
-                }
-                return value;
-            }, 3) + '\n------\n';
-        }
-        return s;
-    }
-    /**
-     *
-     * @param input json string
-     * @param apath_txt apath text
-     * @param sfuncs array of step functions as a js string (will be called by 'eval')
-     * @param strict_failure strict failure
-     * @param arrays_as_seq arrays as sequence
-     * @returns \{
-     *          input: string, result: string, trp: string, empty_ast: boolean, warnings: string[], func_no_to_expr: Expr[], ast_checker?: AstChecker }
-     *          where input: =parameter, result: formatted result string, trp: the transpiled code,
-     *              empty_ast: no ast produced (caused by empty 'apath'), warnings: warnings at transpilation phase,
-     *              func_no_to_expr: func number to expression,
-     *              ast_checker: current AstChecker
-     *
-     */
-    function evaluate(input, apath_txt, sfuncs, strict_failure = false, arrays_as_seq = false, debug_func) {
-        const apath = new Apath();
-        if (sfuncs) {
-            // neccessary for 'eval':
-            var apart = Apart_;
-            console.log(apart.dummy);
-            //
-            for (let func of eval(sfuncs)) {
-                apath.add_js_func(func);
-            }
-        }
-        const evaluator = apath.transpile(apath_txt, { strict_failure, arrays_as_seq, debug: debug_func !== undefined });
-        if (debug_func)
-            evaluator.set_debug_callback(debug_func);
-        const res = evaluator.evaluate_json(input);
-        return { input, result: format_results(res), trp: evaluator.transpilat_text(), empty_ast: apath.empty_ast,
-            warnings: apath.warnings, func_no_to_expr: apath.func_no_to_expr, ast_checker: apath.ast_checker };
-    }
-    function get_ast_checker(apath_txt) {
-        let ast = empty;
-        try {
-            const parser = new Parser();
-            ast = parser.parse(apath_txt);
-        }
-        catch (error) {
-            return 'parseError';
-        }
-        return Apath.check_ast(ast, new StepFuncManager(), false);
+    class MyClass {
+        funcX(x) { return x + 1; }
     }
 
-    var apath_func_utils_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        evaluate: evaluate,
-        get_ast_checker: get_ast_checker
-    });
+    exports.Apath = Apath;
+    exports.Evaluator = Evaluator;
+    exports.MyClass = MyClass;
 
-    //################################### editor heplers #####################################
-    let uniquer = 0;
-    let uniquer_func = 0;
-    let uniquer_var = 0;
-    function suggestion_spec() {
-        return {
-            suggestions: [
-                {
-                    exa_id: 'property literal',
-                    test: '` `',
-                    snippet: {
-                        insertText: '`\${1}`',
-                    }
-                },
-                {
-                    exa_id: 'property regex',
-                    test: '/ /',
-                    snippet: {
-                        insertText: '/\${1: }/',
-                    }
-                },
-                {
-                    exa_id: 'children (array)',
-                    remark: 'all property values or all array items',
-                    snippet: {
-                        insertText: `*`,
-                        label: 'children',
-                        detail: '*'
-                    }
-                },
-                {
-                    exa_id: 'self',
-                    snippet: {
-                        insertText: `_`,
-                    }
-                },
-                {
-                    remark: 'filter over sequences',
-                    exa_id: 'filter (predicate)',
-                    multiline: true,
-                    snippet: {
-                        label: 'filter',
-                        insertText: `|||_|||\${1:\u2770expression\u2771} ?(
-    |||true|||\${2:\u2770expression\u2771}
-)`,
-                    }
-                },
-                {
-                    remark: 'filter predicate',
-                    exa_id: 'filter (predicate)',
-                    leading_regex: '.*\\?\\s*$',
-                    snippet: {
-                        label: 'filter predicate',
-                        detail: '?( ... )',
-                        insertText: `(
-    |||true|||\${1:\u2770expression\u2771}
-)`,
-                    }
-                },
-                {
-                    exa_id: 'scope expression',
-                    test: '(true)',
-                    multiline: true,
-                    snippet: {
-                        detail: '( ... , ... )',
-                        insertText: `;(
-    \${1:\u2770expression\u2771},
-    \${2:\u2770expression\u2771}
-;)`,
-                    }
-                },
-                {
-                    exa_id: 'conditional',
-                    test: '(if (true) true true)',
-                    multiline: true,
-                    snippet: {
-                        // label: 'conditional',
-                        insertText: `;(if (\${1:\u2770condition\u2771})
-    (\${2:\u2770then_part\u2771})
-    (\${3:\u2770else_part\u2771})
-;)`,
-                        // detail: 'if ...',
-                        // documentation: {
-                        //     value: `if-expression [lala](http://google.com/)
-                        // [[Alt text for the image](/workbench/icons/at-step-1.svg)](http://google.com/)
-                        // ` + '\n```apath\n if (true) 1 2\n```\n',
-                        //     isTrusted: true,
-                        //     supportMarkupContent: true
-                        // },
-                    }
-                },
-                {
-                    exa_id: 'recursive function',
-                    test: `func f${uniquer++}() = (1)`,
-                    additional_analyse_check: true,
-                    remark: 'step function definition',
-                    kind: 'function',
-                    multiline: true,
-                    snippet: {
-                        insertText: `func \${1:f${uniquer_func++}}(\${2:\u2770id_list\u2771}) = (
-    \${3:\u2770expression\u2771}
-)`,
-                        label: 'step function definition',
-                        detail: 'func f(...) = ...'
-                    }
-                },
-                {
-                    exa_id: 'variable assignment',
-                    test: `_x_ = 1`,
-                    kind: 'variable',
-                    snippet: {
-                        insertText: `\${1:v${uniquer_var++}} = \${2:\u2770expression\u2771}`,
-                        // detail: '<id> = ...'
-                    }
-                },
-            ]
-        };
-    }
-    function get_suggestions(enclosing_paren = false, input_symbol, leading_text, skip_nl = false) {
-        //!!! review
-        // if (input_symbol && input_symbol.match("`|'|/")) return []
-        // console.log('string_to_pos: ', string_to_pos) //log
-        return suggestion_spec().suggestions
-            .filter(sugg => sugg.leading_regex ? leading_text.match(sugg.leading_regex) : true)
-            .map(sugg => {
-            const sugg_ = structuredClone(sugg);
-            if (sugg_.multiline) {
-                // if (leading_text.match('.*(,|\\.)\\s*$')) sugg_.snippet.insertText = '\n' + sugg_.snippet.insertText
-                if (leading_text.match('.*,\\s*$'))
-                    sugg_.snippet.insertText = '\n' + sugg_.snippet.insertText;
-            }
-            return sugg_;
-        })
-            .map((sugg) => {
-            const sugg_ = structuredClone(sugg);
-            if (!sugg_.test)
-                sugg_.test = handle_paren(false, remove_placeholder(sugg.snippet.insertText));
-            sugg_.snippet.insertText = handle_paren(enclosing_paren, remove_test_exprs(sugg.snippet.insertText));
-            if (skip_nl) {
-                sugg_.snippet.insertText = sugg_.snippet.insertText
-                    .replace(/(\r?\n|\r)\s*/g, ' ')
-                    .replace(/\( /g, '(')
-                    .replace(/ \)/g, ')')
-                    .trim();
-            }
-            // sugg_.snippet.filterText = `${extract(sugg_.snippet.insertText, /:(.*)\}/gm).join(' ')} `
-            // sugg_.snippet.filterText = `${extract(sugg_.test, /:(.*)\}/gm).join(' ')} `
-            return sugg_;
-        });
-    }
-    function gather_placeholder() {
-        const pl_set = new Set();
-        let h = [uniquer_func, uniquer_var];
-        for (let i = 0; i < uniquer_var; i++)
-            pl_set.add('v' + i);
-        for (const sugg of suggestion_spec().suggestions) {
-            const pls = sugg.snippet.insertText.matchAll(new RegExp('\\$\\{\\d+:(.*?)\\}', 'gm'));
-            [...pls].map(match => match[1])
-                .filter(x => x.startsWith('\u2770') && !pl_set.has(x))
-                .forEach(x => pl_set.add(x));
-        }
-        [uniquer_func, uniquer_var] = h;
-        return pl_set;
-    }
-    function remove_test_exprs(s) {
-        return s.replaceAll(new RegExp('\\|\\|\\|(.*?)\\|\\|\\|', 'g'), '');
-    }
-    function remove_placeholder(s) {
-        return s.replaceAll(new RegExp('\\|\\|\\|(.*?)\\|\\|\\|', 'g'), '$1').replaceAll(new RegExp('\\$\\{.*?\\}', 'g'), '');
-    }
-    function handle_paren(skip, s) {
-        return skip ?
-            s.replaceAll(new RegExp(';(\\(\\s*|\\)\\s*)', 'g'), '')
-            : s.replaceAll(new RegExp(';\\(', 'g'), '(').replaceAll(new RegExp(';\\)', 'g'), ')');
-    }
+    return exports;
 
-    var suggestions_ = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        gather_placeholder: gather_placeholder,
-        get_suggestions: get_suggestions
-    });
-
-    window.Adt_ = Adt_;
-    window.Parser__ = Parser_;
-    window.Transpiler__ = Transpiler_;
-    window.Apart_ = Apart_;
-    window.Utils_ = Utils_;
-    window.Channel_ = Channel_;
-    window.apath_ = apath_;
-    window.apath_func_utils_ = apath_func_utils_;
-    window.suggestions_ = suggestions_;
-
-})(fs, path);
+})(typeof globalThis !== 'undefined' ? globalThis : this);

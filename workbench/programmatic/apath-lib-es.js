@@ -6634,6 +6634,9 @@ class StepFuncManager {
  *
  * Rem.: We follow python naming conventions (https://peps.python.org/pep-0008/) due to readability.
  * the code is highly compact with some side effects to avoid verbosity - so sometimes it takes longer to read but less time to maintain.
+ * Review: we slightly modify the rules: only funcs in snake case.
+ *
+ * TODO;; regex _([a-zA-Z]) -> \U$1
  */
 function is_pure_literal(tr) {
     return tr.literal && tr.snippet !== 'undefined';
